@@ -1,7 +1,7 @@
 import type { ReactNode } from "react";
-import { Button } from "@/components/ui/button";
-import { CloseIcon } from "@/components/icons";
-import { cn } from "@/lib/utils";
+import { Button } from "./button";
+import { CloseIcon } from "../icons";
+import { cn } from "../../lib/utils";
 
 export function Dialog({
   open,
