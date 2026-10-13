@@ -746,6 +746,8 @@ export default function DesignSystemPage() {
               <CardContent className="flex flex-wrap gap-2.5">
                 <StatusBadge status="active" />
                 <StatusBadge status="verified" />
+                <StatusBadge status="sales" />
+                <StatusBadge status="admin" />
                 <StatusBadge status="success" />
                 <StatusBadge status="warning" />
                 <StatusBadge status="medium" />
