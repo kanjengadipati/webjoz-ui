@@ -12,6 +12,9 @@ export * from "./components/ui";
 // Export icon components
 export * from "./components/icons";
 
+// Export sparkle AI icons
+export { SparkleIcon, SparkleGenAI } from "./components/sparkle-icon";
+
 // Export design tokens & status tones
 export * from "./lib/ui-tokens";
 export * from "./lib/ui-tones";
