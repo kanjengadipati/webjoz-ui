@@ -1,4 +1,4 @@
-import type { ToneKey } from "@/lib/ui-tones";
+import type { ToneKey } from "./ui-tones";
 
 export enum StatusType {
   SUCCESS = "success",

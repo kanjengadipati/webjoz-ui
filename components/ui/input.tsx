@@ -6,7 +6,7 @@ import type {
   TextareaHTMLAttributes,
 } from "react";
 import { AlertIcon } from "../icons";
-import { DISABLED_STYLES, FOCUS_VISIBLE, MOTION } from "@/lib/ui-tokens";
+import { DISABLED_STYLES, FOCUS_VISIBLE, MOTION } from "../../lib/ui-tokens";
 import { cn } from "../../lib/utils";
 
 type InputVariant = "default" | "filled" | "flushed" | "outline";

@@ -1,6 +1,6 @@
 import { Badge } from "./badge";
-import { statusTone } from "@/lib/status-types";
-import { UI_TONES } from "@/lib/ui-tones";
+import { statusTone } from "../../lib/status-types";
+import { UI_TONES } from "../../lib/ui-tones";
 import { cn } from "../../lib/utils";
 
 export function StatusBadge({ status, className }: { status?: string; className?: string }) {
