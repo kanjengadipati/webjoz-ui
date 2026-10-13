@@ -618,11 +618,15 @@ export default function DesignSystemPage() {
                 </FormField>
 
                 <FormField label="Pilih Bahasa Sistem">
-                  <Select value={selectVal} onChange={(e) => setSelectVal(e.target.value)}>
-                    <option value="id">Bahasa Indonesia (ID)</option>
-                    <option value="en">English (US)</option>
-                    <option value="jv">Basa Jawa (JV)</option>
-                  </Select>
+                  <CustomSelect
+                    value={selectVal}
+                    onChange={setSelectVal}
+                    options={[
+                      { value: "id", label: "Bahasa Indonesia", sublabel: "ID" },
+                      { value: "en", label: "English", sublabel: "US" },
+                      { value: "jv", label: "Basa Jawa", sublabel: "JV" },
+                    ]}
+                  />
                 </FormField>
 
                 <FormField label="Custom Select Component" helperText="Dukungan icon, sublabel & badge">
