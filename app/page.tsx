@@ -42,7 +42,11 @@ import {
   LockIcon,
   AlertIcon,
   InfoIcon,
+  CloseIcon,
+  BookOpenIcon,
+  EmptyChartIcon,
 } from "@/components/icons";
+import { SparkleIcon, SparkleGenAI } from "@/components/sparkle-icon";
 import { Sparkles, ChevronRight } from "lucide-react";
 
 const templates = [
@@ -134,6 +138,7 @@ export default function DesignSystemPage() {
             <a href="#badges" className="px-2.5 py-1.5 rounded-lg hover:text-foreground hover:bg-muted transition-colors whitespace-nowrap">Badges</a>
             <a href="#feedback" className="px-2.5 py-1.5 rounded-lg hover:text-foreground hover:bg-muted transition-colors whitespace-nowrap">Feedback</a>
             <a href="#cards" className="px-2.5 py-1.5 rounded-lg hover:text-foreground hover:bg-muted transition-colors whitespace-nowrap">Cards</a>
+            <a href="#icons" className="px-2.5 py-1.5 rounded-lg hover:text-foreground hover:bg-muted transition-colors whitespace-nowrap">Icons</a>
             <a href="#templates" className="px-2.5 py-1.5 rounded-lg hover:text-foreground hover:bg-muted transition-colors whitespace-nowrap">Templates</a>
           </nav>
 
@@ -918,7 +923,151 @@ export default function DesignSystemPage() {
           </Card>
         </section>
 
-        {/* 9. TEMPLATES SHOWCASE */}
+        {/* 9. ICONS & SPARKLE SHOWCASE */}
+        <section id="icons" className="scroll-mt-24 space-y-6">
+          <div className="border-b border-border/60 pb-5">
+            <div className="text-xs font-bold uppercase tracking-wider text-primary">Icons &amp; Sparkle</div>
+            <h2 className="text-2xl sm:text-3xl font-bold tracking-tight">Icon Components</h2>
+            <p className="text-sm text-muted-foreground mt-1">
+              Custom SVG icons (<code className="text-xs bg-muted px-1 py-0.5 rounded">size: sm | md | lg</code>) dan AI Sparkle components yang diekspor dari{" "}
+              <code className="text-xs bg-muted px-1 py-0.5 rounded">webjoz-ui</code>.
+            </p>
+          </div>
+
+          {/* Icon grid helper */}
+          {(() => {
+            const ALL_ICONS: { icon: React.ReactNode; label: string }[] = [
+              { icon: <SunIcon />, label: "SunIcon" },
+              { icon: <MoonIcon />, label: "MoonIcon" },
+              { icon: <CheckIcon />, label: "CheckIcon" },
+              { icon: <MailIcon />, label: "MailIcon" },
+              { icon: <WhatsAppIcon />, label: "WhatsAppIcon" },
+              { icon: <LockIcon />, label: "LockIcon" },
+              { icon: <AlertIcon />, label: "AlertIcon" },
+              { icon: <InfoIcon />, label: "InfoIcon" },
+              { icon: <CloseIcon />, label: "CloseIcon" },
+              { icon: <BookOpenIcon />, label: "BookOpenIcon" },
+              { icon: <EmptyChartIcon />, label: "EmptyChartIcon" },
+            ];
+            return (
+              <Card className="border-border/40 shadow-sm">
+                <CardHeader className="pb-2">
+                  <CardTitle className="text-base">1. Custom Icon Set</CardTitle>
+                  <CardDescription>
+                    Semua icon dari <code className="text-xs">webjoz-ui</code> — tiga ukuran:{" "}
+                    <code className="text-xs">sm</code> / <code className="text-xs">md</code> / <code className="text-xs">lg</code>.
+                  </CardDescription>
+                </CardHeader>
+                <CardContent className="space-y-6">
+                  {(["sm", "md", "lg"] as const).map((sz) => (
+                    <div key={sz} className="space-y-2">
+                      <p className="text-xs font-semibold text-muted-foreground uppercase tracking-wider">
+                        size=&quot;{sz}&quot;{sz === "md" ? " — default" : ""}
+                      </p>
+                      <div className="flex flex-wrap items-end gap-4">
+                        {ALL_ICONS.map(({ label }) => {
+                          const IconComponent = { SunIcon, MoonIcon, CheckIcon, MailIcon, WhatsAppIcon, LockIcon, AlertIcon, InfoIcon, CloseIcon, BookOpenIcon, EmptyChartIcon }[label] as React.ComponentType<{ size?: "sm" | "md" | "lg" }>;
+                          return (
+                            <div key={label} className="flex flex-col items-center gap-1.5">
+                              <div className="p-2.5 rounded-lg bg-muted/60 border border-border/40">
+                                <IconComponent size={sz} />
+                              </div>
+                              <span className="text-[10px] text-muted-foreground font-mono">{label}</span>
+                            </div>
+                          );
+                        })}
+                      </div>
+                    </div>
+                  ))}
+                </CardContent>
+              </Card>
+            );
+          })()}
+
+          {/* SparkleIcon */}
+          <Card className="border-border/40 shadow-sm">
+            <CardHeader className="pb-2">
+              <CardTitle className="text-base">2. SparkleIcon — AI Badge Indicator</CardTitle>
+              <CardDescription>
+                Ikon sparkle untuk menandakan fitur AI. Gunakan <code className="text-xs">className</code> untuk ukuran dan warna.
+              </CardDescription>
+            </CardHeader>
+            <CardContent>
+              <div className="flex flex-wrap items-end gap-6">
+                {[
+                  { cls: "size-4", label: "size-4" },
+                  { cls: "size-5", label: "size-5" },
+                  { cls: "size-6", label: "size-6" },
+                  { cls: "size-8", label: "size-8" },
+                ].map(({ cls, label }) => (
+                  <div key={label} className="flex flex-col items-center gap-2">
+                    <div className="p-3 rounded-xl bg-muted/60 border border-border/40">
+                      <SparkleIcon className={cls} />
+                    </div>
+                    <span className="text-[10px] text-muted-foreground font-mono">{label}</span>
+                  </div>
+                ))}
+                <div className="flex flex-col items-center gap-2">
+                  <div className="p-3 rounded-xl bg-primary/10 border border-primary/20">
+                    <SparkleIcon className="size-5 text-primary" />
+                  </div>
+                  <span className="text-[10px] text-muted-foreground font-mono">text-primary</span>
+                </div>
+                <div className="flex flex-col items-center gap-2">
+                  <div className="p-3 rounded-xl bg-muted/60 border border-border/40 flex items-center gap-2">
+                    <SparkleIcon className="size-4 text-primary" />
+                    <span className="text-sm font-medium">Generate AI</span>
+                  </div>
+                  <span className="text-[10px] text-muted-foreground font-mono">inline usage</span>
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+
+          {/* SparkleGenAI */}
+          <Card className="border-border/40 shadow-sm">
+            <CardHeader className="pb-2">
+              <CardTitle className="text-base">3. SparkleGenAI — AI Generate Mascot Icon</CardTitle>
+              <CardDescription>
+                Versi kedua sparkle mascot AI — dipakai sebagai ilustrasi atau penanda fitur generate.
+                Props: <code className="text-xs">className</code> untuk ukuran &amp; warna.
+              </CardDescription>
+            </CardHeader>
+            <CardContent>
+              <div className="flex flex-wrap items-end gap-6">
+                {[
+                  { cls: "size-4", label: "size-4" },
+                  { cls: "size-5", label: "size-5" },
+                  { cls: "size-6", label: "size-6" },
+                  { cls: "size-8", label: "size-8" },
+                  { cls: "size-10", label: "size-10" },
+                ].map(({ cls, label }) => (
+                  <div key={label} className="flex flex-col items-center gap-2">
+                    <div className="p-3 rounded-xl bg-muted/60 border border-border/40">
+                      <SparkleGenAI className={cls} />
+                    </div>
+                    <span className="text-[10px] text-muted-foreground font-mono">{label}</span>
+                  </div>
+                ))}
+                <div className="flex flex-col items-center gap-2">
+                  <div className="p-3 rounded-xl bg-primary/10 border border-primary/20">
+                    <SparkleGenAI className="size-6 text-primary" />
+                  </div>
+                  <span className="text-[10px] text-muted-foreground font-mono">text-primary</span>
+                </div>
+                <div className="flex flex-col items-center gap-2">
+                  <div className="p-3 rounded-xl bg-muted/60 border border-border/40 flex items-center gap-2">
+                    <SparkleGenAI className="size-5 text-primary" />
+                    <span className="text-sm font-medium">Generate Website</span>
+                  </div>
+                  <span className="text-[10px] text-muted-foreground font-mono">inline button label</span>
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+        </section>
+
+        {/* 10. TEMPLATES SHOWCASE */}
         <section id="templates" className="scroll-mt-24 space-y-6 pt-6">
           <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 border-b border-border/60 pb-5">
             <div>
