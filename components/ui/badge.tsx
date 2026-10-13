@@ -1,5 +1,5 @@
 import type { HTMLAttributes, ReactNode } from "react";
-import { MOTION } from "@/lib/ui-tokens";
+import { MOTION } from "../../lib/ui-tokens";
 import { cn } from "../../lib/utils";
 
 export type BadgeVariant = "default" | "secondary" | "outline" | "destructive" | "unstyled";

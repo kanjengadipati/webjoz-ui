@@ -1,6 +1,6 @@
 import { Card, CardHeader } from "./card";
-import { UI_TONES, type ToneKey } from "@/lib/ui-tones";
-import { MOTION } from "@/lib/ui-tokens";
+import { UI_TONES, type ToneKey } from "../../lib/ui-tones";
+import { MOTION } from "../../lib/ui-tokens";
 import { cn } from "../../lib/utils";
 
 export function MetricCard({

@@ -1,5 +1,5 @@
 import type { ButtonHTMLAttributes, ReactNode } from "react";
-import { DISABLED_STYLES, FOCUS_VISIBLE, MOTION } from "@/lib/ui-tokens";
+import { DISABLED_STYLES, FOCUS_VISIBLE, MOTION } from "../../lib/ui-tokens";
 import { cn } from "../../lib/utils";
 import { Spinner, type SpinnerSize } from "./spinner";
 
