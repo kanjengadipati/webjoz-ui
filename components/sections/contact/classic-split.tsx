@@ -1,0 +1,162 @@
+"use client";
+import React, { useState } from "react";
+import { Mail, Phone, MapPin, Globe } from "lucide-react";
+import type { ContactVariantProps } from "./types";
+import DynamicLeadForm from "./lead-form";
+import InlineMapPicker from "./inline-map-picker";
+import { InlineText } from "../../templates/shared";
+
+export default function ClassicSplit({
+  contact: c,
+  onSubmitLead,
+  leadSubmitting,
+  leadSuccess,
+  leadError,
+  onUpdateField,
+  isEditorMode,
+  isSelected,
+  collapseSheetForInlineEdit,
+  onEditingStateChange,
+  language = "id",
+}: ContactVariantProps) {
+  const isEN = language === "en";
+  const hasLeadForm = Boolean(c.show_lead_form && onSubmitLead);
+  const showMap = c.show_map !== false;
+  const [mapCoords] = useState({ lat: -6.2088, lng: 106.8456 });
+  const handlePickLocation = onUpdateField
+    ? (url: string, tileStyle: string) => {
+        onUpdateField("contact", "maps_url", url);
+        onUpdateField("contact", "map_tile_style", tileStyle);
+      }
+    : undefined;
+
+  const iconBox: React.CSSProperties = {
+    padding: "0.75rem",
+    borderRadius: "0.5rem",
+    background: "color-mix(in srgb, var(--dt-primary) 12%, transparent)",
+    color: "var(--dt-primary)",
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+    flexShrink: 0,
+  };
+
+  return (
+    <section id="contact" style={{ padding: "var(--dt-spacing) 1.5rem", background: "color-mix(in srgb, var(--dt-primary) 4%, var(--dt-bg))", borderTop: "1px solid color-mix(in srgb, var(--dt-primary) 12%, transparent)" }}>
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12" style={{ maxWidth: "72rem", margin: "0 auto" }}>
+        <div className="lg:col-span-5" style={{ display: "flex", flexDirection: "column", justifyContent: "space-between" }}>
+          <div>
+            <InlineText
+              section="contact"
+              fieldKey="eyebrow"
+              value={c.eyebrow ?? ""}
+              onUpdateField={onUpdateField}
+              isEditorMode={isEditorMode}
+              isSelected={isSelected}
+              as="span"
+              style={{ display: "inline-block", padding: "0.25rem 0.75rem", fontSize: "0.7rem", fontWeight: 700, letterSpacing: "0.1em", textTransform: "uppercase", borderRadius: "9999px", background: "color-mix(in srgb, var(--dt-primary) 12%, transparent)", color: "var(--dt-primary)", marginBottom: "1rem" }}
+              collapseSheetForInlineEdit={collapseSheetForInlineEdit}
+              onEditingStateChange={onEditingStateChange}
+            />
+            <InlineText
+              section="contact"
+              fieldKey="title"
+              value={c.title}
+              onUpdateField={onUpdateField}
+              isEditorMode={isEditorMode}
+              isSelected={isSelected}
+              as="h2"
+              style={{ fontFamily: "var(--dt-heading-font)", fontWeight: "var(--dt-heading-weight)", fontSize: "clamp(1.25rem, 4.5cqw, 2rem)", color: "var(--dt-text)", margin: 0, marginBottom: "1rem" } as any}
+              collapseSheetForInlineEdit={collapseSheetForInlineEdit}
+              onEditingStateChange={onEditingStateChange}
+            />
+            <InlineText
+              section="contact"
+              fieldKey="subtitle"
+              value={c.subtitle ?? ""}
+              onUpdateField={onUpdateField}
+              isEditorMode={isEditorMode}
+              isSelected={isSelected}
+              as="p"
+              multiline
+              style={{ color: "var(--dt-text-muted)", fontSize: "0.875rem", lineHeight: 1.6, marginBottom: "1.5rem" } as any}
+              collapseSheetForInlineEdit={collapseSheetForInlineEdit}
+              onEditingStateChange={onEditingStateChange}
+            />
+            <div style={{ display: "flex", flexDirection: "column", gap: "1.25rem" }}>
+              {c.phone || isEditorMode ? (
+                <div style={{ display: "flex", alignItems: "flex-start", gap: "1rem" }}>
+                  <div style={iconBox}><Phone style={{ width: 18, height: 18 }} /></div>
+                  <div>
+                    <h4 style={{ fontSize: "0.7rem", fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.1em", color: "var(--dt-text-muted)", margin: 0 }}>{isEN ? "Phone" : "Telepon / WhatsApp"}</h4>
+                    <InlineText section="contact" fieldKey="phone" value={c.phone ?? ""} placeholder={isEN ? "Add phone or WhatsApp..." : "Tambah nomor telepon / WA..."} onUpdateField={onUpdateField} isEditorMode={isEditorMode} isSelected={isSelected} as="p" collapseSheetForInlineEdit={collapseSheetForInlineEdit} onEditingStateChange={onEditingStateChange} style={{ fontSize: "0.875rem", color: "var(--dt-text)", margin: "0.125rem 0 0" }} />
+                  </div>
+                </div>
+              ) : null}
+              {c.email || isEditorMode ? (
+                <div style={{ display: "flex", alignItems: "flex-start", gap: "1rem" }}>
+                  <div style={iconBox}><Mail style={{ width: 18, height: 18 }} /></div>
+                  <div>
+                    <h4 style={{ fontSize: "0.7rem", fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.1em", color: "var(--dt-text-muted)", margin: 0 }}>Email</h4>
+                    <InlineText section="contact" fieldKey="email" value={c.email ?? ""} placeholder={isEN ? "Add email address..." : "Tambah alamat email..."} onUpdateField={onUpdateField} isEditorMode={isEditorMode} isSelected={isSelected} as="p" collapseSheetForInlineEdit={collapseSheetForInlineEdit} onEditingStateChange={onEditingStateChange} style={{ fontSize: "0.875rem", color: "var(--dt-text)", margin: "0.125rem 0 0" }} />
+                  </div>
+                </div>
+              ) : null}
+              {c.address || isEditorMode ? (
+                <div style={{ display: "flex", alignItems: "flex-start", gap: "1rem" }}>
+                  <div style={iconBox}><MapPin style={{ width: 18, height: 18 }} /></div>
+                  <div style={{ flexGrow: 1 }}>
+                    <h4 style={{ fontSize: "0.7rem", fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.1em", color: "var(--dt-text-muted)", margin: 0 }}>{isEN ? "Address" : "Alamat / Lokasi"}</h4>
+                    <InlineText section="contact" fieldKey="address" value={c.address ?? ""} placeholder={isEN ? "Add address / location..." : "Tambah alamat bisnis..."} onUpdateField={onUpdateField} isEditorMode={isEditorMode} isSelected={isSelected} as="p" multiline collapseSheetForInlineEdit={collapseSheetForInlineEdit} onEditingStateChange={onEditingStateChange} style={{ fontSize: "0.875rem", color: "var(--dt-text-muted)", margin: "0.125rem 0 0", lineHeight: 1.5 }} />
+                  </div>
+                </div>
+              ) : null}
+              {showMap && (
+                <div>
+                  <div style={{ borderRadius: "0.75rem", overflow: "hidden", border: "1px solid color-mix(in srgb, var(--dt-primary) 12%, transparent)", height: "8rem", position: "relative" }}>
+                    <InlineMapPicker mapsUrl={c.maps_url} tileStyle={c.map_tile_style} filter="grayscale(1)" isEditorMode={isEditorMode} onPickLocation={handlePickLocation} language={language} />
+                  </div>
+                  <a href={`https://www.google.com/maps/place/@${mapCoords.lat},${mapCoords.lng}`} target="_blank" rel="noopener noreferrer"
+                    style={{ display: "inline-flex", alignItems: "center", gap: "0.375rem", fontSize: "0.6875rem", fontWeight: 500, color: "var(--dt-primary)", textDecoration: "none", marginTop: "0.375rem" }}>
+                    <Globe style={{ width: 13, height: 13 }} /> {isEN ? "Open in Google Maps" : "Buka di Google Maps"}
+                  </a>
+                </div>
+              )}
+            </div>
+          </div>
+        </div>
+        <div className="lg:col-span-7">
+          {hasLeadForm && (
+            <div style={{ background: "var(--dt-surface)", padding: "2rem", borderRadius: "var(--dt-radius-lg)", border: "1px solid color-mix(in srgb, var(--dt-primary) 15%, transparent)" }}>
+              <InlineText
+                section="contact"
+                fieldKey="form_title"
+                value={c.form_title ?? ""}
+                onUpdateField={onUpdateField}
+                isEditorMode={isEditorMode}
+                isSelected={isSelected}
+                as="h3"
+                style={{ fontFamily: "var(--dt-heading-font)", fontWeight: 700, color: "var(--dt-text)", marginBottom: "1.5rem", marginTop: 0 }}
+                collapseSheetForInlineEdit={collapseSheetForInlineEdit}
+                onEditingStateChange={onEditingStateChange}
+              />
+              <DynamicLeadForm
+                buttonText={c.button_text}
+                onUpdateField={onUpdateField}
+                isEditorMode={isEditorMode}
+                isSelected={isSelected}
+                collapseSheetForInlineEdit={collapseSheetForInlineEdit}
+                onEditingStateChange={onEditingStateChange}
+                onSubmit={onSubmitLead!}
+                submitting={leadSubmitting}
+                success={leadSuccess}
+                error={leadError}
+                language={language}
+              />
+            </div>
+          )}
+        </div>
+      </div>
+    </section>
+  );
+}

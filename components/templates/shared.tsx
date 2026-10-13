@@ -1,0 +1,4615 @@
+"use client";
+
+import React, { useId, useState, useEffect, useRef } from "react";
+import { headingVars, avatarTextColor } from "./helpers";
+import {
+  Check, ArrowRight, ChevronDown, ChevronUp, ChevronLeft, ChevronRight, Star, Menu, X, Send,
+  MapPin, Phone, Mail, Globe, Pencil, Upload, Loader2, Camera, Link2, ImagePlus, Trash2,
+  Search, Lock, RotateCw, Copy, ExternalLink, Sparkles, MessageCircle, MoreVertical, ShieldCheck, Share2, Code2, Eye, Image,
+} from "lucide-react";
+import * as LucideIcons from "lucide-react";
+import { CartProvider, CartFab, AddToCartButton, isPlaceholderPrice } from "@/components/cart";
+import { uploadImageFile } from "@/components/file-upload";
+import { SparkleIcon } from "@/components/sparkle-icon";
+
+import type { TestimonialItem, FaqItem, ImageCredit, BenefitItem, CatalogItem, MenuItem } from "./types";
+import PhotoCredit from "../sections/PhotoCredit";
+import { InlineAddTile, InlineDeleteButton } from "../sections/inline-add";
+import { useI18n } from "@/lib/i18n/context";
+
+// Global variable to store editorSiteId (only used in dashboard editor)
+let EDITOR_SITE_ID: number | null = null;
+export function setEditorSiteId(id: number | null) {
+  EDITOR_SITE_ID = id;
+}
+
+export function isPlaceholderPhone(phone: string | null | undefined): boolean {
+  if (!phone) return true;
+  const digits = phone.replace(/\D/g, "");
+  return digits === "6281234567890" || digits === "081234567890" || digits === "81234567890";
+}
+
+export function isPlaceholderMap(url: string | null | undefined): boolean {
+  if (!url) return true;
+  const lower = url.toLowerCase();
+  return lower === "https://maps.google.com" || lower === "https://maps.google.com/" || lower === "https://google.com/maps" || lower === "https://maps.apple.com";
+}
+
+// ─── WA Lead Modal ────────────────────────────────────────────────────────────
+
+function WaLeadModal({ onSubmitLead, onClose }: {
+  onSubmitLead: (data: { name: string; email: string; phone: string; message: string }) => Promise<string | void>;
+  onClose: () => void;
+}) {
+  const [name, setName] = useState("");
+  const [phone, setPhone] = useState("");
+  const [notes, setNotes] = useState("");
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!name.trim() || !phone.trim()) return;
+    setLoading(true);
+    setError(null);
+    try {
+      await onSubmitLead({ name: name.trim(), email: "", phone: phone.trim(), message: notes.trim() || `Pesan dari ${name}` });
+      onClose();
+    } catch (err: any) {
+      setError(err?.message || "Gagal mengirim pesan");
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  return (
+    <div className="fixed inset-0 z-[9999] flex items-center justify-center bg-black/50 backdrop-blur-sm" onClick={onClose}>
+      <div
+        className="w-full max-w-sm mx-4 p-6 rounded-2xl shadow-2xl"
+        style={{ background: "var(--dt-bg, #fff)", color: "var(--dt-text, #1e293b)" }}
+        onClick={(e) => e.stopPropagation()}
+        role="dialog"
+        aria-modal="true"
+        aria-label="Hubungi Kami"
+      >
+        <div className="flex items-center justify-between mb-4">
+          <span className="font-bold text-sm">Hubungi Kami</span>
+          <button type="button" onClick={onClose} className="p-1 rounded-full hover:opacity-70 cursor-pointer" aria-label="Tutup"><X className="w-4 h-4" /></button>
+        </div>
+        {error && <p className="text-xs text-red-500 mb-3">{error}</p>}
+        <form onSubmit={handleSubmit} className="space-y-3">
+          <div>
+            <label className="block text-[11px] font-bold uppercase tracking-wide mb-1 opacity-75">Nama *</label>
+            <input type="text" required value={name} onChange={(e) => setName(e.target.value)} placeholder="Nama Anda" maxLength={100}
+              className="w-full px-3 py-2 text-xs rounded-lg border outline-none transition-all focus:ring-1"
+              style={{ background: "color-mix(in srgb, var(--dt-bg, #fff) 97%, var(--dt-text, #1e293b) 3%)", borderColor: "color-mix(in srgb, var(--dt-text, #1e293b) 15%, transparent)", color: "var(--dt-text, #1e293b)" }}
+            />
+          </div>
+          <div>
+            <label className="block text-[11px] font-bold uppercase tracking-wide mb-1 opacity-75">No. WhatsApp *</label>
+            <input type="tel" required value={phone} onChange={(e) => setPhone(e.target.value)} placeholder="08123456789" maxLength={20}
+              className="w-full px-3 py-2 text-xs rounded-lg border outline-none transition-all focus:ring-1"
+              style={{ background: "color-mix(in srgb, var(--dt-bg, #fff) 97%, var(--dt-text, #1e293b) 3%)", borderColor: "color-mix(in srgb, var(--dt-text, #1e293b) 15%, transparent)", color: "var(--dt-text, #1e293b)" }}
+            />
+          </div>
+          <div>
+            <label className="block text-[11px] font-bold uppercase tracking-wide mb-1 opacity-75">Pesan</label>
+            <textarea value={notes} onChange={(e) => setNotes(e.target.value)} placeholder="Tulis pesan Anda..." rows={3} maxLength={500}
+              className="w-full px-3 py-2 text-xs rounded-lg border outline-none resize-none transition-all focus:ring-1"
+              style={{ background: "color-mix(in srgb, var(--dt-bg, #fff) 97%, var(--dt-text, #1e293b) 3%)", borderColor: "color-mix(in srgb, var(--dt-text, #1e293b) 15%, transparent)", color: "var(--dt-text, #1e293b)" }}
+            />
+          </div>
+          <button type="submit" disabled={loading}
+            className="w-full min-h-10 py-2.5 font-bold text-xs uppercase tracking-wider flex items-center justify-center gap-2 rounded-xl cursor-pointer transition-all hover:brightness-110 active:scale-[0.98] disabled:opacity-60 disabled:cursor-not-allowed"
+            style={{ background: "var(--dt-primary, #4F46E5)", color: "var(--dt-cta-text, #fff)" }}
+          >
+            {loading ? <span className="w-4 h-4 border-2 border-border border-t-white rounded-full animate-spin" /> : <Send className="w-4 h-4" />}
+            <span>{loading ? "Mengirim..." : "Kirim Pesanan"}</span>
+          </button>
+        </form>
+      </div>
+    </div>
+  );
+}
+
+// ─── Image Lightbox ───────────────────────────────────────────────────────────
+
+function ImageLightbox({
+  src,
+  images,
+  initialIndex = 0,
+  alt,
+  onClose,
+}: {
+  src?: string;
+  images?: string[];
+  initialIndex?: number;
+  alt: string;
+  onClose: () => void;
+}) {
+  const allImages = images && images.length > 0 ? images : src ? [src] : [];
+  const [currentIndex, setCurrentIndex] = useState(
+    initialIndex >= 0 && initialIndex < allImages.length ? initialIndex : 0
+  );
+
+  const prev = () => {
+    setCurrentIndex((idx) => (idx === 0 ? allImages.length - 1 : idx - 1));
+  };
+  const next = () => {
+    setCurrentIndex((idx) => (idx === allImages.length - 1 ? 0 : idx + 1));
+  };
+
+  useEffect(() => {
+    const handleKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") onClose();
+      if (e.key === "ArrowLeft" && allImages.length > 1) prev();
+      if (e.key === "ArrowRight" && allImages.length > 1) next();
+    };
+    document.addEventListener("keydown", handleKey);
+    return () => document.removeEventListener("keydown", handleKey);
+  }, [onClose, allImages.length]);
+
+  if (allImages.length === 0) return null;
+  const currentSrc = allImages[currentIndex];
+
+  return (
+    <div
+      className="fixed inset-0 z-[9999] flex items-center justify-center bg-black/85 backdrop-blur-sm animate-[fadeIn_0.15s_ease]"
+      onClick={onClose}
+      role="dialog"
+      aria-modal="true"
+      aria-label={`Preview: ${alt}`}
+    >
+      <button
+        type="button"
+        onClick={onClose}
+        className="absolute top-4 right-4 w-10 h-10 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center text-white transition-colors cursor-pointer z-20"
+        aria-label="Tutup preview"
+      >
+        <X className="w-5 h-5" />
+      </button>
+
+      {/* Prev / Next buttons */}
+      {allImages.length > 1 && (
+        <>
+          <button
+            type="button"
+            onClick={(e) => {
+              e.stopPropagation();
+              prev();
+            }}
+            className="absolute left-4 top-1/2 -translate-y-1/2 w-11 h-11 rounded-full bg-black/50 hover:bg-black/75 border border-white/20 flex items-center justify-center text-white transition-all cursor-pointer z-20"
+            aria-label="Foto sebelumnya"
+          >
+            <ChevronLeft className="w-6 h-6" />
+          </button>
+          <button
+            type="button"
+            onClick={(e) => {
+              e.stopPropagation();
+              next();
+            }}
+            className="absolute right-4 top-1/2 -translate-y-1/2 w-11 h-11 rounded-full bg-black/50 hover:bg-black/75 border border-white/20 flex items-center justify-center text-white transition-all cursor-pointer z-20"
+            aria-label="Foto selanjutnya"
+          >
+            <ChevronRight className="w-6 h-6" />
+          </button>
+        </>
+      )}
+
+      <div
+        className="relative flex flex-col items-center max-w-[92vw] max-h-[90vh]"
+        onClick={(e) => e.stopPropagation()}
+      >
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img
+          key={currentSrc}
+          src={currentSrc}
+          alt={`${alt} (${currentIndex + 1}/${allImages.length})`}
+          className="max-w-[92vw] max-h-[80vh] object-contain rounded-xl shadow-2xl animate-[scaleIn_0.15s_ease]"
+          style={{ boxShadow: "0 25px 80px rgba(0,0,0,0.6)" }}
+        />
+
+        {/* Counter & Thumbnails */}
+        {allImages.length > 1 && (
+          <div className="mt-3 flex items-center gap-2">
+            <span className="text-[11px] font-semibold text-white/75 px-2.5 py-0.5 rounded-full bg-black/40 border border-white/10">
+              {currentIndex + 1} / {allImages.length}
+            </span>
+            <div className="flex items-center gap-1.5 overflow-x-auto max-w-[80vw] py-1">
+              {allImages.map((img, i) => (
+                <button
+                  key={i}
+                  type="button"
+                  onClick={() => setCurrentIndex(i)}
+                  className={`w-9 h-9 rounded-lg overflow-hidden border-2 transition-all cursor-pointer flex-shrink-0 ${
+                    i === currentIndex
+                      ? "border-primary scale-105 shadow-md"
+                      : "border-white/20 opacity-50 hover:opacity-100"
+                  }`}
+                >
+                  <img src={img} alt="" className="w-full h-full object-cover" />
+                </button>
+              ))}
+            </div>
+          </div>
+        )}
+      </div>
+
+      <style>{`
+        @keyframes fadeIn { from { opacity: 0 } to { opacity: 1 } }
+        @keyframes scaleIn { from { opacity: 0; transform: scale(0.93) } to { opacity: 1; transform: scale(1) } }
+      `}</style>
+    </div>
+  );
+}
+
+// ─── Nav Menu ─────────────────────────────────────────────────────────────────
+
+const NAV_SKIP = new Set(["header", "hero", "footer", "seo", "cta"]);
+
+const NAV_LABELS_ID: Record<string, string> = {
+  about: "Tentang",
+  benefits: "Keunggulan",
+  menu: "Menu",
+  catalog: "Katalog",
+  works: "Portofolio",
+  stats: "Statistik",
+  pricing: "Paket & Harga",
+  partners: "Mitra",
+  gallery: "Galeri",
+  testimonials: "Testimoni",
+  blog: "Blog",
+  faq: "FAQ",
+  cta: "Promo",
+  contact: "Kontak",
+};
+
+const NAV_LABELS_EN: Record<string, string> = {
+  about: "About",
+  benefits: "Why Us",
+  menu: "Menu",
+  catalog: "Catalog",
+  works: "Portfolio",
+  stats: "Stats",
+  pricing: "Pricing",
+  partners: "Partners",
+  gallery: "Gallery",
+  testimonials: "Testimonials",
+  blog: "Blog",
+  faq: "FAQ",
+  cta: "Promo",
+  contact: "Contact",
+};
+
+// ─── Smooth Scroll to Section Helper ──────────────────────────────────────────
+
+export function smoothScrollToSection(
+  targetKeyOrElement: string | HTMLElement,
+  doc: Document = typeof document !== "undefined" ? document : (null as any)
+) {
+  if (!doc) return false;
+  let el: HTMLElement | null = null;
+  if (typeof targetKeyOrElement === "string") {
+    const rawKey = targetKeyOrElement.replace(/^#/, "");
+    const cleanKey = rawKey.replace(/^section-preview-/, "").replace(/^section-/, "");
+    el =
+      (doc.getElementById(`section-${cleanKey}`) as HTMLElement | null) ||
+      (doc.getElementById(cleanKey) as HTMLElement | null) ||
+      (doc.getElementById(`section-preview-${cleanKey}`) as HTMLElement | null) ||
+      (doc.querySelector(`[data-section="${cleanKey}"]`) as HTMLElement | null) ||
+      (doc.querySelector(`[id*="${cleanKey}"]`) as HTMLElement | null);
+  } else {
+    el = targetKeyOrElement;
+  }
+
+  if (!el) return false;
+
+  const win = doc.defaultView || window;
+  const header = doc.querySelector("header");
+  const headerHeight = header ? header.getBoundingClientRect().height : 70;
+
+  // 1. Check for any scrollable ancestor container (e.g. #preview-scroll-container in editor)
+  let scrollContainer: HTMLElement | null = null;
+  let curr = el.parentElement;
+  while (curr && curr !== doc.body && curr !== doc.documentElement) {
+    const style = doc.defaultView?.getComputedStyle(curr);
+    if (style && (style.overflowY === "auto" || style.overflowY === "scroll") && curr.scrollHeight > curr.clientHeight) {
+      scrollContainer = curr;
+      break;
+    }
+    curr = curr.parentElement;
+  }
+
+  if (scrollContainer) {
+    const containerRect = scrollContainer.getBoundingClientRect();
+    const elRect = el.getBoundingClientRect();
+    const targetY = scrollContainer.scrollTop + (elRect.top - containerRect.top) - headerHeight - 12;
+    scrollContainer.scrollTo({ top: Math.max(0, targetY), behavior: "smooth" });
+    return true;
+  }
+
+  // 2. Document/Window scroll (works in iframes with html{overflow-y:auto;height:100%}, normal public pages, etc.)
+  const elRect = el.getBoundingClientRect();
+  const currentScroll =
+    win.pageYOffset ||
+    doc.documentElement?.scrollTop ||
+    doc.body?.scrollTop ||
+    doc.scrollingElement?.scrollTop ||
+    0;
+  const targetY = Math.max(0, currentScroll + elRect.top - headerHeight - 12);
+
+  let didScroll = false;
+  if (doc.documentElement && typeof doc.documentElement.scrollTo === "function") {
+    doc.documentElement.scrollTo({ top: targetY, behavior: "smooth" });
+    didScroll = true;
+  }
+  if (doc.scrollingElement && doc.scrollingElement !== doc.documentElement && typeof doc.scrollingElement.scrollTo === "function") {
+    doc.scrollingElement.scrollTo({ top: targetY, behavior: "smooth" });
+    didScroll = true;
+  }
+  if (doc.body && doc.body !== doc.documentElement && typeof doc.body.scrollTo === "function") {
+    doc.body.scrollTo({ top: targetY, behavior: "smooth" });
+    didScroll = true;
+  }
+  if (win && typeof win.scrollTo === "function") {
+    win.scrollTo({ top: targetY, behavior: "smooth" });
+    didScroll = true;
+  }
+
+  // Fallback native scroll
+  try {
+    el.scrollIntoView({ behavior: "smooth", block: "start" });
+  } catch {}
+
+  return true;
+}
+
+interface NavMenuProps {
+  sectionOrder: string[];
+  hiddenSections?: string[];
+  linkClass?: string;
+  activeColor?: string;
+  drawerStyle?: React.CSSProperties;
+  extraLinks?: { label: string; href: string }[];
+  language?: "id" | "en";
+  nav_labels?: Record<string, string>;
+  onUpdateField?: (section: string, key: string, value: any) => void;
+  isEditorMode?: boolean;
+  isSelected?: boolean;
+  collapseSheetForInlineEdit?: () => void;
+  onEditingStateChange?: (isEditing: boolean) => void;
+}
+
+const NavMenu: React.FC<NavMenuProps> = ({
+  sectionOrder,
+  hiddenSections = [],
+  linkClass = "text-slate-700",
+  drawerStyle,
+  extraLinks = [],
+  language = "id",
+  nav_labels,
+  onUpdateField,
+  isEditorMode,
+  isSelected,
+  collapseSheetForInlineEdit,
+  onEditingStateChange,
+}) => {
+  const [open, setOpen] = useState(false);
+  const [drawerTop, setDrawerTop] = useState(0);
+  const btnRef = useRef<HTMLButtonElement>(null);
+
+  const defaultLabels = language === "en" ? NAV_LABELS_EN : NAV_LABELS_ID;
+
+  const navItems = [
+    ...sectionOrder
+      .filter(k => {
+        if (NAV_SKIP.has(k) || hiddenSections.includes(k)) return false;
+        // Suppress generic catalog link when dedicated works/portfolio section exists
+        if (k === "catalog" && sectionOrder.includes("works")) return false;
+        return Boolean(nav_labels?.[k] || defaultLabels[k]);
+      })
+      .map(k => ({
+        key: k,
+        label: nav_labels?.[k] || defaultLabels[k],
+        href: k === "blog" ? "__blog__" : ""
+      })),
+    ...extraLinks.map(l => ({ key: l.href, label: l.label, href: l.href }))
+  ];
+
+  if (navItems.length === 0) return null;
+
+  const handleToggle = (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault();
+    e.stopPropagation();
+    if (!open && btnRef.current) {
+      const header = btnRef.current.closest("header") ?? btnRef.current.closest("nav") ?? btnRef.current;
+      const rect = header.getBoundingClientRect();
+      setDrawerTop(rect.bottom);
+    }
+    setOpen(v => !v);
+  };
+
+  const handleClick = (e: React.MouseEvent<HTMLButtonElement>, item: { key: string; label: string; href: string }) => {
+    e.preventDefault();
+    e.stopPropagation();
+    if (item.href === "__blog__") {
+      // Editor mode: siteId is set via setEditorSiteId() → use /preview/[id]/blog
+      if (EDITOR_SITE_ID) {
+        window.location.href = `/preview/${EDITOR_SITE_ID}/blog`;
+        return;
+      }
+
+      // Resolve the blog index URL relative to the current site path.
+      const parts = window.location.pathname.split("/").filter(Boolean);
+
+      // Path-based local dev: /s/[subdomain] → /s/[subdomain]/blog
+      if (parts[0] === "s" && parts[1]) {
+        window.location.href = `/${parts[0]}/${parts[1]}/blog`;
+        return;
+      }
+
+      // Production rewrite: /site/[subdomain] → /site/[subdomain]/blog
+      if (parts[0] === "site" && parts[1]) {
+        window.location.href = `/${parts[0]}/${parts[1]}/blog`;
+        return;
+      }
+
+      // Preview mode: /preview/[id] → /preview/[id]/blog
+      if (parts[0] === "preview" && parts[1]) {
+        window.location.href = `/preview/${parts[1]}/blog`;
+        return;
+      }
+
+      // Custom domain: relative /blog works on same domain
+      window.location.href = "/blog";
+      return;
+    }
+    if (item.href) {
+      window.location.href = item.href;
+      return;
+    }
+    setOpen(false);
+    const isBlogPage = typeof window !== "undefined" && /\/blog($|\/)/.test(window.location.pathname);
+    if (isBlogPage) {
+      const parts = window.location.pathname.split("/").filter(Boolean);
+      let homeUrl = "/";
+      if (parts[0] === "s" && parts[1]) {
+        homeUrl = `/${parts[0]}/${parts[1]}`;
+      } else if (parts[0] === "site" && parts[1]) {
+        homeUrl = `/${parts[0]}/${parts[1]}`;
+      } else if (parts[0] === "preview" && parts[1]) {
+        homeUrl = `/preview/${parts[1]}`;
+      }
+      window.location.href = `${homeUrl}#${item.key}`;
+      return;
+    }
+    const doc = e.currentTarget.ownerDocument || document;
+    smoothScrollToSection(item.key, doc);
+  };
+
+  return (
+    <>
+      <nav data-nav-menu="true" className="hidden md:flex items-center gap-1" aria-label="Navigasi utama">
+        {navItems.map((item) => {
+          const isExtraLink = extraLinks.some(l => l.href === item.key);
+          return (
+            <button
+              key={item.key}
+              type="button"
+              onClick={(e) => handleClick(e, item)}
+              className={`px-3 py-1.5 rounded-lg text-sm font-medium transition-colors hover:opacity-70 cursor-pointer focus:outline-none ${linkClass}`}
+            >
+              {!isExtraLink && isEditorMode ? (
+                <InlineText
+                  section="header"
+                  fieldKey={`nav_labels.${item.key}`}
+                  value={item.label}
+                  onUpdateField={onUpdateField}
+                  isEditorMode={isEditorMode}
+                  isSelected={isSelected}
+                  collapseSheetForInlineEdit={collapseSheetForInlineEdit}
+                  onEditingStateChange={onEditingStateChange}
+                  as="span"
+                />
+              ) : (
+                item.label
+              )}
+            </button>
+          );
+        })}
+      </nav>
+
+      <button
+        ref={btnRef}
+        type="button"
+        onClick={handleToggle}
+        className={`md:hidden flex items-center justify-center w-9 h-9 rounded-lg cursor-pointer focus:outline-none ${linkClass}`}
+        aria-label={open ? "Tutup menu" : "Buka menu"}
+        aria-expanded={open}
+      >
+        {open ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
+      </button>
+
+      {open && (
+        <>
+          {/* Backdrop — tap outside to close */}
+          <div
+            className="md:hidden fixed inset-0 z-[59]"
+            onClick={(e) => {
+              e.stopPropagation();
+              setOpen(false);
+            }}
+            aria-hidden="true"
+          />
+          {/* Drawer — fixed so iOS sticky/backdrop-filter clipping is avoided */}
+          <div
+            data-nav-menu="true"
+            className="md:hidden fixed left-0 right-0 z-[60] shadow-lg py-2"
+            onClick={(e) => e.stopPropagation()}
+            style={{ top: drawerTop, ...(drawerStyle ?? { background: "rgba(255,255,255,0.97)", borderTop: "1px solid rgba(0,0,0,0.08)" }) }}
+          >
+            {navItems.map((item) => {
+              const isExtraLink = extraLinks.some(l => l.href === item.key);
+              return (
+                <button
+                  key={item.key}
+                  type="button"
+                  onClick={(e) => handleClick(e, item)}
+                  className={`w-full text-left px-5 py-3 text-sm font-medium hover:opacity-70 transition-opacity cursor-pointer focus:outline-none ${linkClass}`}
+                >
+                  {!isExtraLink && isEditorMode ? (
+                    <InlineText
+                      section="header"
+                      fieldKey={`nav_labels.${item.key}`}
+                      value={item.label}
+                      onUpdateField={onUpdateField}
+                      isEditorMode={isEditorMode}
+                      isSelected={isSelected}
+                      collapseSheetForInlineEdit={collapseSheetForInlineEdit}
+                      onEditingStateChange={onEditingStateChange}
+                      as="span"
+                    />
+                  ) : (
+                    item.label
+                  )}
+                </button>
+              );
+            })}
+          </div>
+        </>
+      )}
+    </>
+  );
+};
+
+// ─── WhatsApp Floating Button ────────────────────────────────────────────────
+
+const WAFloatingButton: React.FC<{
+  phone: string;
+  isEditorMode?: boolean;
+  onSubmitLead?: (data: { name: string; email: string; phone: string; message: string }) => Promise<string | void>;
+  brandName?: string;
+  /** true = premium chat widget; false = simple floating WA button */
+  isPremium?: boolean;
+  /**
+   * Explicit floating button type. Takes precedence over isPremium.
+   * "whatsapp"     → simple WA button
+   * "chat_bubble"  → premium chat widget (only if isPremium=true)
+   * "contact_link" → scroll to #contact
+   * "none"         → hidden
+   */
+  floatingType?: "none" | "whatsapp" | "chat_bubble" | "contact_link";
+}> = ({ phone, isEditorMode, brandName = "Customer Support", isPremium = false, floatingType }) => {
+  const [isWidgetOpen, setIsWidgetOpen] = useState(false);
+  const [userMessage, setUserMessage] = useState("");
+  const [isTyping, setIsTyping] = useState(true);
+
+  // Stop typing indicator after 1.2s
+  useEffect(() => {
+    if (isWidgetOpen) {
+      setIsTyping(true);
+      const timer = setTimeout(() => setIsTyping(false), 1200);
+      return () => clearTimeout(timer);
+    }
+  }, [isWidgetOpen]);
+
+  const digits = phone ? phone.replace(/\D/g, "") : "";
+  const hasWa = digits.length >= 8 && !isPlaceholderPhone(phone);
+  const waUrl = hasWa ? (digits.startsWith("0") ? `https://wa.me/62${digits.slice(1)}` : `https://wa.me/${digits}`) : "#";
+
+  // Resolve effective type — default to whatsapp
+  const effectiveType = floatingType ?? (isPremium ? "chat_bubble" : "whatsapp");
+
+  if (effectiveType === "none") return null;
+
+  // ── Contact Link button — no phone required ───────────────────────────────
+  if (effectiveType === "contact_link") {
+    return (
+      <a
+        href={isEditorMode ? "#" : "#contact"}
+        onClick={isEditorMode ? (e) => e.preventDefault() : undefined}
+        aria-label="Hubungi Kami"
+        className="fixed right-6 z-40 flex items-center justify-center w-14 h-14 rounded-full shadow-[0_4px_20px_rgba(0,0,0,0.3)] hover:scale-110 active:scale-95 transition-all duration-200 focus:outline-none"
+        style={{ bottom: "var(--floating-bottom-desktop, var(--floating-bottom-mobile, 6rem))", background: "var(--dt-primary, #4F46E5)", color: "var(--dt-primary-foreground, #fff)" }}
+      >
+        <svg viewBox="0 0 24 24" className="w-6 h-6 fill-none stroke-current stroke-2" strokeLinecap="round" strokeLinejoin="round">
+          <path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z" />
+        </svg>
+      </a>
+    );
+  }
+
+  if (!hasWa) {
+    // Show disabled WA button — visible but not clickable until phone is set
+    if (effectiveType === "whatsapp" || effectiveType === "chat_bubble") {
+      return (
+        <div
+          aria-label="Chat via WhatsApp (nomor belum diisi)"
+          title="Isi nomor WhatsApp di editor untuk mengaktifkan tombol ini"
+          className="fixed right-6 z-40 flex items-center justify-center w-14 h-14 rounded-full cursor-not-allowed select-none"
+          style={{ bottom: "var(--floating-bottom-desktop, var(--floating-bottom-mobile, 6rem))", background: "#25D366", opacity: 0.35, filter: "grayscale(30%)" }}
+        >
+          <svg viewBox="0 0 24 24" className="w-7 h-7 fill-white" xmlns="http://www.w3.org/2000/svg">
+            <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z" />
+          </svg>
+        </div>
+      );
+    }
+    return null;
+  }
+
+  // ── Simple floating WA button (whatsapp type or free users) ─────────────────
+  if (effectiveType !== "chat_bubble") {
+    return (
+      <a
+        href={isEditorMode ? "#" : waUrl}
+        target={isEditorMode ? undefined : "_blank"}
+        rel="noopener noreferrer"
+        onClick={isEditorMode ? (e) => e.preventDefault() : undefined}
+        aria-label="Chat via WhatsApp"
+        className="fixed right-6 z-40 flex items-center justify-center w-14 h-14 rounded-full shadow-[0_4px_20px_rgba(37,211,102,0.45)] hover:scale-110 active:scale-95 transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-green-400 focus:ring-offset-2"
+        style={{ bottom: "var(--floating-bottom-desktop, var(--floating-bottom-mobile, 6rem))", background: "#25D366" }}
+      >
+        <svg viewBox="0 0 24 24" className="w-7 h-7 fill-white" xmlns="http://www.w3.org/2000/svg">
+          <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z" />
+        </svg>
+      </a>
+    );
+  }
+
+  // ── Premium interactive chat widget ────────────────────────────────────────
+  const handleSendMessage = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (isEditorMode) return;
+    const finalMsg = userMessage.trim();
+    if (!finalMsg) return;
+    const encodedText = encodeURIComponent(finalMsg);
+    window.open(`${waUrl}?text=${encodedText}`, "_blank", "noopener,noreferrer");
+    setUserMessage("");
+    setIsWidgetOpen(false);
+  };
+
+  return (
+    <>
+      <div className="fixed right-6 z-40 flex flex-col items-end" style={{ bottom: "var(--floating-bottom-desktop, var(--floating-bottom-mobile, 6rem))" }}>
+        {/* Chat Window Panel */}
+        {isWidgetOpen && (
+          <div
+            className="mb-4 w-[340px] max-w-[90vw] rounded-2xl overflow-hidden shadow-2xl border border-stone-200/80 bg-[#f0f2f5] animate-[widgetSlideUp_0.3s_cubic-bezier(0.16,1,0.3,1)_forward]"
+            style={{
+              fontFamily: "var(--dt-body-font), sans-serif",
+              boxShadow: "0 12px 40px rgba(0,0,0,0.15)",
+            }}
+          >
+            {/* Header */}
+            <div className="bg-[#075E54] p-4 flex items-center justify-between text-white">
+              <div className="flex items-center gap-3">
+                <div className="relative w-10 h-10 rounded-full bg-white/10 flex items-center justify-center font-bold text-xs border border-border">
+                  {brandName.substring(0, 2).toUpperCase()}
+                  <span className="absolute bottom-0 right-0 w-2.5 h-2.5 bg-green-500 rounded-full border-2 border-[#075E54] animate-pulse" />
+                </div>
+                <div>
+                  <h4 className="font-semibold text-sm leading-tight">{brandName}</h4>
+                  <span className="text-[11px] text-white/80">Online • Balas dalam sekejap</span>
+                </div>
+              </div>
+              <button
+                type="button"
+                onClick={() => setIsWidgetOpen(false)}
+                className="p-1 rounded-full hover:bg-white/10 text-white/80 hover:text-white transition-colors"
+                aria-label="Tutup Chat"
+              >
+                <X className="w-4 h-4" />
+              </button>
+            </div>
+
+            {/* Chat Body (WA Patterned Background) */}
+            <div
+              className="h-60 p-4 overflow-y-auto flex flex-col gap-3 relative"
+              style={{
+                backgroundImage: `radial-gradient(#e5ddd5 20%, transparent 20%), radial-gradient(#e5ddd5 20%, transparent 20%)`,
+                backgroundSize: "20px 20px",
+                backgroundPosition: "0 0, 10px 10px",
+                backgroundColor: "#efeae2",
+              }}
+            >
+              {isTyping ? (
+                <div className="self-start bg-white py-2.5 px-4 rounded-2xl rounded-tl-none shadow-sm flex items-center gap-1.5">
+                  <span className="w-1.5 h-1.5 bg-stone-400 rounded-full animate-bounce [animation-delay:-0.3s]" />
+                  <span className="w-1.5 h-1.5 bg-stone-400 rounded-full animate-bounce [animation-delay:-0.15s]" />
+                  <span className="w-1.5 h-1.5 bg-stone-400 rounded-full animate-bounce" />
+                </div>
+              ) : (
+                <div className="self-start bg-white py-2.5 px-4 rounded-2xl rounded-tl-none shadow-sm max-w-[85%] text-xs text-stone-800 leading-relaxed animate-[widgetMessageIn_0.2s_ease-out_forwards]">
+                  <p className="font-semibold text-[10px] text-[#075E54] mb-0.5">{brandName}</p>
+                  Halo! Ada yang bisa kami bantu hari ini? Silakan ketik pesan Anda di bawah untuk mulai berkonsultasi secara langsung via WhatsApp. 😊
+                </div>
+              )}
+            </div>
+
+            {/* Footer Input Area */}
+            <form onSubmit={handleSendMessage} className="bg-white p-3 flex items-center gap-2 border-t border-stone-200">
+              <input
+                type="text"
+                value={userMessage}
+                onChange={(e) => setUserMessage(e.target.value)}
+                placeholder="Ketik pesan di sini..."
+                disabled={isEditorMode}
+                className="flex-1 px-4 py-2 text-xs bg-stone-100 rounded-full outline-none focus:bg-stone-50 border border-stone-200 focus:border-[#075E54]/40 transition-colors"
+              />
+              <button
+                type="submit"
+                disabled={!userMessage.trim() || isEditorMode}
+                className="w-8 h-8 rounded-full bg-[#075E54] hover:bg-[#128C7E] active:scale-95 transition-all text-white flex items-center justify-center disabled:opacity-50 disabled:scale-100 cursor-pointer"
+                aria-label="Kirim Pesan"
+              >
+                <Send className="w-3.5 h-3.5 fill-white stroke-none translate-x-[1px]" />
+              </button>
+            </form>
+          </div>
+        )}
+
+        {/* Trigger Floating Action Button */}
+        <button
+          type="button"
+          onClick={() => setIsWidgetOpen(!isWidgetOpen)}
+          aria-label="Chat via WhatsApp"
+          className="flex items-center justify-center w-14 h-14 rounded-full shadow-[0_6px_24px_rgba(37,211,102,0.45)] hover:scale-110 active:scale-95 transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-green-400 focus:ring-offset-2 cursor-pointer"
+          style={{ background: "#25D366" }}
+        >
+          {isWidgetOpen ? (
+            <X className="w-6 h-6 text-white" />
+          ) : (
+            <svg viewBox="0 0 24 24" className="w-7 h-7 fill-white" xmlns="http://www.w3.org/2000/svg">
+              <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z" />
+            </svg>
+          )}
+        </button>
+      </div>
+
+      {/* Animation Styles Injection */}
+      <style>{`
+        @keyframes widgetSlideUp {
+          from { opacity: 0; transform: translateY(20px) scale(0.95); }
+          to { opacity: 1; transform: translateY(0) scale(1); }
+        }
+        @keyframes widgetMessageIn {
+          from { opacity: 0; transform: scale(0.9); }
+          to { opacity: 1; transform: scale(1); }
+        }
+      `}</style>
+    </>
+  );
+};
+
+
+// ─── Back To Top ──────────────────────────────────────────────────────────────
+
+const BackToTop: React.FC<{ isEditorMode?: boolean }> = ({ isEditorMode }) => {
+  const [visible, setVisible] = React.useState(false);
+  React.useEffect(() => {
+    if (isEditorMode) return;
+    const onScroll = () => setVisible(window.scrollY > 400);
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, [isEditorMode]);
+  if (isEditorMode || !visible) return null;
+  return (
+    <button
+      type="button"
+      onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+      aria-label="Kembali ke atas"
+      className="fixed right-6 z-[150] w-10 h-10 rounded-full bg-slate-800/80 backdrop-blur-sm text-white shadow-lg flex items-center justify-center hover:scale-110 active:scale-95 transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-white/40"
+      style={{ bottom: "var(--floating-bottom-desktop, var(--floating-bottom-mobile, 6rem))" }}
+    >
+      <svg viewBox="0 0 24 24" className="w-4 h-4 fill-none stroke-white stroke-2"><path strokeLinecap="round" strokeLinejoin="round" d="M5 15l7-7 7 7" /></svg>
+    </button>
+  );
+};
+
+// ─── Nav CTA href helper ─────────────────────────────────────────────────────
+
+function navCtaHref(navCtaText?: string, customHref?: string): string {
+  let hash: string;
+
+  if (customHref && customHref.trim()) {
+    // Use the explicit override — ensure it starts with # or is a full URL
+    const h = customHref.trim();
+    hash = h.startsWith("#") || h.startsWith("http") || h.startsWith("/") ? h : `#${h}`;
+  } else {
+    // Infer section from button text
+    const lower = (navCtaText || "").toLowerCase();
+    hash = "#contact";
+    if (
+      lower.includes("katalog") ||
+      lower.includes("produk") ||
+      lower.includes("catalog") ||
+      lower.includes("catalogue") ||
+      lower.includes("belanja") ||
+      lower.includes("shop") ||
+      lower.includes("store") ||
+      lower.includes("product") ||
+      lower.includes("koleksi") ||
+      lower.includes("collection") ||
+      lower.includes("buy")
+    ) {
+      hash = "#catalog";
+    } else if (
+      lower.includes("menu") ||
+      lower.includes("meja") ||
+      lower.includes("pesan") ||
+      lower.includes("dish") ||
+      lower.includes("dining") ||
+      lower.includes("food")
+    ) {
+      hash = "#menu";
+    } else if (lower.includes("tentang") || lower.includes("about")) {
+      hash = "#about";
+    } else if (lower.includes("keunggulan") || lower.includes("benefit") || lower.includes("features")) {
+      hash = "#benefits";
+    } else if (lower.includes("galeri") || lower.includes("gallery")) {
+      hash = "#gallery";
+    } else if (lower.includes("testimoni") || lower.includes("review") || lower.includes("reviews")) {
+      hash = "#testimonials";
+    } else if (lower.includes("faq")) {
+      hash = "#faq";
+    }
+  }
+
+  // If already a full URL, return as-is (no blog-page rebase needed)
+  if (hash.startsWith("http") || hash.startsWith("/s/") || hash.startsWith("/site/")) return hash;
+
+  const isBlogPage = typeof window !== "undefined" && /\/blog($|\/)/.test(window.location.pathname);
+  if (isBlogPage) {
+    const parts = window.location.pathname.split("/").filter(Boolean);
+    let homeUrl = "/";
+    if (parts[0] === "s" && parts[1]) {
+      homeUrl = `/${parts[0]}/${parts[1]}`;
+    } else if (parts[0] === "site" && parts[1]) {
+      homeUrl = `/${parts[0]}/${parts[1]}`;
+    } else if (parts[0] === "preview" && parts[1]) {
+      homeUrl = `/preview/${parts[1]}`;
+    }
+    return `${homeUrl}${hash}`;
+  }
+  return hash;
+}
+
+// ─── Hero CTA href helper — WhatsApp jika ada phone, fallback ke cta_url ────
+// NOTE: Section-scroll hashes (#catalog, #menu, etc.) are preserved even when
+// a phone number is present — the WhatsApp override only applies when the
+// original target is #contact or an explicit contact-style destination.
+
+function ctaHref(phone?: string | null, fallbackUrl?: string, ctaText?: string): string {
+  let url = (fallbackUrl || "").trim();
+  if (ctaText && (!url || url === "#contact" || url === "#" || url === "/")) {
+    const lower = ctaText.toLowerCase();
+    if (
+      lower.includes("belanja") ||
+      lower.includes("katalog") ||
+      lower.includes("catalog") ||
+      lower.includes("catalogue") ||
+      lower.includes("shop") ||
+      lower.includes("store") ||
+      lower.includes("produk") ||
+      lower.includes("product") ||
+      lower.includes("koleksi") ||
+      lower.includes("collection") ||
+      lower.includes("buy") ||
+      lower.includes("order")
+    ) {
+      url = "#catalog";
+    } else if (
+      lower.includes("menu") ||
+      lower.includes("hidangan") ||
+      lower.includes("dish") ||
+      lower.includes("dining") ||
+      lower.includes("food")
+    ) {
+      url = "#menu";
+    }
+  }
+  if (!url) url = "#contact";
+
+  // If the URL is a section-scroll anchor (not #contact), preserve it as-is
+  const isSectionHash = url.startsWith("#") && url !== "#contact";
+  if (phone && !isSectionHash) {
+    const cleaned = phone.replace(/[^0-9]/g, "");
+    if (cleaned) return `https://wa.me/${cleaned}`;
+  }
+  return url;
+}
+
+// ─── Shared Testimonials Section ─────────────────────────────────────────────
+
+interface TestimonialsSectionProps {
+  testimonials?: { title: string; eyebrow?: string; items: TestimonialItem[]; variant?: string };
+  variant?: "grid" | "compact" | "carousel";
+  designVariant?: "standard" | "neobrutalist" | "minimal" | "elegant" | "glassmorphic" | "chat";
+  wrapperClass?: string;
+  wrapperStyle?: React.CSSProperties;
+  eyebrowClass?: string;
+  eyebrowStyle?: React.CSSProperties;
+  titleClass?: string;
+  titleStyle?: React.CSSProperties;
+  cardClass?: string;
+  cardStyle?: React.CSSProperties;
+  quoteClass?: string;
+  quoteStyle?: React.CSSProperties;
+  nameClass?: string;
+  nameStyle?: React.CSSProperties;
+  roleClass?: string;
+  roleStyle?: React.CSSProperties;
+  accentColor?: string;
+  onUpdateField?: (section: string, key: string, value: any) => void;
+  isEditorMode?: boolean;
+  isSelected?: boolean;
+  collapseSheetForInlineEdit?: () => void;
+  onEditingStateChange?: (isEditing: boolean) => void;
+  onAddItem?: () => void;
+}
+
+const SharedTestimonialsSection: React.FC<TestimonialsSectionProps> = ({
+  testimonials,
+  variant = "grid",
+  designVariant = "standard",
+  wrapperClass = "",
+  wrapperStyle,
+  eyebrowClass = "",
+  eyebrowStyle,
+  titleClass = "",
+  titleStyle,
+  cardClass = "",
+  cardStyle,
+  quoteClass = "",
+  quoteStyle,
+  nameClass = "",
+  nameStyle,
+  roleClass = "",
+  roleStyle,
+  accentColor = "var(--dt-primary)",
+  onUpdateField,
+  isEditorMode,
+  isSelected,
+  collapseSheetForInlineEdit,
+  onEditingStateChange,
+  onAddItem,
+}) => {
+  if (!testimonials) return null;
+  if (!testimonials.items?.length && !(isEditorMode && onAddItem)) return null;
+
+  const resolvedDesignVariant = testimonials?.variant || designVariant || "standard";
+
+  const wrapperClasses = `py-20 px-5 sm:px-6 ${wrapperClass}`;
+  const gridClass = variant === "compact" ? "grid grid-cols-1 md:grid-cols-2 gap-4" :
+    variant === "carousel" ? "flex overflow-x-auto snap-x snap-mandatory gap-6 pb-4" :
+      "grid grid-cols-1 md:grid-cols-3 gap-6";
+  const eyebrowClasses = `text-xs font-bold uppercase tracking-widest block ${eyebrowClass}`;
+  const titleClasses = `text-3xl md:text-4xl font-bold ${titleClass}`;
+
+  return (
+    <section id="testimonials" className={wrapperClasses} style={wrapperStyle}>
+      <div className="max-w-6xl mx-auto space-y-12">
+        {(testimonials.eyebrow || testimonials.title) && (
+          <div className="text-center space-y-2">
+            {testimonials.eyebrow && (
+              <InlineText
+                section="testimonials"
+                fieldKey="eyebrow"
+                value={testimonials.eyebrow}
+                onUpdateField={onUpdateField}
+                isEditorMode={isEditorMode}
+                isSelected={isSelected}
+                as="span"
+                className={eyebrowClasses}
+                style={eyebrowStyle}
+                collapseSheetForInlineEdit={collapseSheetForInlineEdit}
+                onEditingStateChange={onEditingStateChange}
+              />
+            )}
+            {testimonials.title && (
+              <InlineText
+                section="testimonials"
+                fieldKey="title"
+                value={testimonials.title}
+                onUpdateField={onUpdateField}
+                isEditorMode={isEditorMode}
+                isSelected={isSelected}
+                as="h2"
+                className={titleClasses}
+                style={{ ...titleStyle, ...headingVars }}
+                collapseSheetForInlineEdit={collapseSheetForInlineEdit}
+                onEditingStateChange={onEditingStateChange}
+              />
+            )}
+          </div>
+        )}
+        <div className={gridClass}>
+          {testimonials.items.map((t, idx) => {
+            const initials =
+              t.avatar_initials?.trim() ||
+              t.name
+                ?.trim()
+                .split(/\s+/)
+                .filter(Boolean)
+                .map((w: string) => w[0])
+                .join("")
+                .slice(0, 2)
+                .toUpperCase() ||
+              "?";
+
+            const deleteButton = isEditorMode && onUpdateField && (
+              <button
+                type="button"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  const updated = testimonials.items.filter((_, i) => i !== idx);
+                  onUpdateField("testimonials", "items", updated);
+                }}
+                className="absolute top-2.5 right-2.5 w-7 h-7 rounded-full bg-red-500/10 hover:bg-red-500 text-red-500 hover:text-white flex items-center justify-center opacity-70 group-hover:opacity-100 transition-all cursor-pointer z-20 shadow-sm border border-red-500/20"
+                title="Hapus testimoni"
+              >
+                <Trash2 className="w-3.5 h-3.5" />
+              </button>
+            );
+
+            // ─── 1. NEOBRUTALIST VARIANT ───
+            if (resolvedDesignVariant === "neobrutalist") {
+              return (
+                <div
+                  key={idx}
+                  className={`relative group border-3 border-black p-6 flex flex-col gap-4 bg-white transition-transform hover:-translate-y-1 ${cardClass}`}
+                  style={{
+                    boxShadow: "4px 4px 0px 0px #000000",
+                    borderRadius: "12px",
+                    ...cardStyle,
+                  }}
+                >
+                  {deleteButton}
+                  <span className="text-4xl font-black text-black leading-none -mb-3 opacity-20 font-mono select-none">“</span>
+                  <InlineText section="testimonials" fieldKey={`items.${idx}.quote`} value={t.quote ?? ""} placeholder="Tulis testimoni pelanggan di sini..." onUpdateField={onUpdateField} isEditorMode={isEditorMode} isSelected={isSelected} as="p" className={`text-sm font-bold leading-relaxed flex-1 ${quoteClass}`} style={{ color: "var(--dt-text)", ...quoteStyle }} multiline collapseSheetForInlineEdit={collapseSheetForInlineEdit} onEditingStateChange={onEditingStateChange} />
+                  <div className="flex items-center gap-3 pt-3 border-t-2 border-black">
+                    <div
+                      className="w-10 h-10 rounded-full border-2 border-black flex items-center justify-center text-xs font-black flex-shrink-0"
+                      style={{ background: t.avatar_color || accentColor, color: avatarTextColor(t.avatar_color || accentColor) }}
+                    >
+                      {initials}
+                    </div>
+                    <div className="min-w-0">
+                      <InlineText section="testimonials" fieldKey={`items.${idx}.name`} value={t.name ?? ""} placeholder="Nama Pelanggan" onUpdateField={onUpdateField} isEditorMode={isEditorMode} isSelected={isSelected} as="p" className={`text-sm font-black leading-tight ${nameClass}`} style={{ color: "var(--dt-text)", ...nameStyle }} collapseSheetForInlineEdit={collapseSheetForInlineEdit} onEditingStateChange={onEditingStateChange} />
+                      {(t.role || isEditorMode) && <InlineText section="testimonials" fieldKey={`items.${idx}.role`} value={t.role ?? ""} placeholder="Jabatan / Peran (cth. Pelanggan)" onUpdateField={onUpdateField} isEditorMode={isEditorMode} isSelected={isSelected} as="p" className={`text-xs font-bold ${roleClass}`} style={{ color: "var(--dt-text-muted)", ...roleStyle }} collapseSheetForInlineEdit={collapseSheetForInlineEdit} onEditingStateChange={onEditingStateChange} />}
+                    </div>
+                  </div>
+                </div>
+              );
+            }
+
+            // ─── 2. MINIMAL VARIANT ───
+            if (resolvedDesignVariant === "minimal") {
+              return (
+                <div
+                  key={idx}
+                  className={`relative group p-6 flex flex-col gap-4 bg-transparent border-0 shadow-none ${cardClass}`}
+                  style={cardStyle}
+                >
+                  {deleteButton}
+                  <span className="text-5xl font-serif leading-none -mb-4 opacity-30 select-none" style={{ color: accentColor }}>“</span>
+                  <InlineText section="testimonials" fieldKey={`items.${idx}.quote`} value={t.quote ?? ""} placeholder="Tulis testimoni pelanggan di sini..." onUpdateField={onUpdateField} isEditorMode={isEditorMode} isSelected={isSelected} as="p" className={`text-sm leading-relaxed flex-1 italic font-light ${quoteClass}`} style={quoteStyle} multiline collapseSheetForInlineEdit={collapseSheetForInlineEdit} onEditingStateChange={onEditingStateChange} />
+                  <div className="flex items-center gap-3 pt-4 border-t border-stone-200/50">
+                    <div
+                      className="w-8 h-8 rounded-full flex items-center justify-center text-xs font-medium flex-shrink-0"
+                      style={{ background: t.avatar_color || accentColor, color: avatarTextColor(t.avatar_color || accentColor), opacity: 0.85 }}
+                    >
+                      {initials}
+                    </div>
+                    <div className="min-w-0">
+                      <InlineText section="testimonials" fieldKey={`items.${idx}.name`} value={t.name ?? ""} placeholder="Nama Pelanggan" onUpdateField={onUpdateField} isEditorMode={isEditorMode} isSelected={isSelected} as="p" className={`text-xs font-bold leading-tight ${nameClass}`} style={nameStyle} collapseSheetForInlineEdit={collapseSheetForInlineEdit} onEditingStateChange={onEditingStateChange} />
+                      {(t.role || isEditorMode) && <InlineText section="testimonials" fieldKey={`items.${idx}.role`} value={t.role ?? ""} placeholder="Jabatan / Peran (cth. Pelanggan)" onUpdateField={onUpdateField} isEditorMode={isEditorMode} isSelected={isSelected} as="p" className={`text-[10px] text-stone-400 ${roleClass}`} style={roleStyle} collapseSheetForInlineEdit={collapseSheetForInlineEdit} onEditingStateChange={onEditingStateChange} />}
+                    </div>
+                  </div>
+                </div>
+              );
+            }
+
+            // ─── 3. ELEGANT VARIANT ───
+            if (resolvedDesignVariant === "elegant") {
+              return (
+                <div
+                  key={idx}
+                  className={`relative group p-7 flex flex-col gap-5 bg-gradient-to-b from-white/50 to-white/10 backdrop-blur-sm border transition-all hover:shadow-lg hover:border-[var(--dt-primary)]/40 ${cardClass}`}
+                  style={{
+                    borderRadius: "16px",
+                    borderColor: "color-mix(in srgb, var(--dt-border) 40%, transparent)",
+                    boxShadow: "0 4px 20px -2px rgba(0, 0, 0, 0.03)",
+                    ...cardStyle,
+                  }}
+                >
+                  {deleteButton}
+                  <span className="text-4xl font-serif text-[var(--dt-primary)] leading-none -mb-4 opacity-40 select-none">“</span>
+                  <InlineText section="testimonials" fieldKey={`items.${idx}.quote`} value={t.quote ?? ""} placeholder="Tulis testimoni pelanggan di sini..." onUpdateField={onUpdateField} isEditorMode={isEditorMode} isSelected={isSelected} as="p" className={`text-sm leading-relaxed flex-1 font-serif italic ${quoteClass}`} style={quoteStyle} multiline collapseSheetForInlineEdit={collapseSheetForInlineEdit} onEditingStateChange={onEditingStateChange} />
+                  <div className="flex items-center gap-4 pt-3 border-t" style={{ borderColor: "color-mix(in srgb, var(--dt-border) 20%, transparent)" }}>
+                    <div
+                      className="w-10 h-10 rounded-full flex items-center justify-center text-xs font-semibold flex-shrink-0 shadow-inner"
+                      style={{ background: `linear-gradient(135deg, ${t.avatar_color || accentColor}, color-mix(in srgb, ${t.avatar_color || accentColor} 70%, black))`, color: avatarTextColor(t.avatar_color || accentColor) }}
+                    >
+                      {initials}
+                    </div>
+                    <div className="min-w-0">
+                      <InlineText section="testimonials" fieldKey={`items.${idx}.name`} value={t.name ?? ""} placeholder="Nama Pelanggan" onUpdateField={onUpdateField} isEditorMode={isEditorMode} isSelected={isSelected} as="p" className={`text-sm font-semibold tracking-wide ${nameClass}`} style={nameStyle} collapseSheetForInlineEdit={collapseSheetForInlineEdit} onEditingStateChange={onEditingStateChange} />
+                      {(t.role || isEditorMode) && <InlineText section="testimonials" fieldKey={`items.${idx}.role`} value={t.role ?? ""} placeholder="Jabatan / Peran (cth. Pelanggan)" onUpdateField={onUpdateField} isEditorMode={isEditorMode} isSelected={isSelected} as="p" className={`text-xs italic ${roleClass}`} style={roleStyle} collapseSheetForInlineEdit={collapseSheetForInlineEdit} onEditingStateChange={onEditingStateChange} />}
+                    </div>
+                  </div>
+                </div>
+              );
+            }
+
+            // ─── 4. GLASSMORPHIC VARIANT ───
+            if (resolvedDesignVariant === "glassmorphic") {
+              return (
+                <div
+                  key={idx}
+                  className={`relative group p-6 flex flex-col gap-4 bg-white/5 backdrop-blur-md border border-white/10 transition-all duration-300 hover:border-cyan-400/40 hover:bg-white/10 hover:shadow-[0_0_30px_rgba(34,211,238,0.15)] ${cardClass}`}
+                  style={{
+                    borderRadius: "20px",
+                    boxShadow: "0 8px 32px 0 rgba(0, 0, 0, 0.2)",
+                    ...cardStyle,
+                  }}
+                >
+                  {deleteButton}
+                  <span className="text-5xl font-mono text-cyan-400 leading-none -mb-5 opacity-40 select-none">“</span>
+                  <InlineText section="testimonials" fieldKey={`items.${idx}.quote`} value={t.quote ?? ""} placeholder="Tulis testimoni pelanggan di sini..." onUpdateField={onUpdateField} isEditorMode={isEditorMode} isSelected={isSelected} as="p" className={`text-sm leading-relaxed flex-1 font-light tracking-wide ${quoteClass}`} style={quoteStyle} multiline collapseSheetForInlineEdit={collapseSheetForInlineEdit} onEditingStateChange={onEditingStateChange} />
+                  <div className="flex items-center gap-3 pt-3 border-t border-white/10">
+                    <div
+                      className="w-10 h-10 rounded-full flex items-center justify-center text-xs font-bold flex-shrink-0 border border-cyan-400/30"
+                      style={{
+                        background: `radial-gradient(circle, ${t.avatar_color || accentColor} 0%, rgba(0,0,0,0.4) 100%)`,
+                        color: avatarTextColor(t.avatar_color || accentColor),
+                        boxShadow: `0 0 10px ${t.avatar_color || accentColor}33`,
+                      }}
+                    >
+                      {initials}
+                    </div>
+                    <div className="min-w-0">
+                      <InlineText section="testimonials" fieldKey={`items.${idx}.name`} value={t.name ?? ""} placeholder="Nama Pelanggan" onUpdateField={onUpdateField} isEditorMode={isEditorMode} isSelected={isSelected} as="p" className={`text-sm font-semibold text-white tracking-wide ${nameClass}`} style={nameStyle} collapseSheetForInlineEdit={collapseSheetForInlineEdit} onEditingStateChange={onEditingStateChange} />
+                      {(t.role || isEditorMode) && <InlineText section="testimonials" fieldKey={`items.${idx}.role`} value={t.role ?? ""} placeholder="Jabatan / Peran (cth. Pelanggan)" onUpdateField={onUpdateField} isEditorMode={isEditorMode} isSelected={isSelected} as="p" className={`text-xs text-slate-400 tracking-wider ${roleClass}`} style={roleStyle} collapseSheetForInlineEdit={collapseSheetForInlineEdit} onEditingStateChange={onEditingStateChange} />}
+                    </div>
+                  </div>
+                </div>
+              );
+            }
+
+            // ─── 5. CHAT / WHATSAPP VARIANT ───
+            if (resolvedDesignVariant === "chat") {
+              return (
+                <div
+                  key={idx}
+                  className={`relative group w-full max-w-[360px] mx-auto bg-[#efeae2] border border-[#d1d7db] shadow-md rounded-[24px] overflow-hidden flex flex-col select-none font-sans ${cardClass}`}
+                  style={{
+                    backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='80' height='80' viewBox='0 0 80 80'%3E%3Cg fill='%23c1b8aa' fill-opacity='0.15'%3E%3Cpath d='M10 20c2 0 3-1 3-3s-1-3-3-3-3 1-3 3 1 3 3 3zm0-4c1 0 1 .5 1 1s0 1-1 1-1-.5-1-1 0-1 1-1zm32 30c0-1.5 1-2.5 2.5-2.5S47 34.5 47 36s-1 2.5-2.5 2.5-2.5-1-2.5-2.5zm4 0c0-.5-.5-1-1.5-1s-1.5.5-1.5 1 .5 1 1.5 1 1.5-.5 1.5-1zM58 8c1.5 0 2.5 1 2.5 2.5S59.5 13 58 13s-2.5-1-2.5-2.5S56.5 8 58 8zm0 3c.5 0 1-.5 1-1s-.5-1-1-1-1 .5-1 1 .5 1 1 1z' fill='%23000'/%3E%3C/g%3E%3C/svg%3E")`,
+                    ...cardStyle,
+                  }}
+                >
+                  {isEditorMode && onUpdateField && (
+                    <button
+                      type="button"
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        const updated = testimonials.items.filter((_, i) => i !== idx);
+                        onUpdateField("testimonials", "items", updated);
+                      }}
+                      className="absolute top-2 right-12 w-7 h-7 rounded-full bg-red-600 hover:bg-red-700 text-white flex items-center justify-center opacity-80 group-hover:opacity-100 transition-all cursor-pointer z-30 shadow-md"
+                      title="Hapus percakapan testimoni ini"
+                    >
+                      <Trash2 className="w-3.5 h-3.5" />
+                    </button>
+                  )}
+                  {/* WhatsApp Header */}
+                  <div className="bg-[#075e54] text-white py-3 px-4 flex items-center justify-between gap-2 shadow-sm shrink-0">
+                    <div className="flex items-center gap-2 min-w-0">
+                      {/* Back Arrow */}
+                      <svg viewBox="0 0 24 24" className="w-4 h-4 fill-none stroke-current stroke-2 shrink-0">
+                        <line x1="19" y1="12" x2="5" y2="12"></line>
+                        <polyline points="12 19 5 12 12 5"></polyline>
+                      </svg>
+                      {/* Avatar */}
+                      <div
+                        className="w-8 h-8 rounded-full flex items-center justify-center text-xs font-bold shrink-0 border border-border"
+                        style={{ background: t.avatar_color || accentColor, color: avatarTextColor(t.avatar_color || accentColor) }}
+                      >
+                        {initials}
+                      </div>
+                      {/* Contact Info */}
+                      <div className="min-w-0 leading-tight">
+                        <h4 className="text-xs font-bold truncate"><InlineText section="testimonials" fieldKey={`items.${idx}.name`} value={t.name ?? ""} placeholder="Nama Pelanggan" onUpdateField={onUpdateField} isEditorMode={isEditorMode} isSelected={isSelected} as="span" collapseSheetForInlineEdit={collapseSheetForInlineEdit} onEditingStateChange={onEditingStateChange} /></h4>
+                        <span className="text-[10px] text-emerald-100 opacity-90 block">Online</span>
+                      </div>
+                    </div>
+                    {/* Header Icons */}
+                    <div className="flex items-center gap-3 text-white/90">
+                      {/* Video Camera Icon */}
+                      <svg viewBox="0 0 24 24" className="w-3.5 h-3.5 fill-none stroke-current stroke-2 shrink-0">
+                        <polygon points="23 7 16 12 23 17 23 7"></polygon>
+                        <rect x="1" y="5" width="15" height="14" rx="2" ry="2"></rect>
+                      </svg>
+                      {/* Phone Icon */}
+                      <svg viewBox="0 0 24 24" className="w-3.5 h-3.5 fill-none stroke-current stroke-2 shrink-0">
+                        <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path>
+                      </svg>
+                      {/* More Vert Icon */}
+                      <svg viewBox="0 0 24 24" className="w-3.5 h-3.5 fill-none stroke-current stroke-2 shrink-0">
+                        <circle cx="12" cy="12" r="1"></circle>
+                        <circle cx="12" cy="5" r="1"></circle>
+                        <circle cx="12" cy="19" r="1"></circle>
+                      </svg>
+                    </div>
+                  </div>
+
+                  {/* Chat Area */}
+                  <div className="flex-1 p-4 flex flex-col gap-3 overflow-y-auto min-h-[220px]">
+                    {/* Date Divider */}
+                    <div className="mx-auto bg-white/70 backdrop-blur-sm px-2 py-0.5 rounded text-[9px] text-gray-500 font-semibold tracking-wide shadow-sm">
+                      HARI INI
+                    </div>
+
+                    {/* Left Message Bubble (Business Prompt) */}
+                    <div className="bg-white text-gray-800 rounded-2xl rounded-tl-none p-3 shadow-sm max-w-[85%] self-start relative border border-gray-200/50 flex flex-col gap-1">
+                      <p className="text-[11px] leading-normal font-normal">
+                        Halo Kak {t.name || "Pelanggan"}, bagaimana kesan Kakak setelah menggunakan layanan kami? Kami sangat menghargai feedback Kakak! 😊
+                      </p>
+                      <span className="text-[8px] text-gray-400 self-end mt-0.5 leading-none">11:20 AM</span>
+                    </div>
+
+                    {/* Right Message Bubble (Client Testimonial) */}
+                    <div className="bg-[#d9fdd3] text-gray-800 rounded-2xl rounded-tr-none p-3 shadow-sm max-w-[85%] self-end relative border border-[#c1e8ba]/40 flex flex-col gap-1">
+                      <p className={`text-[11px] leading-normal font-normal ${quoteClass}`} style={quoteStyle}>
+                        <InlineText section="testimonials" fieldKey={`items.${idx}.quote`} value={t.quote ?? ""} placeholder="Tulis testimoni pelanggan di sini..." onUpdateField={onUpdateField} isEditorMode={isEditorMode} isSelected={isSelected} as="span" collapseSheetForInlineEdit={collapseSheetForInlineEdit} onEditingStateChange={onEditingStateChange} />
+                      </p>
+                      <div className="flex items-center gap-1 self-end mt-0.5 leading-none">
+                        <span className="text-[8px] text-gray-500">11:22 AM</span>
+                        {/* WhatsApp Blue Double Checkmark */}
+                        <svg viewBox="0 0 24 24" className="w-3 h-3 fill-[#34b7f1] shrink-0">
+                          <path d="M0.5 12l5 5 11-11-1.5-1.5-9.5 9.5-3.5-3.5-1.5 1.5zm6.5 5l1.5 1.5 11-11-1.5-1.5-9.5 9.5-1.5-1.5zm11.5-7.5l-1.5-1.5-6 6 1.5 1.5 6-6z" />
+                        </svg>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Input Mock */}
+                  <div className="p-2 bg-transparent flex items-center gap-1.5 shrink-0">
+                    <div className="flex-1 bg-white rounded-full py-1.5 px-3 flex items-center gap-2 shadow-sm border border-gray-200/50 min-w-0">
+                      {/* Smiley Emoji */}
+                      <svg viewBox="0 0 24 24" className="w-4 h-4 fill-none stroke-gray-400 stroke-2 shrink-0">
+                        <circle cx="12" cy="12" r="10"></circle>
+                        <path d="M8 14s1.5 2 4 2 4-2 4-2"></path>
+                        <line x1="9" y1="9" x2="9.01" y2="9"></line>
+                        <line x1="15" y1="9" x2="15.01" y2="9"></line>
+                      </svg>
+                      {/* Input Placeholder */}
+                      <span className="text-[10px] text-gray-400 flex-1 truncate">Ketik pesan...</span>
+                      {/* Attachment Icon */}
+                      <svg viewBox="0 0 24 24" className="w-4 h-4 fill-none stroke-gray-400 stroke-2 rotate-45 shrink-0">
+                        <path d="M21.44 11.05l-9.19 9.19a6 6 0 0 1-8.49-8.49l9.19-9.19a4 4 0 0 1 5.66 5.66l-9.2 9.19a2 2 0 0 1-2.83-2.83l8.49-8.48"></path>
+                      </svg>
+                      {/* Camera Icon */}
+                      <svg viewBox="0 0 24 24" className="w-4 h-4 fill-none stroke-gray-400 stroke-2 shrink-0">
+                        <path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"></path>
+                        <circle cx="12" cy="13" r="4"></circle>
+                      </svg>
+                    </div>
+                    {/* Microphone Circle Button */}
+                    <div className="w-7 h-7 bg-[#00a884] rounded-full flex items-center justify-center text-white shadow-sm shrink-0">
+                      <svg viewBox="0 0 24 24" className="w-3.5 h-3.5 fill-none stroke-current stroke-2">
+                        <path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"></path>
+                        <path d="M19 10v2a7 7 0 0 1-14 0v-2"></path>
+                        <line x1="12" y1="19" x2="12" y2="23"></line>
+                        <line x1="8" y1="23" x2="16" y2="23"></line>
+                      </svg>
+                    </div>
+                  </div>
+                </div>
+              );
+            }
+
+            // ─── 6. STANDARD CARD (Default) ───
+            const cardClasses = `relative group rounded-2xl p-6 flex flex-col gap-4 shadow-sm hover:shadow-md transition-shadow ${cardClass}`;
+            const quoteClasses = `text-sm leading-relaxed flex-1 ${quoteClass}`;
+            const nameClasses = `text-sm font-bold leading-tight ${nameClass}`;
+            const roleClasses = `text-xs ${roleClass}`;
+
+            return (
+              <div key={idx} className={cardClasses} style={cardStyle}>
+                {deleteButton}
+                <InlineText section="testimonials" fieldKey={`items.${idx}.quote`} value={t.quote ?? ""} placeholder="Tulis testimoni pelanggan di sini..." onUpdateField={onUpdateField} isEditorMode={isEditorMode} isSelected={isSelected} as="p" className={quoteClasses} style={{ color: "var(--dt-text)", ...quoteStyle }} multiline collapseSheetForInlineEdit={collapseSheetForInlineEdit} onEditingStateChange={onEditingStateChange} />
+                <div className="flex items-center gap-3 pt-2" style={{ borderTop: `1px solid color-mix(in srgb, ${accentColor} 15%, transparent)` }}>
+                  <div
+                    className="w-10 h-10 rounded-full flex items-center justify-center text-xs font-bold flex-shrink-0"
+                    style={{ background: t.avatar_color || accentColor, color: avatarTextColor(t.avatar_color || accentColor) }}
+                  >
+                    {initials}
+                  </div>
+                  <div className="min-w-0">
+                    <InlineText section="testimonials" fieldKey={`items.${idx}.name`} value={t.name ?? ""} placeholder="Nama Pelanggan" onUpdateField={onUpdateField} isEditorMode={isEditorMode} isSelected={isSelected} as="p" className={nameClasses} style={{ color: "var(--dt-text)", ...nameStyle }} collapseSheetForInlineEdit={collapseSheetForInlineEdit} onEditingStateChange={onEditingStateChange} />
+                    {(t.role || isEditorMode) && <InlineText section="testimonials" fieldKey={`items.${idx}.role`} value={t.role ?? ""} placeholder="Jabatan / Peran (cth. Pelanggan)" onUpdateField={onUpdateField} isEditorMode={isEditorMode} isSelected={isSelected} as="p" className={roleClasses} style={{ color: "var(--dt-text-muted)", ...roleStyle }} collapseSheetForInlineEdit={collapseSheetForInlineEdit} onEditingStateChange={onEditingStateChange} />}
+                  </div>
+                </div>
+              </div>
+            );
+          })}
+          {isEditorMode && onAddItem && (
+            <InlineAddTile
+              label="Tambah Testimoni"
+              variant="card"
+              className={`rounded-2xl min-h-[200px] ${
+                variant === "carousel" ? "min-w-[280px] shrink-0 snap-start" : "w-full h-full"
+              }`}
+              style={{ borderRadius: "var(--dt-radius-lg)" }}
+              onClick={onAddItem}
+            />
+          )}
+        </div>
+      </div>
+    </section>
+  );
+};
+
+// ─── Menu Catalog Card ────────────────────────────────────────────────────────
+
+interface MenuCatalogCardProps {
+  itemId: string;
+  itemName: string;
+  itemPrice?: string | null;
+  itemPriceAmount?: number | null;
+  itemPriceDisplay?: string | null;
+  itemPromoPriceAmount?: number | null;
+  itemPromoPriceDisplay?: string | null;
+  discountLabel?: string | null;
+  itemDescription?: string | null;
+  category: string;
+  image_url?: string | null;
+  image_urls?: string[] | null;
+  image_credit?: ImageCredit | null;
+  badge?: string | null;
+  is_available?: boolean;
+  variant_groups?: import("./types").ItemVariantGroup[] | null;
+  icon: React.ElementType;
+  layout?: "grid" | "compact";
+  className?: string;
+  style?: React.CSSProperties;
+  imageClassName?: string;
+  imageStyle?: React.CSSProperties;
+  placeholderClassName?: string;
+  placeholderStyle?: React.CSSProperties;
+  placeholderIconClassName?: string;
+  placeholderIconStyle?: React.CSSProperties;
+  contentClassName?: string;
+  contentStyle?: React.CSSProperties;
+  headerClassName?: string;
+  headerStyle?: React.CSSProperties;
+  titleClassName?: string;
+  titleStyle?: React.CSSProperties;
+  descriptionClassName?: string;
+  descriptionStyle?: React.CSSProperties;
+  priceClassName?: string;
+  priceStyle?: React.CSSProperties;
+  badgeClassName?: string;
+  badgeStyle?: React.CSSProperties;
+  buttonClassName?: string;
+  buttonStyle?: React.CSSProperties;
+  features?: string[] | null;
+  maxFeatures?: number;
+  capacity?: number | null;
+  tags?: string[] | null;
+  delivery_platforms?: { name: string; url: string }[] | null;
+  onUpdateField?: (section: string, key: string, value: any) => void;
+  isEditorMode?: boolean;
+  isSelected?: boolean;
+  collapseSheetForInlineEdit?: () => void;
+  onEditingStateChange?: (isEditing: boolean) => void;
+  editSection?: string;
+  pathBase?: string;
+  onDelete?: () => void;
+}
+
+function MenuCatalogCard({
+  itemId, itemName, itemPrice, itemPriceAmount, itemPriceDisplay, itemPromoPriceAmount, itemPromoPriceDisplay, discountLabel,
+  itemDescription, category, image_url, image_urls, image_credit, badge, is_available = true, variant_groups, icon,
+  layout = "grid", className, style, imageClassName, imageStyle, placeholderClassName,
+  placeholderStyle, placeholderIconClassName, placeholderIconStyle, contentClassName,
+  contentStyle, headerClassName, headerStyle, titleClassName, titleStyle,
+  descriptionClassName, descriptionStyle, priceClassName, priceStyle, badgeClassName,
+  badgeStyle, buttonClassName, buttonStyle, features, maxFeatures, capacity, tags, delivery_platforms,
+  onUpdateField, isEditorMode, isSelected, collapseSheetForInlineEdit, onEditingStateChange, editSection, pathBase, onDelete,
+}: MenuCatalogCardProps) {
+  const { t } = useI18n();
+  const fileInputRef = useRef<HTMLInputElement>(null);
+  const [uploadingImage, setUploadingImage] = useState(false);
+  const [isExpanded, setIsExpanded] = useState(false);
+  const [activeImgIdx, setActiveImgIdx] = useState(0);
+  const [quickViewOpen, setQuickViewOpen] = useState(false);
+
+  const displayPrice = itemPriceDisplay || itemPrice;
+  const showPrice = (displayPrice && !isPlaceholderPrice(displayPrice)) || Boolean(isEditorMode);
+  const hasPromo = typeof itemPromoPriceAmount === "number" && itemPromoPriceAmount > 0 &&
+    (typeof itemPriceAmount !== "number" || itemPriceAmount <= 0 || itemPromoPriceAmount < itemPriceAmount);
+  const isOutOfStock = is_available === false;
+
+  const handleTriggerUpload = (e: React.MouseEvent | React.TouchEvent) => {
+    e.stopPropagation();
+    e.preventDefault();
+    collapseSheetForInlineEdit?.();
+    fileInputRef.current?.click();
+  };
+
+  const handleFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file || !onUpdateField || !editSection || !pathBase) return;
+
+    try {
+      setUploadingImage(true);
+      const secureUrl = await uploadImageFile(file);
+      onUpdateField(editSection, `${pathBase}.image_url`, secureUrl);
+    } catch (err: any) {
+      console.error("Upload catalog/menu item image error:", err);
+    } finally {
+      setUploadingImage(false);
+      if (fileInputRef.current) {
+        fileInputRef.current.value = "";
+      }
+    }
+  };
+
+  const allImages = Array.from(
+    new Set([image_url, ...(image_urls || [])].filter((x): x is string => Boolean(x && typeof x === "string" && x.trim() !== "")))
+  );
+  const currentImg = allImages[activeImgIdx] || allImages[0] || image_url;
+
+  const imageNode = currentImg ? (
+    <div className="relative overflow-hidden group/img">
+      <img
+        src={currentImg}
+        alt={itemName}
+        className={`${imageClassName || ""} ${isOutOfStock ? "opacity-60 grayscale-[30%]" : ""}`}
+        style={{ ...imageStyle, cursor: isOutOfStock ? "default" : "pointer" }}
+        onClick={() => { if (!isOutOfStock) setQuickViewOpen(true); }}
+        onError={(e) => { e.currentTarget.style.display = 'none'; }}
+      />
+      {/* Floating badge overlay — top-left */}
+      {isOutOfStock ? (
+        <span className="absolute top-2.5 left-2.5 z-20 inline-flex items-center text-[9px] font-black uppercase tracking-widest px-2.5 py-1 rounded-full shadow-lg select-none" style={{ background: "rgba(220,38,38,0.92)", color: "#fff", backdropFilter: "blur(4px)" }}>
+          Habis
+        </span>
+      ) : badge ? (
+        <span className={`absolute top-2.5 left-2.5 z-20 inline-flex items-center select-none ${badgeClassName ?? "text-[9px] font-black uppercase tracking-widest px-2.5 py-1 rounded-full shadow-lg"}`} style={badgeStyle ?? { background: "var(--dt-primary)", color: "var(--dt-cta-text, #fff)", backdropFilter: "blur(4px)" }}>
+          {badge}
+        </span>
+      ) : null}
+      {/* Multi-image indicators/bullets */}
+      {allImages.length > 1 && (
+        <div className="absolute bottom-2 left-2 right-2 flex items-center justify-between pointer-events-none z-10">
+          <div className="flex items-center gap-1 bg-black/50 backdrop-blur-sm px-1.5 py-0.5 rounded-full pointer-events-auto">
+            {allImages.map((_, idx) => (
+              <button
+                key={idx}
+                type="button"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  setActiveImgIdx(idx);
+                }}
+                className={`w-1.5 h-1.5 rounded-full transition-all cursor-pointer ${
+                  idx === activeImgIdx ? "bg-white scale-125" : "bg-white/40 hover:bg-white/70"
+                }`}
+                aria-label={`Foto ${idx + 1}`}
+              />
+            ))}
+          </div>
+          <span className="text-[9px] font-bold text-white/90 bg-black/50 backdrop-blur-sm px-1.5 py-0.5 rounded-full">
+            {allImages.length} Foto
+          </span>
+        </div>
+      )}
+      {image_credit?.name && (
+        <div className="absolute bottom-1 right-2 z-10">
+          <PhotoCredit
+            credit={image_credit}
+            section={editSection}
+            fieldKey={pathBase ? pathBase + ".image_credit.name" : undefined}
+            onUpdateField={onUpdateField}
+            isEditorMode={isEditorMode}
+            isSelected={isSelected}
+            collapseSheetForInlineEdit={collapseSheetForInlineEdit}
+          />
+        </div>
+      )}
+
+      {/* Inline photo upload overlay in editor mode */}
+      {isEditorMode && onUpdateField && editSection && pathBase && (
+        <>
+          <input
+            type="file"
+            ref={fileInputRef}
+            onClick={(e) => e.stopPropagation()}
+            onPointerDown={(e) => e.stopPropagation()}
+            onTouchStart={(e) => e.stopPropagation()}
+            onChange={handleFileChange}
+            accept="image/*"
+            className="hidden"
+          />
+          <div onClick={(e) => e.stopPropagation()} className={`absolute inset-0 z-30 flex items-center justify-center bg-black/40 backdrop-blur-[1.5px] opacity-0 group-hover/img:opacity-100 transition-all duration-200 pointer-events-none group-hover/img:pointer-events-auto ${isSelected ? "opacity-100 pointer-events-auto" : ""} pointer-coarse:opacity-100 pointer-coarse:pointer-events-auto`}>
+            <button
+              type="button"
+              onClick={handleTriggerUpload}
+              onPointerDown={(e) => e.stopPropagation()}
+              onTouchStart={(e) => e.stopPropagation()}
+              disabled={uploadingImage}
+              className="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-slate-900/90 text-white text-xs font-semibold shadow-xl border border-white/20 hover:bg-slate-950 hover:scale-105 active:scale-95 transition-all cursor-pointer disabled:opacity-50 backdrop-blur-sm"
+            >
+              {uploadingImage ? (
+                <Loader2 className="w-3.5 h-3.5 animate-spin text-white" />
+              ) : (
+                <Camera className="w-3.5 h-3.5 text-white" />
+              )}
+              <span>{uploadingImage ? t("dashboard.sitesEditor.uploadingPhoto") : t("dashboard.sitesEditor.changePhoto")}</span>
+            </button>
+          </div>
+        </>
+      )}
+    </div>
+  ) : (
+    <div
+      className={`${placeholderClassName || "w-full h-44 flex flex-col items-center justify-center relative overflow-hidden"} ${isOutOfStock ? "opacity-60 grayscale-[30%]" : ""}`}
+      style={{
+        background: placeholderStyle?.background || `linear-gradient(135deg, color-mix(in srgb, var(--dt-primary) 14%, var(--dt-surface)) 0%, color-mix(in srgb, var(--dt-surface) 96%, transparent) 100%)`,
+        ...placeholderStyle,
+      }}
+    >
+      {/* Floating badge overlay on placeholder too */}
+      {isOutOfStock ? (
+        <span className="absolute top-2.5 left-2.5 z-20 inline-flex items-center text-[9px] font-black uppercase tracking-widest px-2.5 py-1 rounded-full shadow-lg select-none" style={{ background: "rgba(220,38,38,0.92)", color: "#fff", backdropFilter: "blur(4px)" }}>
+          Habis
+        </span>
+      ) : badge ? (
+        <span className={`absolute top-2.5 left-2.5 z-20 inline-flex items-center select-none ${badgeClassName ?? "text-[9px] font-black uppercase tracking-widest px-2.5 py-1 rounded-full shadow-lg"}`} style={badgeStyle ?? { background: "var(--dt-primary)", color: "var(--dt-cta-text, #fff)", backdropFilter: "blur(4px)" }}>
+          {badge}
+        </span>
+      ) : null}
+      <div className="w-12 h-12 rounded-2xl flex items-center justify-center border border-white/10 bg-muted/50 shadow-sm">
+        {React.createElement(icon, {
+          className: placeholderIconClassName || "w-6 h-6",
+          style: placeholderIconStyle || { color: "var(--dt-primary)", opacity: 0.9 }
+        })}
+      </div>
+      {category && (
+        <InlineText section={editSection ?? ""} fieldKey={pathBase ? pathBase + ".category" : ""} value={category ?? ""} onUpdateField={onUpdateField} isEditorMode={isEditorMode} isSelected={isSelected} as="span" className="mt-2 text-[10px] font-bold uppercase tracking-wider opacity-60" style={{ color: "var(--dt-text)" }} collapseSheetForInlineEdit={collapseSheetForInlineEdit} onEditingStateChange={onEditingStateChange} />
+      )}
+
+      {/* Inline photo upload button on placeholder in editor mode */}
+      {isEditorMode && onUpdateField && editSection && pathBase && (
+        <>
+          <input
+            type="file"
+            ref={fileInputRef}
+            onClick={(e) => e.stopPropagation()}
+            onPointerDown={(e) => e.stopPropagation()}
+            onTouchStart={(e) => e.stopPropagation()}
+            onChange={handleFileChange}
+            accept="image/*"
+            className="hidden"
+          />
+          <button
+            type="button"
+            onClick={handleTriggerUpload}
+            onPointerDown={(e) => e.stopPropagation()}
+            onTouchStart={(e) => e.stopPropagation()}
+            disabled={uploadingImage}
+            className="mt-2.5 z-30 flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-primary text-primary-foreground text-xs font-bold shadow-md hover:brightness-110 active:scale-95 transition-all cursor-pointer disabled:opacity-50"
+          >
+            {uploadingImage ? (
+              <Loader2 className="w-3.5 h-3.5 animate-spin" />
+            ) : (
+              <Upload className="w-3.5 h-3.5" />
+            )}
+            <span>{uploadingImage ? t("dashboard.sitesEditor.uploadingPhoto") : t("dashboard.sitesEditor.addPhoto")}</span>
+          </button>
+        </>
+      )}
+    </div>
+  );
+
+  const header = (
+    <div className={headerClassName} style={headerStyle}>
+      <div className="min-w-0 flex-1">
+        {/* Badge zone removed — badge is now a floating overlay on the image */}
+        <InlineText section={editSection ?? ""} fieldKey={pathBase ? pathBase + ".name" : ""} value={itemName ?? ""} onUpdateField={onUpdateField} isEditorMode={isEditorMode} isSelected={isSelected} as="h4" className={titleClassName} style={titleStyle} collapseSheetForInlineEdit={collapseSheetForInlineEdit} onEditingStateChange={onEditingStateChange} />
+        {showPrice && headerClassName?.includes("flex-col") && (
+          hasPromo ? (
+            <div className={`${priceClassName ?? ""} flex items-center gap-1.5 flex-wrap mt-1`} style={priceStyle}>
+              <InlineText section={editSection ?? ""} fieldKey={pathBase ? pathBase + ".discount_label" : ""} value={discountLabel || "Promo"} onUpdateField={onUpdateField} isEditorMode={isEditorMode} isSelected={isSelected} as="span" className="text-[9px] font-bold px-1.5 py-0.5 rounded-full" style={{ background: "color-mix(in srgb, var(--dt-primary) 16%, transparent)", color: "var(--dt-primary)" }} collapseSheetForInlineEdit={collapseSheetForInlineEdit} onEditingStateChange={onEditingStateChange} />
+              <InlineText section={editSection ?? ""} fieldKey={pathBase ? pathBase + ".promo_price_display" : ""} value={itemPromoPriceDisplay || displayPrice} onUpdateField={onUpdateField} isEditorMode={isEditorMode} isSelected={isSelected} as="span" collapseSheetForInlineEdit={collapseSheetForInlineEdit} onEditingStateChange={onEditingStateChange} />
+              <span className="line-through opacity-45 text-xs">{displayPrice}</span>
+            </div>
+          ) : (
+            <InlineText section={editSection ?? ""} fieldKey={pathBase ? pathBase + ".price" : ""} value={displayPrice ?? ""} placeholder="+ Harga" onUpdateField={onUpdateField} isEditorMode={isEditorMode} isSelected={isSelected} as="span" className={priceClassName} style={{ ...priceStyle, marginTop: "0.375rem", display: "inline-block" }} collapseSheetForInlineEdit={collapseSheetForInlineEdit} onEditingStateChange={onEditingStateChange} />
+          )
+        )}
+      </div>
+      {showPrice && !headerClassName?.includes("flex-col") && (
+        hasPromo ? (
+          <div className={`${priceClassName ?? ""} flex items-center gap-1.5 whitespace-nowrap shrink-0`} style={priceStyle}>
+            <InlineText section={editSection ?? ""} fieldKey={pathBase ? pathBase + ".discount_label" : ""} value={discountLabel || "Promo"} onUpdateField={onUpdateField} isEditorMode={isEditorMode} isSelected={isSelected} as="span" className="text-[9px] font-bold px-1.5 py-0.5 rounded-full" style={{ background: "color-mix(in srgb, var(--dt-primary) 16%, transparent)", color: "var(--dt-primary)" }} collapseSheetForInlineEdit={collapseSheetForInlineEdit} onEditingStateChange={onEditingStateChange} />
+            <InlineText section={editSection ?? ""} fieldKey={pathBase ? pathBase + ".promo_price_display" : ""} value={itemPromoPriceDisplay || displayPrice} onUpdateField={onUpdateField} isEditorMode={isEditorMode} isSelected={isSelected} as="span" collapseSheetForInlineEdit={collapseSheetForInlineEdit} onEditingStateChange={onEditingStateChange} />
+            <span className="line-through opacity-45 text-xs">{displayPrice}</span>
+          </div>
+        ) : (
+          <InlineText section={editSection ?? ""} fieldKey={pathBase ? pathBase + ".price" : ""} value={displayPrice ?? ""} placeholder="+ Harga" onUpdateField={onUpdateField} isEditorMode={isEditorMode} isSelected={isSelected} as="span" className={priceClassName} style={priceStyle} collapseSheetForInlineEdit={collapseSheetForInlineEdit} onEditingStateChange={onEditingStateChange} />
+        )
+      )}
+    </div>
+  );
+
+  const isLong = itemDescription && itemDescription.length > 90;
+  const displayDescription = isLong && !isExpanded
+    ? itemDescription.replace(/\n+/g, " ").substring(0, 80).trim() + "..."
+    : itemDescription;
+
+  const descriptionElement = (editSection && pathBase && isEditorMode) ? (
+    <InlineText section={editSection} fieldKey={pathBase + ".description"} value={itemDescription ?? ""} placeholder="+ Deskripsi" onUpdateField={onUpdateField} isEditorMode={isEditorMode} isSelected={isSelected} as="p" className={descriptionClassName} style={{ ...descriptionStyle, whiteSpace: "pre-wrap" }} multiline collapseSheetForInlineEdit={collapseSheetForInlineEdit} onEditingStateChange={onEditingStateChange} />
+  ) : itemDescription ? (
+    <p className={descriptionClassName} style={{ ...descriptionStyle, whiteSpace: "pre-wrap" }}>
+      {displayDescription}
+      {isLong && (
+        <button
+          type="button"
+          onClick={(e) => { e.stopPropagation(); setIsExpanded(!isExpanded); }}
+          className="ml-1 text-[11px] font-semibold underline text-slate-500 hover:text-slate-850 dark:text-slate-400 dark:hover:text-slate-200 transition-colors inline-block focus:outline-none cursor-pointer"
+        >
+          {isExpanded ? "Sembunyikan" : "Selengkapnya"}
+        </button>
+      )}
+    </p>
+  ) : null;
+
+  const tagsAndPlatforms = (
+    <>
+      {tags && tags.length > 0 && (
+        <div className="mt-2 flex flex-wrap gap-1.5">
+          {tags.map((tag, ti) => (
+            <InlineText key={ti} section={editSection ?? ""} fieldKey={pathBase ? pathBase + ".tags." + ti : ""} value={tag ?? ""} onUpdateField={onUpdateField} isEditorMode={isEditorMode} isSelected={isSelected} as="span" className="inline-flex items-center text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-md" style={{ background: "color-mix(in srgb, var(--dt-primary) 12%, transparent)", color: "var(--dt-primary)" }} collapseSheetForInlineEdit={collapseSheetForInlineEdit} onEditingStateChange={onEditingStateChange} />
+          ))}
+        </div>
+      )}
+      {delivery_platforms && delivery_platforms.length > 0 && (
+        <div className="mt-2 flex flex-wrap gap-1.5">
+          {delivery_platforms.map((dp, di) => (
+            <a
+              key={di}
+              href={dp.url}
+              target="_blank"
+              rel="noopener noreferrer"
+              onClick={(e) => e.stopPropagation()}
+              className="inline-flex items-center gap-1.5 text-[10px] font-bold px-2.5 py-1 rounded-lg border transition-all hover:brightness-110"
+              style={{
+                borderColor: "color-mix(in srgb, var(--dt-primary) 25%, transparent)",
+                background: "color-mix(in srgb, var(--dt-primary) 8%, transparent)",
+                color: "var(--dt-primary)",
+              }}
+            >
+              <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 shrink-0" />
+              <InlineText section={editSection ?? ""} fieldKey={pathBase ? pathBase + ".delivery_platforms." + di + ".name" : ""} value={dp.name || "Order Online"} onUpdateField={onUpdateField} isEditorMode={isEditorMode} isSelected={isSelected} as="span" collapseSheetForInlineEdit={collapseSheetForInlineEdit} onEditingStateChange={onEditingStateChange} />
+            </a>
+          ))}
+        </div>
+      )}
+    </>
+  );
+
+  const quickViewTrigger = (
+    <button
+      type="button"
+      onClick={(e) => { e.stopPropagation(); e.preventDefault(); setQuickViewOpen(true); }}
+      onPointerDown={(e) => e.stopPropagation()}
+      className={`absolute top-2.5 left-2.5 z-40 w-8 h-8 rounded-full flex items-center justify-center bg-slate-900/70 text-white backdrop-blur-sm shadow-md border border-white/20 hover:bg-slate-900 transition-all cursor-pointer ${isEditorMode ? "opacity-100" : "opacity-0 group-hover:opacity-100"} pointer-coarse:opacity-100`}
+      aria-label={t("dashboard.sitesKatalog.quickView", "Lihat Detail")}
+      title={t("dashboard.sitesKatalog.quickView", "Lihat Detail")}
+    >
+      <Eye className="w-4 h-4" />
+    </button>
+  );
+
+  const quickViewModal = (
+    <ProductQuickView
+      open={quickViewOpen}
+      onClose={() => setQuickViewOpen(false)}
+      icon={icon}
+      item={{
+        id: itemId, name: itemName,
+        price: itemPrice, price_amount: itemPriceAmount, price_display: itemPriceDisplay,
+        promo_price_amount: itemPromoPriceAmount, promo_price_display: itemPromoPriceDisplay,
+        discount_label: discountLabel, description: itemDescription, category,
+        image_url, image_urls, image_credit, badge, is_available, variant_groups,
+        features, capacity, tags, delivery_platforms,
+      }}
+      editSection={editSection}
+      pathBase={pathBase}
+      onUpdateField={onUpdateField}
+      isEditorMode={isEditorMode}
+      isSelected={isSelected}
+      collapseSheetForInlineEdit={collapseSheetForInlineEdit}
+      onEditingStateChange={onEditingStateChange}
+    />
+  );
+
+  if (layout === "compact") {
+    return (
+      <div className={`relative group cursor-pointer ${className || ""}`} style={style} onClick={() => setQuickViewOpen(true)}>
+        {isEditorMode && onDelete && (
+          <InlineDeleteButton onDelete={onDelete} className="absolute top-2.5 right-2.5 z-40" />
+        )}
+        {quickViewTrigger}
+        <div className="flex items-start gap-4 h-full">
+          <div className="flex-shrink-0">{imageNode}</div>
+          <div className="min-w-0 flex-1 flex flex-col h-full" style={contentStyle}>
+            {header}
+            {descriptionElement}
+            {tagsAndPlatforms}
+            <div className="mt-auto pt-2" onClick={(e) => e.stopPropagation()}>
+              <AddToCartButton
+                itemId={itemId}
+                itemName={itemName}
+                itemPrice={displayPrice ?? null}
+                itemPriceAmount={itemPriceAmount}
+                itemPriceDisplay={displayPrice}
+                itemPromoPriceAmount={itemPromoPriceAmount}
+                itemPromoPriceDisplay={itemPromoPriceDisplay}
+                discountLabel={discountLabel}
+                category={category}
+                variant_groups={variant_groups}
+                className={buttonClassName}
+                style={buttonStyle}
+                disabled={isOutOfStock}
+              />
+            </div>
+          </div>
+        </div>
+        {quickViewModal}
+      </div>
+    );
+  }
+
+  return (
+    <div className={`relative group cursor-pointer ${className || ""} flex flex-col h-full`} style={style} onClick={() => setQuickViewOpen(true)}>
+      {isEditorMode && onDelete && (
+        <InlineDeleteButton onDelete={onDelete} className="absolute top-2.5 right-2.5 z-40" />
+      )}
+      {quickViewTrigger}
+      {imageNode}
+      <div className={`${contentClassName || ""} flex-grow flex flex-col`} style={contentStyle}>
+        {header}
+        {descriptionElement}
+        {capacity != null && capacity > 0 && (
+          <div className="mt-2">
+            <span className="inline-flex items-center gap-1 text-[11px] font-semibold px-2 py-0.5 rounded-full" style={{ background: "color-mix(in srgb, var(--dt-primary) 12%, transparent)", color: "var(--dt-primary)" }}>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" className="w-3 h-3"><circle cx="9" cy="7" r="2"/><path d="M3 21v-1a6 6 0 0 1 12 0v1"/><circle cx="17" cy="7" r="2"/><path d="M21 21v-1a5 5 0 0 0-3-4.6"/></svg>
+              s/d <InlineText section={editSection ?? ""} fieldKey={pathBase ? pathBase + ".capacity" : ""} value={String(capacity)} onUpdateField={onUpdateField} isEditorMode={isEditorMode} isSelected={isSelected} as="span" collapseSheetForInlineEdit={collapseSheetForInlineEdit} onEditingStateChange={onEditingStateChange} /> tamu
+            </span>
+          </div>
+        )}
+        {(() => {
+          const hasMaxFeatures = typeof maxFeatures === "number";
+          const displayedFeatures = hasMaxFeatures && !isEditorMode
+            ? (features ?? []).slice(0, maxFeatures)
+            : (features ?? []);
+          const extraFeaturesCount = hasMaxFeatures && !isEditorMode && features && features.length > maxFeatures
+            ? features.length - maxFeatures
+            : 0;
+          const showFeaturesList = (displayedFeatures && displayedFeatures.length > 0) ||
+            (isEditorMode && editSection === "catalog" && onUpdateField && pathBase && (!hasMaxFeatures || maxFeatures > 0));
+
+          if (!showFeaturesList) return null;
+
+          return (
+            <ul className="mt-2 flex flex-wrap gap-1.5 items-center">
+              {displayedFeatures.map((f, fi) => (
+                <li
+                  key={fi}
+                  className="group/feat relative flex items-center gap-1 text-[11px] font-medium px-2 py-0.5 rounded-full"
+                  style={{ background: "color-mix(in srgb, var(--dt-primary) 10%, transparent)", color: "var(--dt-primary)" }}
+                >
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" className="w-3 h-3 flex-shrink-0 pointer-events-none"><polyline points="20 6 9 17 4 12"/></svg>
+                  <InlineText
+                    section={editSection ?? ""}
+                    fieldKey={pathBase ? pathBase + ".features." + fi : ""}
+                    value={f ?? ""}
+                    onUpdateField={onUpdateField}
+                    isEditorMode={isEditorMode}
+                    isSelected={isSelected}
+                    as="span"
+                    collapseSheetForInlineEdit={collapseSheetForInlineEdit}
+                    onEditingStateChange={onEditingStateChange}
+                  />
+                  {isEditorMode && onUpdateField && editSection && pathBase && (
+                    <button
+                      type="button"
+                      title="Hapus fitur"
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        const nextFeatures = (features || []).filter((_, i) => i !== fi);
+                        onUpdateField(editSection, `${pathBase}.features`, nextFeatures);
+                      }}
+                      className="opacity-0 group-hover/feat:opacity-100 hover:text-rose-500 transition-opacity cursor-pointer p-0.5 -mr-1"
+                    >
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" className="w-2.5 h-2.5"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+                    </button>
+                  )}
+                </li>
+              ))}
+              {extraFeaturesCount > 0 && (
+                <li
+                  className="text-[10px] font-semibold px-1.5 py-0.5 rounded-full"
+                  style={{ background: "color-mix(in srgb, var(--dt-primary) 6%, transparent)", color: "var(--dt-primary)", opacity: 0.8 }}
+                >
+                  +{extraFeaturesCount} lainnya
+                </li>
+              )}
+              {isEditorMode && onUpdateField && editSection === "catalog" && pathBase && (!hasMaxFeatures || maxFeatures > 0) && (
+                <li>
+                  <button
+                    type="button"
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      const nextFeatures = [...(features || []), `Fitur ${(features?.length ?? 0) + 1}`];
+                      onUpdateField(editSection, `${pathBase}.features`, nextFeatures);
+                    }}
+                    className="flex items-center gap-1 text-[10px] font-semibold px-2 py-0.5 rounded-full border border-dashed transition-all hover:brightness-110 cursor-pointer"
+                    style={{
+                      borderColor: "color-mix(in srgb, var(--dt-primary) 35%, transparent)",
+                      color: "var(--dt-primary)",
+                      background: "color-mix(in srgb, var(--dt-primary) 5%, transparent)",
+                    }}
+                    title="Tambah fitur produk"
+                  >
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" className="w-2.5 h-2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+                    <span>Fitur</span>
+                  </button>
+                </li>
+              )}
+            </ul>
+          );
+        })()}
+        {tagsAndPlatforms}
+        <div className="mt-auto pt-3" onClick={(e) => e.stopPropagation()}>
+          <AddToCartButton
+            itemId={itemId}
+            itemName={itemName}
+            itemPrice={displayPrice ?? null}
+            itemPriceAmount={itemPriceAmount}
+            itemPriceDisplay={displayPrice}
+            category={category}
+            variant_groups={variant_groups}
+            className={buttonClassName}
+            style={buttonStyle}
+            disabled={isOutOfStock}
+          />
+        </div>
+      </div>
+      {quickViewModal}
+    </div>
+  );
+}
+
+// ─── Product Quick View (detail modal, reusable) ──────────────────────────────
+
+export interface ProductQuickViewItem {
+  id: string;
+  name: string;
+  price?: string | null;
+  price_amount?: number | null;
+  price_display?: string | null;
+  promo_price_amount?: number | null;
+  promo_price_display?: string | null;
+  discount_label?: string | null;
+  description?: string | null;
+  category?: string | null;
+  image_url?: string | null;
+  image_urls?: string[] | null;
+  image_credit?: ImageCredit | null;
+  badge?: string | null;
+  is_available?: boolean;
+  variant_groups?: import("./types").ItemVariantGroup[] | null;
+  features?: string[] | null;
+  capacity?: number | null;
+  tags?: string[] | null;
+  delivery_platforms?: { name: string; url: string }[] | null;
+}
+
+export function toQuickViewItem(
+  item: (Partial<CatalogItem> & Partial<MenuItem>) | null | undefined,
+  category?: string | null,
+): ProductQuickViewItem {
+  const it = (item ?? {}) as Partial<CatalogItem> & Partial<MenuItem>;
+  return {
+    id: it.id || `${category ?? ""}-${it.name ?? ""}`.trim() || "item",
+    name: it.name ?? "",
+    price: it.price ?? null,
+    price_amount: it.price_amount ?? null,
+    price_display: it.price_display ?? null,
+    promo_price_amount: it.promo_price_amount ?? null,
+    promo_price_display: it.promo_price_display ?? null,
+    discount_label: it.discount_label ?? null,
+    description: it.description ?? null,
+    category: category ?? null,
+    image_url: it.image_url ?? null,
+    image_urls: it.image_urls ?? null,
+    image_credit: it.image_credit ?? null,
+    badge: it.badge ?? null,
+    is_available: it.is_available,
+    variant_groups: it.variant_groups ?? null,
+    features: it.features ?? null,
+    capacity: it.capacity ?? null,
+    tags: it.tags ?? null,
+    delivery_platforms: it.delivery_platforms ?? null,
+  };
+}
+
+export interface ProductQuickViewProps {
+  open: boolean;
+  onClose: () => void;
+  item: ProductQuickViewItem;
+  icon?: React.ElementType;
+  /** Editor wiring — when present, modal content is inline-editable */
+  editSection?: string;
+  pathBase?: string;
+  onUpdateField?: (section: string, key: string, value: unknown) => void;
+  isEditorMode?: boolean;
+  isSelected?: boolean;
+  collapseSheetForInlineEdit?: () => void;
+  onEditingStateChange?: (isEditing: boolean) => void;
+  /** When true, wraps the modal in its own preview CartProvider (used inside the editor sidebar) */
+  standaloneCart?: boolean;
+  cartWaPhone?: string;
+  cartBrandName?: string;
+  cartPrimaryColor?: string;
+  cartPrimaryFg?: string;
+  language?: "id" | "en";
+}
+
+export function ProductQuickView(props: ProductQuickViewProps) {
+  if (!props.open) return null;
+  if (props.standaloneCart) {
+    return (
+      <CartProvider
+        previewMode
+        waPhone={props.cartWaPhone ?? ""}
+        brandName={props.cartBrandName}
+        primaryColor={props.cartPrimaryColor ?? "#4F46E5"}
+        primaryFg={props.cartPrimaryFg ?? "#ffffff"}
+        language={props.language}
+      >
+        <ProductQuickViewInner {...props} />
+      </CartProvider>
+    );
+  }
+  return <ProductQuickViewInner {...props} />;
+}
+
+function ProductQuickViewInner({
+  onClose, item, icon, editSection, pathBase, onUpdateField,
+  isEditorMode, isSelected, collapseSheetForInlineEdit, onEditingStateChange,
+}: ProductQuickViewProps) {
+  const { t } = useI18n();
+  const [lightboxOpen, setLightboxOpen] = useState(false);
+  const [lightboxIdx, setLightboxIdx] = useState(0);
+  const [galleryUploading, setGalleryUploading] = useState(false);
+  const galleryInputRef = useRef<HTMLInputElement>(null);
+
+  const itemId = item.id ?? item.name ?? "";
+  const itemName = item.name ?? "";
+  const displayPrice = item.price_display || item.price;
+  const hasPromo = typeof item.promo_price_amount === "number" && item.promo_price_amount > 0 &&
+    (typeof item.price_amount !== "number" || item.price_amount <= 0 || item.promo_price_amount < item.price_amount);
+  const isOutOfStock = item.is_available === false;
+  const canInline = !!(isEditorMode && onUpdateField && editSection && pathBase);
+  const CategoryIcon = icon ?? (Image as React.ElementType);
+  const allImages = Array.from(
+    new Set([item.image_url, ...(item.image_urls ?? [])].filter((x): x is string => Boolean(x && typeof x === "string" && x.trim() !== "")))
+  );
+  const imageUrl = item.image_url ?? "";
+  const extraImages = (item.image_urls ?? []).filter((u) => u && u !== imageUrl);
+
+  const handleAddExtraImage = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file || !canInline) return;
+    try {
+      setGalleryUploading(true);
+      const url = await uploadImageFile(file, { maxWidth: 1000, maxHeight: 1000, quality: 0.8 });
+      if (url) {
+        if (!imageUrl) onUpdateField!(editSection!, `${pathBase}.image_url`, url);
+        else onUpdateField!(editSection!, `${pathBase}.image_urls`, [...extraImages, url]);
+      }
+    } catch (err) {
+      console.error("Upload quick view gallery image error:", err);
+    } finally {
+      setGalleryUploading(false);
+      if (galleryInputRef.current) galleryInputRef.current.value = "";
+    }
+  };
+
+  const handleSetPrimaryImage = (target: string) => {
+    if (!canInline) return;
+    const nextExtra = [imageUrl, ...extraImages].filter((u) => u && u !== target);
+    onUpdateField!(editSection!, `${pathBase}.image_url`, target);
+    onUpdateField!(editSection!, `${pathBase}.image_urls`, nextExtra);
+  };
+
+  const handleRemoveExtraImage = (target: string) => {
+    if (!canInline) return;
+    onUpdateField!(editSection!, `${pathBase}.image_urls`, extraImages.filter((u) => u !== target));
+  };
+
+  useEffect(() => {
+    const handleKey = (e: KeyboardEvent) => { if (e.key === "Escape") onClose(); };
+    document.addEventListener("keydown", handleKey);
+    return () => document.removeEventListener("keydown", handleKey);
+  }, [onClose]);
+
+  const badgeNode = item.badge ? (
+    <span
+      className="self-start inline-block text-[10px] font-bold uppercase tracking-wider px-2.5 py-1 rounded-full"
+      style={{ background: "var(--dt-primary, #4F46E5)", color: "var(--dt-cta-text, #ffffff)" }}
+    >
+      {canInline ? (
+        <InlineText section={editSection!} fieldKey={`${pathBase}.badge`} value={item.badge} onUpdateField={onUpdateField} isEditorMode={isEditorMode} isSelected={isSelected} as="span" collapseSheetForInlineEdit={collapseSheetForInlineEdit} onEditingStateChange={onEditingStateChange} />
+      ) : item.badge}
+    </span>
+  ) : null;
+
+  return (
+    <div
+      className="fixed inset-0 z-[500] flex items-center justify-center p-3 sm:p-6 bg-slate-950/70 backdrop-blur-sm animate-[fadeIn_0.15s_ease]"
+      onClick={(e) => { e.stopPropagation(); onClose(); }}
+      role="dialog"
+      aria-modal="true"
+      aria-label={itemName}
+    >
+      <div
+        onClick={(e) => e.stopPropagation()}
+        className="relative w-full max-w-4xl max-h-[92vh] overflow-y-auto rounded-3xl shadow-2xl border"
+        style={{ background: "var(--dt-surface, #ffffff)", color: "var(--dt-text, #0f172a)", borderColor: "var(--dt-border, rgba(0,0,0,0.08))" }}
+      >
+        {/* Close */}
+        <button
+          type="button"
+          onClick={onClose}
+          className="absolute top-3 right-3 z-20 w-9 h-9 rounded-full flex items-center justify-center bg-slate-900/70 text-white backdrop-blur-sm hover:bg-slate-900 transition-colors cursor-pointer"
+          aria-label={t("dashboard.sitesKatalog.close", "Tutup")}
+        >
+          <X className="w-5 h-5" />
+        </button>
+
+        <div className="grid gap-0 md:grid-cols-2">
+          {/* Gallery */}
+          <div className="relative" style={{ background: "color-mix(in srgb, var(--dt-text, #0f172a) 6%, var(--dt-surface, #ffffff))" }}>
+            <div className="relative w-full aspect-square overflow-hidden">
+              {canInline ? (
+                <InlineImage
+                  section={editSection!}
+                  fieldKey={`${pathBase}.image_url`}
+                  src={item.image_url}
+                  alt={itemName}
+                  onUpdateField={onUpdateField}
+                  isEditorMode={isEditorMode}
+                  isSelected={isSelected}
+                  collapseSheetForInlineEdit={collapseSheetForInlineEdit}
+                  className="w-full h-full"
+                  fallbackIcon={<CategoryIcon className="w-16 h-16" />}
+                />
+              ) : item.image_url ? (
+                // eslint-disable-next-line @next/next/no-img-element
+                <img
+                  src={item.image_url}
+                  alt={itemName}
+                  className="w-full h-full object-cover cursor-zoom-in"
+                  onClick={() => { setLightboxIdx(0); setLightboxOpen(true); }}
+                />
+              ) : (
+                <div className="w-full h-full flex items-center justify-center" style={{ background: `color-mix(in srgb, var(--dt-primary, #4F46E5) 10%, var(--dt-surface, #ffffff))` }}>
+                  <CategoryIcon className="w-16 h-16" style={{ color: "var(--dt-primary, #4F46E5)", opacity: 0.4 }} />
+                </div>
+              )}
+              {isOutOfStock && (
+                <span className="absolute top-3 left-3 z-10 text-[10px] font-bold uppercase tracking-wider px-2.5 py-1 rounded-full bg-rose-500 text-white shadow-sm">
+                  {t("dashboard.sitesKatalog.outOfStock", "Habis")}
+                </span>
+              )}
+            </div>
+            {!canInline && allImages.length > 1 && (
+              <div className="flex gap-2 p-3 overflow-x-auto scrollbar-none">
+                {allImages.map((img, i) => (
+                  <button
+                    key={i}
+                    type="button"
+                    onClick={() => { setLightboxIdx(i); setLightboxOpen(true); }}
+                    className="w-14 h-14 rounded-lg overflow-hidden flex-shrink-0 border cursor-pointer hover:ring-2 hover:ring-black/20 transition-all"
+                    style={{ borderColor: "var(--dt-border, rgba(0,0,0,0.1))" }}
+                  >
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
+                    <img src={img} alt="" className="w-full h-full object-cover" />
+                  </button>
+                ))}
+              </div>
+            )}
+
+            {canInline && (
+              <div className="p-3 border-t" style={{ borderColor: "var(--dt-border, rgba(0,0,0,0.08))" }}>
+                <div className="flex items-center gap-2 mb-2">
+                  <Camera className="w-4 h-4" style={{ color: "var(--dt-primary, #4F46E5)" }} />
+                  <span className="text-[11px] font-bold" style={{ color: "var(--dt-text-muted, #475569)" }}>
+                    {t("dashboard.sitesKatalog.photoGalleryCount", `Galeri Foto (${1 + extraImages.length})`, { count: String(1 + extraImages.length) })}
+                  </span>
+                </div>
+                <div className="flex flex-wrap gap-2.5">
+                  {imageUrl && (
+                    <div className="relative w-16 h-16 rounded-xl overflow-hidden border-2" style={{ borderColor: "var(--dt-primary, #4F46E5)" }}>
+                      {/* eslint-disable-next-line @next/next/no-img-element */}
+                      <img src={imageUrl} alt="" className="w-full h-full object-cover" />
+                      <span className="absolute bottom-0 inset-x-0 text-[9px] font-black text-center py-0.5 uppercase" style={{ background: "var(--dt-primary, #4F46E5)", color: "var(--dt-cta-text, #ffffff)" }}>
+                        {t("dashboard.sitesKatalog.photoSetPrimary", "Utama")}
+                      </span>
+                    </div>
+                  )}
+                  {extraImages.map((url, idx) => (
+                    <div key={idx} className="relative w-16 h-16 rounded-xl overflow-hidden border group" style={{ borderColor: "var(--dt-border, rgba(0,0,0,0.1))" }}>
+                      {/* eslint-disable-next-line @next/next/no-img-element */}
+                      <img src={url} alt="" className="w-full h-full object-cover" />
+                      <div className="absolute inset-0 bg-black/70 opacity-0 group-hover:opacity-100 flex flex-col items-center justify-center gap-1 transition-opacity p-1">
+                        <button
+                          type="button"
+                          onClick={() => handleSetPrimaryImage(url)}
+                          className="text-[9px] font-bold px-1.5 py-0.5 rounded cursor-pointer"
+                          style={{ background: "var(--dt-primary, #4F46E5)", color: "var(--dt-cta-text, #ffffff)" }}
+                        >
+                          {t("dashboard.sitesKatalog.photoSetPrimary", "Utama")}
+                        </button>
+                        <button
+                          type="button"
+                          onClick={() => handleRemoveExtraImage(url)}
+                          className="text-red-400 hover:text-red-300 p-0.5 cursor-pointer"
+                        >
+                          <X className="w-3.5 h-3.5" />
+                        </button>
+                      </div>
+                    </div>
+                  ))}
+                  <input
+                    type="file"
+                    ref={galleryInputRef}
+                    onChange={handleAddExtraImage}
+                    accept="image/*"
+                    className="hidden"
+                  />
+                  <button
+                    type="button"
+                    disabled={galleryUploading}
+                    onClick={() => galleryInputRef.current?.click()}
+                    className="w-16 h-16 rounded-xl border-2 border-dashed flex items-center justify-center transition-all cursor-pointer disabled:opacity-50"
+                    style={{ borderColor: "var(--dt-border, rgba(0,0,0,0.2))", color: "var(--dt-text-muted, #94a3b8)" }}
+                  >
+                    {galleryUploading ? <Loader2 className="w-4 h-4 animate-spin" /> : <ImagePlus className="w-4 h-4" />}
+                  </button>
+                </div>
+              </div>
+            )}
+          </div>
+
+          {/* Info */}
+          <div className="p-5 sm:p-7 flex flex-col gap-3">
+            {badgeNode}
+
+            <InlineText
+              section={editSection ?? ""}
+              fieldKey={pathBase ? `${pathBase}.name` : ""}
+              value={itemName}
+              placeholder={t("dashboard.sitesKatalog.labelName", "Nama")}
+              onUpdateField={onUpdateField}
+              isEditorMode={isEditorMode}
+              isSelected={isSelected}
+              as="h2"
+              className="text-2xl font-bold leading-tight"
+              collapseSheetForInlineEdit={collapseSheetForInlineEdit}
+              onEditingStateChange={onEditingStateChange}
+            />
+
+            {/* Price */}
+            {(displayPrice || isEditorMode) && (
+              hasPromo ? (
+                <div className="flex items-center gap-2 flex-wrap">
+                  <span className="text-xl font-bold" style={{ color: "var(--dt-primary, #4F46E5)" }}>{item.promo_price_display || displayPrice}</span>
+                  <span className="text-sm line-through opacity-50">{displayPrice}</span>
+                  {item.discount_label && (
+                    <span className="text-[10px] font-bold px-2 py-0.5 rounded-full" style={{ background: `color-mix(in srgb, var(--dt-primary, #4F46E5) 15%, transparent)`, color: "var(--dt-primary, #4F46E5)" }}>
+                      {item.discount_label}
+                    </span>
+                  )}
+                </div>
+              ) : (
+                <InlineText
+                  section={editSection ?? ""}
+                  fieldKey={pathBase ? `${pathBase}.price` : ""}
+                  value={displayPrice ?? ""}
+                  placeholder="+ Harga"
+                  onUpdateField={onUpdateField}
+                  isEditorMode={isEditorMode}
+                  isSelected={isSelected}
+                  as="span"
+                  className="text-xl font-bold"
+                  style={{ color: "var(--dt-primary, #4F46E5)" }}
+                  collapseSheetForInlineEdit={collapseSheetForInlineEdit}
+                  onEditingStateChange={onEditingStateChange}
+                />
+              )
+            )}
+
+            {/* Capacity */}
+            {item.capacity != null && item.capacity > 0 && (
+              <span className="self-start inline-flex items-center gap-1 text-[11px] font-semibold px-2.5 py-1 rounded-full" style={{ background: `color-mix(in srgb, var(--dt-primary, #4F46E5) 12%, transparent)`, color: "var(--dt-primary, #4F46E5)" }}>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" className="w-3 h-3"><circle cx="9" cy="7" r="2" /><path d="M3 21v-1a6 6 0 0 1 12 0v1" /><circle cx="17" cy="7" r="2" /><path d="M21 21v-1a5 5 0 0 0-3-4.6" /></svg>
+                s/d <InlineText section={editSection ?? ""} fieldKey={pathBase ? `${pathBase}.capacity` : ""} value={String(item.capacity)} onUpdateField={onUpdateField} isEditorMode={isEditorMode} isSelected={isSelected} as="span" collapseSheetForInlineEdit={collapseSheetForInlineEdit} onEditingStateChange={onEditingStateChange} /> tamu
+              </span>
+            )}
+
+            {/* Description */}
+            {canInline ? (
+              <InlineText section={editSection!} fieldKey={`${pathBase}.description`} value={item.description ?? ""} placeholder="+ Deskripsi" onUpdateField={onUpdateField} isEditorMode={isEditorMode} isSelected={isSelected} as="p" className="text-sm leading-relaxed" style={{ color: "var(--dt-text-muted, #475569)" }} multiline collapseSheetForInlineEdit={collapseSheetForInlineEdit} onEditingStateChange={onEditingStateChange} />
+            ) : item.description ? (
+              <p className="text-sm leading-relaxed whitespace-pre-wrap" style={{ color: "var(--dt-text-muted, #475569)" }}>{item.description}</p>
+            ) : null}
+
+            {/* Features */}
+            {item.features && item.features.length > 0 && (
+              <ul className="flex flex-wrap gap-1.5 mt-1">
+                {item.features.map((f, fi) => (
+                  <li key={fi} className="flex items-center gap-1 text-[11px] font-medium px-2 py-0.5 rounded-full" style={{ background: `color-mix(in srgb, var(--dt-primary, #4F46E5) 10%, transparent)`, color: "var(--dt-primary, #4F46E5)" }}>
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" className="w-3 h-3 flex-shrink-0"><polyline points="20 6 9 17 4 12" /></svg>
+                    <InlineText section={editSection ?? ""} fieldKey={pathBase ? `${pathBase}.features.${fi}` : ""} value={f} onUpdateField={onUpdateField} isEditorMode={isEditorMode} isSelected={isSelected} as="span" collapseSheetForInlineEdit={collapseSheetForInlineEdit} onEditingStateChange={onEditingStateChange} />
+                  </li>
+                ))}
+              </ul>
+            )}
+
+            {/* Tags */}
+            {item.tags && item.tags.length > 0 && (
+              <div className="flex flex-wrap gap-1.5">
+                {item.tags.map((tag, ti) => (
+                  <span key={ti} className="inline-flex items-center text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-md" style={{ background: `color-mix(in srgb, var(--dt-primary, #4F46E5) 12%, transparent)`, color: "var(--dt-primary, #4F46E5)" }}>
+                    <InlineText section={editSection ?? ""} fieldKey={pathBase ? `${pathBase}.tags.${ti}` : ""} value={tag} onUpdateField={onUpdateField} isEditorMode={isEditorMode} isSelected={isSelected} as="span" collapseSheetForInlineEdit={collapseSheetForInlineEdit} onEditingStateChange={onEditingStateChange} />
+                  </span>
+                ))}
+              </div>
+            )}
+
+            {/* Delivery platforms */}
+            {item.delivery_platforms && item.delivery_platforms.length > 0 && (
+              <div className="flex flex-wrap gap-1.5">
+                {item.delivery_platforms.map((dp, di) => (
+                  <a key={di} href={dp.url} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1.5 text-[10px] font-bold px-2.5 py-1 rounded-lg border transition-all hover:brightness-110" style={{ borderColor: `color-mix(in srgb, var(--dt-primary, #4F46E5) 25%, transparent)`, background: `color-mix(in srgb, var(--dt-primary, #4F46E5) 8%, transparent)`, color: "var(--dt-primary, #4F46E5)" }}>
+                    <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 shrink-0" />
+                    {dp.name || "Order Online"}
+                  </a>
+                ))}
+              </div>
+            )}
+
+            {/* Add to cart */}
+            <div className="mt-auto pt-3">
+              <AddToCartButton
+                itemId={itemId}
+                itemName={itemName}
+                itemPrice={displayPrice ?? null}
+                itemPriceAmount={item.price_amount}
+                itemPriceDisplay={displayPrice}
+                itemPromoPriceAmount={item.promo_price_amount}
+                itemPromoPriceDisplay={item.promo_price_display}
+                discountLabel={item.discount_label}
+                itemDescription={item.description}
+                category={item.category ?? ""}
+                variant_groups={item.variant_groups}
+                disabled={isOutOfStock}
+                className="w-full flex items-center justify-center gap-2 py-3.5 px-4 rounded-xl text-sm font-bold cursor-pointer transition-all hover:brightness-110"
+                style={{ background: "var(--dt-primary, #4F46E5)", color: "var(--dt-cta-text, #ffffff)", border: "none" }}
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {lightboxOpen && allImages.length > 0 && (
+        <div onClick={(e) => e.stopPropagation()}>
+          <ImageLightbox images={allImages} initialIndex={lightboxIdx} alt={itemName} onClose={() => setLightboxOpen(false)} />
+        </div>
+      )}
+    </div>
+  );
+}
+
+// ─── Catalog / Menu Filter Bar ────────────────────────────────────────────────
+
+interface CatalogMenuFilterBarProps {
+  categories?: Array<{ name?: string; items?: any[] }> | null;
+  activeCategory: string;
+  onSelectCategory: (category: string) => void;
+  searchQuery: string;
+  onSearchChange: (query: string) => void;
+  placeholder?: string;
+  className?: string;
+  style?: React.CSSProperties;
+}
+
+function CatalogMenuFilterBar({
+  categories = [],
+  activeCategory,
+  onSelectCategory,
+  searchQuery,
+  onSearchChange,
+  placeholder = "Cari menu atau produk...",
+  className,
+  style,
+}: CatalogMenuFilterBarProps) {
+  const safeCategories = categories || [];
+  const totalAllItems = safeCategories.reduce((acc, cat) => acc + (cat?.items?.length ?? 0), 0);
+
+  // If there are no items, don't show the filter bar
+  if (totalAllItems === 0) return null;
+
+  return (
+    <div className={`w-full max-w-2xl mx-auto mb-10 space-y-3.5 ${className || ""}`} style={style}>
+      {/* Search Input Bar */}
+      <div className="relative flex items-center">
+        <div className="absolute left-4 pointer-events-none opacity-60" style={{ color: "var(--dt-text)" }}>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" className="w-4 h-4">
+            <circle cx="11" cy="11" r="8" /><line x1="21" y1="21" x2="16.65" y2="16.65" />
+          </svg>
+        </div>
+        <input
+          type="text"
+          value={searchQuery}
+          onChange={(e) => onSearchChange(e.target.value)}
+          placeholder={placeholder}
+          className="w-full pl-11 pr-10 py-3 text-xs sm:text-sm outline-none transition-all shadow-xs"
+          style={{
+            background: "color-mix(in srgb, var(--dt-bg) 94%, var(--dt-text) 6%)",
+            color: "var(--dt-text)",
+            border: "1px solid color-mix(in srgb, var(--dt-text) 16%, transparent)",
+            borderRadius: "var(--dt-radius, 1rem)",
+          }}
+        />
+        {searchQuery && (
+          <button
+            type="button"
+            onClick={() => onSearchChange("")}
+            className="absolute right-3.5 p-1 rounded-full opacity-60 hover:opacity-100 cursor-pointer transition-opacity"
+            aria-label="Hapus pencarian"
+            style={{ color: "var(--dt-text)" }}
+          >
+            <X className="w-4 h-4" />
+          </button>
+        )}
+      </div>
+
+      {/* Category Pills */}
+      {safeCategories.length > 1 && (
+        <div className="flex items-center gap-1.5 overflow-x-auto no-scrollbar py-1 justify-start sm:justify-center">
+          <button
+            type="button"
+            onClick={() => onSelectCategory("all")}
+            className="px-4 py-1.5 rounded-full text-xs font-bold transition-all cursor-pointer whitespace-nowrap shadow-2xs"
+            style={{
+              background: activeCategory === "all" ? "var(--dt-primary)" : "color-mix(in srgb, var(--dt-text) 6%, transparent)",
+              color: activeCategory === "all" ? "var(--dt-cta-text, #fff)" : "var(--dt-text)",
+              border: `1px solid ${activeCategory === "all" ? "var(--dt-primary)" : "color-mix(in srgb, var(--dt-text) 12%, transparent)"}`,
+            }}
+          >
+            Semua ({totalAllItems})
+          </button>
+          {safeCategories.map((cat, idx) => {
+            const catName = cat?.name || `Kategori ${idx + 1}`;
+            const isCatActive = activeCategory === catName;
+            const count = cat?.items?.length ?? 0;
+            return (
+              <button
+                key={idx}
+                type="button"
+                onClick={() => onSelectCategory(catName)}
+                className="px-4 py-1.5 rounded-full text-xs font-bold transition-all cursor-pointer whitespace-nowrap shadow-2xs"
+                style={{
+                  background: isCatActive ? "var(--dt-primary)" : "color-mix(in srgb, var(--dt-text) 6%, transparent)",
+                  color: isCatActive ? "var(--dt-cta-text, #fff)" : "var(--dt-text)",
+                  border: `1px solid ${isCatActive ? "var(--dt-primary)" : "color-mix(in srgb, var(--dt-text) 12%, transparent)"}`,
+                }}
+              >
+                {catName} ({count})
+              </button>
+            );
+          })}
+        </div>
+      )}
+    </div>
+  );
+}
+
+// ─── FAQ Accordion ────────────────────────────────────────────────────────────
+
+const FaqAccordion: React.FC<{
+  item: FaqItem;
+  isDark?: boolean;
+  variant?: "card" | "minimal" | "numbered";
+  index?: number;
+  onUpdateItem?: (index: number, field: string, value: string) => void;
+  section?: string;
+  isEditorMode?: boolean;
+  isSelected?: boolean;
+  collapseSheetForInlineEdit?: () => void;
+  onEditingStateChange?: (isEditing: boolean) => void;
+}> = ({ item, isDark = false, variant = "card", index = 0, onUpdateItem, section, isEditorMode = false, isSelected = false, collapseSheetForInlineEdit, onEditingStateChange }) => {
+  const [isOpen, setIsOpen] = useState(false);
+  const reactId = useId();
+  const answerId = `faq-answer-${reactId}`;
+  const num = String(index + 1).padStart(2, "0");
+
+  const handleUpdate = (field: string, value: string) => {
+    onUpdateItem?.(index, field, value);
+  };
+
+  // ── Numbered variant ────────────────────────────────────────────────────────
+  if (variant === "numbered") {
+    const HeaderNumered = isEditorMode ? "div" : "button";
+    return (
+      <div className={`border-b transition-colors duration-200 ${isDark ? "border-slate-700/50" : "border-stone-200"}`}>
+        <HeaderNumered
+          {...(isEditorMode
+            ? { role: "button", tabIndex: 0, onKeyDown: (e: React.KeyboardEvent) => { if (e.key === "Enter" || e.key === " ") setIsOpen(!isOpen); } }
+            : { type: "button" as const, "aria-expanded": isOpen, "aria-controls": answerId }
+          )}
+          onClick={() => setIsOpen(!isOpen)}
+          className="w-full py-5 flex items-start gap-4 text-left cursor-pointer select-none focus:outline-none"
+        >
+          <span className={`text-xs font-bold tabular-nums pt-0.5 flex-shrink-0 transition-colors duration-200 ${isDark
+            ? isOpen ? "text-cyan-400" : "text-slate-500"
+            : isOpen ? "text-[var(--dt-primary,#4F46E5)]" : "text-stone-400"
+            }`} style={{ fontVariantNumeric: "tabular-nums" }}>
+            {num}
+          </span>
+          <span className={`flex-1 font-semibold text-sm md:text-base leading-snug transition-colors duration-200 ${isDark
+            ? isOpen ? "text-white" : "text-slate-200"
+            : isOpen ? "text-stone-900" : "text-stone-700"
+            }`}>
+            {isEditorMode ? (
+              <InlineText
+                section={section || "faq"}
+                fieldKey={`items.${index}.question`}
+                value={item.question}
+                onUpdateField={(_, __, val) => handleUpdate("question", val)}
+                isEditorMode={isEditorMode}
+                isSelected={isSelected}
+                collapseSheetForInlineEdit={collapseSheetForInlineEdit}
+                onEditingStateChange={onEditingStateChange}
+                as="span"
+              />
+            ) : item.question}
+          </span>
+          <ChevronDown
+            className={`w-4 h-4 flex-shrink-0 mt-0.5 transition-all duration-300 ease-in-out ${isOpen ? "rotate-180" : ""} ${isDark
+              ? isOpen ? "text-cyan-400" : "text-slate-500"
+              : isOpen ? "text-[var(--dt-primary,#4F46E5)]" : "text-stone-400"
+              }`}
+          />
+        </HeaderNumered>
+        <div
+          id={answerId}
+          style={{ display: "grid", gridTemplateRows: isOpen ? "1fr" : "0fr", transition: "grid-template-rows 0.28s ease" }}
+        >
+          <div className="overflow-hidden">
+            <div className={`pl-8 pb-5 text-sm leading-relaxed ${isDark ? "text-slate-400" : "text-stone-500"}`}>
+              {isEditorMode ? (
+                <InlineText
+                  section={section || "faq"}
+                  fieldKey={`items.${index}.answer`}
+                  value={item.answer}
+                  onUpdateField={(_, __, val) => handleUpdate("answer", val)}
+                  isEditorMode={isEditorMode}
+                  isSelected={isSelected}
+                  collapseSheetForInlineEdit={collapseSheetForInlineEdit}
+                  onEditingStateChange={onEditingStateChange}
+                  multiline
+                  as="div"
+                />
+              ) : item.answer}
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  // ── Minimal variant ─────────────────────────────────────────────────────────
+  if (variant === "minimal") {
+    const HeaderMinimal = isEditorMode ? "div" : "button";
+    return (
+      <div className={`border-b transition-colors duration-200 ${isDark ? "border-slate-700/50" : "border-stone-200"}`}>
+        <HeaderMinimal
+          {...(isEditorMode
+            ? { role: "button", tabIndex: 0, onKeyDown: (e: React.KeyboardEvent) => { if (e.key === "Enter" || e.key === " ") setIsOpen(!isOpen); } }
+            : { type: "button" as const, "aria-expanded": isOpen, "aria-controls": answerId }
+          )}
+          onClick={() => setIsOpen(!isOpen)}
+          className="w-full py-5 flex items-center justify-between gap-4 text-left cursor-pointer select-none focus:outline-none"
+        >
+          <span className={`font-medium text-sm md:text-base flex-1 transition-colors duration-200 ${isDark
+            ? isOpen ? "text-white" : "text-slate-300"
+            : isOpen ? "text-stone-900" : "text-stone-700"
+            }`}>
+            {isEditorMode ? (
+              <InlineText
+                section={section || "faq"}
+                fieldKey={`items.${index}.question`}
+                value={item.question}
+                onUpdateField={(_, __, val) => handleUpdate("question", val)}
+                isEditorMode={isEditorMode}
+                isSelected={isSelected}
+                collapseSheetForInlineEdit={collapseSheetForInlineEdit}
+                onEditingStateChange={onEditingStateChange}
+                as="span"
+              />
+            ) : item.question}
+          </span>
+          <ChevronDown
+            className={`w-4 h-4 flex-shrink-0 transition-all duration-300 ease-in-out ${isOpen ? "rotate-180" : ""} ${isDark
+              ? isOpen ? "text-white" : "text-slate-500"
+              : isOpen ? "text-stone-900" : "text-stone-400"
+              }`}
+          />
+        </HeaderMinimal>
+        <div
+          id={answerId}
+          style={{ display: "grid", gridTemplateRows: isOpen ? "1fr" : "0fr", transition: "grid-template-rows 0.28s ease" }}
+        >
+          <div className="overflow-hidden">
+            <div className={`pb-5 text-sm leading-relaxed font-light ${isDark ? "text-slate-400" : "text-stone-500"}`}>
+              {isEditorMode ? (
+                <InlineText
+                  section={section || "faq"}
+                  fieldKey={`items.${index}.answer`}
+                  value={item.answer}
+                  onUpdateField={(_, __, val) => handleUpdate("answer", val)}
+                  isEditorMode={isEditorMode}
+                  isSelected={isSelected}
+                  collapseSheetForInlineEdit={collapseSheetForInlineEdit}
+                  onEditingStateChange={onEditingStateChange}
+                  multiline
+                  as="div"
+                />
+              ) : item.answer}
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  // ── Card variant (default) ──────────────────────────────────────────────────
+  const HeaderCard = isEditorMode ? "div" : "button";
+  return (
+    <div
+      className={`border rounded-2xl overflow-hidden transition-colors duration-200 ${isDark
+        ? `border-slate-700/60 ${isOpen ? "bg-slate-900/70" : "bg-slate-900/30 hover:bg-slate-900/50"}`
+        : `border-[#E8DDD0] ${isOpen ? "bg-white shadow-sm" : "bg-[#FAF7F2]/60 hover:bg-white/80"}`
+        }`}
+    >
+      <HeaderCard
+        {...(isEditorMode
+          ? { role: "button", tabIndex: 0, onKeyDown: (e: React.KeyboardEvent) => { if (e.key === "Enter" || e.key === " ") setIsOpen(!isOpen); } }
+          : { type: "button" as const, "aria-expanded": isOpen, "aria-controls": answerId }
+        )}
+        onClick={() => setIsOpen(!isOpen)}
+        className="w-full px-5 py-4 flex items-center justify-between gap-4 text-left cursor-pointer select-none focus:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-current"
+      >
+        <span className={`font-semibold text-sm md:text-base flex-1 transition-colors duration-200 ${isDark
+          ? isOpen ? "text-white" : "text-slate-200"
+          : isOpen ? "text-amber-950" : "text-amber-900"
+          }`}>
+          {isEditorMode ? (
+            <InlineText
+              section={section || "faq"}
+              fieldKey={`items.${index}.question`}
+              value={item.question}
+              onUpdateField={(_, __, val) => handleUpdate("question", val)}
+              isEditorMode={isEditorMode}
+              isSelected={isSelected}
+              collapseSheetForInlineEdit={collapseSheetForInlineEdit}
+              onEditingStateChange={onEditingStateChange}
+              as="span"
+            />
+          ) : item.question}
+        </span>
+        <ChevronDown
+          className={`w-4 h-4 flex-shrink-0 transition-all duration-300 ease-in-out ${isOpen ? "rotate-180" : "rotate-0"} ${isDark
+            ? isOpen ? "text-cyan-400" : "text-slate-400"
+            : isOpen ? "text-amber-700" : "text-amber-500/70"
+            }`}
+        />
+      </HeaderCard>
+      <div
+        id={answerId}
+        style={{ display: "grid", gridTemplateRows: isOpen ? "1fr" : "0fr", transition: "grid-template-rows 0.28s ease" }}
+      >
+        <div className="overflow-hidden">
+          <div className={`px-5 pb-5 pt-1 text-sm leading-relaxed border-t ${isDark
+            ? "text-slate-300 border-slate-700/40"
+            : "text-[#6D5D50] border-[#E8DDD0]/60"
+            }`}>
+            {isEditorMode ? (
+              <InlineText
+                section={section || "faq"}
+                fieldKey={`items.${index}.answer`}
+                value={item.answer}
+                onUpdateField={(_, __, val) => handleUpdate("answer", val)}
+                isEditorMode={isEditorMode}
+                isSelected={isSelected}
+                collapseSheetForInlineEdit={collapseSheetForInlineEdit}
+                onEditingStateChange={onEditingStateChange}
+                multiline
+                as="div"
+              />
+            ) : item.answer}
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+// ─── Lead Form ────────────────────────────────────────────────────────────────
+
+interface LeadFormProps {
+  onSubmit: (data: { name: string; email: string; phone: string; message: string }) => Promise<string | void>;
+  submitting: boolean;
+  success: boolean;
+  error: string | null;
+  buttonClass: string;
+  inputClass: string;
+  buttonStyle?: React.CSSProperties;
+  inputStyle?: React.CSSProperties;
+  language?: "id" | "en";
+  buttonText?: string | null;
+  onUpdateField?: (section: string, key: string, value: any) => void;
+  isEditorMode?: boolean;
+  isSelected?: boolean;
+  collapseSheetForInlineEdit?: () => void;
+  onEditingStateChange?: (isEditing: boolean) => void;
+}
+
+const LeadForm: React.FC<LeadFormProps> = ({
+  onSubmit, submitting, success, error, buttonClass, inputClass, buttonStyle, inputStyle, language = "id",
+  buttonText, onUpdateField, isEditorMode, isSelected, collapseSheetForInlineEdit, onEditingStateChange
+}) => {
+  const isEN = language === "en";
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [phone, setPhone] = useState("");
+  const [message, setMessage] = useState("");
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    onSubmit({ name, email, phone, message });
+  };
+
+  if (success) {
+    return (
+      <div className="flex flex-col items-center justify-center p-8 bg-green-50/50 border border-green-200/50 rounded-2xl text-center backdrop-blur-sm animate-fade-in">
+        <div className="w-12 h-12 bg-green-100 text-green-600 rounded-full flex items-center justify-center mb-4 shadow-sm">
+          <Check className="w-6 h-6 animate-bounce" />
+        </div>
+        <h3 className="text-xl font-bold text-green-900 mb-2">{isEN ? "Message Sent!" : "Pesan Terkirim!"}</h3>
+        <p className="text-green-700 text-sm max-w-sm">
+          {isEN ? "Thank you for reaching out. Our team will respond shortly." : "Terima kasih telah menghubungi kami. Tim kami akan segera merespons pesan Anda."}
+        </p>
+      </div>
+    );
+  }
+
+  return (
+    <form onSubmit={handleSubmit} className="space-y-4">
+      {error && (
+        <div className="p-4 bg-red-50 border border-red-200 text-red-700 rounded-xl text-sm">
+          {error}
+        </div>
+      )}
+      <div>
+        <label className="block text-xs font-semibold uppercase tracking-wider text-slate-500 mb-1">{isEN ? "Full Name" : "Nama Lengkap"}</label>
+        <input
+          type="text" required value={name} onChange={(e) => setName(e.target.value)}
+          placeholder={isEN ? "e.g. John Smith" : "cth. Budi Santoso"} className={inputClass} style={inputStyle}
+        />
+      </div>
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <div>
+          <label className="block text-xs font-semibold uppercase tracking-wider text-slate-500 mb-1">{isEN ? "Email Address" : "Email"}</label>
+          <input
+            type="email" required value={email} onChange={(e) => setEmail(e.target.value)}
+            placeholder={isEN ? "e.g. john@email.com" : "cth. budi@email.com"} className={inputClass} style={inputStyle}
+          />
+        </div>
+        <div>
+          <label className="block text-xs font-semibold uppercase tracking-wider text-slate-500 mb-1">{isEN ? "WhatsApp Number" : "Nomor WA"}</label>
+          <input
+            type="tel" required value={phone} onChange={(e) => setPhone(e.target.value)}
+            placeholder={isEN ? "+1 234..." : "cth. 08123456789"} className={inputClass} style={inputStyle}
+          />
+        </div>
+      </div>
+      <div>
+        <label className="block text-xs font-semibold uppercase tracking-wider text-slate-500 mb-1">{isEN ? "Message" : "Pesan Anda"}</label>
+        <textarea
+          required rows={4} value={message} onChange={(e) => setMessage(e.target.value)}
+          placeholder={isEN ? "Write your message or inquiry here..." : "Tulis pesan atau pertanyaan Anda di sini..."} className={inputClass} style={inputStyle}
+        ></textarea>
+      </div>
+      <button
+        type="submit" disabled={submitting}
+        className={`${buttonClass} w-full min-h-11 py-3 flex items-center justify-center gap-2 cursor-pointer transition-all duration-300 font-medium disabled:opacity-50 focus:outline-none focus:ring-2 focus:ring-offset-2`}
+        style={buttonStyle}
+      >
+        {submitting ? (
+          isEN ? "Sending..." : "Mengirim..."
+        ) : (
+          <>
+            <InlineText
+              section="contact"
+              fieldKey="button_text"
+              value={buttonText || (isEN ? "Send Message" : "Kirim Pesan")}
+              onUpdateField={onUpdateField}
+              isEditorMode={isEditorMode}
+              isSelected={isSelected}
+              collapseSheetForInlineEdit={collapseSheetForInlineEdit}
+              onEditingStateChange={onEditingStateChange}
+              as="span"
+            />
+            <Send className="w-4 h-4" />
+          </>
+        )}
+      </button>
+    </form>
+  );
+};
+
+// ─── Dynamic Icon Helper ──────────────────────────────────────────────────────
+
+const toPascalCase = (s: string) =>
+  s.replace(/(^\w|-\w)/g, (c) => c.replace("-", "").toUpperCase());
+
+const DynamicIcon = ({ name, defaultIcon, className }: { name?: string; defaultIcon: any; className?: string }) => {
+  if (name) {
+    // Try exact match first (PascalCase from AI), then try PascalCase-converted (kebab-case / lowercase from AI)
+    const IconComponent = (LucideIcons as any)[name] ?? (LucideIcons as any)[toPascalCase(name)];
+    if (IconComponent) return <IconComponent className={className} />;
+  }
+  const Default = defaultIcon;
+  return <Default className={className} />;
+};
+
+// ─── Logo Image with Fallback ────────────────────────────────────────────────
+
+interface LogoImageProps {
+  url?: string;
+  icon?: string;
+  defaultIcon: any;
+  iconClass: string;
+  imgClass?: string;
+  section?: string;
+  onUpdateField?: (section: string, key: string, value: any) => void;
+  isEditorMode?: boolean;
+  isSelected?: boolean;
+  collapseSheetForInlineEdit?: () => void;
+}
+
+const LogoImage = ({ url, icon, defaultIcon, iconClass, imgClass, section, onUpdateField, isEditorMode, isSelected, collapseSheetForInlineEdit }: LogoImageProps) => {
+  const { t } = useI18n();
+  const [imgError, setImgError] = useState(false);
+  const [uploading, setUploading] = useState(false);
+  const [isTouched, setIsTouched] = useState(false);
+  const touchTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const fileInputRef = useRef<HTMLInputElement>(null);
+
+  const handleTouchReveal = (e: React.TouchEvent) => {
+    e.stopPropagation();
+    if (isTouched) {
+      setIsTouched(false);
+      if (touchTimerRef.current) clearTimeout(touchTimerRef.current);
+    } else {
+      setIsTouched(true);
+      if (touchTimerRef.current) clearTimeout(touchTimerRef.current);
+      touchTimerRef.current = setTimeout(() => setIsTouched(false), 2500);
+    }
+  };
+
+  const handleTriggerUpload = (e: React.MouseEvent | React.TouchEvent) => {
+    e.stopPropagation();
+    e.preventDefault();
+    collapseSheetForInlineEdit?.();
+    fileInputRef.current?.click();
+  };
+
+  const handleFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file || !onUpdateField || !section) return;
+    try {
+      setUploading(true);
+      const secureUrl = await uploadImageFile(file);
+      onUpdateField(section, "logo_url", secureUrl);
+      setImgError(false);
+    } catch (err) {
+      console.error("Logo upload error:", err);
+    } finally {
+      setUploading(false);
+      if (fileInputRef.current) fileInputRef.current.value = "";
+    }
+  };
+
+  if (isEditorMode && onUpdateField && section) {
+    const hasLogo = url && !imgError;
+    return (
+      <div
+        className="relative group/logo shrink-0 flex items-center"
+        onClick={(e) => e.stopPropagation()}
+        onPointerDown={(e) => e.stopPropagation()}
+        onTouchStart={handleTouchReveal}
+        title={hasLogo ? t("dashboard.sitesEditor.changePhoto") : t("dashboard.sitesEditor.addPhoto")}
+      >
+        {/* Logo image or default-icon placeholder */}
+        {hasLogo ? (
+          // eslint-disable-next-line @next/next/no-img-element
+          <img
+            src={url}
+            alt="Logo"
+            className={imgClass || "h-8 w-auto object-contain"}
+            onError={() => setImgError(true)}
+          />
+        ) : (
+          <div
+            className="relative flex items-center justify-center shrink-0 cursor-pointer group/logo-ph active:scale-95 transition-transform"
+            onClick={handleTriggerUpload}
+            onPointerDown={(e) => e.stopPropagation()}
+            onTouchStart={(e) => e.stopPropagation()}
+            title={t("dashboard.sitesEditor.addPhoto")}
+          >
+            <DynamicIcon name={icon} defaultIcon={defaultIcon} className={iconClass} />
+            {/* Dashed highlight on hover / when selected */}
+            <div
+              className={`absolute -inset-1 rounded-lg border-2 border-dashed border-primary/40 bg-primary/5 transition-opacity pointer-events-none ${
+                isSelected
+                  ? "opacity-100"
+                  : "opacity-0 group-hover/logo-ph:opacity-100"
+              }`}
+            />
+            {/* Small camera badge */}
+            <span className="absolute -top-1 -right-1 w-4 h-4 rounded-full bg-slate-900/90 border border-white/30 flex items-center justify-center shadow transition-transform group-hover/logo-ph:scale-110">
+              <Camera className="w-2.5 h-2.5 text-white" />
+            </span>
+          </div>
+        )}
+
+        {/* Hover / touch overlay (only when logo exists) */}
+        {hasLogo && (
+          <div
+            className={`absolute inset-0 z-20 flex items-center justify-center bg-black/55 backdrop-blur-[1px] rounded transition-all duration-150 pointer-events-none ${
+              isSelected || isTouched
+                ? "opacity-100 pointer-events-auto"
+                : "opacity-0 group-hover/logo:opacity-100 group-hover/logo:pointer-events-auto"
+            }`}
+          >
+            <button
+              type="button"
+              onClick={handleTriggerUpload}
+              onPointerDown={(e) => e.stopPropagation()}
+              onTouchStart={(e) => e.stopPropagation()}
+              disabled={uploading}
+              className="flex items-center justify-center w-7 h-7 rounded-full bg-slate-900/90 text-white shadow-xl border border-white/20 hover:bg-slate-950 hover:scale-110 active:scale-95 transition-all cursor-pointer disabled:opacity-50"
+            >
+              {uploading ? (
+                <Loader2 className="w-3.5 h-3.5 animate-spin" />
+              ) : (
+                <Camera className="w-3.5 h-3.5" />
+              )}
+            </button>
+          </div>
+        )}
+
+        {/* Hidden file input */}
+        <input
+          type="file"
+          ref={fileInputRef}
+          onClick={(e) => e.stopPropagation()}
+          onPointerDown={(e) => e.stopPropagation()}
+          onChange={handleFileChange}
+          accept="image/*"
+          className="hidden"
+        />
+      </div>
+    );
+  }
+
+  if (url && !imgError) {
+    return <img src={url} className={imgClass} alt="Logo" onError={() => setImgError(true)} />;
+  }
+  return <DynamicIcon name={icon} defaultIcon={defaultIcon} className={iconClass} />;
+};
+
+// ─── SEO Editor Preview (Realistic Browser Mockup) ───────────────────────────
+
+const SeoEditorPreview = ({
+  seo,
+  domain,
+}: {
+  seo?: {
+    title?: string;
+    description?: string;
+    favicon_url?: string;
+    og_image_url?: string;
+    keywords?: string[];
+    og_type?: string;
+    twitter_card?: string;
+    robots?: string;
+    canonical_path?: string;
+  };
+  domain?: string;
+}) => {
+  const { t } = useI18n();
+  const [activeTab, setActiveTab] = useState<"google" | "whatsapp" | "meta">("google");
+  const [isBookmarked, setIsBookmarked] = useState(false);
+  const [copiedUrl, setCopiedUrl] = useState(false);
+  const [copiedCode, setCopiedCode] = useState(false);
+  const [isReloading, setIsReloading] = useState(false);
+
+  const cleanDomain = domain ? domain.replace(/^https?:\/\//, "").replace(/\/$/, "") : "kopijozzjogja.webjoz.com";
+  const siteBrand = seo?.title?.split("-")[0]?.trim() || cleanDomain.split(".")[0] || "Webjoz";
+  const searchQuery = seo?.title || cleanDomain;
+  const titleLen = seo?.title?.length || 0;
+  const descLen = seo?.description?.length || 0;
+
+  const handleCopyUrl = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    navigator.clipboard?.writeText(`https://${cleanDomain}`);
+    setCopiedUrl(true);
+    setTimeout(() => setCopiedUrl(false), 2000);
+  };
+
+  const handleCopyMeta = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    const metaHtml = `<!-- Primary Meta Tags -->
+<title>${seo?.title || siteBrand}</title>
+<meta name="title" content="${seo?.title || siteBrand}">
+<meta name="description" content="${seo?.description || ""}">
+<meta name="keywords" content="${(seo?.keywords || []).join(", ")}">
+<meta name="robots" content="${seo?.robots || "index, follow"}">
+<link rel="canonical" href="https://${cleanDomain}${seo?.canonical_path || ""}">
+
+<!-- Open Graph / Facebook -->
+<meta property="og:type" content="${seo?.og_type || "website"}">
+<meta property="og:url" content="https://${cleanDomain}">
+<meta property="og:title" content="${seo?.title || siteBrand}">
+<meta property="og:description" content="${seo?.description || ""}">
+<meta property="og:image" content="${seo?.og_image_url || ""}">
+
+<!-- Twitter -->
+<meta property="twitter:card" content="${seo?.twitter_card || "summary_large_image"}">
+<meta property="twitter:url" content="https://${cleanDomain}">
+<meta property="twitter:title" content="${seo?.title || siteBrand}">
+<meta property="twitter:description" content="${seo?.description || ""}">
+<meta property="twitter:image" content="${seo?.og_image_url || ""}">`;
+    navigator.clipboard?.writeText(metaHtml);
+    setCopiedCode(true);
+    setTimeout(() => setCopiedCode(false), 2000);
+  };
+
+  const handleReload = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    setIsReloading(true);
+    setTimeout(() => setIsReloading(false), 600);
+  };
+
+  const triggerOpenSidebar = () => {
+    window.dispatchEvent(new CustomEvent("webjoz:open-seo-editor"));
+  };
+
+  return (
+    <section className="bg-background px-4 sm:px-6 py-10 border-t border-white/5">
+      <div className="max-w-4xl mx-auto space-y-5">
+
+        {/* Top Info & Quick Actions Banner */}
+        <div className="flex flex-wrap items-center justify-between gap-3 rounded-xl px-4 py-3 text-xs bg-muted/40 border border-border backdrop-blur-sm">
+          <p className="text-muted-foreground leading-relaxed truncate sm:whitespace-normal min-w-0">
+            <span className="font-semibold text-foreground">{t("dashboard.sitesEditor.seoPreviewBannerTitle")}</span> {t("dashboard.sitesEditor.seoPreviewBannerDesc")}
+          </p>
+          <button
+            type="button"
+            onClick={triggerOpenSidebar}
+            className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-foreground hover:opacity-80 text-background font-medium text-xs shadow-sm transition-all active:scale-95 cursor-pointer ml-auto sm:ml-0 shrink-0"
+          >
+            <Pencil className="w-3 h-3" />
+            <span>{t("dashboard.sitesEditor.seoEditInSidebar")}</span>
+          </button>
+        </div>
+
+        {/* ════ REALISTIC BROWSER WINDOW ════ */}
+        <div className="rounded-2xl border border-slate-700/80 bg-[#1e2029] shadow-[0_25px_60px_-15px_rgba(0,0,0,0.6)] overflow-hidden transition-all duration-200">
+
+          {/* Browser Titlebar & Tabs Strip */}
+          <div className="bg-[#181a22] border-b border-black/40 flex items-center justify-between px-3 pt-2.5 pb-0 gap-2 select-none overflow-x-auto">
+            {/* Mac Traffic Lights Window Controls */}
+            <div className="flex items-center gap-2 pl-1 pr-3 pb-2.5 shrink-0">
+              <div className="w-3 h-3 rounded-full bg-[#ff5f56] border border-[#e0443e]/50 shadow-xs" title={t("dashboard.sitesEditor.windowClose")} />
+              <div className="w-3 h-3 rounded-full bg-[#ffbd2e] border border-[#dea123]/50 shadow-xs" title={t("dashboard.sitesEditor.windowMinimize")} />
+              <div className="w-3 h-3 rounded-full bg-[#27c93f] border border-[#1aab29]/50 shadow-xs" title={t("dashboard.sitesEditor.windowMaximize")} />
+            </div>
+
+            {/* Browser Tabs */}
+            <div className="flex items-end gap-1.5 flex-1 min-w-0">
+              {/* Tab 1: Google SERP */}
+              <button
+                type="button"
+                onClick={() => setActiveTab("google")}
+                className={`group relative flex items-center gap-2 px-3.5 py-2 rounded-t-xl text-[12px] font-medium transition-all max-w-[210px] min-w-[130px] border-t border-x cursor-pointer ${
+                  activeTab === "google"
+                    ? "bg-[#ffffff] text-slate-900 border-slate-300 shadow-sm font-semibold"
+                    : "bg-[#14151c]/80 text-slate-400 hover:text-slate-200 border-white/5 hover:bg-[#191b24]"
+                }`}
+              >
+                {/* Google "G" icon */}
+                <svg className="w-3.5 h-3.5 shrink-0" viewBox="0 0 24 24">
+                  <path fill="#4285F4" d="M23.745 12.27c0-.7-.06-1.4-.19-2.07H12v4.51h6.6c-.29 1.52-1.14 2.8-2.4 3.66v3.04h3.88c2.28-2.09 3.66-5.18 3.66-9.14z"/>
+                  <path fill="#34A853" d="M12 24c3.24 0 5.95-1.08 7.93-2.91l-3.88-3.04c-1.08.72-2.45 1.16-4.05 1.16-3.12 0-5.77-2.1-6.72-4.93H1.27v3.13C3.25 21.31 7.31 24 12 24z"/>
+                  <path fill="#FBBC05" d="M5.28 14.28c-.24-.72-.38-1.49-.38-2.28s.14-1.56.38-2.28V6.59H1.27C.46 8.21 0 10.04 0 12s.46 3.79 1.27 5.41l4.01-3.13z"/>
+                  <path fill="#EA4335" d="M12 4.75c1.77 0 3.35.61 4.6 1.8l3.42-3.42C17.95 1.19 15.24 0 12 0 7.31 0 3.25 2.69 1.27 6.59l4.01 3.13c.95-2.83 3.6-4.97 6.72-4.97z"/>
+                </svg>
+                <span className="truncate">{t("dashboard.sitesEditor.seoTabGoogle")}</span>
+                <span className="ml-auto text-[10px] text-slate-400 opacity-60 group-hover:opacity-100">✕</span>
+              </button>
+
+              {/* Tab 2: WhatsApp / Sosmed */}
+              <button
+                type="button"
+                onClick={() => setActiveTab("whatsapp")}
+                className={`group relative flex items-center gap-2 px-3.5 py-2 rounded-t-xl text-[12px] font-medium transition-all max-w-[210px] min-w-[130px] border-t border-x cursor-pointer ${
+                  activeTab === "whatsapp"
+                    ? "bg-[#0b141a] text-emerald-300 border-emerald-500/30 shadow-sm font-semibold"
+                    : "bg-[#14151c]/80 text-slate-400 hover:text-slate-200 border-white/5 hover:bg-[#191b24]"
+                }`}
+              >
+                {/* WhatsApp icon */}
+                <svg className="w-3.5 h-3.5 fill-[#25D366] shrink-0" viewBox="0 0 24 24">
+                  <path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.711 2.598 2.669-.699c.983.541 1.767.818 2.791.818 3.182 0 5.768-2.587 5.768-5.768.001-3.18-2.585-5.764-5.768-5.764zm3.376 8.204c-.144.405-.837.774-1.17.824-.312.045-.694.079-2.128-.488-1.833-.726-3.003-2.593-3.094-2.715-.09-.122-.745-.992-.745-1.892 0-.899.467-1.343.633-1.525.166-.182.364-.228.485-.228.122 0 .243.002.349.007.111.005.259-.042.405.309.151.364.515 1.258.56 1.35.045.091.076.197.015.318-.06.121-.09.197-.181.303-.09.106-.19.237-.272.318-.09.091-.184.19-.079.371.106.182.47 1.157 1.009 1.637.694.618 1.28.81 1.462.901.182.091.288.076.394-.045.106-.121.455-.53.576-.712.121-.182.242-.152.405-.091.164.061 1.036.488 1.213.579.177.091.297.136.339.212.043.076.043.439-.101.844z"/>
+                </svg>
+                <span className="truncate">{t("dashboard.sitesEditor.seoTabWhatsApp")}</span>
+                <span className="ml-auto text-[10px] text-slate-400 opacity-60 group-hover:opacity-100">✕</span>
+              </button>
+
+              {/* Tab 3: Meta Tags Inspector */}
+              <button
+                type="button"
+                onClick={() => setActiveTab("meta")}
+                className={`group relative flex items-center gap-2 px-3.5 py-2 rounded-t-xl text-[12px] font-medium transition-all max-w-[210px] min-w-[130px] border-t border-x cursor-pointer ${
+                  activeTab === "meta"
+                    ? "bg-[#0d1117] text-sky-300 border-sky-500/30 shadow-sm font-semibold"
+                    : "bg-[#14151c]/80 text-slate-400 hover:text-slate-200 border-white/5 hover:bg-[#191b24]"
+                }`}
+              >
+                <Code2 className="w-3.5 h-3.5 text-sky-400 shrink-0" />
+                <span className="truncate">{t("dashboard.sitesEditor.seoTabMetaTags")}</span>
+                <span className="ml-auto text-[10px] text-slate-400 opacity-60 group-hover:opacity-100">✕</span>
+              </button>
+            </div>
+
+            {/* New Tab Button */}
+            <div className="pb-2">
+              <button
+                type="button"
+                onClick={() => setActiveTab(activeTab === "google" ? "whatsapp" : activeTab === "whatsapp" ? "meta" : "google")}
+                className="w-6 h-6 rounded-lg flex items-center justify-center text-slate-400 hover:text-white hover:bg-white/10 transition-colors"
+                title={t("dashboard.sitesEditor.seoSwitchView")}
+              >
+                +
+              </button>
+            </div>
+          </div>
+
+          {/* Browser Omnibox Toolbar (Address bar) */}
+          <div className="bg-[#121319] border-b border-white/5 px-3 py-2 flex items-center gap-2 select-none">
+            {/* Nav Arrows */}
+            <div className="flex items-center gap-1">
+              <button
+                type="button"
+                className="w-7 h-7 rounded-lg flex items-center justify-center text-slate-400 hover:text-slate-200 hover:bg-white/5 transition-colors"
+                title={t("dashboard.sitesEditor.browserBack")}
+              >
+                <ChevronLeft className="w-4 h-4" />
+              </button>
+              <button
+                type="button"
+                className="w-7 h-7 rounded-lg flex items-center justify-center text-slate-600 cursor-not-allowed"
+                title={t("dashboard.sitesEditor.browserForward")}
+              >
+                <ChevronRight className="w-4 h-4" />
+              </button>
+              <button
+                type="button"
+                onClick={handleReload}
+                className="w-7 h-7 rounded-lg flex items-center justify-center text-slate-400 hover:text-slate-200 hover:bg-white/5 transition-colors cursor-pointer"
+                title={t("dashboard.sitesEditor.browserReload")}
+              >
+                <RotateCw className={`w-3.5 h-3.5 ${isReloading ? "animate-spin text-sky-400" : ""}`} />
+              </button>
+            </div>
+
+            {/* Omnibox Address Input Pill */}
+            <div className="flex-1 bg-[#090b0e] border border-white/10 rounded-full px-3.5 py-1.5 flex items-center gap-2 text-xs min-w-0 shadow-inner group">
+              <Lock className="w-3.5 h-3.5 text-emerald-400 shrink-0" />
+              <span className="text-slate-500 font-mono select-none">https://</span>
+              <span className="text-slate-200 font-mono truncate flex-1">
+                {activeTab === "google" && `www.google.com/search?q=${encodeURIComponent(searchQuery)}`}
+                {activeTab === "whatsapp" && `web.whatsapp.com`}
+                {activeTab === "meta" && `${cleanDomain}${seo?.canonical_path || "/"}`}
+              </span>
+
+              {/* Omnibox Action Icons */}
+              <div className="flex items-center gap-1.5 shrink-0">
+                <button
+                  type="button"
+                  onClick={handleCopyUrl}
+                  className="p-1 rounded-md text-slate-400 hover:text-white hover:bg-white/10 transition-colors"
+                  title={copiedUrl ? t("dashboard.sitesEditor.copied") : t("dashboard.sitesEditor.copyUrl")}
+                >
+                  {copiedUrl ? <Check className="w-3.5 h-3.5 text-emerald-400" /> : <Copy className="w-3.5 h-3.5" />}
+                </button>
+                <button
+                  type="button"
+                  onClick={() => setIsBookmarked(!isBookmarked)}
+                  className={`p-1 rounded-md transition-colors ${
+                    isBookmarked ? "text-amber-400" : "text-slate-400 hover:text-white hover:bg-white/10"
+                  }`}
+                  title={isBookmarked ? t("dashboard.sitesEditor.bookmarkSaved") : t("dashboard.sitesEditor.bookmarkAdd")}
+                >
+                  <Star className={`w-3.5 h-3.5 ${isBookmarked ? "fill-amber-400" : ""}`} />
+                </button>
+              </div>
+            </div>
+
+            {/* Browser Right Menu */}
+            <div className="flex items-center gap-1 pl-1">
+              <div className="w-6 h-6 rounded-full bg-gradient-to-tr from-indigo-500 to-purple-500 flex items-center justify-center text-[10px] font-bold text-white shadow-xs">
+                W
+              </div>
+              <button
+                type="button"
+                className="w-7 h-7 rounded-lg flex items-center justify-center text-slate-400 hover:text-slate-200 hover:bg-white/5 transition-colors"
+                title={t("dashboard.sitesEditor.browserMenu")}
+              >
+                <MoreVertical className="w-4 h-4" />
+              </button>
+            </div>
+          </div>
+
+          {/* ════ BROWSER VIEWPORT ════ */}
+          <div className="relative">
+
+            {/* ── VIEW 1: GOOGLE SEARCH RESULTS (SERP) ── */}
+            {activeTab === "google" && (
+              <div className="bg-[#ffffff] text-slate-900 p-5 sm:p-8 min-h-[420px] transition-all">
+
+                {/* Google Header bar */}
+                <div className="flex flex-col sm:flex-row sm:items-center gap-4 pb-4 border-b border-slate-200/80">
+                  {/* Google Logo */}
+                  <div className="flex items-center gap-3">
+                    <span className="text-[26px] font-bold tracking-tight select-none">
+                      <span className="text-[#4285F4]">G</span>
+                      <span className="text-[#EA4335]">o</span>
+                      <span className="text-[#FBBC05]">o</span>
+                      <span className="text-[#4285F4]">g</span>
+                      <span className="text-[#34A853]">l</span>
+                      <span className="text-[#EA4335]">e</span>
+                    </span>
+                  </div>
+
+                  {/* Google Search Bar Mockup */}
+                  <div className="flex-1 max-w-xl flex items-center justify-between rounded-full border border-slate-300 shadow-sm hover:shadow-md px-4 py-2 bg-white transition-shadow">
+                    <span className="text-sm font-medium text-slate-800 truncate mr-2">
+                      {searchQuery}
+                    </span>
+                    <div className="flex items-center gap-3 text-slate-500 shrink-0">
+                      <span className="text-slate-300 text-xs">✕</span>
+                      <div className="w-px h-4 bg-slate-200" />
+                      {/* Mic icon */}
+                      <svg className="w-4 h-4" viewBox="0 0 24 24">
+                        <path fill="#4285F4" d="M12 14c1.66 0 3-1.34 3-3V5c0-1.66-1.34-3-3-3S9 3.34 9 5v6c0 1.66 1.34 3 3 3z"/>
+                        <path fill="#34A853" d="M17 11c0 2.76-2.24 5-5 5s-5-2.24-5-5H5c0 3.53 2.61 6.43 6 6.92V21h2v-3.08c3.39-.49 6-3.39 6-6.92h-2z"/>
+                      </svg>
+                      {/* Search icon */}
+                      <svg className="w-4 h-4 text-[#4285F4]" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
+                        <circle cx="11" cy="11" r="8"/>
+                        <path d="m21 21-4.35-4.35"/>
+                      </svg>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Google Categories Tab Bar */}
+                <div className="flex items-center gap-6 text-[13px] font-medium text-slate-600 pt-3 pb-2.5 overflow-x-auto select-none">
+                  <div className="flex items-center gap-1.5 text-[#1a73e8] border-b-2 border-[#1a73e8] pb-1 font-semibold shrink-0 cursor-pointer">
+                    <Search className="w-3.5 h-3.5" />
+                    <span>{t("dashboard.sitesEditor.seoGoogleAll")}</span>
+                  </div>
+                  <span className="hover:text-slate-900 cursor-pointer pb-1 shrink-0">{t("dashboard.sitesEditor.seoGoogleImages")}</span>
+                  <span className="hover:text-slate-900 cursor-pointer pb-1 shrink-0">{t("dashboard.sitesEditor.seoGoogleNews")}</span>
+                  <span className="hover:text-slate-900 cursor-pointer pb-1 shrink-0">{t("dashboard.sitesEditor.seoGoogleMaps")}</span>
+                  <span className="hover:text-slate-900 cursor-pointer pb-1 shrink-0">{t("dashboard.sitesEditor.seoGoogleVideos")}</span>
+                  <span className="hover:text-slate-900 cursor-pointer pb-1 shrink-0">{t("dashboard.sitesEditor.seoGoogleMore")}</span>
+                </div>
+
+                {/* Results Count Line */}
+                <p className="text-[11px] text-slate-500 py-3 border-b border-slate-100">
+                  {t("dashboard.sitesEditor.seoGoogleResultsCount")}
+                </p>
+
+                {/* ── THE ORGANIC RESULT ITEM (THE USER'S WEBSITE) ── */}
+                <div className="pt-5 max-w-2xl space-y-2">
+                  {/* Site Header: Favicon + Domain Breadcrumb */}
+                  <div className="flex items-center gap-3">
+                    <div className="w-7 h-7 rounded-full bg-slate-100 border border-slate-200/80 flex items-center justify-center overflow-hidden shrink-0 shadow-xs">
+                      {seo?.favicon_url ? (
+                        <img
+                          src={seo.favicon_url}
+                          alt="Favicon"
+                          className="w-full h-full object-cover"
+                          onError={(e) => { e.currentTarget.style.display = 'none'; }}
+                        />
+                      ) : (
+                        <span className="text-[11px] font-bold text-slate-700 uppercase">
+                          {siteBrand.slice(0, 1)}
+                        </span>
+                      )}
+                    </div>
+                    <div className="min-w-0 flex-1">
+                      <div className="flex items-center gap-1.5">
+                        <span className="text-[13px] font-semibold text-slate-900 leading-none truncate">
+                          {siteBrand}
+                        </span>
+                        <MoreVertical className="w-3.5 h-3.5 text-slate-400 shrink-0 cursor-pointer" />
+                      </div>
+                      <p className="text-[11px] text-slate-500 font-mono truncate leading-tight pt-0.5">
+                        https://{cleanDomain}{seo?.canonical_path ? ` › ${seo.canonical_path.replace(/^\//, "")}` : ""}
+                      </p>
+                    </div>
+                  </div>
+
+                  {/* Title Link */}
+                  <h3
+                    onClick={triggerOpenSidebar}
+                    className="text-[19px] sm:text-[20px] font-medium leading-snug cursor-pointer group hover:underline text-[#1a0dab] pt-0.5"
+                    title={t("dashboard.sitesEditor.seoGoogleClickToEdit")}
+                  >
+                    {seo?.title ? (
+                      seo.title
+                    ) : (
+                      <span className="text-slate-400 italic font-normal">
+                        {t("dashboard.sitesEditor.seoGooglePlaceholderTitle")}
+                      </span>
+                    )}
+                  </h3>
+
+                  {/* Meta Description Snippet */}
+                  <p className="text-[13px] text-[#4d5156] leading-relaxed">
+                    {seo?.description ? (
+                      seo.description.length > 160 ? seo.description.slice(0, 157) + "..." : seo.description
+                    ) : (
+                      <span className="text-slate-400 italic">
+                        {t("dashboard.sitesEditor.seoGooglePlaceholderDesc")}
+                      </span>
+                    )}
+                  </p>
+
+                  {/* Sitelinks Grid (Google Sub-links preview) */}
+                  <div className="pt-3 grid grid-cols-2 gap-3 max-w-lg border-t border-slate-100 mt-3">
+                    <div className="space-y-0.5">
+                      <p className="text-[13px] font-medium text-[#1a0dab] hover:underline cursor-pointer">{t("dashboard.sitesEditor.seoSitelinkAbout")}</p>
+                      <p className="text-[11px] text-slate-500 line-clamp-1">{t("dashboard.sitesEditor.seoSitelinkAboutDesc")}</p>
+                    </div>
+                    <div className="space-y-0.5">
+                      <p className="text-[13px] font-medium text-[#1a0dab] hover:underline cursor-pointer">{t("dashboard.sitesEditor.seoSitelinkContact")}</p>
+                      <p className="text-[11px] text-slate-500 line-clamp-1">{t("dashboard.sitesEditor.seoSitelinkContactDesc")}</p>
+                    </div>
+                  </div>
+                </div>
+
+                {/* SEO Diagnostics Bar */}
+                <div className="mt-8 pt-4 border-t border-slate-200/90 flex flex-wrap items-center justify-between gap-3 text-xs bg-slate-50 -mx-5 -mb-5 sm:-mx-8 sm:-mb-8 p-4 rounded-b-2xl">
+                  <div className="flex flex-wrap items-center gap-4">
+                    {/* Title length check */}
+                    <div className="flex items-center gap-1.5">
+                      <span className="font-semibold text-slate-600">{t("dashboard.sitesEditor.seoDiagTitle")}</span>
+                      <span className={`font-mono font-medium px-2 py-0.5 rounded-full text-[11px] ${
+                        titleLen >= 30 && titleLen <= 60
+                          ? "bg-emerald-100 text-emerald-800"
+                          : titleLen > 60
+                            ? "bg-red-100 text-red-800"
+                            : "bg-amber-100 text-amber-800"
+                      }`}>
+                        {titleLen}/60 char {titleLen >= 30 && titleLen <= 60 ? t("dashboard.sitesEditor.seoDiagOptimal") : titleLen > 60 ? t("dashboard.sitesEditor.seoDiagTooLong") : t("dashboard.sitesEditor.seoDiagTooShort")}
+                      </span>
+                    </div>
+
+                    {/* Desc length check */}
+                    <div className="flex items-center gap-1.5">
+                      <span className="font-semibold text-slate-600">{t("dashboard.sitesEditor.seoDiagDesc")}</span>
+                      <span className={`font-mono font-medium px-2 py-0.5 rounded-full text-[11px] ${
+                        descLen >= 70 && descLen <= 155
+                          ? "bg-emerald-100 text-emerald-800"
+                          : descLen > 155
+                            ? "bg-red-100 text-red-800"
+                            : "bg-amber-100 text-amber-800"
+                      }`}>
+                        {descLen}/155 char {descLen >= 70 && descLen <= 155 ? t("dashboard.sitesEditor.seoDiagOptimal") : descLen > 155 ? t("dashboard.sitesEditor.seoDiagTooLong") : t("dashboard.sitesEditor.seoDiagTooShort")}
+                      </span>
+                    </div>
+                  </div>
+
+                  <button
+                    type="button"
+                    onClick={triggerOpenSidebar}
+                    className="text-[11px] font-semibold text-indigo-600 hover:text-indigo-800 hover:underline flex items-center gap-1 cursor-pointer"
+                  >
+                    <span>{t("dashboard.sitesEditor.seoAdjustInSidebar")}</span>
+                    <ArrowRight className="w-3 h-3" />
+                  </button>
+                </div>
+
+              </div>
+            )}
+
+            {/* ── VIEW 2: WHATSAPP / SOSMED SHARE PREVIEW ── */}
+            {activeTab === "whatsapp" && (
+              <div className="bg-[#0b141a] text-slate-100 p-4 sm:p-7 min-h-[420px] transition-all">
+
+                {/* WhatsApp Chat Topbar */}
+                <div className="flex items-center justify-between pb-4 border-b border-white/10 mb-6">
+                  <div className="flex items-center gap-3">
+                    <div className="w-9 h-9 rounded-full bg-emerald-600/30 border border-emerald-500/40 flex items-center justify-center font-bold text-emerald-400">
+                      P
+                    </div>
+                    <div>
+                      <p className="text-[13px] font-semibold text-white leading-tight">{t("dashboard.sitesEditor.seoWaChatWith")}</p>
+                      <p className="text-[11px] text-emerald-400 leading-tight">{t("dashboard.sitesEditor.seoWaOnline")}</p>
+                    </div>
+                  </div>
+                  <span className="text-[10px] px-2.5 py-1 rounded-full bg-white/10 text-slate-300 font-mono">
+                    {t("dashboard.sitesEditor.seoWaChatBadge")}
+                  </span>
+                </div>
+
+                {/* Chat Bubble Container */}
+                <div className="max-w-md mx-auto space-y-4">
+                  <div className="rounded-2xl bg-[#005c4b] text-white p-3.5 shadow-lg space-y-2.5 border border-emerald-400/20">
+                    <p className="text-[13px] leading-relaxed">
+                      {t("dashboard.sitesEditor.seoWaMessage")}{" "}
+                      <span className="text-emerald-300 underline font-mono">https://{cleanDomain}</span>
+                    </p>
+
+                    {/* Open Graph Rich Card */}
+                    <div className="rounded-xl overflow-hidden bg-[#025142] border border-emerald-400/30 shadow-md">
+                      {seo?.og_image_url ? (
+                        <div className="w-full h-44 bg-slate-900 overflow-hidden relative group">
+                          <img
+                            src={seo.og_image_url}
+                            alt="OG Share Preview"
+                            className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                            onError={(e) => { e.currentTarget.style.display = 'none'; }}
+                          />
+                        </div>
+                      ) : (
+                        <div
+                          onClick={triggerOpenSidebar}
+                          className="w-full h-36 bg-emerald-950/60 border-b border-emerald-500/20 flex flex-col items-center justify-center gap-1.5 cursor-pointer hover:bg-emerald-950/80 transition-colors"
+                        >
+                          <ImagePlus className="w-7 h-7 text-emerald-400/70" />
+                          <span className="text-xs text-emerald-300 font-medium">{t("dashboard.sitesEditor.seoWaNoOgImage")}</span>
+                          <span className="text-[10px] text-emerald-400/80 underline">{t("dashboard.sitesEditor.seoWaClickUpload")}</span>
+                        </div>
+                      )}
+
+                      <div className="p-3 space-y-1 bg-[#02473a]">
+                        <p className="text-[10px] uppercase font-bold tracking-wider text-emerald-300/80 truncate">
+                          {cleanDomain.toUpperCase()}
+                        </p>
+                        <p className="text-[13px] font-semibold text-white leading-snug line-clamp-1">
+                          {seo?.title || siteBrand}
+                        </p>
+                        <p className="text-[11px] text-emerald-100/70 line-clamp-2 leading-relaxed">
+                          {seo?.description || t("dashboard.sitesEditor.seoWaDefaultDesc")}
+                        </p>
+                      </div>
+                    </div>
+
+                    <div className="flex items-center justify-end gap-1 pt-1 text-[10px] text-emerald-200/70">
+                      <span>14:30</span>
+                      {/* Double Blue Check */}
+                      <svg className="w-3.5 h-3.5 text-sky-400" viewBox="0 0 16 16" fill="currentColor">
+                        <path d="M12.354 4.354a.5.5 0 0 0-.708-.708L5 10.293 1.854 7.146a.5.5 0 1 0-.708.708l3.5 3.5a.5.5 0 0 0 .708 0l7-7zm-4 0a.5.5 0 0 0-.708-.708L5 6.293 6.646 7.94l2.708-2.708z"/>
+                      </svg>
+                    </div>
+                  </div>
+
+                  {/* Recommendation Note */}
+                  <div className="rounded-xl p-3.5 bg-emerald-950/30 border border-emerald-500/20 text-xs text-emerald-200/90 leading-relaxed flex items-start gap-2.5">
+                    <Sparkles className="w-4 h-4 text-emerald-400 shrink-0 mt-0.5" />
+                    <div>
+                      <p className="font-semibold text-white">{t("dashboard.sitesEditor.seoOgTipsTitle")}</p>
+                      <p className="text-[11px] text-emerald-300/80 mt-0.5">
+                        {t("dashboard.sitesEditor.seoOgTipsDesc")}
+                      </p>
+                    </div>
+                  </div>
+                </div>
+
+              </div>
+            )}
+
+            {/* ── VIEW 3: META TAGS INSPECTOR (<HEAD>) ── */}
+            {activeTab === "meta" && (
+              <div className="bg-[#0d1117] text-slate-200 p-5 sm:p-7 min-h-[420px] font-mono text-[12px] leading-relaxed transition-all">
+                <div className="flex items-center justify-between pb-3 border-b border-white/10 mb-4">
+                  <div className="flex items-center gap-2">
+                    <Code2 className="w-4 h-4 text-sky-400" />
+                    <span className="font-bold text-white text-xs">{t("dashboard.sitesEditor.seoInspectorTitle")}</span>
+                  </div>
+                  <button
+                    type="button"
+                    onClick={handleCopyMeta}
+                    className="inline-flex items-center gap-1.5 px-3 py-1 rounded-lg bg-sky-500/20 hover:bg-sky-500/30 border border-sky-500/30 text-sky-300 text-xs font-sans transition-all cursor-pointer"
+                  >
+                    {copiedCode ? <Check className="w-3.5 h-3.5 text-emerald-400" /> : <Copy className="w-3.5 h-3.5" />}
+                    <span>{copiedCode ? t("dashboard.sitesEditor.copied") : t("dashboard.sitesEditor.seoCopyHtml")}</span>
+                  </button>
+                </div>
+
+                <div className="rounded-xl p-4 bg-[#05070a] border border-white/5 overflow-x-auto space-y-1 text-slate-300 text-[11px] leading-relaxed">
+                  <p className="text-slate-500">&lt;!-- Primary Meta Tags --&gt;</p>
+                  <p><span className="text-sky-400">&lt;title&gt;</span>{seo?.title || siteBrand}<span className="text-sky-400">&lt;/title&gt;</span></p>
+                  <p><span className="text-sky-400">&lt;meta</span> <span className="text-amber-300">name</span>=<span className="text-emerald-300">&quot;title&quot;</span> <span className="text-amber-300">content</span>=<span className="text-emerald-300">&quot;{seo?.title || siteBrand}&quot;</span> <span className="text-sky-400">/&gt;</span></p>
+                  <p><span className="text-sky-400">&lt;meta</span> <span className="text-amber-300">name</span>=<span className="text-emerald-300">&quot;description&quot;</span> <span className="text-amber-300">content</span>=<span className="text-emerald-300">&quot;{seo?.description || ""}&quot;</span> <span className="text-sky-400">/&gt;</span></p>
+                  <p><span className="text-sky-400">&lt;meta</span> <span className="text-amber-300">name</span>=<span className="text-emerald-300">&quot;robots&quot;</span> <span className="text-amber-300">content</span>=<span className="text-emerald-300">&quot;{seo?.robots || "index, follow"}&quot;</span> <span className="text-sky-400">/&gt;</span></p>
+                  <p><span className="text-sky-400">&lt;link</span> <span className="text-amber-300">rel</span>=<span className="text-emerald-300">&quot;canonical&quot;</span> <span className="text-amber-300">href</span>=<span className="text-emerald-300">&quot;https://{cleanDomain}{seo?.canonical_path || ""}&quot;</span> <span className="text-sky-400">/&gt;</span></p>
+                  <br />
+                  <p className="text-slate-500">&lt;!-- Open Graph / Facebook / WhatsApp --&gt;</p>
+                  <p><span className="text-sky-400">&lt;meta</span> <span className="text-amber-300">property</span>=<span className="text-emerald-300">&quot;og:type&quot;</span> <span className="text-amber-300">content</span>=<span className="text-emerald-300">&quot;{seo?.og_type || "website"}&quot;</span> <span className="text-sky-400">/&gt;</span></p>
+                  <p><span className="text-sky-400">&lt;meta</span> <span className="text-amber-300">property</span>=<span className="text-emerald-300">&quot;og:title&quot;</span> <span className="text-amber-300">content</span>=<span className="text-emerald-300">&quot;{seo?.title || siteBrand}&quot;</span> <span className="text-sky-400">/&gt;</span></p>
+                  <p><span className="text-sky-400">&lt;meta</span> <span className="text-amber-300">property</span>=<span className="text-emerald-300">&quot;og:description&quot;</span> <span className="text-amber-300">content</span>=<span className="text-emerald-300">&quot;{seo?.description || ""}&quot;</span> <span className="text-sky-400">/&gt;</span></p>
+                  <p><span className="text-sky-400">&lt;meta</span> <span className="text-amber-300">property</span>=<span className="text-emerald-300">&quot;og:image&quot;</span> <span className="text-amber-300">content</span>=<span className="text-emerald-300">&quot;{seo?.og_image_url || ""}&quot;</span> <span className="text-sky-400">/&gt;</span></p>
+                </div>
+
+                {/* Keywords Preview */}
+                {(seo?.keywords?.length || 0) > 0 && (
+                  <div className="mt-4 pt-3 border-t border-white/10 font-sans">
+                    <p className="text-[11px] font-semibold text-slate-400 uppercase tracking-widest mb-2">{t("dashboard.sitesEditor.seoTargetKeywords")}</p>
+                    <div className="flex flex-wrap gap-1.5">
+                      {(seo?.keywords || []).map((kw, idx) => (
+                        <span key={idx} className="px-2.5 py-1 rounded-md text-[11px] font-medium bg-sky-500/10 text-sky-300 border border-sky-500/20">
+                          #{kw}
+                        </span>
+                      ))}
+                    </div>
+                  </div>
+                )}
+              </div>
+            )}
+
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+  );
+};
+
+export function parseGoogleMapsCoords(url?: string | null): { lat: number; lng: number } | null {
+  if (!url) return null;
+  const m = url.match(/@?(-?\d+\.\d+),(-?\d+\.\d+)/);
+  if (!m) return null;
+  const lat = parseFloat(m[1]);
+  const lng = parseFloat(m[2]);
+  if (isNaN(lat) || isNaN(lng)) return null;
+  return { lat, lng };
+}
+
+// ─── Contact Section ───────────────────────────────────────────────────────────
+
+const TILE_STYLES: Record<string, { url: string; label: string }> = {
+  default: { url: "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", label: "OSM" },
+  cyclosm: { url: "https://{s}.tile-cyclosm.openstreetmap.fr/cyclosm/{z}/{x}/{y}.png", label: "CyclOSM" },
+  light: { url: "https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Light_Gray_Base/MapServer/tile/{z}/{y}/{x}", label: "Terang" },
+  dark:    { url: "https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Dark_Gray_Base/MapServer/tile/{z}/{y}/{x}", label: "Gelap" },
+  esri: { url: "https://server.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer/tile/{z}/{y}/{x}", label: "Esri Street" },
+  satelit: { url: "https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}", label: "Satelit" },
+};
+
+function MapEmbed({ lat, lng, tileStyle }: { lat: number; lng: number; tileStyle?: string | null }) {
+  const ref = useRef<HTMLDivElement>(null);
+  const initRef = useRef(false);
+  const mapRef = useRef<any>(null);
+  const tileRef = useRef<any>(null);
+  const markerRef = useRef<any>(null);
+
+  useEffect(() => {
+    if (!ref.current || initRef.current) return;
+    initRef.current = true;
+    let sizeTimer: ReturnType<typeof setTimeout> | null = null;
+    import("leaflet").then((L) => {
+      import("leaflet/dist/leaflet.css");
+      if (!ref.current) return;
+      delete (L.Icon.Default.prototype as any)._getIconUrl;
+      L.Icon.Default.mergeOptions({
+        iconRetinaUrl: "https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/images/marker-icon-2x.png",
+        iconUrl: "https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/images/marker-icon.png",
+        shadowUrl: "https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/images/marker-shadow.png",
+      });
+      const map = L.map(ref.current, { zoomControl: false, scrollWheelZoom: false }).setView([lat, lng], 15);
+      mapRef.current = map;
+      const info = TILE_STYLES[tileStyle || "default"] || TILE_STYLES.default;
+      tileRef.current = L.tileLayer(info.url, { attribution: "" }).addTo(map);
+      markerRef.current = L.marker([lat, lng]).addTo(map);
+      sizeTimer = setTimeout(() => { if (mapRef.current) map.invalidateSize(); }, 200);
+    });
+    return () => {
+      if (sizeTimer !== null) clearTimeout(sizeTimer);
+      if (mapRef.current) { mapRef.current.remove(); mapRef.current = null; markerRef.current = null; initRef.current = false; }
+    };
+  }, [lat, lng]);
+
+  // The init effect above is intentionally mount-once, so a location chosen later
+  // has to be applied imperatively or the map stays on the default coords.
+  useEffect(() => {
+    const map = mapRef.current;
+    if (!map) return;
+    map.setView([lat, lng], map.getZoom(), { animate: false });
+    markerRef.current?.setLatLng([lat, lng]);
+  }, [lat, lng]);
+
+  useEffect(() => {
+    const map = mapRef.current;
+    if (!map || !tileRef.current) return;
+    import("leaflet").then((L) => {
+      map.removeLayer(tileRef.current);
+      const info = TILE_STYLES[tileStyle || "default"] || TILE_STYLES.default;
+      tileRef.current = L.tileLayer(info.url, { attribution: "" }).addTo(map);
+    });
+  }, [tileStyle]);
+
+  return <div ref={ref} className="w-full h-[220px] rounded-xl overflow-hidden" />;
+}
+
+interface ContactSectionProps {
+  title?: string | null;
+  address?: string | null;
+  phone?: string | null;
+  email?: string | null;
+  mapsUrl?: string | null;
+  align?: "left" | "center" | "right" | null;
+  showLeadForm?: boolean | null;
+  showMap?: boolean | null;
+  mapTileStyle?: string | null;
+  onSubmitLead?: ((data: { name: string; email: string; phone: string; message: string }) => Promise<string | void>) | null;
+  leadSubmitting?: boolean | null;
+  leadSuccess?: boolean | null;
+  leadError?: string | null;
+  wrapperClass?: string;
+  wrapperStyle?: React.CSSProperties;
+  titleClass?: string;
+  titleStyle?: React.CSSProperties;
+  accentColor?: string;
+  textClass?: string;
+  textStyle?: React.CSSProperties;
+  leadCardClass?: string;
+  leadCardStyle?: React.CSSProperties;
+  leadTitleClass?: string;
+  leadTitleStyle?: React.CSSProperties;
+  leadTitleText?: string;
+  formTitle?: string | null;
+  buttonText?: string | null;
+  leadFormBtnClass?: string;
+  leadFormBtnStyle?: React.CSSProperties;
+  leadFormInputClass?: string;
+  leadFormInputStyle?: React.CSSProperties;
+  onUpdateField?: (section: string, key: string, value: any) => void;
+  isEditorMode?: boolean;
+  isSelected?: boolean;
+  collapseSheetForInlineEdit?: () => void;
+  onEditingStateChange?: (isEditing: boolean) => void;
+  language?: "id" | "en";
+  formPosition?: "right" | "left" | "stack" | null;
+  mapLayout?: "inline" | "full" | null;
+}
+
+const SharedContactSection: React.FC<ContactSectionProps> = ({
+  title, address, phone, email, mapsUrl,
+  align = "center",
+  showLeadForm, showMap, mapTileStyle, onSubmitLead, leadSubmitting, leadSuccess, leadError,
+  wrapperClass = "py-16 px-6", wrapperStyle,
+  titleClass = "text-2xl font-bold", titleStyle,
+  accentColor = "currentColor",
+  textClass = "text-sm", textStyle,
+  leadCardClass, leadCardStyle,
+  leadTitleClass, leadTitleStyle, leadTitleText, formTitle, buttonText,
+  leadFormBtnClass, leadFormBtnStyle,
+  leadFormInputClass, leadFormInputStyle,
+  onUpdateField, isEditorMode, isSelected, collapseSheetForInlineEdit, onEditingStateChange,
+  language = "id",
+  formPosition = "right",
+  mapLayout = "inline",
+}) => {
+  const isEN = language === "en";
+  const effectiveLeadTitleText = formTitle || leadTitleText || (isEN ? "Contact Us" : "Hubungi Kami");
+  const hasLeadForm = Boolean(showLeadForm && onSubmitLead);
+  const effectiveAlign = align || "center";
+  const isCenter = effectiveAlign === "center";
+  const isStacked = formPosition === "stack";
+  const showForm = hasLeadForm;
+  const formOnRight = formPosition === "right";
+
+  // Track mapsUrl so picking a new location in the sidebar moves the map here
+  // too; deriving it once at mount left it pinned to the default coords.
+  const urlCoords = parseGoogleMapsCoords(mapsUrl);
+  const mapCoords = urlCoords || { lat: -6.2088, lng: 106.8456 };
+
+  // Dummy fallbacks — real data replaces when user fills via editor
+  const displayAddress = address || "Alamat Anda";
+  const displayPhone = phone || "08xx-xxxx-xxxx";
+  const displayEmail = email || "email@anda.com";
+
+  const infoItems: { icon: React.ElementType; text?: string; fieldKey?: string; href?: string }[] = [
+    { icon: MapPin, text: displayAddress, fieldKey: "address" },
+    { icon: Phone, text: displayPhone, fieldKey: "phone", href: `https://wa.me/${displayPhone.replace(/\D/g, "")}` },
+    { icon: Mail, text: displayEmail, fieldKey: "email", href: `mailto:${displayEmail}` },
+  ];
+
+  const isMapFull = mapLayout === "full";
+
+  const MapBlock = (
+    <div className={`space-y-2 w-full ${isMapFull ? "max-w-none" : ""}`}>
+      <div className={`overflow-hidden border w-full ${isMapFull ? "h-72 md:h-80 rounded-none" : "rounded-xl"}`} style={{ borderColor: `${accentColor}20` }}>
+        <MapEmbed lat={mapCoords.lat} lng={mapCoords.lng} tileStyle={mapTileStyle} />
+      </div>
+      <a href={`https://www.google.com/maps/place/@${mapCoords.lat},${mapCoords.lng}`} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1.5 text-[11px] font-medium hover:underline" style={{ color: accentColor }}>
+        <Globe className="w-3.5 h-3.5" />
+        Buka di Google Maps
+      </a>
+    </div>
+  );
+
+  return (
+    <section id="contact" className={wrapperClass} style={wrapperStyle}>
+      <div className={`mx-auto ${showForm && !isStacked ? "max-w-5xl flex flex-col md:flex-row md:gap-10" : "max-w-3xl"} ${!showForm ? "text-center items-center" : ""}`}>
+        {/* Contact info */}
+        <div className={`space-y-6 ${!showForm ? "mx-auto" : ""} ${showForm && !isStacked ? "md:w-1/2" : ""}`}>
+          {title && (
+            <h2 className={`mx-auto ${!showForm ? "max-w-xl" : ""} ${titleClass}`} style={{ ...titleStyle, ...headingVars }}>
+              {title}
+            </h2>
+          )}
+          <div className="space-y-4">
+            {infoItems.map(({ icon: Icon, text, fieldKey, href }) => {
+              const inner = (
+                <div className="inline-flex gap-3 items-center">
+                  <div className="w-9 h-9 rounded-xl flex items-center justify-center shrink-0" style={{ background: `${accentColor}18` }}>
+                    <Icon className="w-4 h-4" style={{ color: accentColor }} />
+                  </div>
+                  <div className="min-w-0">
+                    {fieldKey ? (
+                      <InlineText
+                        section="contact"
+                        fieldKey={fieldKey}
+                        value={text}
+                        onUpdateField={onUpdateField}
+                        isEditorMode={isEditorMode}
+                        isSelected={isSelected}
+                        as="p"
+                        className={`${textClass} break-words`}
+                        style={textStyle}
+                        collapseSheetForInlineEdit={collapseSheetForInlineEdit}
+                        onEditingStateChange={onEditingStateChange}
+                      />
+                    ) : (
+                      <p className={`${textClass} break-words`} style={textStyle}>{text}</p>
+                    )}
+                  </div>
+                </div>
+              );
+              if (href && !isEditorMode) {
+                return <a key={text} href={href} target="_blank" rel="noopener noreferrer" className="block no-underline hover:opacity-80 transition-opacity">{inner}</a>;
+              }
+              return <div key={text}>{inner}</div>;
+            })}
+          </div>
+
+          {!isMapFull && showMap !== false && MapBlock}
+        </div>
+
+        {/* Lead form */}
+        {showForm && (
+          <div className={`space-y-6 ${showForm && !isStacked ? "md:w-1/2" : ""} ${isStacked ? "mt-10" : ""}`}>
+            <div className={leadCardClass || "p-7 rounded-2xl border shadow-sm"} style={leadCardStyle || { background: "white", borderColor: `${accentColor}20` }}>
+              <InlineText
+                section="contact"
+                fieldKey="form_title"
+                value={effectiveLeadTitleText}
+                onUpdateField={onUpdateField}
+                isEditorMode={isEditorMode}
+                isSelected={isSelected}
+                as="h3"
+                className={`text-base font-bold mb-5 ${leadTitleClass || ""}`}
+                style={leadTitleStyle}
+                collapseSheetForInlineEdit={collapseSheetForInlineEdit}
+                onEditingStateChange={onEditingStateChange}
+              />
+              <LeadForm
+                onSubmit={onSubmitLead!}
+                submitting={leadSubmitting ?? false}
+                success={leadSuccess ?? false}
+                error={leadError ?? null}
+                buttonClass={leadFormBtnClass || ""}
+                buttonStyle={leadFormBtnStyle}
+                inputClass={leadFormInputClass || ""}
+                inputStyle={leadFormInputStyle}
+                language={language}
+                buttonText={buttonText}
+                onUpdateField={onUpdateField}
+                isEditorMode={isEditorMode}
+                isSelected={isSelected}
+                collapseSheetForInlineEdit={collapseSheetForInlineEdit}
+                onEditingStateChange={onEditingStateChange}
+              />
+            </div>
+          </div>
+        )}
+      </div>
+
+      {/* Full-width map below content */}
+      {isMapFull && showMap !== false && (
+        <div className="mt-10 max-w-none">
+          {MapBlock}
+        </div>
+      )}
+    </section>
+  );
+};
+
+// ─── Benefits (Keunggulan) Section ─────────────────────────────────────────────
+
+interface BenefitsSectionProps {
+  benefits: {
+    title: string;
+    items: BenefitItem[];
+    eyebrow?: string;
+    subtitle?: string;
+    textAlign?: "left" | "center" | "right";
+  };
+  variant?: "grid" | "stats" | "alternating" | "compact";
+  wrapperClass?: string;
+  wrapperStyle?: React.CSSProperties;
+  eyebrowClass?: string;
+  eyebrowStyle?: React.CSSProperties;
+  titleClass?: string;
+  titleStyle?: React.CSSProperties;
+  subtitleClass?: string;
+  subtitleStyle?: React.CSSProperties;
+  cardClass?: string;
+  cardStyle?: React.CSSProperties;
+  iconContainerClass?: string;
+  iconContainerStyle?: React.CSSProperties;
+  iconClass?: string;
+  iconStyle?: React.CSSProperties;
+  statClass?: string;
+  statStyle?: React.CSSProperties;
+  statLabelClass?: string;
+  statLabelStyle?: React.CSSProperties;
+  cardTitleClass?: string;
+  cardTitleStyle?: React.CSSProperties;
+  cardDescClass?: string;
+  cardDescStyle?: React.CSSProperties;
+  accentColor?: string;
+  onUpdateField?: (section: string, key: string, value: any) => void;
+  isEditorMode?: boolean;
+  isSelected?: boolean;
+  collapseSheetForInlineEdit?: () => void;
+  onEditingStateChange?: (isEditing: boolean) => void;
+}
+
+const SharedBenefitsSection: React.FC<BenefitsSectionProps> = ({
+  benefits: b,
+  variant = "grid",
+  wrapperClass = "py-[var(--dt-spacing)] px-6",
+  wrapperStyle,
+  eyebrowClass = "text-[10px] font-bold uppercase tracking-widest block",
+  eyebrowStyle,
+  titleClass = "text-2xl md:text-3xl font-bold",
+  titleStyle,
+  subtitleClass = "text-sm",
+  subtitleStyle,
+  cardClass = "",
+  cardStyle,
+  iconContainerClass = "w-10 h-10 rounded flex items-center justify-center",
+  iconContainerStyle,
+  iconClass = "w-5 h-5",
+  iconStyle,
+  statClass = "text-2xl font-bold leading-none",
+  statStyle,
+  statLabelClass = "text-[10px] font-semibold uppercase tracking-wider",
+  statLabelStyle,
+  cardTitleClass = "text-sm font-bold",
+  cardTitleStyle,
+  cardDescClass = "text-xs leading-relaxed",
+  cardDescStyle,
+  accentColor = "var(--dt-primary)",
+  onUpdateField,
+  isEditorMode,
+  isSelected,
+  collapseSheetForInlineEdit,
+  onEditingStateChange,
+}) => {
+  const containerClass = variant === "compact" ? "grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 md:gap-4" :
+    variant === "stats" ? "grid grid-cols-1 md:grid-cols-3 gap-6" :
+      variant === "alternating" ? "grid grid-cols-1 md:grid-cols-2 gap-6" :
+        "grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8";
+
+  const statAccent = { color: accentColor };
+  const alignStyle = b.textAlign ? { textAlign: b.textAlign as React.CSSProperties['textAlign'] } : { textAlign: "center" as React.CSSProperties['textAlign'] };
+  const headerAlign = { ...eyebrowStyle, ...alignStyle };
+  const cardAlign = { ...cardStyle, ...alignStyle };
+
+  return (
+    <section id="benefits" className={wrapperClass} style={{ ...wrapperStyle, ...alignStyle }}>
+      <div className="max-w-6xl mx-auto space-y-10 md:space-y-12">
+        {(b.eyebrow || b.title || b.subtitle) && (
+          <div className="space-y-2">
+            {b.eyebrow && (
+              <InlineText
+                section="benefits"
+                fieldKey="eyebrow"
+                value={b.eyebrow}
+                onUpdateField={onUpdateField}
+                isEditorMode={isEditorMode}
+                isSelected={isSelected}
+                as="span"
+                className={eyebrowClass}
+                style={headerAlign}
+                collapseSheetForInlineEdit={collapseSheetForInlineEdit}
+                onEditingStateChange={onEditingStateChange}
+              />
+            )}
+            {b.title && (
+              <InlineText
+                section="benefits"
+                fieldKey="title"
+                value={b.title}
+                onUpdateField={onUpdateField}
+                isEditorMode={isEditorMode}
+                isSelected={isSelected}
+                as="h2"
+                className={titleClass}
+                style={{ ...titleStyle, ...headingVars, ...alignStyle }}
+                collapseSheetForInlineEdit={collapseSheetForInlineEdit}
+                onEditingStateChange={onEditingStateChange}
+              />
+            )}
+            {b.subtitle && (
+              <InlineText
+                section="benefits"
+                fieldKey="subtitle"
+                value={b.subtitle}
+                onUpdateField={onUpdateField}
+                isEditorMode={isEditorMode}
+                isSelected={isSelected}
+                as="p"
+                className={subtitleClass}
+                style={{ ...subtitleStyle, ...alignStyle }}
+                collapseSheetForInlineEdit={collapseSheetForInlineEdit}
+                onEditingStateChange={onEditingStateChange}
+              />
+            )}
+          </div>
+        )}
+        <div className={containerClass}>
+          {b.items?.map((item, idx) => {
+            if (variant === "stats" && item.stat) {
+              return (
+                <div key={idx} className={cardClass || "p-6 space-y-3"} style={{ ...cardStyle, ...cardAlign }}>
+                  <p className={statClass} style={{ ...statStyle, ...statAccent }}>{item.stat}</p>
+                  {item.stat_label && <p className={statLabelClass} style={statLabelStyle}>{item.stat_label}</p>}
+                  <div className={iconContainerClass} style={{ ...iconContainerStyle, color: accentColor }}>
+                    <DynamicIcon name={item.icon} defaultIcon={Star} className={iconClass} />
+                  </div>
+                  <h3 className={cardTitleClass} style={cardTitleStyle}>{item.title}</h3>
+                  <p className={cardDescClass} style={cardDescStyle}>{item.description}</p>
+                </div>
+              );
+            }
+            if (variant === "alternating" && idx % 2 === 1 && item.stat) {
+              return (
+                <div key={idx} className={`${cardClass || ""} flex flex-col justify-center text-center`} style={{ ...cardStyle, ...cardAlign }}>
+                  <p className={statClass} style={{ ...statStyle, ...statAccent }}>{item.stat}</p>
+                  {item.stat_label && <p className={statLabelClass} style={statLabelStyle}>{item.stat_label}</p>}
+                  <h3 className={cardTitleClass} style={cardTitleStyle}>{item.title}</h3>
+                </div>
+              );
+            }
+            return (
+              <div key={idx} className={cardClass || "p-5 md:p-6 space-y-3"} style={{ ...cardStyle, ...cardAlign }}>
+                {item.stat ? (
+                  <div className="space-y-1">
+                    <p className={statClass} style={{ ...statStyle, ...statAccent }}>{item.stat}</p>
+                    {item.stat_label && <p className={statLabelClass} style={statLabelStyle}>{item.stat_label}</p>}
+                  </div>
+                ) : (
+                  <div className={iconContainerClass} style={{ ...iconContainerStyle, color: accentColor }}>
+                    <DynamicIcon name={item.icon} defaultIcon={Star} className={iconClass} />
+                  </div>
+                )}
+                {variant === "compact" ? (
+                  <>
+                    <h3 className={cardTitleClass} style={cardTitleStyle}>{item.title}</h3>
+                    <p className={cardDescClass} style={cardDescStyle}>{item.description}</p>
+                  </>
+                ) : (
+                  <>
+                    <h3 className={cardTitleClass} style={cardTitleStyle}>{item.title}</h3>
+                    <p className={cardDescClass} style={cardDescStyle}>{item.description}</p>
+                  </>
+                )}
+              </div>
+            );
+          })}
+        </div>
+      </div>
+    </section>
+  );
+};
+
+// ─── Inline Edit Primitive Components ──────────────────────────────────────────
+
+export interface InlineTextProps {
+  section: string;
+  fieldKey: string;
+  value?: string | null;
+  onUpdateField?: (section: string, key: string, value: any) => void;
+  isEditorMode?: boolean;
+  isSelected?: boolean;
+  multiline?: boolean;
+  className?: string;
+  style?: React.CSSProperties;
+  id?: string;
+  as?: React.ElementType;
+  collapseSheetForInlineEdit?: () => void;
+  onEditingStateChange?: (isEditing: boolean) => void;
+  placeholder?: string;
+  children?: React.ReactNode;
+}
+
+export function InlineText({
+  section,
+  fieldKey,
+  value,
+  onUpdateField,
+  isEditorMode,
+  isSelected,
+  multiline = false,
+  className = "",
+  style,
+  id,
+  as: Component = "span",
+  collapseSheetForInlineEdit,
+  onEditingStateChange,
+  placeholder,
+  children,
+}: InlineTextProps) {
+  const { t } = useI18n();
+  const elementRef = useRef<HTMLElement | null>(null);
+  const [isFocused, setIsFocused] = useState(false);
+  const hasValue = (value !== undefined && value !== null && value !== "") || (typeof children === "string" && children !== "");
+  const currentDisplay = hasValue ? (value ?? (typeof children === "string" ? children : "")) : (placeholder ?? "");
+
+  // Keep DOM in sync when value changes from outside (e.g. undo, AI regen)
+  useEffect(() => {
+    if (elementRef.current && !isFocused) {
+      elementRef.current.innerText = currentDisplay;
+    }
+  }, [currentDisplay, isFocused]);
+
+  const Comp = (Component || "span") as React.ElementType;
+
+  if (!isEditorMode || !onUpdateField) {
+    return <Comp id={id} className={className} style={style}>{children ?? value ?? placeholder}</Comp>;
+  }
+
+  const handleFocus = () => {
+    setIsFocused(true);
+    collapseSheetForInlineEdit?.();
+    onEditingStateChange?.(true);
+    if (!hasValue && placeholder && elementRef.current) {
+      elementRef.current.innerText = "";
+    }
+  };
+
+  const handleBlur = (e: React.FocusEvent<HTMLElement>) => {
+    setIsFocused(false);
+    onEditingStateChange?.(false);
+    const newText = e.currentTarget.innerText.trim();
+    if (newText === "") {
+      if (hasValue) {
+        onUpdateField(section, fieldKey, "");
+      }
+      if (placeholder && elementRef.current) {
+        elementRef.current.innerText = placeholder;
+      }
+    } else if (newText !== (value || "").trim()) {
+      onUpdateField(section, fieldKey, newText);
+    }
+  };
+
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLElement>) => {
+    if (!multiline && e.key === "Enter") {
+      e.preventDefault();
+      e.currentTarget.blur();
+    } else if (e.key === "Escape") {
+      e.preventDefault();
+      if (elementRef.current) {
+        elementRef.current.innerText = currentDisplay;
+      }
+      e.currentTarget.blur();
+    }
+  };
+
+  const handleClick = (e: React.MouseEvent<HTMLElement>) => {
+    e.stopPropagation();
+    const parentInteractive = (e.target as HTMLElement)?.closest("a, button");
+    if (parentInteractive && !(e.metaKey || e.ctrlKey)) {
+      e.preventDefault();
+      elementRef.current?.focus();
+      if (fieldKey && fieldKey.startsWith("nav_labels.")) {
+        const sectionKey = fieldKey.replace("nav_labels.", "");
+        smoothScrollToSection(sectionKey, e.currentTarget.ownerDocument || document);
+      }
+    }
+  };
+
+  const handlePointerDown = (e: React.PointerEvent<HTMLElement>) => {
+    e.stopPropagation();
+  };
+
+  const handleMouseDown = (e: React.MouseEvent<HTMLElement>) => {
+    e.stopPropagation();
+  };
+
+  const handleTouchStart = (e: React.TouchEvent<HTMLElement>) => {
+    e.stopPropagation();
+  };
+
+  const isShowingPlaceholder = !hasValue && !!placeholder && !isFocused;
+
+  return (
+    <Comp
+      id={id}
+      ref={elementRef}
+      contentEditable={true}
+      suppressContentEditableWarning={true}
+      onClick={handleClick}
+      onPointerDown={handlePointerDown}
+      onMouseDown={handleMouseDown}
+      onTouchStart={handleTouchStart}
+      onFocus={handleFocus}
+      onBlur={handleBlur}
+      onKeyDown={handleKeyDown}
+      className={`outline-none transition-all cursor-text select-text ${
+        isFocused
+          ? "ring-1 ring-primary/70 rounded-[2px]"
+          : "hover:outline-dashed hover:outline-1 hover:outline-primary/50 hover:bg-primary/[0.03] rounded-[2px]"
+      } ${isShowingPlaceholder ? "opacity-50 italic" : ""} ${className}`}
+      style={{
+        ...style,
+        ...(!currentDisplay ? { minWidth: "1.5rem", minHeight: "1.25em", display: style?.display || (multiline ? "block" : "inline-block") } : {}),
+      }}
+      title={t("dashboard.sitesEditor.inlineClickToEdit")}
+    >
+      {currentDisplay}
+    </Comp>
+  );
+}
+
+export interface InlineImageProps {
+  section: string;
+  fieldKey: string;
+  src?: string | null;
+  alt?: string;
+  onUpdateField?: (section: string, key: string, value: any) => void;
+  isEditorMode?: boolean;
+  isSelected?: boolean;
+  className?: string;
+  style?: React.CSSProperties;
+  collapseSheetForInlineEdit?: () => void;
+  compact?: boolean;
+  fallbackIcon?: React.ReactNode;
+}
+
+export const DEFAULT_IMAGE_POOL = [
+  "https://images.unsplash.com/photo-1497366216548-37526070297c?w=1200&auto=format&fit=crop&q=80",
+  "https://images.unsplash.com/photo-1542744173-8e7e53415bb0?w=1200&auto=format&fit=crop&q=80",
+  "https://images.unsplash.com/photo-1556761175-5973dc0f32e7?w=1200&auto=format&fit=crop&q=80",
+  "https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=1200&auto=format&fit=crop&q=80",
+  "https://images.unsplash.com/photo-1501339847302-ac426a4a7cbb?w=1200&auto=format&fit=crop&q=80",
+  "https://images.unsplash.com/photo-1441986300917-64674bd600d8?w=1200&auto=format&fit=crop&q=80",
+  "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=1200&auto=format&fit=crop&q=80",
+  "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=1200&auto=format&fit=crop&q=80",
+  "https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?w=1200&auto=format&fit=crop&q=80",
+  "https://images.unsplash.com/photo-1521791136064-7986c2920216?w=1200&auto=format&fit=crop&q=80",
+  "https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?w=1200&auto=format&fit=crop&q=80",
+  "https://images.unsplash.com/photo-1560066984-138dadb4c035?w=1200&auto=format&fit=crop&q=80",
+];
+
+export function InlineImage({
+  section,
+  fieldKey,
+  src,
+  alt = "",
+  onUpdateField,
+  isEditorMode,
+  isSelected,
+  className = "",
+  style,
+  collapseSheetForInlineEdit,
+  compact,
+  fallbackIcon,
+}: InlineImageProps) {
+  const { t } = useI18n();
+  const fileInputRef = useRef<HTMLInputElement>(null);
+  const [uploading, setUploading] = useState(false);
+  const [showUrlInput, setShowUrlInput] = useState(false);
+  const [urlInput, setUrlInput] = useState("");
+  const urlInputRef = useRef<HTMLInputElement>(null);
+  // Touch device: tap to reveal overlay, auto-dismiss after 2.5s
+  const [isTouched, setIsTouched] = useState(false);
+  const touchTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  const handleTouchReveal = (e: React.TouchEvent) => {
+    // Only activate if not already showing URL input
+    if (showUrlInput) return;
+    e.stopPropagation();
+    if (isTouched) {
+      // Second tap: hide overlay
+      setIsTouched(false);
+      if (touchTimerRef.current) clearTimeout(touchTimerRef.current);
+    } else {
+      setIsTouched(true);
+      if (touchTimerRef.current) clearTimeout(touchTimerRef.current);
+      touchTimerRef.current = setTimeout(() => setIsTouched(false), 2500);
+    }
+  };
+
+  const isCompact = compact ?? (
+    fieldKey.toLowerCase().includes("logo") ||
+    fieldKey.toLowerCase().includes("avatar") ||
+    fieldKey.toLowerCase().includes("icon")
+  );
+
+  if (!isEditorMode || !onUpdateField) {
+    if (!src) return null;
+    // eslint-disable-next-line @next/next/no-img-element
+    return <img src={src} alt={alt} className={className} style={style} />;
+  }
+
+  const handleTriggerUpload = (e: React.MouseEvent | React.TouchEvent) => {
+    e.stopPropagation();
+    e.preventDefault();
+    collapseSheetForInlineEdit?.();
+    fileInputRef.current?.click();
+  };
+
+  const handleRandomPhoto = (e: React.MouseEvent | React.TouchEvent) => {
+    e.stopPropagation();
+    e.preventDefault();
+    collapseSheetForInlineEdit?.();
+    const currentSrc = src || "";
+    const available = DEFAULT_IMAGE_POOL.filter((u) => u !== currentSrc);
+    const chosen = available[Math.floor(Math.random() * available.length)] || DEFAULT_IMAGE_POOL[0];
+    onUpdateField(section, fieldKey, chosen);
+  };
+
+  const handleOpenUrlInput = (e: React.MouseEvent | React.TouchEvent) => {
+    e.stopPropagation();
+    e.preventDefault();
+    collapseSheetForInlineEdit?.();
+    setUrlInput(src || "");
+    setShowUrlInput(true);
+    setTimeout(() => {
+      urlInputRef.current?.focus();
+      urlInputRef.current?.select();
+    }, 50);
+  };
+
+  const handleSaveUrl = (e?: React.MouseEvent | React.TouchEvent) => {
+    e?.stopPropagation();
+    e?.preventDefault();
+    const trimmed = urlInput.trim();
+    if (trimmed) {
+      onUpdateField(section, fieldKey, trimmed);
+    }
+    setShowUrlInput(false);
+  };
+
+  const handleCancelUrl = (e?: React.MouseEvent | React.TouchEvent) => {
+    e?.stopPropagation();
+    e?.preventDefault();
+    setShowUrlInput(false);
+    setUrlInput("");
+  };
+
+  const handleFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+
+    try {
+      setUploading(true);
+      const secureUrl = await uploadImageFile(file);
+      onUpdateField(section, fieldKey, secureUrl);
+    } catch (err: any) {
+      console.error("Upload image error:", err);
+    } finally {
+      setUploading(false);
+      if (fileInputRef.current) {
+        fileInputRef.current.value = "";
+      }
+    }
+  };
+
+  return (
+    <div
+      onClick={(e) => e.stopPropagation()}
+      onPointerDown={(e) => e.stopPropagation()}
+      onTouchStart={handleTouchReveal}
+      className={`relative group/inline-img overflow-hidden ${className}`}
+      style={style}
+    >
+      {src ? (
+        // eslint-disable-next-line @next/next/no-img-element
+        <img
+          src={src}
+          alt={alt}
+          className={`w-full h-full ${isCompact ? "object-contain" : "object-cover"}`}
+        />
+      ) : isCompact ? (
+        <div
+          onClick={handleTriggerUpload}
+          title={t("dashboard.sitesEditor.addPhoto")}
+          className="w-full h-full min-h-[32px] flex items-center justify-center cursor-pointer group/compact-ph"
+        >
+          {fallbackIcon ? (
+            <div className="relative flex items-center justify-center">
+              {fallbackIcon}
+              <div className={`absolute inset-0 flex items-center justify-center bg-black/50 rounded-full transition-opacity ${isTouched ? "opacity-100" : "opacity-0 group-hover/inline-img:opacity-100"}`}>
+                <Camera className="w-3.5 h-3.5 text-white" />
+              </div>
+            </div>
+          ) : (
+            <div className="w-8 h-8 rounded-lg bg-muted/40 border border-dashed border-border flex items-center justify-center text-primary">
+              <Camera className="w-4 h-4" />
+            </div>
+          )}
+        </div>
+      ) : (
+        <div
+          onClick={handleTriggerUpload}
+          className="w-full h-full min-h-[140px] flex flex-col items-center justify-center p-4 bg-muted/40 text-muted-foreground border-2 border-dashed border-border rounded-xl cursor-pointer hover:bg-muted/60 transition-colors"
+        >
+          <Camera className="w-6 h-6 mb-1 opacity-60 text-primary" />
+          <span className="text-[11px] font-semibold text-foreground">
+            {t("dashboard.sitesEditor.addPhoto")}
+          </span>
+          <span className="text-[10px] text-muted-foreground mt-0.5 mb-2">
+            Klik untuk unggah
+          </span>
+          <div className="flex items-center gap-1.5" onClick={(e) => e.stopPropagation()}>
+            <button
+              type="button"
+              onClick={handleRandomPhoto}
+              title="Foto acak (Unsplash)"
+              className="flex items-center gap-1 px-2.5 py-1 rounded-full text-[11px] font-medium bg-background/80 hover:bg-background border border-border shadow-xs text-amber-500 transition-all hover:scale-105 active:scale-95 cursor-pointer"
+            >
+              <SparkleIcon className="w-3 h-3 text-amber-500" />
+              <span>Acak</span>
+            </button>
+            <button
+              type="button"
+              onClick={handleOpenUrlInput}
+              title="Masukkan tautan URL foto"
+              className="flex items-center gap-1 px-2.5 py-1 rounded-full text-[11px] font-medium bg-background/80 hover:bg-background border border-border shadow-xs text-foreground transition-all hover:scale-105 active:scale-95 cursor-pointer"
+            >
+              <Link2 className="w-3 h-3 text-muted-foreground" />
+              <span>URL</span>
+            </button>
+          </div>
+        </div>
+      )}
+
+      <input
+        type="file"
+        ref={fileInputRef}
+        onClick={(e) => e.stopPropagation()}
+        onPointerDown={(e) => e.stopPropagation()}
+        onTouchStart={(e) => e.stopPropagation()}
+        onChange={handleFileChange}
+        accept="image/*"
+        className="hidden"
+      />
+
+      {/* Centered hover overlay or URL input */}
+      {(src || showUrlInput) && (
+        <div
+          className={`absolute inset-0 z-30 flex items-center justify-center bg-black/40 backdrop-blur-[1.5px] transition-all duration-200 pointer-events-none ${
+            isSelected || showUrlInput || isTouched
+              ? "opacity-100 pointer-events-auto"
+              : "opacity-0 group-hover/inline-img:opacity-100 group-hover/inline-img:pointer-events-auto"
+          }`}
+        >
+          {showUrlInput ? (
+            <div
+              className="flex items-center gap-1.5 p-1 bg-slate-900/95 border border-white/20 rounded-full shadow-2xl backdrop-blur-md max-w-[92%] w-72 sm:w-80 pointer-events-auto animate-in fade-in zoom-in-95 duration-150"
+              onClick={(e) => e.stopPropagation()}
+              onPointerDown={(e) => e.stopPropagation()}
+              onTouchStart={(e) => e.stopPropagation()}
+            >
+              <div className="pl-2.5 text-slate-400 shrink-0">
+                <Link2 className="w-3.5 h-3.5" />
+              </div>
+              <input
+                ref={urlInputRef}
+                type="url"
+                value={urlInput}
+                onChange={(e) => setUrlInput(e.target.value)}
+                onKeyDown={(e) => {
+                  e.stopPropagation();
+                  if (e.key === "Enter") {
+                    e.preventDefault();
+                    handleSaveUrl();
+                  } else if (e.key === "Escape") {
+                    e.preventDefault();
+                    handleCancelUrl();
+                  }
+                }}
+                placeholder="https://... (URL gambar)"
+                className="flex-1 bg-transparent text-white text-xs px-1 py-1 focus:outline-none placeholder:text-slate-400 min-w-0"
+                autoFocus
+              />
+              <button
+                type="button"
+                onClick={handleSaveUrl}
+                title="Simpan URL"
+                className="flex items-center justify-center w-6 h-6 rounded-full bg-emerald-500 hover:bg-emerald-600 text-white shrink-0 transition-colors active:scale-95 cursor-pointer shadow-sm"
+              >
+                <Check className="w-3.5 h-3.5" />
+              </button>
+              <button
+                type="button"
+                onClick={handleCancelUrl}
+                title="Batal"
+                className="flex items-center justify-center w-6 h-6 rounded-full bg-white/10 hover:bg-white/20 text-slate-300 hover:text-white shrink-0 transition-colors active:scale-95 cursor-pointer"
+              >
+                <X className="w-3.5 h-3.5" />
+              </button>
+            </div>
+          ) : isCompact ? (
+            <div className="flex items-center justify-center p-0.5">
+              <button
+                type="button"
+                onClick={handleTriggerUpload}
+                onPointerDown={(e) => e.stopPropagation()}
+                onTouchStart={(e) => e.stopPropagation()}
+                disabled={uploading}
+                title={src ? t("dashboard.sitesEditor.changePhoto") : t("dashboard.sitesEditor.addPhoto")}
+                className="flex items-center justify-center w-7 h-7 rounded-full bg-slate-900/90 text-white shadow-xl border border-white/20 hover:bg-slate-950 hover:scale-110 active:scale-95 transition-all cursor-pointer disabled:opacity-50 backdrop-blur-md"
+              >
+                {uploading ? (
+                  <Loader2 className="w-3.5 h-3.5 animate-spin text-white" />
+                ) : (
+                  <Camera className="w-3.5 h-3.5 text-white" />
+                )}
+              </button>
+            </div>
+          ) : (
+            <div className="flex items-center gap-1.5 p-1 max-w-[90%]">
+              {/* Main Change Photo Button */}
+              <button
+                type="button"
+                onClick={handleTriggerUpload}
+                onPointerDown={(e) => e.stopPropagation()}
+                onTouchStart={(e) => e.stopPropagation()}
+                disabled={uploading}
+                title={t("dashboard.sitesEditor.changePhoto")}
+                className="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-slate-900/90 text-white text-xs font-semibold shadow-xl border border-white/20 hover:bg-slate-950 hover:scale-105 active:scale-95 transition-all cursor-pointer disabled:opacity-50 backdrop-blur-md"
+              >
+                {uploading ? (
+                  <Loader2 className="w-3.5 h-3.5 animate-spin text-white" />
+                ) : (
+                  <Camera className="w-3.5 h-3.5 text-white" />
+                )}
+                <span className="whitespace-nowrap">
+                  {uploading
+                    ? t("dashboard.sitesEditor.uploadingPhoto")
+                    : (src ? t("dashboard.sitesEditor.changePhoto") : t("dashboard.sitesEditor.addPhoto"))}
+                </span>
+              </button>
+
+              {/* Quick Random Photo Button with Webjoz SparkleIcon */}
+              <button
+                type="button"
+                onClick={handleRandomPhoto}
+                onPointerDown={(e) => e.stopPropagation()}
+                onTouchStart={(e) => e.stopPropagation()}
+                disabled={uploading}
+                title="Ganti foto acak (Unsplash)"
+                className="flex items-center justify-center w-7 h-7 rounded-full bg-slate-900/90 text-amber-300 hover:text-amber-200 shadow-xl border border-white/20 hover:bg-slate-950 hover:scale-105 active:scale-95 transition-all cursor-pointer disabled:opacity-50 backdrop-blur-md"
+              >
+                <SparkleIcon className="w-3.5 h-3.5 text-amber-300" />
+              </button>
+
+              {/* Quick URL Input Button */}
+              <button
+                type="button"
+                onClick={handleOpenUrlInput}
+                onPointerDown={(e) => e.stopPropagation()}
+                onTouchStart={(e) => e.stopPropagation()}
+                disabled={uploading}
+                title="Masukkan Link URL Foto"
+                className="flex items-center justify-center w-7 h-7 rounded-full bg-slate-900/90 text-white/90 hover:text-white shadow-xl border border-white/20 hover:bg-slate-950 hover:scale-105 active:scale-95 transition-all cursor-pointer disabled:opacity-50 backdrop-blur-md"
+              >
+                <Link2 className="w-3.5 h-3.5 text-slate-300" />
+              </button>
+            </div>
+          )}
+        </div>
+      )}
+    </div>
+  );
+}
+
+/** Hero business-case pill/strip — renders hero.accessory (HERO_ACCESSORY_PLAN.md §4).
+ *  Zero-state: returns null when accessory kosong/tidak relevan. */
+export function HeroAccessory({
+  accessory: acc,
+  onUpdateField,
+  isEditorMode,
+  isSelected,
+  collapseSheetForInlineEdit,
+  onEditingStateChange,
+  align = "start",
+}: {
+  accessory: { type?: string; label?: string; value?: string; tags?: string[] } | null | undefined;
+  onUpdateField?: (section: string, key: string, value: any) => void;
+  isEditorMode?: boolean;
+  isSelected?: boolean;
+  collapseSheetForInlineEdit?: () => void;
+  onEditingStateChange?: (isEditing: boolean) => void;
+  align?: "start" | "center" | "end";
+}) {
+  if (!acc || !acc.type) return null;
+
+  const justifyContent = align === "center" ? "center" : align === "end" ? "flex-end" : "flex-start";
+
+  if (acc.type === "skill_tags" || acc.type === "menu_highlight") {
+    const tags = Array.isArray(acc.tags) ? (acc.tags.filter(Boolean) as string[]) : [];
+    if (tags.length === 0 && !isEditorMode) return null;
+    return (
+      <div style={{ display: "flex", flexWrap: "wrap", gap: "0.5rem", justifyContent, marginTop: "0.25rem" }}>
+        {tags.map((tag, idx) => (
+          <InlineText
+            key={`${tag}-${idx}`}
+            section="hero"
+            fieldKey={`accessory.tags.${idx}`}
+            value={tag ?? ""}
+            onUpdateField={onUpdateField}
+            isEditorMode={isEditorMode}
+            isSelected={isSelected}
+            as="span"
+            style={{
+              padding: "0.375rem 0.875rem",
+              fontSize: "0.75rem",
+              fontWeight: 600,
+              color: "var(--dt-text)",
+              background: "color-mix(in srgb, var(--dt-surface) 70%, transparent)",
+              border: "1px solid color-mix(in srgb, var(--dt-primary) 22%, transparent)",
+              borderRadius: "9999px",
+              display: "inline-block",
+            }}
+            collapseSheetForInlineEdit={collapseSheetForInlineEdit}
+            onEditingStateChange={onEditingStateChange}
+          />
+        ))}
+      </div>
+    );
+  }
+
+  const showRating = acc.type === "rating";
+  if (!acc.value && !showRating && !isEditorMode) return null;
+
+  return (
+    <div style={{ display: "inline-flex", alignItems: "center", gap: "0.5rem", padding: "0.5rem 1rem", borderRadius: "9999px", background: "var(--dt-surface)", border: "1px solid color-mix(in srgb, var(--dt-primary) 25%, transparent)", fontSize: "0.8rem", fontWeight: 600, color: "var(--dt-text)", marginTop: "0.25rem" }}>
+      {acc.label && (
+        <InlineText
+          section="hero"
+          fieldKey="accessory.label"
+          value={acc.label ?? ""}
+          onUpdateField={onUpdateField}
+          isEditorMode={isEditorMode}
+          isSelected={isSelected}
+          as="span"
+          style={{ opacity: 0.7, fontWeight: 500 }}
+          collapseSheetForInlineEdit={collapseSheetForInlineEdit}
+          onEditingStateChange={onEditingStateChange}
+        />
+      )}
+      {showRating && (
+        <Star style={{ width: 13, height: 13, color: "var(--dt-accent)" }} />
+      )}
+      {acc.value && (
+        <InlineText
+          section="hero"
+          fieldKey="accessory.value"
+          value={acc.value ?? ""}
+          onUpdateField={onUpdateField}
+          isEditorMode={isEditorMode}
+          isSelected={isSelected}
+          as="span"
+          collapseSheetForInlineEdit={collapseSheetForInlineEdit}
+          onEditingStateChange={onEditingStateChange}
+        />
+      )}
+    </div>
+  );
+}
+
+export {
+  NavMenu, WAFloatingButton, BackToTop, navCtaHref, ctaHref,
+  SharedTestimonialsSection,
+  SharedTestimonialsSection as TestimonialsSection,
+  MenuCatalogCard, CatalogMenuFilterBar, FaqAccordion,
+  LeadForm, DynamicIcon, LogoImage, SeoEditorPreview,
+  CartProvider, CartFab, AddToCartButton, isPlaceholderPrice,
+  SharedContactSection,
+  SharedContactSection as ContactSection,
+  SharedBenefitsSection,
+  SharedBenefitsSection as BenefitsSection,
+};
+export type { MenuCatalogCardProps, CatalogMenuFilterBarProps, NavMenuProps, TestimonialsSectionProps, LeadFormProps, ContactSectionProps, BenefitsSectionProps };

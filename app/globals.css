@@ -1,0 +1,516 @@
+@import "tailwindcss";
+@custom-variant dark (&:where(.dark, .dark *));
+
+/* Prevent white flash on hard refresh — hard-code dark background on html.dark
+   before any CSS variable or Tailwind utility loads (light theme stays default) */
+.dark {
+  background-color: oklch(0.12 0 0);
+}
+
+:root {
+  /* Monochrome Light Theme */
+  --background: oklch(0.976 0.007 255);
+  --foreground: oklch(0.18 0.025 255);
+  --card: oklch(0.995 0.002 255 / 0.92);
+  --card-foreground: oklch(0.18 0.025 255);
+  --popover: oklch(0.995 0.002 255 / 0.96);
+  --popover-foreground: oklch(0.18 0.025 255);
+
+  --primary: oklch(0.15 0 0);
+  --primary-foreground: oklch(0.98 0 0);
+
+  --secondary: oklch(0.925 0 0);
+  --secondary-foreground: oklch(0.2 0 0);
+
+  --muted: oklch(0.94 0 0);
+  --muted-foreground: oklch(0.43 0 0);
+  --accent: oklch(0.91 0 0);
+  --accent-foreground: oklch(0.19 0 0);
+
+  --destructive: oklch(0.6 0.2 25);
+
+  --border: oklch(0.855 0 0);
+  --input: oklch(0.845 0 0);
+  --ring: oklch(0.15 0 0 / 0.4);
+  --radius: 1rem;
+
+  /* Editor sidebar — kept separate from --card so toggling the theme moves the
+     panel without dragging the preview canvas along with it. */
+  --sidebar: oklch(0.995 0 0);
+  --sidebar-foreground: oklch(0.18 0.025 255);
+  --sidebar-muted: oklch(0.94 0 0);
+  --sidebar-muted-foreground: oklch(0.40 0 0);
+  --sidebar-subtle-foreground: oklch(0.52 0.012 255);
+  --sidebar-border: oklch(0.885 0 0);
+  /* Form surfaces. <option> inherits this from its <select>, so a single token
+     keeps the open dropdown list from falling back to the dark browser default. */
+  --sidebar-input: oklch(1 0 0);
+
+  /* Overview hero — deliberately inverted against the page surface.
+     Light theme: near-white plate, near-black silhouette and ink. The .dark
+     block below flips both, so the hero reads "black plate / white silhouette"
+     after dark and "white plate / black silhouette" after light. Kept out of
+     .theme-blue on purpose — the hero stays monochrome in both accents. */
+  --hero-surface: oklch(0.995 0.002 255);
+  --hero-surface-raised: oklch(1 0 0);
+  --hero-ink: oklch(0.16 0.02 255);
+  --hero-ink-muted: oklch(0.46 0.012 255);
+  --hero-line: oklch(0.16 0.02 255 / 0.18);
+  --hero-veil: oklch(0.16 0.02 255 / 0.06);
+  --hero-veil-strong: oklch(0.16 0.02 255 / 0.12);
+  --hero-shadow: oklch(0.16 0.02 255 / 0.22);
+}
+
+.dark {
+  /* Monochrome Dark Theme */
+  --background: oklch(0.12 0 0);
+  --foreground: oklch(0.96 0 0);
+  --card: oklch(0.15 0 0 / 0.7);
+  --card-foreground: oklch(0.98 0 0);
+  --popover: oklch(0.14 0 0 / 0.95);
+  --popover-foreground: oklch(0.98 0 0);
+
+  --primary: oklch(0.98 0 0);
+  --primary-foreground: oklch(0.12 0 0);
+
+  --secondary: oklch(0.22 0 0);
+  --secondary-foreground: oklch(0.95 0 0);
+
+  --muted: oklch(0.2 0 0);
+  --muted-foreground: oklch(0.7 0 0);
+  --accent: oklch(0.25 0 0);
+  --accent-foreground: oklch(0.98 0 0);
+
+  --destructive: oklch(0.65 0.2 25);
+
+  --border: oklch(0.25 0 0);
+  --input: oklch(0.25 0 0);
+  --ring: oklch(0.98 0 0 / 0.4);
+
+  /* Editor sidebar — matches the previous hardcoded #111318 surface so the dark
+     editor looks unchanged after the theme tokens land. */
+  --sidebar: oklch(0.18 0.01 255);
+  --sidebar-foreground: oklch(0.96 0 0);
+  --sidebar-muted: oklch(0.24 0.01 255);
+  --sidebar-muted-foreground: oklch(0.78 0.01 255);
+  --sidebar-subtle-foreground: oklch(0.63 0.01 255);
+  --sidebar-border: oklch(0.28 0.01 255);
+  --sidebar-input: oklch(0.13 0.01 255);
+
+  /* Hero plate goes darker than --background (0.12) so the inverted hero reads
+     as a real black block instead of blending into the dashboard canvas. */
+  --hero-surface: oklch(0.075 0 0);
+  --hero-surface-raised: oklch(0.13 0 0);
+  --hero-ink: oklch(0.97 0 0);
+  --hero-ink-muted: oklch(0.74 0 0);
+  --hero-line: oklch(0.97 0 0 / 0.2);
+  --hero-veil: oklch(0.97 0 0 / 0.07);
+  --hero-veil-strong: oklch(0.97 0 0 / 0.13);
+  /* A black drop shadow is invisible against the dark canvas, so the plate
+     elevates with a soft white halo instead — inverted elevation. */
+  --hero-shadow: oklch(0.97 0 0 / 0.14);
+}
+
+/* Hide Next.js dev overlay indicator from covering mobile dashboard UI */
+nextjs-portal, [data-nextjs-toast], [data-nextjs-dev-overlay], #__next-build-watcher {
+  display: none !important;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-sidebar: var(--sidebar);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar-muted: var(--sidebar-muted);
+  --color-sidebar-muted-foreground: var(--sidebar-muted-foreground);
+  --color-sidebar-subtle-foreground: var(--sidebar-subtle-foreground);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-input: var(--sidebar-input);
+  /* Overview hero — inverted surface, see the token blocks above */
+  --color-hero-surface: var(--hero-surface);
+  --color-hero-ink: var(--hero-ink);
+  --color-hero-ink-muted: var(--hero-ink-muted);
+  --color-hero-line: var(--hero-line);
+  --color-hero-veil: var(--hero-veil);
+  --color-hero-veil-strong: var(--hero-veil-strong);
+  --color-hero-shadow: var(--hero-shadow);
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+
+  /* Design token theme aliases — used by section variant components */
+  --color-dt-primary: var(--dt-primary);
+  --color-dt-primary-foreground: var(--dt-primary-foreground);
+  --color-dt-accent: var(--dt-accent);
+  --color-dt-bg: var(--dt-bg);
+  --color-dt-surface: var(--dt-surface);
+  --color-dt-border: var(--dt-border);
+  --color-dt-text: var(--dt-text);
+  --color-dt-text-muted: var(--dt-text-muted);
+  --font-dt-heading: var(--dt-heading-font);
+  --font-dt-body: var(--dt-body-font);
+  --radius-dt: var(--dt-radius);
+
+  /* Custom Animations for Tailwind v4 */
+  --animate-fade-in: fade-in 0.5s ease-out forwards;
+  --animate-slide-up: slide-up 0.5s ease-out both;
+  --animate-shimmer: shimmer 1.5s infinite;
+  --animate-pulse-once: pulse-once 1.5s ease-in-out 2;
+}
+
+@keyframes pulse-once {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes slide-up {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes skeleton-shimmer-sweep {
+  0% {
+    transform: translateX(-150%);
+  }
+  100% {
+    transform: translateX(150%);
+  }
+}
+
+.animate-skeleton-shimmer,
+.animate-skeleton-shimmer-strong,
+.animate-skeleton-card-shimmer {
+  position: relative !important;
+  overflow: hidden !important;
+}
+
+.animate-skeleton-shimmer::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  transform: translateX(-150%);
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(255, 255, 255, 0.08) 25%,
+    rgba(255, 255, 255, 0.38) 50%,
+    rgba(255, 255, 255, 0.08) 75%,
+    transparent 100%
+  );
+  animation: skeleton-shimmer-sweep 1.8s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+  pointer-events: none;
+  z-index: 2;
+}
+
+.animate-skeleton-shimmer-strong::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  transform: translateX(-150%);
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(255, 255, 255, 0.12) 20%,
+    rgba(255, 255, 255, 0.55) 50%,
+    rgba(255, 255, 255, 0.12) 80%,
+    transparent 100%
+  );
+  animation: skeleton-shimmer-sweep 1.5s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+  pointer-events: none;
+  z-index: 2;
+}
+
+.animate-skeleton-card-shimmer::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  transform: translateX(-150%);
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(255, 255, 255, 0.04) 25%,
+    rgba(255, 255, 255, 0.25) 50%,
+    rgba(255, 255, 255, 0.04) 75%,
+    transparent 100%
+  );
+  animation: skeleton-shimmer-sweep 2.2s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+  pointer-events: none;
+  z-index: 2;
+}
+
+@keyframes canvas-scanline {
+  0% {
+    top: -10%;
+    opacity: 0;
+  }
+  15% {
+    opacity: 0.7;
+  }
+  85% {
+    opacity: 0.7;
+  }
+  100% {
+    top: 110%;
+    opacity: 0;
+  }
+}
+
+.animate-canvas-scanline {
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 80px;
+  background: linear-gradient(
+    180deg,
+    transparent 0%,
+    rgba(255, 255, 255, 0.06) 50%,
+    rgba(255, 255, 255, 0.2) 95%,
+    rgba(255, 255, 255, 0.4) 100%
+  );
+  box-shadow: 0 4px 15px rgba(255, 255, 255, 0.2);
+  animation: canvas-scanline 3.5s ease-in-out infinite;
+  pointer-events: none;
+  z-index: 20;
+}
+
+@keyframes bounce-in {
+  0% {
+    opacity: 0;
+    transform: scale(0.3);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.05);
+  }
+  70% {
+    transform: scale(0.9);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+.animate-bounce-in {
+  animation: bounce-in 0.4s ease-out;
+}
+
+@keyframes mic-pulse {
+  0%, 100% {
+    box-shadow: 0 0 0 0 rgba(255, 255, 255, 0.15);
+  }
+  50% {
+    box-shadow: 0 0 0 6px rgba(255, 255, 255, 0);
+  }
+}
+
+.animate-mic-pulse {
+  animation: mic-pulse 2s ease-in-out infinite;
+}
+
+* {
+  box-sizing: border-box;
+  border-color: var(--border);
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  background: var(--background);
+  color: var(--foreground);
+}
+
+html.webjoz-wizard-active,
+body.webjoz-wizard-active {
+  height: var(--webjoz-app-height, 100dvh);
+  min-height: var(--webjoz-app-height, 100dvh);
+  overflow: hidden;
+  overscroll-behavior: none;
+  background: #0d0f14;
+}
+
+/* Hide scrollbar on mobile */
+@media (max-width: 767px) {
+  ::-webkit-scrollbar {
+    display: none;
+  }
+
+  * {
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
+}
+
+/* ── Primary button: theme-aware gradient ─────────────────────────── */
+.btn-primary {
+  background:
+    linear-gradient(180deg,
+      color-mix(in srgb, var(--primary) 92%, white) 0%,
+      var(--primary) 50%,
+      color-mix(in srgb, var(--primary) 85%, black) 100%
+    );
+  box-shadow:
+    inset 0 1px 0 color-mix(in srgb, var(--primary-foreground) 20%, transparent),
+    0 1px 3px color-mix(in srgb, var(--primary) 30%, transparent),
+    0 4px 10px color-mix(in srgb, var(--primary) 15%, transparent);
+  color: var(--primary-foreground);
+  border: 1px solid color-mix(in srgb, var(--primary) 60%, transparent);
+}
+
+.text-primary-foreground {
+  color: var(--primary-foreground) !important;
+}
+
+.bg-primary-foreground {
+  background-color: var(--primary-foreground) !important;
+}
+
+
+.btn-primary:hover:not(:disabled) {
+  background:
+    linear-gradient(180deg,
+      color-mix(in srgb, var(--primary) 97%, white) 0%,
+      color-mix(in srgb, var(--primary) 95%, white) 50%,
+      color-mix(in srgb, var(--primary) 90%, black) 100%
+    );
+  box-shadow:
+    inset 0 1px 0 color-mix(in srgb, var(--primary-foreground) 25%, transparent),
+    0 2px 6px color-mix(in srgb, var(--primary) 35%, transparent),
+    0 6px 14px color-mix(in srgb, var(--primary) 20%, transparent);
+}
+
+.btn-primary:active:not(:disabled) {
+  background:
+    linear-gradient(180deg,
+      color-mix(in srgb, var(--primary) 75%, black) 0%,
+      color-mix(in srgb, var(--primary) 85%, black) 100%
+    );
+  box-shadow:
+    inset 0 1px 3px color-mix(in srgb, var(--primary) 40%, transparent);
+}
+/* ─────────────────────────────────────────────────────────────────── */
+
+.theme-blue {
+  --primary: oklch(0.55 0.22 260);
+  --primary-foreground: oklch(0.98 0.01 260);
+  --secondary: oklch(0.925 0.012 255);
+  --secondary-foreground: oklch(0.2 0.05 260);
+  --muted: oklch(0.94 0.01 255);
+  --muted-foreground: oklch(0.43 0.035 255);
+  --accent: oklch(0.91 0.025 255);
+  --accent-foreground: oklch(0.19 0.04 255);
+  --ring: oklch(0.55 0.22 260 / 0.4);
+  --border: oklch(0.855 0.018 255);
+  --input: oklch(0.845 0.018 255);
+}
+
+.theme-blue.dark {
+  --primary: oklch(0.65 0.22 260);
+  /* Dark foreground: the brightened primary above needs dark text to clear AA.
+     A near-white foreground here measured 3.33:1 against this primary. */
+  --primary-foreground: oklch(0.15 0.03 260);
+  --secondary: oklch(0.22 0.02 260);
+  --secondary-foreground: oklch(0.95 0.01 260);
+  --muted: oklch(0.2 0.02 260);
+  --muted-foreground: oklch(0.7 0.03 260);
+  --accent: oklch(0.25 0.04 260);
+  --accent-foreground: oklch(0.98 0.01 260);
+  --ring: oklch(0.65 0.22 260 / 0.4);
+  --border: oklch(0.25 0.02 260);
+  --input: oklch(0.25 0.02 260);
+}
+
+body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background-image:
+    linear-gradient(rgba(15, 23, 42, 0.035) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(15, 23, 42, 0.035) 1px, transparent 1px);
+  background-size: 64px 64px;
+  mask-image: radial-gradient(circle at center, black 40%, transparent 80%);
+}
+
+.dark body::after {
+  background-image:
+    linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+}
+
+::selection {
+  background: var(--primary);
+  color: var(--primary-foreground);
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+@layer base {
+  button,
+  input,
+  select {
+    font: inherit;
+  }
+}
+
+/* Hide scrollbar utility class */
+.scrollbar-none::-webkit-scrollbar {
+  display: none;
+}
+.scrollbar-none {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+/* Float animation for hero artistic chips */
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50%       { transform: translateY(-6px); }
+}

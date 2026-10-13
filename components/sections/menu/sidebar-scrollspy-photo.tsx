@@ -1,0 +1,347 @@
+"use client";
+import React, { useState, useEffect, useRef } from "react";
+import { Utensils, ChevronRight } from "lucide-react";
+import { InlineText, InlineImage, ProductQuickView, toQuickViewItem } from "../../templates/shared";
+import { InlineAddTile, InlineDeleteButton, CategoryAddButton } from "../inline-add";
+import type { TemplateProps, DesignToken } from "../../templates/types";
+
+interface MenuVariantProps {
+  menu: TemplateProps["content"]["menu"];
+  design_token?: DesignToken | null;
+  onUpdateField?: (section: string, key: string, value: any) => void;
+  isEditorMode?: boolean;
+  isSelected?: boolean;
+  collapseSheetForInlineEdit?: () => void;
+  onEditingStateChange?: (isEditing: boolean) => void;
+  onAddItem?: (catIdx: number) => void;
+  onDeleteItem?: (catIdx: number, itemIdx: number) => void;
+  onAddCategory?: () => void;
+  onDeleteCategory?: (catIdx: number) => void;
+  language?: "id" | "en";
+}
+
+export default function SidebarScrollspyPhoto({ menu, onUpdateField, isEditorMode, isSelected, collapseSheetForInlineEdit, onEditingStateChange, onAddItem, onDeleteItem, onAddCategory, onDeleteCategory, language = "id" }: MenuVariantProps) {
+  const isEN = language === "en";
+  const [quickView, setQuickView] = useState<{ catIdx: number; itemIdx: number } | null>(null);
+  if (!menu) return null;
+  const { eyebrow, title, subtitle, categories } = menu;
+  const qvCategory = quickView ? categories[quickView.catIdx] : undefined;
+  const qvItem = qvCategory?.items?.[quickView?.itemIdx ?? -1];
+
+  const [activeCategory, setActiveCategory] = useState<string>("");
+  const isScrollingRef = useRef(false);
+
+  useEffect(() => {
+    if (categories.length > 0) {
+      setActiveCategory(categories[0].name);
+    }
+
+    const observerOptions = {
+      root: null,
+      rootMargin: "-20% 0px -60% 0px",
+      threshold: 0,
+    };
+
+    const handleIntersect = (entries: IntersectionObserverEntry[]) => {
+      if (isScrollingRef.current) return;
+
+      const intersecting = entries.find((entry) => entry.isIntersecting);
+      if (intersecting) {
+        const catName = intersecting.target.getAttribute("data-category");
+        if (catName) {
+          setActiveCategory(catName);
+        }
+      }
+    };
+
+    const observer = new IntersectionObserver(handleIntersect, observerOptions);
+
+    categories.forEach((_, index) => {
+      const el = document.getElementById(`scrollspy-category-section-${index}`);
+      if (el) {
+        observer.observe(el);
+      }
+    });
+
+    return () => {
+      observer.disconnect();
+    };
+  }, [categories]);
+
+  const handleNavClick = (categoryName: string, index: number) => {
+    setActiveCategory(categoryName);
+    const el = document.getElementById(`scrollspy-category-section-${index}`);
+    if (el) {
+      isScrollingRef.current = true;
+      const offset = 120;
+      const bodyRect = document.body.getBoundingClientRect().top;
+      const elementRect = el.getBoundingClientRect().top;
+      const elementPosition = elementRect - bodyRect;
+      const offsetPosition = elementPosition - offset;
+
+      window.scrollTo({
+        top: offsetPosition,
+        behavior: "smooth",
+      });
+
+      setTimeout(() => {
+        isScrollingRef.current = false;
+      }, 800);
+
+      const navItem = document.getElementById(`mobile-nav-pill-${index}`);
+      if (navItem) {
+        navItem.scrollIntoView({ behavior: "smooth", block: "nearest", inline: "center" });
+      }
+    }
+  };
+
+  return (
+    <section
+      id="menu"
+      className="w-full py-16 bg-dt-bg text-dt-text font-dt-body scroll-mt-20"
+    >
+      <div className="max-w-7xl mx-auto px-4 md:px-8">
+        <div id="scrollspy-header" className="mb-16">
+          {(eyebrow || isEditorMode) && (
+            <InlineText
+              section="menu"
+              fieldKey="eyebrow"
+              value={eyebrow}
+              onUpdateField={onUpdateField}
+              isEditorMode={isEditorMode}
+              isSelected={isSelected}
+              collapseSheetForInlineEdit={collapseSheetForInlineEdit}
+              onEditingStateChange={onEditingStateChange}
+              as="span"
+              className="text-xs font-medium tracking-wider uppercase text-dt-text-muted block mb-1 font-dt-heading"
+            />
+          )}
+          <InlineText
+            section="menu"
+            fieldKey="title"
+            value={title}
+            onUpdateField={onUpdateField}
+            isEditorMode={isEditorMode}
+            isSelected={isSelected}
+            collapseSheetForInlineEdit={collapseSheetForInlineEdit}
+            onEditingStateChange={onEditingStateChange}
+            as="h2"
+            className="text-3xl md:text-5xl font-bold tracking-tight text-dt-text font-dt-heading"
+          />
+          {(subtitle || isEditorMode) && (
+            <InlineText
+              section="menu"
+              fieldKey="subtitle"
+              value={subtitle}
+              onUpdateField={onUpdateField}
+              isEditorMode={isEditorMode}
+              isSelected={isSelected}
+              collapseSheetForInlineEdit={collapseSheetForInlineEdit}
+              onEditingStateChange={onEditingStateChange}
+              as="p"
+              className="text-sm md:text-base text-dt-text-muted mt-2 max-w-xl"
+            />
+          )}
+        </div>
+
+        <div className="flex flex-col lg:flex-row gap-10 items-start">
+
+          <aside
+            id="scrollspy-desktop-sidebar"
+            className="hidden lg:block sticky top-24 w-64 shrink-0 border-l border-dt-border pl-6"
+          >
+            <nav className="flex flex-col gap-4">
+              {categories.map((category, index) => {
+                const isActive = activeCategory === category.name;
+                const canDelete = Boolean(isEditorMode && onDeleteCategory);
+                return (
+                  <div key={category.name} className="relative">
+                    <button
+                      id={`desktop-nav-pill-${index}`}
+                      onClick={() => handleNavClick(category.name, index)}
+                      className={`flex items-center justify-between text-left py-1 text-sm font-medium transition-all duration-200 group border-l-2 pl-3 -ml-[26px] ${
+                        canDelete ? "pr-8" : ""
+                      } ${
+                        isActive
+                          ? "text-dt-primary border-dt-primary font-bold pl-4"
+                          : "text-dt-text-muted border-transparent hover:text-dt-text hover:border-dt-border"
+                      }`}
+                    >
+                    <InlineText section="menu" fieldKey={"categories." + index + ".name"} value={category.name ?? ""} onUpdateField={onUpdateField} isEditorMode={isEditorMode} isSelected={isSelected} collapseSheetForInlineEdit={collapseSheetForInlineEdit} onEditingStateChange={onEditingStateChange} as="span" />
+                      <ChevronRight
+                        className={`w-4 h-4 transition-transform duration-200 ${
+                          isActive ? "translate-x-0 opacity-100 text-dt-primary" : "translate-x-[-4px] opacity-0 group-hover:opacity-55"
+                        }`}
+                      />
+                    </button>
+                    {canDelete && (
+                      <InlineDeleteButton
+                        compact
+                        onDelete={() => onDeleteCategory?.(index)}
+                        title={isEN ? "Delete Category" : "Hapus Kategori"}
+                        className="absolute top-1/2 -translate-y-1/2 right-0 z-40"
+                      />
+                    )}
+                  </div>
+                );
+              })}
+              {isEditorMode && onAddCategory && (
+                <CategoryAddButton
+                  onAdd={onAddCategory}
+                  isEN={isEN}
+                  collapseSheetForInlineEdit={collapseSheetForInlineEdit}
+                  className="-ml-[26px]"
+                />
+              )}
+            </nav>
+          </aside>
+
+          <div
+            id="scrollspy-mobile-nav-container"
+            className="lg:hidden sticky top-0 z-20 w-full bg-dt-surface/95 backdrop-blur-md border-b border-dt-border py-3 px-4 -mx-4 md:-mx-8 mb-6 overflow-x-auto scrollbar-none flex gap-2"
+          >
+            {categories.map((category, index) => {
+              const isActive = activeCategory === category.name;
+              const canDelete = Boolean(isEditorMode && onDeleteCategory);
+              return (
+                <div key={category.name} className="relative shrink-0">
+                  <button
+                    id={`mobile-nav-pill-${index}`}
+                    onClick={() => handleNavClick(category.name, index)}
+                    className={`shrink-0 px-4 py-2 text-xs font-semibold tracking-wider uppercase rounded-full border transition-all duration-200 ${
+                      canDelete ? "pr-9" : ""
+                    } ${
+                      isActive
+                        ? "bg-dt-primary text-dt-primary-foreground border-dt-primary shadow-xs"
+                        : "bg-dt-surface text-dt-text-muted border-dt-border hover:text-dt-text hover:border-dt-border"
+                    }`}
+                    >
+                      <InlineText section="menu" fieldKey={"categories." + index + ".name"} value={category.name ?? ""} onUpdateField={onUpdateField} isEditorMode={isEditorMode} isSelected={isSelected} collapseSheetForInlineEdit={collapseSheetForInlineEdit} onEditingStateChange={onEditingStateChange} as="span" />
+                  </button>
+                  {canDelete && (
+                    <InlineDeleteButton
+                      compact
+                      onDelete={() => onDeleteCategory?.(index)}
+                      title={isEN ? "Delete Category" : "Hapus Kategori"}
+                      className="absolute top-1/2 -translate-y-1/2 right-1 z-10"
+                    />
+                  )}
+                </div>
+);
+                })}
+          </div>
+
+          <div id="scrollspy-items-container" className="flex-1 w-full space-y-16">
+            {categories.map((category, index) => (
+              <div
+                key={category.name}
+                id={`scrollspy-category-section-${index}`}
+                data-category={category.name}
+                className="scroll-mt-24"
+              >
+                <div className="flex items-center gap-4 mb-8">
+                  <InlineText section="menu" fieldKey={"categories." + index + ".name"} value={category.name ?? ""} onUpdateField={onUpdateField} isEditorMode={isEditorMode} isSelected={isSelected} collapseSheetForInlineEdit={collapseSheetForInlineEdit} onEditingStateChange={onEditingStateChange} as="h3" className="text-xl md:text-2xl font-bold tracking-tight font-dt-heading text-dt-text" />
+                  <div className="h-[1px] flex-1 bg-dt-border"></div>
+                </div>
+
+                <div className="space-y-6">
+                  {category.items.map((item, itemIndex) => {
+                    const badge = (item as { badge?: string }).badge;
+
+                    return (
+                      <div
+                        key={item.id || item.name}
+                        id={`scrollspy-item-${index}-${itemIndex}`}
+                        className="group flex flex-col md:flex-row bg-dt-surface rounded-dt overflow-hidden border border-dt-border hover:shadow-md hover:border-dt-primary/30 transition-all duration-300 min-h-[160px] cursor-pointer"
+                        onClick={() => setQuickView({ catIdx: index, itemIdx: itemIndex })}
+                      >
+                        <div className="relative w-full md:w-[260px] h-[200px] md:h-auto overflow-hidden bg-dt-accent/5 shrink-0">
+                          <InlineImage
+                            section="menu"
+                            fieldKey={"categories." + index + ".items." + itemIndex + ".image_url"}
+                            src={item.image_url}
+                            alt={item.name}
+                            onUpdateField={onUpdateField}
+                            isEditorMode={isEditorMode}
+                            isSelected={isSelected}
+                            collapseSheetForInlineEdit={collapseSheetForInlineEdit}
+                            className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-103"
+                          />
+
+                          {(badge || isEditorMode) && (
+                            <div
+                              id={`scrollspy-badge-${index}-${itemIndex}`}
+                              className="absolute top-3 left-3 bg-dt-primary text-dt-primary-foreground text-[10px] font-semibold tracking-wider uppercase px-2 py-0.5 rounded-full shadow-xs font-dt-heading"
+                            >
+                              <InlineText
+                                section="menu"
+                                fieldKey={"categories." + index + ".items." + itemIndex + ".badge"}
+                                value={badge ?? ""}
+                                onUpdateField={onUpdateField}
+                                isEditorMode={isEditorMode}
+                                isSelected={isSelected}
+                                collapseSheetForInlineEdit={collapseSheetForInlineEdit}
+                                onEditingStateChange={onEditingStateChange}
+                                as="span"
+                              />
+                            </div>
+                          )}
+
+                          <button
+                            type="button"
+                            onClick={(e) => { e.stopPropagation(); setQuickView({ catIdx: index, itemIdx: itemIndex }); }}
+                            onPointerDown={(e) => e.stopPropagation()}
+                            className="absolute bottom-3 right-3 z-10 bg-white/90 dark:bg-black/80 backdrop-blur-xs text-dt-text text-[10px] font-semibold tracking-wider uppercase px-2 py-0.5 rounded-full shadow-xs font-dt-heading opacity-100 md:opacity-0 md:group-hover:opacity-100 transition-opacity cursor-pointer"
+                          >
+                            {isEN ? "Detail" : "Lihat"}
+                          </button>
+                        </div>
+
+                        <div className="flex-1 p-6 flex flex-col justify-between">
+                          <div>
+                            <div className="flex items-baseline justify-between gap-4 mb-2">
+                              <InlineText section="menu" fieldKey={"categories." + index + ".items." + itemIndex + ".name"} value={item.name ?? ""} onUpdateField={onUpdateField} isEditorMode={isEditorMode} isSelected={isSelected} collapseSheetForInlineEdit={collapseSheetForInlineEdit} onEditingStateChange={onEditingStateChange} as="h4" className="text-lg font-bold tracking-tight text-dt-text font-dt-heading group-hover:text-dt-primary transition-colors duration-200" />
+                              {item.price && (
+                                <InlineText section="menu" fieldKey={"categories." + index + ".items." + itemIndex + ".price"} value={item.price ?? ""} onUpdateField={onUpdateField} isEditorMode={isEditorMode} isSelected={isSelected} collapseSheetForInlineEdit={collapseSheetForInlineEdit} onEditingStateChange={onEditingStateChange} as="span" className="text-base font-bold text-dt-primary font-dt-heading" />
+                              )}
+                            </div>
+
+                            {item.description && (
+                              <InlineText section="menu" fieldKey={"categories." + index + ".items." + itemIndex + ".description"} value={item.description ?? ""} onUpdateField={onUpdateField} isEditorMode={isEditorMode} isSelected={isSelected} collapseSheetForInlineEdit={collapseSheetForInlineEdit} onEditingStateChange={onEditingStateChange} as="p" multiline className="text-xs md:text-sm text-dt-text-muted leading-relaxed line-clamp-3 md:line-clamp-2" />
+                            )}
+                          </div>
+
+                        </div>
+
+                      </div>
+                    );
+                  })}
+                  {isEditorMode && onAddItem && (
+                    <div style={{ marginTop: "0.875rem" }}>
+                      <InlineAddTile label="Tambah Item" onClick={() => onAddItem(index)} />
+                    </div>
+                  )}
+                </div>
+              </div>
+            ))}
+          </div>
+
+        </div>
+      </div>
+      {quickView && qvItem && (
+        <ProductQuickView
+          open
+          onClose={() => setQuickView(null)}
+          item={toQuickViewItem(qvItem, qvCategory?.name)}
+          editSection="menu"
+          pathBase={`categories.${quickView.catIdx}.items.${quickView.itemIdx}`}
+          onUpdateField={onUpdateField}
+          isEditorMode={isEditorMode}
+          isSelected={isSelected}
+          collapseSheetForInlineEdit={collapseSheetForInlineEdit}
+          onEditingStateChange={onEditingStateChange}
+        />
+      )}
+    </section>
+  );
+}

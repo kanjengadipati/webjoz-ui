@@ -1,0 +1,255 @@
+"use client";
+import React, { useState } from "react";
+import { Utensils } from "lucide-react";
+import { InlineText, InlineImage, ProductQuickView, toQuickViewItem } from "../../templates/shared";
+import { InlineAddTile, InlineDeleteButton, CategoryAddButton } from "../inline-add";
+import type { TemplateProps, DesignToken } from "../../templates/types";
+
+interface MenuVariantProps {
+  menu: TemplateProps["content"]["menu"];
+  design_token?: DesignToken | null;
+  onUpdateField?: (section: string, key: string, value: any) => void;
+  isEditorMode?: boolean;
+  isSelected?: boolean;
+  collapseSheetForInlineEdit?: () => void;
+  onEditingStateChange?: (isEditing: boolean) => void;
+  onAddItem?: (catIdx: number) => void;
+  onDeleteItem?: (catIdx: number, itemIdx: number) => void;
+  onAddCategory?: () => void;
+  onDeleteCategory?: (catIdx: number) => void;
+  language?: "id" | "en";
+}
+
+export default function BentoPhotoGrid({ menu, onUpdateField, isEditorMode, isSelected, collapseSheetForInlineEdit, onEditingStateChange, onAddItem, onDeleteItem, onAddCategory, onDeleteCategory, language = "id" }: MenuVariantProps) {
+  const isEN = language === "en";
+  const [quickView, setQuickView] = useState<{ catIdx: number; itemIdx: number } | null>(null);
+  if (!menu) return null;
+  const { eyebrow, title, subtitle, categories } = menu;
+  const qvCategory = quickView ? categories[quickView.catIdx] : undefined;
+  const qvItem = qvCategory?.items?.[quickView?.itemIdx ?? -1];
+
+  const getBentoClasses = (index: number) => {
+    const itemIndex = index % 6;
+    switch (itemIndex) {
+      case 0:
+        return "md:col-span-2 md:row-span-2 h-[350px] md:h-[520px]";
+      case 3:
+        return "md:col-span-2 md:row-span-1 h-[220px] md:h-[248px]";
+      default:
+        return "md:col-span-1 md:row-span-1 h-[220px] md:h-[248px]";
+    }
+  };
+
+  return (
+    <section
+      id="menu"
+      className="w-full py-16 px-4 md:px-8 bg-dt-bg text-dt-text font-dt-body scroll-mt-20"
+    >
+      <div className="max-w-7xl mx-auto">
+        <div id="bento-header" className="text-center mb-16 max-w-2xl mx-auto">
+          {(eyebrow || isEditorMode) && (
+            <InlineText
+              section="menu"
+              fieldKey="eyebrow"
+              value={eyebrow}
+              onUpdateField={onUpdateField}
+              isEditorMode={isEditorMode}
+              isSelected={isSelected}
+              collapseSheetForInlineEdit={collapseSheetForInlineEdit}
+              onEditingStateChange={onEditingStateChange}
+              as="span"
+              className="text-xs font-medium tracking-wider uppercase text-dt-text-muted block mb-2 font-dt-heading"
+            />
+          )}
+          <InlineText
+            section="menu"
+            fieldKey="title"
+            value={title}
+            onUpdateField={onUpdateField}
+            isEditorMode={isEditorMode}
+            isSelected={isSelected}
+            collapseSheetForInlineEdit={collapseSheetForInlineEdit}
+            onEditingStateChange={onEditingStateChange}
+            as="h2"
+            className="text-3xl md:text-5xl font-bold tracking-tight mb-4 text-dt-text font-dt-heading"
+          />
+          {(subtitle || isEditorMode) && (
+            <InlineText
+              section="menu"
+              fieldKey="subtitle"
+              value={subtitle}
+              onUpdateField={onUpdateField}
+              isEditorMode={isEditorMode}
+              isSelected={isSelected}
+              collapseSheetForInlineEdit={collapseSheetForInlineEdit}
+              onEditingStateChange={onEditingStateChange}
+              as="p"
+              className="text-sm md:text-base text-dt-text-muted"
+            />
+          )}
+        </div>
+
+        {categories.map((category, catIndex) => (
+          <div
+            key={category.name}
+            id={`bento-category-${catIndex}`}
+            className="mb-16 last:mb-0"
+          >
+            <div className="flex items-center gap-4 mb-8">
+              <InlineText
+                section="menu"
+                fieldKey={"categories." + catIndex + ".name"}
+                value={category.name ?? ""}
+                onUpdateField={onUpdateField}
+                isEditorMode={isEditorMode}
+                isSelected={isSelected}
+                collapseSheetForInlineEdit={collapseSheetForInlineEdit}
+                onEditingStateChange={onEditingStateChange}
+                as="h3"
+                className="text-xl md:text-2xl font-bold tracking-tight font-dt-heading text-dt-text"
+              />
+              {isEditorMode && onDeleteCategory && (
+                <InlineDeleteButton
+                  compact
+                  onDelete={() => onDeleteCategory(catIndex)}
+                  title={isEN ? "Delete Category" : "Hapus Kategori"}
+                />
+              )}
+
+
+              <div className="h-[1px] flex-1 bg-dt-border"></div>
+            </div>
+
+            <div
+              id={`bento-grid-${catIndex}`}
+              className="grid grid-cols-1 md:grid-cols-3 gap-6 auto-rows-max"
+            >
+              {category.items.map((item, itemIndex) => {
+                const bentoSizeClass = getBentoClasses(itemIndex);
+                const displayNum = String(itemIndex + 1).padStart(2, "0");
+                const isLarge = itemIndex % 6 === 0;
+                const badge = (item as { badge?: string }).badge;
+
+                return (
+                  <div
+                    key={item.id || item.name}
+                    id={`bento-item-${catIndex}-${itemIndex}`}
+                    className={`relative group overflow-hidden rounded-dt border border-dt-border bg-dt-surface flex flex-col justify-end transition-all duration-300 hover:shadow-lg hover:border-dt-primary cursor-pointer ${bentoSizeClass}`}
+                    onClick={() => setQuickView({ catIdx: catIndex, itemIdx: itemIndex })}
+                  >
+                    <InlineImage
+                      section="menu"
+                      fieldKey={"categories." + catIndex + ".items." + itemIndex + ".image_url"}
+                      src={item.image_url}
+                      alt={item.name}
+                      onUpdateField={onUpdateField}
+                      isEditorMode={isEditorMode}
+                      isSelected={isSelected}
+                      collapseSheetForInlineEdit={collapseSheetForInlineEdit}
+                      className="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                    />
+
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/45 to-transparent transition-opacity duration-300 group-hover:from-black/95 pointer-events-none"></div>
+
+                    <div
+                      id={`bento-num-${catIndex}-${itemIndex}`}
+                      className="absolute top-4 left-4 font-dt-heading font-bold text-2xl md:text-3xl text-white/20 select-none group-hover:text-dt-primary/40 transition-colors duration-300"
+                    >
+                      {displayNum}
+                    </div>
+
+                    {isEditorMode && onDeleteItem && (
+                      <InlineDeleteButton
+                        onDelete={() => onDeleteItem(catIndex, itemIndex)}
+                        className="absolute top-4 right-4 z-20"
+                      />
+                    )}
+
+                    {(badge || isEditorMode) && (
+                      <div
+                        id={`bento-badge-${catIndex}-${itemIndex}`}
+                        className={`absolute top-4 ${isEditorMode && onDeleteItem ? "right-14" : "right-4"} z-10 bg-dt-primary text-dt-primary-foreground text-[10px] md:text-xs font-semibold tracking-wider uppercase px-2.5 py-1 rounded-full shadow-sm font-dt-heading`}
+                      >
+                        <InlineText
+                          section="menu"
+                          fieldKey={"categories." + catIndex + ".items." + itemIndex + ".badge"}
+                          value={badge ?? ""}
+                          onUpdateField={onUpdateField}
+                          isEditorMode={isEditorMode}
+                          isSelected={isSelected}
+                          collapseSheetForInlineEdit={collapseSheetForInlineEdit}
+                          onEditingStateChange={onEditingStateChange}
+                          as="span"
+                        />
+                      </div>
+                    )}
+
+                    <div className="relative p-6 z-10 text-white select-none">
+                      <div className="flex items-baseline justify-between gap-4 mb-2">
+                        <InlineText
+                          section="menu"
+                          fieldKey={"categories." + catIndex + ".items." + itemIndex + ".name"}
+                          value={item.name ?? ""}
+                          onUpdateField={onUpdateField}
+                          isEditorMode={isEditorMode}
+                          isSelected={isSelected}
+                          collapseSheetForInlineEdit={collapseSheetForInlineEdit}
+                          onEditingStateChange={onEditingStateChange}
+                          as="h4"
+                          className="text-lg md:text-xl font-bold tracking-tight font-dt-heading"
+                        />
+                        {item.price && (
+                          <InlineText section="menu" fieldKey={"categories." + catIndex + ".items." + itemIndex + ".price"} value={item.price ?? ""} onUpdateField={onUpdateField} isEditorMode={isEditorMode} isSelected={isSelected} collapseSheetForInlineEdit={collapseSheetForInlineEdit} onEditingStateChange={onEditingStateChange} as="span" className="text-base md:text-lg font-bold font-dt-heading text-dt-primary shrink-0" />
+                        )}
+                      </div>
+
+                      {item.description && (
+                        <InlineText section="menu" fieldKey={"categories." + catIndex + ".items." + itemIndex + ".description"} value={item.description ?? ""} onUpdateField={onUpdateField} isEditorMode={isEditorMode} isSelected={isSelected} collapseSheetForInlineEdit={collapseSheetForInlineEdit} onEditingStateChange={onEditingStateChange} as="p" multiline className={`text-xs md:text-sm text-white/80 font-normal leading-relaxed transition-all duration-300 ${
+                          isLarge ? "line-clamp-none opacity-100" : "line-clamp-2 md:line-clamp-1 group-hover:line-clamp-none"
+                        }`} />
+                      )}
+
+                      <button
+                        type="button"
+                        onClick={(e) => { e.stopPropagation(); setQuickView({ catIdx: catIndex, itemIdx: itemIndex }); }}
+                        onPointerDown={(e) => e.stopPropagation()}
+                        className="mt-2 inline-flex items-center gap-1 text-[11px] font-semibold uppercase tracking-wider text-white/90 underline underline-offset-2 opacity-100 md:opacity-0 md:group-hover:opacity-100 transition-opacity cursor-pointer"
+                      >
+                        {isEN ? "View detail" : "Lihat Detail"}
+                      </button>
+                    </div>
+                  </div>
+                );
+              })}
+              {isEditorMode && onAddItem && (
+                <InlineAddTile
+                  label="Tambah Item"
+                  variant="card"
+                  className="rounded-3xl min-h-[220px] md:min-h-[248px] md:col-span-1 md:row-span-1 w-full"
+                  onClick={() => onAddItem(catIndex)}
+                />
+              )}
+            </div>
+          </div>
+        ))}
+      {isEditorMode && onAddCategory && (
+        <CategoryAddButton onAdd={onAddCategory} isEN={isEN} collapseSheetForInlineEdit={collapseSheetForInlineEdit} />
+      )}
+      {quickView && qvItem && (
+        <ProductQuickView
+          open
+          onClose={() => setQuickView(null)}
+          item={toQuickViewItem(qvItem, qvCategory?.name)}
+          editSection="menu"
+          pathBase={`categories.${quickView.catIdx}.items.${quickView.itemIdx}`}
+          onUpdateField={onUpdateField}
+          isEditorMode={isEditorMode}
+          isSelected={isSelected}
+          collapseSheetForInlineEdit={collapseSheetForInlineEdit}
+          onEditingStateChange={onEditingStateChange}
+        />
+      )}
+      </div>
+    </section>
+  );
+}

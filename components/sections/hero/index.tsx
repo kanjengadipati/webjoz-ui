@@ -1,0 +1,70 @@
+"use client";
+import React from "react";
+import type { ComponentType } from "react";
+import type { HeroVariantProps } from "./types";
+import { DesignToken, TemplateProps } from "../../templates/types";
+import HeroCentered from "./centered";
+import HeroSplit from "./split";
+import HeroMinimal from "./minimal";
+import HeroFullBleed from "./full-bleed";
+import HeroMinimalistElegant from "./minimalist-elegant";
+import HeroTechSaaS from "./tech-saas";
+import HeroNeoBrutalist from "./neo-brutalist";
+import HeroBentoGrid from "./bento-grid";
+import HeroSplitEditorial from "./split-editorial";
+import HeroNaturalOrganic from "./natural-organic";
+import HeroPersonalBillboard from "./personal-billboard";
+import HeroPortraitShowcase from "./portrait-showcase";
+import HeroWorkPreviewStrip from "./work-preview-strip";
+import HeroChronologyBadge from "./chronology-badge";
+import HeroImageCarousel from "./image-carousel";
+
+const variants: Record<string, ComponentType<HeroVariantProps>> = {
+  // Original 4
+  centered: HeroCentered,
+  split: HeroSplit,
+  minimal: HeroMinimal,
+  "full-bleed": HeroFullBleed,
+  "image-carousel": HeroImageCarousel,
+  carousel: HeroImageCarousel,
+  // New 6
+  "minimalist-elegant": HeroMinimalistElegant,
+  "tech-saas": HeroTechSaaS,
+  "neo-brutalist": HeroNeoBrutalist,
+  "bento-grid": HeroBentoGrid,
+  "split-editorial": HeroSplitEditorial,
+  "natural-organic": HeroNaturalOrganic,
+  // Portfolio / personal-brand 4
+  "personal-billboard": HeroPersonalBillboard,
+  "portrait-showcase": HeroPortraitShowcase,
+  "work-preview-strip": HeroWorkPreviewStrip,
+  "chronology-badge": HeroChronologyBadge,
+};
+
+export default function HeroSection({
+  hero,
+  design_token,
+  language,
+  onUpdateField,
+  isEditorMode,
+  isSelected,
+  collapseSheetForInlineEdit,
+  onEditingStateChange,
+}: HeroVariantProps) {
+  const heroStyle = (design_token?.layout?.section_variants?.hero as string | undefined) || design_token?.layout?.hero_style || "centered";
+  const Renderer = variants[heroStyle] ?? HeroCentered;
+  return (
+    <div style={{ containerType: "inline-size", width: "100%" }}>
+      <Renderer
+        hero={hero}
+        design_token={design_token}
+        language={language}
+        onUpdateField={onUpdateField}
+        isEditorMode={isEditorMode}
+        isSelected={isSelected}
+        collapseSheetForInlineEdit={collapseSheetForInlineEdit}
+        onEditingStateChange={onEditingStateChange}
+      />
+    </div>
+  );
+}

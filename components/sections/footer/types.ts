@@ -1,0 +1,22 @@
+"use client";
+import type { DesignToken } from "../../templates/types";
+
+export interface FooterVariantProps {
+  footer: {
+    copyright_text?: string;
+    tagline?: string;
+    social_links?: Array<{ platform: string; url: string }>;
+  };
+  design_token?: DesignToken | null;
+  brand_name?: string;
+  language?: "id" | "en";
+  hasBlog?: boolean;
+  contactAddress?: string;
+  contactMapsUrl?: string;
+  contactOpeningHours?: string;
+  onUpdateField?: (section: string, key: string, value: any) => void;
+  isEditorMode?: boolean;
+  isSelected?: boolean;
+  collapseSheetForInlineEdit?: () => void;
+  onEditingStateChange?: (isEditing: boolean) => void;
+}

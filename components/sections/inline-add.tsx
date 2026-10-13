@@ -1,0 +1,221 @@
+"use client";
+import React, { useCallback } from "react";
+import { Plus, Trash2 } from "lucide-react";
+
+const NANOID_CHARS = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+
+/** Tiny deterministic-ish id helper for freshly added menu/catalog items & categories. */
+export function genId(size = 10): string {
+  let id = "";
+  const bytes = crypto.getRandomValues(new Uint8Array(size));
+  for (let i = 0; i < size; i++) id += NANOID_CHARS[bytes[i] % NANOID_CHARS.length];
+  return id;
+}
+
+const stop = (e: React.SyntheticEvent) => {
+  e.stopPropagation();
+};
+
+/**
+ * Inline "add item" tile rendered on the editor canvas (mirrors gallery's
+ * GalleryAddTile). Only shown while isEditorMode is true.
+ * Stops propagation on click/pointer/touch so it never triggers section
+ * selection or inline-editing handlers of the surrounding canvas.
+ */
+export function InlineAddTile({
+  label,
+  onClick,
+  compact = false,
+  variant = "card",
+  style,
+  className,
+}: {
+  label: string;
+  onClick: () => void;
+  compact?: boolean;
+  variant?: "card" | "bar";
+  style?: React.CSSProperties;
+  className?: string;
+}) {
+  const handleKey = useCallback(
+    (e: React.KeyboardEvent) => {
+      if (e.key === "Enter" || e.key === " ") {
+        stop(e);
+        onClick();
+      }
+    },
+    [onClick]
+  );
+
+  if (variant === "card" && !compact) {
+    return (
+      <div
+        role="button"
+        tabIndex={0}
+        title={label}
+        aria-label={label}
+        onClick={(e) => {
+          stop(e);
+          onClick();
+        }}
+        onPointerDown={stop}
+        onTouchStart={stop}
+        onKeyDown={handleKey}
+        className={`group flex flex-col items-center justify-center gap-3 border-2 border-dashed transition-all duration-200 cursor-pointer p-6 select-none hover:shadow-md min-h-[240px] rounded-2xl w-full ${className ?? ""}`}
+        style={{
+          borderColor: "color-mix(in srgb, var(--dt-primary, #6366f1) 45%, rgba(100, 116, 139, 0.35))",
+          background: "color-mix(in srgb, var(--dt-primary, #6366f1) 6%, rgba(100, 116, 139, 0.04))",
+          color: "var(--dt-text, currentColor)",
+          ...style,
+        }}
+      >
+        {/* Prominent Plus Icon Circle (matches Gallery style) */}
+        <div
+          className="flex items-center justify-center w-12 h-12 rounded-full transition-transform duration-200 group-hover:scale-110 shadow-sm"
+          style={{
+            background: "color-mix(in srgb, var(--dt-primary, #6366f1) 18%, rgba(100, 116, 139, 0.12))",
+            color: "var(--dt-primary, #6366f1)",
+            border: "1px solid color-mix(in srgb, var(--dt-primary, #6366f1) 30%, transparent)",
+          }}
+        >
+          <Plus className="w-6 h-6 stroke-[2.5]" />
+        </div>
+
+        {/* Label */}
+        <span
+          className="text-xs font-bold tracking-wide"
+          style={{ color: "var(--dt-text, currentColor)" }}
+        >
+          {label}
+        </span>
+      </div>
+    );
+  }
+
+  return (
+    <div
+      role="button"
+      tabIndex={0}
+      title={label}
+      aria-label={label}
+      onClick={(e) => {
+        stop(e);
+        onClick();
+      }}
+      onPointerDown={stop}
+      onTouchStart={stop}
+      onKeyDown={handleKey}
+      className={`group flex items-center justify-center gap-2.5 border-2 border-dashed rounded-xl cursor-pointer transition-all duration-200 select-none hover:shadow-2xs ${
+        compact ? "" : "min-h-[3.25rem]"
+      } ${className ?? ""}`}
+      style={{
+        padding: compact ? "0.5rem 0.875rem" : "0.75rem 1.25rem",
+        borderColor: "color-mix(in srgb, var(--dt-primary, #6366f1) 45%, rgba(100, 116, 139, 0.35))",
+        background: "color-mix(in srgb, var(--dt-primary, #6366f1) 6%, rgba(100, 116, 139, 0.04))",
+        color: "var(--dt-text, currentColor)",
+        ...style,
+      }}
+    >
+      <span
+        className="w-7 h-7 rounded-full flex items-center justify-center shrink-0 transition-transform duration-200 group-hover:scale-110 shadow-2xs"
+        style={{
+          background: "color-mix(in srgb, var(--dt-primary, #6366f1) 18%, rgba(100, 116, 139, 0.12))",
+          color: "var(--dt-primary, #6366f1)",
+          border: "1px solid color-mix(in srgb, var(--dt-primary, #6366f1) 30%, transparent)",
+        }}
+      >
+        <Plus className="w-4 h-4 stroke-[2.5]" />
+      </span>
+      <span
+        className="text-xs font-bold tracking-wide"
+        style={{ color: "var(--dt-text, currentColor)" }}
+      >
+        {label}
+      </span>
+    </div>
+  );
+}
+
+/**
+ * Section-level "add category" button for menu & catalog variants.
+ * Lives next to the category list so a brand new category can be created straight
+ * on the canvas instead of forcing a detour through the sidebar form.
+ * Editor-only: render it behind `isEditorMode && onAddCategory`.
+ */
+export function CategoryAddButton({
+  onAdd,
+  isEN,
+  collapseSheetForInlineEdit,
+  className = "",
+}: {
+  onAdd: () => void;
+  isEN?: boolean;
+  collapseSheetForInlineEdit?: () => void;
+  className?: string;
+}) {
+  const label = isEN ? "Add Category" : "Tambah Kategori";
+  return (
+    <div className={`inline-block ${className}`}>
+      <button
+        type="button"
+        onClick={(e) => {
+          stop(e);
+          collapseSheetForInlineEdit?.();
+          onAdd();
+        }}
+        onPointerDown={stop}
+        onTouchStart={stop}
+        title={label}
+        aria-label={label}
+        className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-xs font-semibold shadow-sm transition-all active:scale-95 cursor-pointer"
+        style={{
+          background: "color-mix(in srgb, var(--dt-primary, #6366f1) 10%, transparent)",
+          color: "var(--dt-primary, #6366f1)",
+          border: "1px solid color-mix(in srgb, var(--dt-primary, #6366f1) 30%, transparent)",
+        }}
+      >
+        <Plus className="w-3.5 h-3.5 stroke-[2.5]" />
+        {label}
+      </button>
+    </div>
+  );
+}
+
+/**
+ * Inline delete button for items in menu, catalog, etc.
+ * Stops propagation on click/pointer/touch so it doesn't trigger parent card handlers.
+ */
+export function InlineDeleteButton({
+  onDelete,
+  title = "Hapus item",
+  className = "",
+  compact = false,
+  style,
+}: {
+  onDelete: () => void;
+  title?: string;
+  className?: string;
+  compact?: boolean;
+  style?: React.CSSProperties;
+}) {
+  return (
+    <button
+      type="button"
+      onClick={(e) => {
+        stop(e);
+        e.preventDefault();
+        onDelete();
+      }}
+      onPointerDown={stop}
+      onTouchStart={stop}
+      title={title}
+      aria-label={title}
+      className={`z-40 flex items-center justify-center rounded-full bg-rose-500/85 hover:bg-rose-600 text-white shadow-md hover:scale-105 active:scale-95 transition-all cursor-pointer border border-white/30 opacity-80 hover:opacity-100 group-hover:opacity-100 pointer-coarse:opacity-100 ${
+        compact ? "w-5 h-5" : "w-7 h-7"
+      } ${className}`}
+      style={style}
+    >
+      <Trash2 className={compact ? "w-2.5 h-2.5" : "w-3.5 h-3.5"} />
+    </button>
+  );
+}
