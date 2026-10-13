@@ -1,5 +1,5 @@
 import { Loader2 } from "lucide-react";
-import { cn } from "@/lib/utils";
+import { cn } from "../../lib/utils";
 
 export type SpinnerSize = "xs" | "sm" | "md" | "lg" | "xl";
 export type SpinnerVariant = "primary" | "muted" | "white" | "current";

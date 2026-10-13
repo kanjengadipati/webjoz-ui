@@ -5,9 +5,9 @@ import type {
   SelectHTMLAttributes,
   TextareaHTMLAttributes,
 } from "react";
-import { AlertIcon } from "@/components/icons";
+import { AlertIcon } from "../icons";
 import { DISABLED_STYLES, FOCUS_VISIBLE, MOTION } from "@/lib/ui-tokens";
-import { cn } from "@/lib/utils";
+import { cn } from "../../lib/utils";
 
 type InputVariant = "default" | "filled" | "flushed" | "outline";
 type InputSize = "sm" | "default" | "lg";

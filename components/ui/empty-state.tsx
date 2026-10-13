@@ -1,6 +1,6 @@
 import type { ReactNode } from "react";
-import { EmptyChartIcon } from "@/components/icons";
-import { cn } from "@/lib/utils";
+import { EmptyChartIcon } from "../icons";
+import { cn } from "../../lib/utils";
 
 export function EmptyState({
   text,
