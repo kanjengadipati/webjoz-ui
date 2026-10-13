@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import {
   Button,
   Badge,
@@ -106,48 +107,50 @@ export default function DesignSystemPage() {
   return (
     <div className="min-h-screen bg-background text-foreground transition-colors duration-200">
       {/* Top Sticky Header */}
-      <header className="sticky top-0 z-40 w-full border-b border-border/80 bg-background/80 backdrop-blur-md">
+      <header className="sticky top-0 z-40 w-full border-b border-border/80 bg-background/85 backdrop-blur-xl">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between gap-4">
-          <div className="flex items-center gap-3">
-            <div className="size-9 rounded-xl bg-primary text-primary-foreground font-bold flex items-center justify-center shadow-md">
-              W
-            </div>
-            <div>
-              <div className="flex items-center gap-2">
-                <span className="font-bold text-base tracking-tight">Webjoz UI</span>
-                <Badge variant="outline" className="text-[10px] py-0 px-2">v1.0 Design System</Badge>
-              </div>
-              <p className="text-xs text-muted-foreground hidden sm:block">Standard Web UX & Component Library</p>
-            </div>
-          </div>
+          {/* Logo & Brand */}
+          <Link href="/" className="flex items-center gap-3 shrink-0 group">
+            <Image
+              src="/logo-transparent.png"
+              alt="Webjoz"
+              width={112}
+              height={36}
+              className="h-7 sm:h-8 w-auto object-contain dark:invert transition-transform group-hover:scale-105"
+              priority
+            />
+            <span className="hidden sm:inline-flex items-center rounded-full border border-border/80 bg-muted/60 px-2.5 py-0.5 text-[10px] font-bold text-muted-foreground tracking-wider uppercase">
+              UI System
+            </span>
+          </Link>
 
           {/* Quick jump navigation */}
-          <nav className="hidden lg:flex items-center gap-1 text-xs font-medium text-muted-foreground">
-            <a href="#dialogs" className="px-3 py-1.5 rounded-lg hover:text-foreground hover:bg-muted transition-colors font-semibold text-primary">Modal & Dialog</a>
-            <a href="#buttons" className="px-3 py-1.5 rounded-lg hover:text-foreground hover:bg-muted transition-colors">Buttons</a>
-            <a href="#typography" className="px-3 py-1.5 rounded-lg hover:text-foreground hover:bg-muted transition-colors">Typography</a>
-            <a href="#tokens" className="px-3 py-1.5 rounded-lg hover:text-foreground hover:bg-muted transition-colors">Tokens</a>
-            <a href="#forms" className="px-3 py-1.5 rounded-lg hover:text-foreground hover:bg-muted transition-colors">Forms</a>
-            <a href="#badges" className="px-3 py-1.5 rounded-lg hover:text-foreground hover:bg-muted transition-colors">Badges</a>
-            <a href="#feedback" className="px-3 py-1.5 rounded-lg hover:text-foreground hover:bg-muted transition-colors">Feedback</a>
-            <a href="#cards" className="px-3 py-1.5 rounded-lg hover:text-foreground hover:bg-muted transition-colors">Cards</a>
-            <a href="#templates" className="px-3 py-1.5 rounded-lg hover:text-foreground hover:bg-muted transition-colors">Templates</a>
+          <nav className="hidden xl:flex items-center gap-1 text-xs font-medium text-muted-foreground shrink-0">
+            <a href="#dialogs" className="px-2.5 py-1.5 rounded-lg hover:text-foreground hover:bg-muted transition-colors whitespace-nowrap">Dialog & Modal</a>
+            <a href="#buttons" className="px-2.5 py-1.5 rounded-lg hover:text-foreground hover:bg-muted transition-colors whitespace-nowrap">Buttons</a>
+            <a href="#typography" className="px-2.5 py-1.5 rounded-lg hover:text-foreground hover:bg-muted transition-colors whitespace-nowrap">Typography</a>
+            <a href="#tokens" className="px-2.5 py-1.5 rounded-lg hover:text-foreground hover:bg-muted transition-colors whitespace-nowrap">Tokens</a>
+            <a href="#forms" className="px-2.5 py-1.5 rounded-lg hover:text-foreground hover:bg-muted transition-colors whitespace-nowrap">Forms</a>
+            <a href="#badges" className="px-2.5 py-1.5 rounded-lg hover:text-foreground hover:bg-muted transition-colors whitespace-nowrap">Badges</a>
+            <a href="#feedback" className="px-2.5 py-1.5 rounded-lg hover:text-foreground hover:bg-muted transition-colors whitespace-nowrap">Feedback</a>
+            <a href="#cards" className="px-2.5 py-1.5 rounded-lg hover:text-foreground hover:bg-muted transition-colors whitespace-nowrap">Cards</a>
+            <a href="#templates" className="px-2.5 py-1.5 rounded-lg hover:text-foreground hover:bg-muted transition-colors whitespace-nowrap">Templates</a>
           </nav>
 
           {/* Theme switcher & template link */}
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-2 shrink-0">
             <Button
               variant="outline"
               size="sm"
               onClick={toggleTheme}
-              className="gap-2 text-xs font-medium"
+              className="gap-2 text-xs font-medium whitespace-nowrap"
               title="Toggle Light / Dark Mode"
             >
               {isDark ? <SunIcon size="sm" /> : <MoonIcon size="sm" />}
-              <span>{isDark ? "Light Mode" : "Dark Mode"}</span>
+              <span className="hidden sm:inline">{isDark ? "Light Mode" : "Dark Mode"}</span>
             </Button>
             <Link href="/preview/minimalist">
-              <Button size="sm" variant="default" className="text-xs">
+              <Button size="sm" variant="default" className="text-xs whitespace-nowrap">
                 Template Preview →
               </Button>
             </Link>
@@ -953,9 +956,15 @@ export default function DesignSystemPage() {
       {/* Footer */}
       <footer className="border-t border-border/80 bg-muted/30 py-12 mt-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-muted-foreground">
-          <div className="flex items-center gap-2">
-            <span className="font-bold text-foreground">Webjoz UI</span>
-            <span>—</span>
+          <div className="flex items-center gap-3">
+            <Image
+              src="/logo-transparent.png"
+              alt="Webjoz"
+              width={90}
+              height={30}
+              className="h-6 w-auto object-contain dark:invert opacity-80"
+            />
+            <span className="text-border">|</span>
             <span>Standard UX Engine for Webjoz Applications</span>
           </div>
           <div>
