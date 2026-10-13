@@ -27,5 +27,23 @@
     "@types/react-dom": "^19",
     "tailwindcss": "^4",
     "typescript": "^5"
+  },
+  "exports": {
+    ".": {
+      "types": "./index.ts",
+      "default": "./index.ts"
+    },
+    "./ui": {
+      "types": "./components/ui/index.ts",
+      "default": "./components/ui/index.ts"
+    },
+    "./icons": {
+      "types": "./components/icons/index.tsx",
+      "default": "./components/icons/index.tsx"
+    },
+    "./tokens": {
+      "types": "./lib/ui-tokens.ts",
+      "default": "./lib/ui-tokens.ts"
+    }
   }
 }
