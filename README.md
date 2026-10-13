@@ -2,6 +2,12 @@
 
 **Standard Web UX, Component Library & Theme Engine for Webjoz**
 
+[![Demo](https://img.shields.io/badge/Live%20Demo-webjoz--ui.vercel.app-6366f1?style=flat-square&logo=vercel&logoColor=white)](https://webjoz-ui.vercel.app/)
+[![License](https://img.shields.io/badge/License-Internal-gray?style=flat-square)](.)
+
+> 🎨 **[Live Demo → https://webjoz-ui.vercel.app/](https://webjoz-ui.vercel.app/)**  
+> Showcase interaktif seluruh komponen UI, design tokens, moods, templates, dan icons.
+
 A standalone UI package extracted from the Giwangan Web Generator project. This library provides reusable templates, section variants, shopping cart components, design tokens, and utilities for building Webjoz-powered landing pages.
 
 ---
