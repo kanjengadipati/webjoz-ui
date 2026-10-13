@@ -1,0 +1,239 @@
+"use client";
+
+import React from "react";
+import { ArrowRight } from "lucide-react";
+import { MemoPreviewSectionWrapper, MemoSectionContent } from "./editor";
+import {
+  CartProvider, CartFab, WAFloatingButton, BackToTop,
+  SeoEditorPreview, ctaHref, InlineText,
+} from "./shared";
+import HeaderSection from "../sections/header";
+import FooterSection from "../sections/footer";
+import GallerySection from "../sections/gallery";
+import WorksSection from "../sections/works";
+import HeroSection from "../sections/hero";
+import BenefitsSectionInner from "../sections/benefits";
+import TestimonialsSectionInner from "../sections/testimonials";
+import FaqSectionInner from "../sections/faq";
+import ContactSectionInner from "../sections/contact";
+import MenuSectionInner from "../sections/menu";
+import CatalogSectionInner from "../sections/catalog";
+import { buildCssVars, loadGoogleFont, headingVars, filterEmptySections, getSectionVariant, computePrimaryFg } from "./helpers";
+import PhotoCredit from "../sections/PhotoCredit";
+import type { TemplateProps } from "./types";
+
+export const TemplateNatural: React.FC<TemplateProps> = ({
+  content, design_token, onSubmitLead, leadSubmitting = false, leadSuccess = false, leadError = null,
+  activeSection, onSelectSection, onRegenSection, onUpdateSectionVariant, isEditorMode = false, arrivedSections, isPremium = false, language, tenantDomain,
+  onUpdateField, collapseSheetForInlineEdit, onEditingStateChange
+}) => {
+  const { header, hero, about, benefits, faq, cta, contact, footer, seo, testimonials, menu, catalog, gallery, works } = content;
+  const dt = design_token ?? null;
+  const cssVars = buildCssVars(dt);
+
+  React.useEffect(() => {
+    loadGoogleFont(dt?.typography?.heading_font, dt?.typography?.body_font);
+  }, [dt?.typography?.heading_font, dt?.typography?.body_font]);
+
+  const sectionOrder = (() => {
+    const base: string[] = dt?.layout?.section_order ?? ["hero", "about", "benefits", "testimonials", "faq", "cta", "contact"];
+    const order = [...base];
+    const afterHero = (s: string) => {
+      const heroIdx = order.indexOf("hero");
+      order.splice(heroIdx >= 0 ? heroIdx + 1 : 1, 0, s);
+    };
+    if (menu    && !order.includes("menu"))    afterHero("menu");
+    if (catalog && !order.includes("catalog")) afterHero("catalog");
+    if (gallery && !order.includes("gallery")) order.splice(order.indexOf("cta") >= 0 ? order.indexOf("cta") : order.length, 0, "gallery");
+    if (works && !order.includes("works")) order.splice(order.indexOf("cta") >= 0 ? order.indexOf("cta") : order.length, 0, "works");
+    return order;
+  })();
+
+  const cream = dt?.palette?.background ?? "#fcf8f2";
+  const sage = dt?.palette?.primary ?? "#3d5a45";
+  const brown = dt?.palette?.text ?? "#2e251b";
+  const brownMuted = `color-mix(in srgb, ${brown} 60%, transparent)`;
+  const border = "var(--dt-border)";
+  const ctaText = "var(--dt-cta-text)";
+
+  const sectionNodes: Record<string, React.ReactNode> = {
+    hero: (
+      <MemoPreviewSectionWrapper section="hero" label="Hero" activeSection={activeSection} currentVariant={getSectionVariant(dt, "hero")} onSelectSection={onSelectSection} onRegenSection={onRegenSection} onUpdateVariant={onUpdateSectionVariant} isEditorMode={isEditorMode}>
+        <MemoSectionContent content={hero} render={(h) => (
+      <HeroSection
+        hero={{ ...h, cta_url: ctaHref(contact.phone, h.cta_url) }}
+        design_token={dt}
+        language={language}
+        isEditorMode={isEditorMode}
+        isSelected={activeSection === "hero"}
+        onUpdateField={onUpdateField}
+        collapseSheetForInlineEdit={collapseSheetForInlineEdit}
+        onEditingStateChange={onEditingStateChange}
+      />
+        )} />
+      </MemoPreviewSectionWrapper>
+    ),
+    about: (
+      <MemoPreviewSectionWrapper section="about" label="Tentang" activeSection={activeSection} currentVariant={getSectionVariant(dt, "about")} onSelectSection={onSelectSection} onRegenSection={onRegenSection} onUpdateVariant={onUpdateSectionVariant} isEditorMode={isEditorMode}>
+        <MemoSectionContent content={about} render={(a) => (
+          <section className="py-[var(--dt-spacing)] px-6 border-y" id="about" style={{ background: "var(--dt-primary-soft)", borderColor: border }}>
+            <div className="max-w-5xl mx-auto space-y-8">
+              <div className={a.image_url ? "grid md:grid-cols-2 gap-8 items-center" : "max-w-3xl mx-auto"}>
+                <div className="space-y-4" style={{ textAlign: a.textAlign || "left" }}>
+                  {(a.eyebrow || isEditorMode) && <InlineText section="about" fieldKey="eyebrow" value={a.eyebrow} onUpdateField={onUpdateField} isEditorMode={isEditorMode} isSelected={activeSection === "about"} as="span" className="text-[10px] uppercase tracking-widest font-bold   block" style={{ color: sage }} collapseSheetForInlineEdit={collapseSheetForInlineEdit} onEditingStateChange={onEditingStateChange} />}
+                  <InlineText section="about" fieldKey="title" value={a.title} onUpdateField={onUpdateField} isEditorMode={isEditorMode} isSelected={activeSection === "about"} multiline as="h2" className="text-2xl md:text-3xl font-medium leading-snug" style={{ color: brown, fontFamily: "var(--dt-heading-font)", ...headingVars }} collapseSheetForInlineEdit={collapseSheetForInlineEdit} onEditingStateChange={onEditingStateChange} />
+                  <InlineText section="about" fieldKey="body" value={a.body} onUpdateField={onUpdateField} isEditorMode={isEditorMode} isSelected={activeSection === "about"} multiline as="p" className="text-sm leading-relaxed italic font-light" style={{ color: brownMuted }} collapseSheetForInlineEdit={collapseSheetForInlineEdit} onEditingStateChange={onEditingStateChange} />
+                </div>
+                {a.image_url && (
+                  <div className="relative">
+                    <img src={a.image_url} alt={a.title} className="w-full h-52 object-cover rounded-[var(--dt-radius-lg)] border" style={{ borderColor: border }} onError={(e) => { e.currentTarget.style.display = 'none'; }} />
+                    <div className="absolute bottom-1 right-2 z-10"><PhotoCredit credit={a.image_credit} /></div>
+                  </div>
+                )}
+              </div>
+              {(a.highlight_stat_1 || a.highlight_stat_2 || a.highlight_stat_3) && (
+                <div className="grid grid-cols-3 gap-4 pt-4 border-t" style={{ borderColor: border }}>
+                  {[a.highlight_stat_1, a.highlight_stat_2, a.highlight_stat_3].map((stat, i) => {
+                    const keyNum = i + 1;
+                    return stat ? (
+                    <div key={i} className="text-center space-y-1">
+                      <p className="text-2xl font-bold" style={{ color: sage, fontFamily: "var(--dt-heading-font)" }}><InlineText section="about" fieldKey={`highlight_stat_${keyNum}.value`} value={stat.value ?? ""} onUpdateField={onUpdateField} isEditorMode={isEditorMode} isSelected={activeSection === "about"} as="span" collapseSheetForInlineEdit={collapseSheetForInlineEdit} onEditingStateChange={onEditingStateChange} /></p>
+                      <p className="text-[10px]  " style={{ color: brownMuted }}><InlineText section="about" fieldKey={`highlight_stat_${keyNum}.label`} value={stat.label ?? ""} onUpdateField={onUpdateField} isEditorMode={isEditorMode} isSelected={activeSection === "about"} as="span" collapseSheetForInlineEdit={collapseSheetForInlineEdit} onEditingStateChange={onEditingStateChange} /></p>
+                    </div>
+                    ) : null;
+                  })}
+                </div>
+              )}
+            </div>
+          </section>
+        )} />
+      </MemoPreviewSectionWrapper>
+    ),
+    benefits: (
+      <MemoPreviewSectionWrapper section="benefits" label="Keunggulan" activeSection={activeSection} currentVariant={getSectionVariant(dt, "benefits")} onSelectSection={onSelectSection} onRegenSection={onRegenSection} onUpdateVariant={onUpdateSectionVariant} isEditorMode={isEditorMode}>
+        <MemoSectionContent content={benefits} render={(b) => (
+          <BenefitsSectionInner benefits={b} design_token={dt} language={language} onUpdateField={onUpdateField} isEditorMode={isEditorMode} isSelected={activeSection === "benefits"} collapseSheetForInlineEdit={collapseSheetForInlineEdit} onEditingStateChange={onEditingStateChange} />
+        )} />
+      </MemoPreviewSectionWrapper>
+    ),
+    testimonials: testimonials ? (
+      <MemoPreviewSectionWrapper section="testimonials" label="Testimoni" activeSection={activeSection} currentVariant={getSectionVariant(dt, "testimonials")} onSelectSection={onSelectSection} onRegenSection={onRegenSection} onUpdateVariant={onUpdateSectionVariant} isEditorMode={isEditorMode}>
+        <TestimonialsSectionInner testimonials={testimonials} design_token={dt} onUpdateField={onUpdateField} isEditorMode={isEditorMode} isSelected={activeSection === "testimonials"} collapseSheetForInlineEdit={collapseSheetForInlineEdit} onEditingStateChange={onEditingStateChange} />
+      </MemoPreviewSectionWrapper>
+    ) : null,
+    menu: menu ? (
+      <MemoPreviewSectionWrapper section="menu" label="Menu" activeSection={activeSection} currentVariant={getSectionVariant(dt, "menu")} onSelectSection={onSelectSection} onRegenSection={onRegenSection} onUpdateVariant={onUpdateSectionVariant} isEditorMode={isEditorMode}>
+        <MemoSectionContent content={menu} render={(m) => (
+          <MenuSectionInner menu={m} design_token={dt} language={language} onUpdateField={onUpdateField} isEditorMode={isEditorMode} isSelected={activeSection === "menu"} collapseSheetForInlineEdit={collapseSheetForInlineEdit} onEditingStateChange={onEditingStateChange} />
+        )} />
+      </MemoPreviewSectionWrapper>
+    ) : null,
+    catalog: catalog ? (
+      <MemoPreviewSectionWrapper section="catalog" label="Katalog" activeSection={activeSection} currentVariant={getSectionVariant(dt, "catalog")} onSelectSection={onSelectSection} onRegenSection={onRegenSection} onUpdateVariant={onUpdateSectionVariant} isEditorMode={isEditorMode}>
+        <MemoSectionContent content={catalog} render={(c) => (
+          <CatalogSectionInner catalog={c} design_token={dt} language={language} onUpdateField={onUpdateField} isEditorMode={isEditorMode} isSelected={activeSection === "catalog"} collapseSheetForInlineEdit={collapseSheetForInlineEdit} onEditingStateChange={onEditingStateChange} />
+        )} />
+      </MemoPreviewSectionWrapper>
+    ) : null,
+    faq: (
+      <MemoPreviewSectionWrapper section="faq" label="FAQ" activeSection={activeSection} currentVariant={getSectionVariant(dt, "faq")} onSelectSection={onSelectSection} onRegenSection={onRegenSection} onUpdateVariant={onUpdateSectionVariant} isEditorMode={isEditorMode}>
+        <MemoSectionContent content={faq} render={(f) => (
+          <FaqSectionInner
+            faq={f}
+            design_token={dt}
+            language={language}
+            onUpdateField={onUpdateField}
+            isEditorMode={isEditorMode}
+            isSelected={activeSection === "faq"}
+            collapseSheetForInlineEdit={collapseSheetForInlineEdit}
+            onEditingStateChange={onEditingStateChange}
+          />
+        )} />
+      </MemoPreviewSectionWrapper>
+    ),
+    cta: (
+      <MemoPreviewSectionWrapper section="cta" label="CTA" activeSection={activeSection} currentVariant={getSectionVariant(dt, "cta")} onSelectSection={onSelectSection} onRegenSection={onRegenSection} onUpdateVariant={onUpdateSectionVariant} isEditorMode={isEditorMode}>
+        <MemoSectionContent content={cta} render={(c) => (
+          <section className="py-[var(--dt-spacing)] px-6 border-y" style={{ background: "var(--dt-primary-soft)", borderColor: border }}>
+            <div className="max-w-2xl mx-auto text-center space-y-5">
+              {(c.eyebrow || isEditorMode) && <InlineText section="cta" fieldKey="eyebrow" value={c.eyebrow} onUpdateField={onUpdateField} isEditorMode={isEditorMode} isSelected={activeSection === "cta"} as="span" className="text-[10px] uppercase tracking-widest   block" style={{ color: sage }} collapseSheetForInlineEdit={collapseSheetForInlineEdit} onEditingStateChange={onEditingStateChange} />}
+              <InlineText section="cta" fieldKey="headline" value={c.headline} onUpdateField={onUpdateField} isEditorMode={isEditorMode} isSelected={activeSection === "cta"} multiline as="h2" className="text-2xl md:text-3xl font-medium" style={{ color: brown, fontFamily: "var(--dt-heading-font)", ...headingVars }} collapseSheetForInlineEdit={collapseSheetForInlineEdit} onEditingStateChange={onEditingStateChange} />
+              {c.subheadline && <InlineText section="cta" fieldKey="subheadline" value={c.subheadline} onUpdateField={onUpdateField} isEditorMode={isEditorMode} isSelected={activeSection === "cta"} multiline as="p" className="text-sm italic font-light" style={{ color: brownMuted }} collapseSheetForInlineEdit={collapseSheetForInlineEdit} onEditingStateChange={onEditingStateChange} />}
+              <a href={c.button_url} className="inline-flex items-center gap-2 px-8 py-3 rounded-[var(--dt-radius)] text-xs font-bold uppercase tracking-wider transition-all hover:opacity-90" style={{ background: sage, color: ctaText }}>
+                <InlineText section="cta" fieldKey="button_text" value={c.button_text} onUpdateField={onUpdateField} isEditorMode={isEditorMode} isSelected={activeSection === "cta"} as="span" collapseSheetForInlineEdit={collapseSheetForInlineEdit} onEditingStateChange={onEditingStateChange} /> <ArrowRight className="w-4 h-4" />
+              </a>
+              {c.trust_signal && <InlineText section="cta" fieldKey="trust_signal" value={c.trust_signal} onUpdateField={onUpdateField} isEditorMode={isEditorMode} isSelected={activeSection === "cta"} multiline as="p" className="text-[10px]  " style={{ color: brownMuted }} collapseSheetForInlineEdit={collapseSheetForInlineEdit} onEditingStateChange={onEditingStateChange} />}
+            </div>
+          </section>
+        )} />
+      </MemoPreviewSectionWrapper>
+    ),
+    contact: (
+      <MemoPreviewSectionWrapper section="contact" label="Kontak" activeSection={activeSection} currentVariant={getSectionVariant(dt, "contact")} onSelectSection={onSelectSection} onRegenSection={onRegenSection} onUpdateVariant={onUpdateSectionVariant} isEditorMode={isEditorMode}>
+        <MemoSectionContent content={{ contact, onSubmitLead, leadSubmitting, leadSuccess, leadError }} render={(data) => (
+          <ContactSectionInner
+            contact={data.contact}
+            design_token={dt}
+            onSubmitLead={data.onSubmitLead}
+            leadSubmitting={data.leadSubmitting}
+            leadSuccess={data.leadSuccess}
+            leadError={data.leadError}
+            onUpdateField={onUpdateField}
+            isEditorMode={isEditorMode}
+            isSelected={activeSection === "contact"}
+            collapseSheetForInlineEdit={collapseSheetForInlineEdit}
+            onEditingStateChange={onEditingStateChange}
+            language={language}
+          />
+        )} />
+      </MemoPreviewSectionWrapper>
+    ),
+    gallery: gallery ? (
+      <MemoPreviewSectionWrapper section="gallery" label="Galeri" activeSection={activeSection} currentVariant={getSectionVariant(dt, "gallery")} onSelectSection={onSelectSection} onRegenSection={onRegenSection} onUpdateVariant={onUpdateSectionVariant} isEditorMode={isEditorMode}>
+        <MemoSectionContent content={{ gallery, dt }} render={(data) => {
+          const { gallery: g, dt: d } = data;
+          return <GallerySection gallery={g} design_token={d} onUpdateField={onUpdateField} isEditorMode={isEditorMode} isSelected={activeSection === "gallery"} collapseSheetForInlineEdit={collapseSheetForInlineEdit} onEditingStateChange={onEditingStateChange} />;
+        }} />
+      </MemoPreviewSectionWrapper>
+    ) : null,
+    works: works ? (
+      <MemoPreviewSectionWrapper section="works" label="Portofolio" activeSection={activeSection} currentVariant={getSectionVariant(dt, "works")} onSelectSection={onSelectSection} onRegenSection={onRegenSection} onUpdateVariant={onUpdateSectionVariant} isEditorMode={isEditorMode}>
+        <MemoSectionContent content={{ works, dt }} render={(data) => {
+          const { works: w, dt: d } = data;
+          return <WorksSection works={w} design_token={d} language={language} onUpdateField={onUpdateField} isEditorMode={isEditorMode} isSelected={activeSection === "works"} collapseSheetForInlineEdit={collapseSheetForInlineEdit} onEditingStateChange={onEditingStateChange} />;
+        }} />
+      </MemoPreviewSectionWrapper>
+    ) : null,
+  };
+
+  return (
+    <CartProvider waPhone={contact?.phone ?? ""} brandName={header?.brand_name} previewMode={isEditorMode} onSubmitLead={onSubmitLead} primaryColor={dt?.palette?.primary ?? "#4F46E5"} primaryFg={computePrimaryFg(dt?.palette?.primary ?? "#4F46E5")} language={language} payments={content.payments}>
+    <div style={{ ...cssVars, background: cream, color: brown, fontFamily: "var(--dt-body-font)", minHeight: "100vh", overflowX: "hidden", containerType: "inline-size" }}>
+      {(() => {
+        const renderedSectionOrder = filterEmptySections(sectionOrder, content, isEditorMode)
+          .filter(k => !(dt?.layout?.hidden_sections ?? []).includes(k))
+          .filter(k => !arrivedSections || arrivedSections.includes(k));
+        return (
+          <>
+            <MemoPreviewSectionWrapper section="header" label="Header" activeSection={activeSection} currentVariant={getSectionVariant(dt, "header")} onSelectSection={onSelectSection} onRegenSection={onRegenSection} onUpdateVariant={onUpdateSectionVariant} isEditorMode={isEditorMode}>
+              <HeaderSection header={header} design_token={dt} sectionOrder={renderedSectionOrder} hiddenSections={dt?.layout?.hidden_sections} language={language} onUpdateField={onUpdateField} isEditorMode={isEditorMode} isSelected={activeSection === "header"} collapseSheetForInlineEdit={collapseSheetForInlineEdit} onEditingStateChange={onEditingStateChange} />
+            </MemoPreviewSectionWrapper>
+
+            {renderedSectionOrder.map((k) => (
+              <div key={k} className="animate-slide-up">
+                {sectionNodes[k] ?? null}
+              </div>
+            ))}
+          </>
+        );
+      })()} <MemoPreviewSectionWrapper section="footer" label="Footer" activeSection={activeSection} currentVariant={getSectionVariant(dt, "footer")} onSelectSection={onSelectSection} onRegenSection={onRegenSection} onUpdateVariant={onUpdateSectionVariant} isEditorMode={isEditorMode}>
+        <FooterSection footer={footer ?? {}} design_token={dt} brand_name={header?.brand_name} language={language} contactAddress={contact?.address} contactMapsUrl={contact?.maps_url ?? undefined} contactOpeningHours={contact?.opening_hours} onUpdateField={onUpdateField} isEditorMode={isEditorMode} isSelected={activeSection === "footer"} collapseSheetForInlineEdit={collapseSheetForInlineEdit} onEditingStateChange={onEditingStateChange} />
+      </MemoPreviewSectionWrapper>
+      {isEditorMode && <MemoPreviewSectionWrapper section="seo" label="SEO" activeSection={activeSection} currentVariant={getSectionVariant(dt, "seo")} onSelectSection={onSelectSection} onRegenSection={onRegenSection} onUpdateVariant={onUpdateSectionVariant} isEditorMode={isEditorMode}><MemoSectionContent content={seo} render={(s) => <SeoEditorPreview seo={s} domain={tenantDomain} />} /></MemoPreviewSectionWrapper>}
+      <CartFab colorStyle={{ background: sage, color: ctaText }} />
+      <WAFloatingButton phone={contact?.phone} isEditorMode={isEditorMode} onSubmitLead={onSubmitLead} brandName={header?.brand_name} isPremium={isPremium} floatingType={design_token?.layout?.floating_button} />
+      <BackToTop isEditorMode={isEditorMode} />
+    </div>
+    </CartProvider>
+  );
+};

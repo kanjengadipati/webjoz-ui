@@ -1,0 +1,8140 @@
+export type Locale = "id" | "en";
+
+export interface Translations {
+  landing: {
+    heroTitle: string;
+    heroSubtitle: string;
+    heroSubtitleBold: string;
+    ctaPrimary: string;
+    ctaFloating: string;
+    tryFree: string;
+    chatNotForm: string;
+    activeInMinutes: string;
+    howItWorksTitle: string;
+    howItWorksSubtitle: string;
+    howItWorksCta: string;
+    featuresEyebrow: string;
+    featuresTitle: string;
+    featuresTitleAccent: string;
+    dashboardBadge: string;
+    dashboardTitle: string;
+    dashboardDesc: string;
+    dashboardTags: string[];
+    domainBadge: string;
+    domainTitle: string;
+    domainDesc: string;
+    domainTags: string[];
+    catalogBadge: string;
+    catalogTitle: string;
+    catalogDesc: string;
+    catalogTags: string[];
+    templatesEyebrow: string;
+    templatesTitle: string;
+    templatesTitleAccent: string;
+    templatesDesc: string;
+    whyEyebrow: string;
+    whyTitle: string;
+    whyTitleAccent: string;
+    statsLabel1: string;
+    statsValue1: string;
+    statsLabel2: string;
+    statsValue2: string;
+    statsLabel3: string;
+    statsValue3: string;
+    statsLabel4: string;
+    statsValue4: string;
+    pricingTitle: string;
+    pricingSubtitle: string;
+    monthly: string;
+    yearly: string;
+    saveBadge: string;
+    saveText: string;
+    popularBadge: string;
+    priceFree: string;
+    priceFreePeriod: string;
+    perYear: string;
+    monthlyEq: string;
+    promo: string;
+    perMonth: string;
+    perYear2: string;
+    startFree: string;
+    choosePlan: string;
+    ctaBannerTitle: string;
+    ctaBannerDesc: string;
+    ctaBannerCta: string;
+    ctaBannerWhatsapp: string;
+    ctaBannerHelper: string;
+    ctaBannerContact: string;
+    footerCopyright: string;
+    footerPrivacy: string;
+    footerTerms: string;
+    footerRefund: string;
+    footerContact: string;
+    footerHelp: string;
+    footerChangelog: string;
+    footerLogin: string;
+    footerBlog: string;
+    footerHome: string;
+    step1Title: string;
+    step1Desc: string;
+    step2Title: string;
+    step2Desc: string;
+    step3Title: string;
+    step3Desc: string;
+    step4Title: string;
+    step4Desc: string;
+    featureChatTitle: string;
+    featureChatDesc: string;
+    featureDomainTitle: string;
+    featureDomainDesc: string;
+    featureAnalyticsTitle: string;
+    featureAnalyticsDesc: string;
+    featureEditTitle: string;
+    featureEditDesc: string;
+    featureCustomTitle: string;
+    featureCustomDesc: string;
+    featureWaTitle: string;
+    featureWaDesc: string;
+    featureSeoTitle: string;
+    featureSeoDesc: string;
+    featureSubTitle: string;
+    featureSubDesc: string;
+    featureCatalogTitle: string;
+    featureCatalogDesc: string;
+    featureMenuTitle: string;
+    featureMenuDesc: string;
+    navHowItWorks: string;
+    navFeatures: string;
+    navPricing: string;
+    navHelp: string;
+    navDashboard: string;
+    navLogin: string;
+    navCreateNew: string;
+    navStartFree: string;
+    mockupGreeting: string;
+    mockupSwitchChat: string;
+    mockupSwitchPreview: string;
+    mockupPickType: string;
+    mockupChips: string[];
+    mockupPickMood: string;
+    mockupMoodChips: string[];
+    mockupGenerating: string;
+    mockupReady: string;
+    mockupStep: string;
+    mockupSitesManage: string;
+    mockupSitesClose: string;
+    mockupSitesTitle: string;
+    mockupSitesHint: string;
+    mockupSitesAdd: string;
+    mockupSitesReset: string;
+    mockupSitesSave: string;
+    mockupSitesName: string;
+    mockupSitesNamePlaceholder: string;
+    showcaseCreate: string;
+    showcaseFallback: string;
+    categoryKuliner: string;
+    categoryJasa: string;
+    categoryProduk: string;
+    // pricing card feature labels
+    activeBadge: string;
+    yearlySavings: string;
+    websiteCount: string;
+    aiGenerate: string;
+    aiRegen: string;
+    aiDesign: string;
+    noCustomDomain: string;
+    customDomainFeature: string;
+    customDomainSubtext: string;
+    seoBooster: string;
+    subdomainFeature: string;
+    hostingFeature: string;
+    typeMessage: string;
+    trustedBy: string;
+    featureFreeCard: string;
+    featureChatEasy: string;
+    featureLiveInstant: string;
+    heroReassurance: string;
+    bottomNavHome: string;
+    bottomNavFeatures: string;
+    bottomNavCreate: string;
+    bottomNavPricing: string;
+    bottomNavAccount: string;
+  };
+  auth: {
+    loginTitle: string;
+    loginDesc: string;
+    loginCardTitle: string;
+    loginCardDesc: string;
+    loginFooterHome: string;
+    loginFooterRegister: string;
+    loginFooterForgot: string;
+    loginBadge: string;
+    loginStats1Label: string;
+    loginStats1Value: string;
+    loginStats1Helper: string;
+    loginStats2Label: string;
+    loginStats2Value: string;
+    loginStats2Helper: string;
+    loginCardEyebrow: string;
+    loginSending: string;
+    loginWhatsappHint: string;
+    loginOrContinueWith: string;
+    loginOrEmail: string;
+    loginEmailLabel: string;
+    loginEmailPlaceholder: string;
+    loginEmailHint: string;
+    loginSendCodeWhatsapp: string;
+    loginSendCode: string;
+    loginPasswordTitle: string;
+    loginPasswordDesc: string;
+    loginEmailField: string;
+    loginPasswordLabel: string;
+    loginForgotPassword: string;
+    loginPasswordPlaceholder: string;
+    loginPhonePlaceholder: string;
+    loginPasswordField: string;
+    loginSigningIn: string;
+    loginPasswordButton: string;
+    loginHidePassword: string;
+    loginShowPassword: string;
+    loginLoginLoading: string;
+    loginSubmitPassword: string;
+    loginCodeSentTo: string;
+    loginCodeLabel: string;
+    loginTrustDevice: string;
+    loginBack: string;
+    loginVerifying: string;
+    loginVerifyOtp: string;
+    loginResendCountdown: string;
+    loginResend: string;
+    loginLinkSent: string;
+    loginOtherOptions: string;
+    loginOptionWhatsapp: string;
+    loginOptionEmail: string;
+    loginOptionPassword: string;
+    errorEmailValid: string;
+    errorPhoneValid: string;
+    errorFixFields: string;
+    errorOtpInvalid: string;
+    errorCredentialsInvalid: string;
+    errorWrongCredentials: string;
+    toastCodeSent: string;
+    errorSendCode: string;
+    toastOtpVerified: string;
+    errorOtpInvalidExpired: string;
+    loginSuccess: string;
+    toastSessionExpired: string;
+    toastSessionExpiredDesc: string;
+    toastDismiss: string;
+    errorMagicLinkInvalid: string;
+    registerBadge: string;
+    registerTitle: string;
+    registerDesc: string;
+    registerCardEyebrow: string;
+    registerCardTitle: string;
+    registerCardDesc: string;
+    registerFooterLogin: string;
+    registerFullName: string;
+    registerEmail: string;
+    registerWhatsapp: string;
+    registerPassword: string;
+    registerLoading: string;
+    registerSubmit: string;
+    registerSuccess: string;
+    errorRegisterFailed: string;
+    forgotBadge: string;
+    forgotTitle: string;
+    forgotDesc: string;
+    forgotCardEyebrow: string;
+    forgotCardTitle: string;
+    forgotCardDesc: string;
+    forgotFooterLogin: string;
+    forgotFooterRegister: string;
+    forgotEmail: string;
+    forgotEmailPlaceholder: string;
+    forgotSending: string;
+    forgotSubmit: string;
+    forgotSentSuccess: string;
+    forgotSentToast: string;
+    errorForgotSend: string;
+    forgotStat1Label: string;
+    forgotStat1Value: string;
+    forgotStat1Helper: string;
+    forgotStat2Label: string;
+    forgotStat2Value: string;
+    forgotStat2Helper: string;
+    resetBadge: string;
+    resetTitle: string;
+    resetDesc: string;
+    resetCardEyebrow: string;
+    resetCardTitle: string;
+    resetCardDesc: string;
+    resetCardDescNoToken: string;
+    resetFooterLogin: string;
+    resetFooterRequest: string;
+    resetNewPassword: string;
+    resetNewPasswordPlaceholder: string;
+    resetConfirmPassword: string;
+    resetUpdating: string;
+    resetUpdate: string;
+    errorResetTokenMissing: string;
+    errorPasswordMismatch: string;
+    toastResetSuccess: string;
+    errorResetFailed: string;
+    resetStat1Label: string;
+    resetStat1Value: string;
+    resetStat1Helper: string;
+    resetStat2Label: string;
+    resetStat2Value: string;
+    resetStat2Helper: string;
+    verifyBadge: string;
+    verifyTitle: string;
+    verifyDesc: string;
+    verifyCardEyebrow: string;
+    verifyCardTitle: string;
+    verifyCardIdle: string;
+    verifyCardLoading: string;
+    verifyFooterLogin: string;
+    verifyFooterHome: string;
+    verifyLoadingSpinner: string;
+    verifyBackToLogin: string;
+    verifySuccessTitle: string;
+    verifyGoToLogin: string;
+    verifyFailedTitle: string;
+    verifySentTo: string;
+    verifyNoToken: string;
+    verifyDone: string;
+    errorVerifyFailed: string;
+    verifyStat1Label: string;
+    verifyStat1Value: string;
+    verifyStat1Helper: string;
+    verifyStat2Label: string;
+    verifyStat2Value: string;
+    verifyStat2Helper: string;
+    inviteProcessing: string;
+    inviteSuccess: string;
+    inviteSuccessDesc: string;
+    inviteDashboard: string;
+    inviteFailedTitle: string;
+    inviteBackToLogin: string;
+    inviteRegisterTitle: string;
+    inviteRegisterDesc: string;
+    inviteRegisterEmailLabel: string;
+    inviteRegisterNameLabel: string;
+    inviteRegisterNamePlaceholder: string;
+    inviteRegisterPasswordLabel: string;
+    inviteRegisterPasswordHint: string;
+    inviteRegisterButton: string;
+    inviteRegisterLoading: string;
+    inviteExistingAccount: string;
+    inviteAlreadyRegistered: string;
+    loginResetSuccess: string;
+    loginPasswordChanged: string;
+  };
+  sections: {
+    faqEyebrow: string;
+    catalogEyebrow: string;
+    benefitsEyebrow: string;
+    aboutEyebrowFallback: string;
+    aboutImageAlt: string;
+    ctaFallback: string;
+    footerSocial: string;
+    footerBrand: string;
+    footerCopyrightFallback: string;
+    heroImageAlt: string;
+  };
+  common: {
+    dashboard: string;
+    menu: string;
+    loading: string;
+    saving: string;
+    failed: string;
+    retry: string;
+    backToHome: string;
+    contact: string;
+    privacy: string;
+    terms: string;
+    refund: string;
+    allRightsReserved: string;
+    builtWith: string;
+  };
+  dashboard: {
+    authenticating: string;
+    createWebsite: string;
+    mainNav: string;
+    switchAccentBlue: string;
+    switchAccentMonochrome: string;
+    switchLight: string;
+    switchDark: string;
+    pro: string;
+    consoleTitle: string;
+    adminWorkspace: string;
+    mode: string;
+    upgradeLabel: string;
+    authenticated: string;
+    locked: string;
+    appearance: string;
+    language: string;
+    logout: string;
+    backToWebsites: string;
+    subDashboard: string;
+    subSites: string;
+    subDomains: string;
+    subLeads: string;
+    subAnalytics: string;
+    subSettings: string;
+    newWebsiteAi: string;
+    loadingConsole: string;
+    preparingWorkspace: string;
+    signedOutLocally: string;
+    refreshed: string;
+    welcome: string;
+    welcomeDesc: string;
+    newWebsite: string;
+    usingFreePlan: string;
+    upgradeToProDesc: string;
+    upgradeToPro: string;
+    planExpiringSoon: string;
+    planExpiringSoonDesc: string;
+    planExpiredBanner: string;
+    planExpiredDesc: string;
+    planInGrace: string;
+    renewPlan: string;
+    statWebsites: string;
+    statLeads: string;
+    statVisitors: string;
+    statHealth: string;
+    sitesPublished: string;
+    newProspects: string;
+    setupLeadForm: string;
+    thisWeek: string;
+    allSystemsNormal: string;
+    usageMeter: string;
+    meterWebsites: string;
+    meterAiGenerate: string;
+    meterSectionRegen: string;
+    meterDesignRegen: string;
+    limitReached: string;
+    nearLimit: string;
+    unlimited: string;
+    unlimitedUsage: string;
+    remaining: string;
+    recentActivity: string;
+    leadNew: string;
+    siteUpdated: string;
+    noActivity: string;
+    aiInsights: string;
+    insightTraffic: string;
+    insightNoTraffic: string;
+    insightLeads: string;
+    insightCreateSite: string;
+    loadFailed: string;
+    usage: {
+      currentPlan: string;
+      planDescription: string;
+      planLimits: string;
+      allPlans: string;
+      feature: string;
+      price: string;
+      free: string;
+      resetMonthly: string;
+      currentPeriod: string;
+      teamMembers: string;
+      customDomains: string;
+      limitWarning: string;
+      limitReachedDesc: string;
+    };
+    admin: {
+      platformOverview: string;
+      platformStats: string;
+      loadingMetrics: string;
+      allTenants: string;
+      plans: string;
+      totalTenants: string;
+      totalUsers: string;
+      totalSites: string;
+      activePlans: string;
+      newUsers7d: string;
+      in7Days: string;
+      recentAccounts: string;
+      viewAll: string;
+      noAccounts: string;
+      systemHealth: string;
+      svcDatabase: string;
+      svcCache: string;
+      svcAiProvider: string;
+      statusHealthy: string;
+      statusDown: string;
+      statusDisabled: string;
+      statusUnknown: string;
+      viewDetailedStatus: string;
+      quickActions: string;
+      qxHealth: string;
+      qxAnnounce: string;
+      qxUsers: string;
+      qxAuditLogs: string;
+      platformManagement: string;
+      qlTenantsDesc: string;
+      qlPlansDesc: string;
+      qlHealthDesc: string;
+      qlAnnounceDesc: string;
+    };
+    nav: {
+      sectionDashboard: string;
+      sectionWebsiteBuilder: string;
+      sectionSalesReferral: string;
+      sectionSystem: string;
+      overview: string;
+      notifications: string;
+      plans: string;
+      promos: string;
+      health: string;
+      announcements: string;
+      commissions: string;
+      adminPayments: string;
+      adminReports: string;
+      tenants: string;
+      templates: string;
+      designAssets: string;
+      metrics: string;
+      sites: string;
+      domains: string;
+      leads: string;
+      analytics: string;
+      salesOverview: string;
+      salesReferral: string;
+      salesCommissions: string;
+      team: string;
+      usage: string;
+      billing: string;
+      upgrade: string;
+      settings: string;
+    };
+    sites: {
+      close: string;
+      cancel: string;
+      deleteTitle: string;
+      deleteBody: string;
+      deleteWarning: string;
+      deleteFreeNotice: string;
+      deleting: string;
+      deleteConfirm: string;
+      renameTitle: string;
+      renameDesc: string;
+      save: string;
+      publishTitle: string;
+      publishOneStep: string;
+      publishReady: string;
+      subdomainLabel: string;
+      subdomainPlaceholder: string;
+      subdomainAvailable: string;
+      subdomainInvalidHint: string;
+      subdomainHint: string;
+      connectCustomDomain: string;
+      customDomainDescPre: string;
+      customDomainDescPost: string;
+      customDomainLink: string;
+      launching: string;
+      launchWebsite: string;
+      publishTermsTitle: string;
+      publishTermsLink: string;
+      publishTermsRequired: string;
+      moderationTitle: string;
+      moderationDesc: string;
+      moderationCatPinjol: string;
+      moderationCatJudi: string;
+      moderationCatAlkohol: string;
+      moderationCatBarangHaram: string;
+      moderationKeywordPrefix: string;
+      moderationAppealTitle: string;
+      moderationAppealPlaceholder: string;
+      moderationAppealBtn: string;
+      moderationAppealSubmitting: string;
+      moderationAppealRequired: string;
+      moderationAppealSent: string;
+      moderationAppealFailed: string;
+      publishChecking: string;
+      publishCheckingDesc: string;
+      errorLoadSites: string;
+      connectingWorkspace: string;
+      toastPublished: string;
+      toastPublishFailed: string;
+      toastUnpublished: string;
+      toastUnpublishFailed: string;
+      toastRenamed: string;
+      toastRenameFailed: string;
+      toastDeleted: string;
+      toastDeleteFailed: string;
+      toastDuplicating: string;
+      toastDuplicateFailed: string;
+      toastDuplicated: string;
+      toastDuplicateError: string;
+      toastSiteLimitReached: string;
+      publishedPrefix: string;
+      updatedPrefix: string;
+      justNow: string;
+      minutesAgo: string;
+      hoursAgo: string;
+      yesterday: string;
+      daysAgo: string;
+      searchPlaceholder: string;
+      reset: string;
+      filterAll: string;
+      filterDraft: string;
+      filterPublished: string;
+      loadingSites: string;
+      noSitesMatch: string;
+      noSitesMatchDesc: string;
+      clearSearch: string;
+      statusLive: string;
+      statusDraft: string;
+      moreOptions: string;
+      actionDuplicate: string;
+      actionRename: string;
+      actionUnpublish: string;
+      actionDelete: string;
+      domainNotSet: string;
+      copyLink: string;
+      editPreview: string;
+      viewSite: string;
+      publish: string;
+      linkBlog: string;
+      linkEditor: string;
+      linkCatalog: string;
+      linkMenu: string;
+      linkSeo: string;
+      linkIntegrations: string;
+      linkTestimonials: string;
+      linkCustomDomain: string;
+      loadMore: string;
+      congratsTitle: string;
+      congratsHeading: string;
+      congratsBody: string;
+      openWebsite: string;
+      copyLinkTitle: string;
+      checkTip: string;
+      done: string;
+      continueEditing: string;
+      customDomainLinkLabel: string;
+      customDomainLinkHint: string;
+    };
+    leads: {
+      loadFailed: string;
+      loading: string;
+      filter: string;
+      allWebsites: string;
+      emptyTitle: string;
+      emptyDesc: string;
+      sender: string;
+      date: string;
+      sourceSite: string;
+      actions: string;
+      siteId: string;
+      detail: string;
+      leadDetail: string;
+      inquiryMessage: string;
+      receivedOn: string;
+      sourceUrl: string;
+      selectPrompt: string;
+      tabAll: string;
+      tabOrders: string;
+      tabContacts: string;
+      searchPlaceholder: string;
+      totalLeads: string;
+      totalOrders: string;
+      totalRevenue: string;
+      totalContacts: string;
+      noFilterResults: string;
+      noFilterResultsDesc: string;
+      clearFilter: string;
+      chatWhatsapp: string;
+      callPhone: string;
+      sendEmail: string;
+      copyPhone: string;
+      copyEmail: string;
+      copyMessage: string;
+      copied: string;
+      orderBadge: string;
+      contactBadge: string;
+      orderItemsList: string;
+      totalOrderAmount: string;
+      openWebsite: string;
+      openEditor: string;
+      close: string;
+      quickStatsTitle: string;
+    };
+    team: {
+      loadFailed: string;
+      inviteSent: string;
+      inviteFailed: string;
+      inviteRevoked: string;
+      revokeFailed: string;
+      memberRemoved: string;
+      removeFailed: string;
+      membersTitle: string;
+      invitePending: string;
+      pending: string;
+      inviteLinkCopied: string;
+      noMembers: string;
+      inviteTitle: string;
+      emailPlaceholder: string;
+      sendInvite: string;
+      inviteHint: string;
+      limitTitle: string;
+      later: string;
+      upgradeToPro: string;
+      limitDesc: string;
+      role: {
+        owner: string;
+        editor: string;
+        viewer: string;
+      };
+    };
+    analytics: {
+      loadFailed: string;
+      loading: string;
+      noChartData: string;
+      chartAria: string;
+      srActivePoint: string;
+      selectSite: string;
+      preset7: string;
+      preset30: string;
+      preset90: string;
+      to: string;
+      statPageviews: string;
+      up: string;
+      down: string;
+      fromPrevPeriod: string;
+      prevPeriodComp: string;
+      statUniqueVisitors: string;
+      visitorsEstimate: string;
+      statAvgDuration: string;
+      durationNote: string;
+      dailyVisitsTitle: string;
+      dailyVisitsDesc: string;
+      leadsIn: string;
+      leadsFromForms: string;
+      conversion: string;
+      viewAllLeads: string;
+      trafficSources: string;
+      noReferrerData: string;
+      upsellTitle: string;
+      later: string;
+      upgradeToPro: string;
+      free7Days: string;
+      free7DaysDesc: string;
+      selectedRange: string;
+      proUpgrade: string;
+      proUpgradeDesc: string;
+      invalidDateRange: string;
+    };
+    domains: {
+      loadFailed: string;
+      loading: string;
+      added: string;
+      addFailed: string;
+      invalidFormat: string;
+      verified: string;
+      verifyFailed: string;
+      confirmDelete: string;
+      deleted: string;
+      deleteFailed: string;
+      continueConnect: string;
+      upgradeToPro: string;
+      close: string;
+      upgradePlan: string;
+      connectedTitle: string;
+      quotaTitle: string;
+      quota: string;
+      customDomainBadge: string;
+      siteId: string;
+      waitingPropagation: string;
+      active: string;
+      pending: string;
+      checkDns: string;
+      delete: string;
+      connectTitle: string;
+      connectDesc: string;
+      noPublished: string;
+      noPublishedDesc: string;
+      myWebsites: string;
+      linkToSite: string;
+      domainAddress: string;
+      domainPlaceholder: string;
+      validFormat: string;
+      invalidFormatHint: string;
+      dnsInstructions: string;
+      step1: string;
+      step2: string;
+      step3: string;
+      step4: string;
+      dnsType: string;
+      dnsHost: string;
+      dnsTarget: string;
+      note: string;
+      verifyHint: string;
+      connectBtn: string;
+      upsellTitle: string;
+      upsellDesc: string;
+      upsellBranding: string;
+      upsellBrandingDesc: string;
+      upsellSeo: string;
+      upsellSeoDesc: string;
+      upsellSsl: string;
+      upsellSslDesc: string;
+      limitTitle: string;
+      limitDesc: string;
+      limitDesc2: string;
+      buyTab: string;
+      ownTab: string;
+      buyTitle: string;
+      buyDesc: string;
+      searchLabel: string;
+      searchPlaceholder: string;
+      searchBtn: string;
+      searching: string;
+      chooseTlds: string;
+      noResults: string;
+      available: string;
+      unavailable: string;
+      perYear: string;
+      buyBtn: string;
+      buying: string;
+      buySuccess: string;
+      buyFailed: string;
+      purchaserTitle: string;
+      purchaserDesc: string;
+      purchaserName: string;
+      purchaserCompany: string;
+      purchaserEmail: string;
+      purchaserPhone: string;
+      purchaserAddress: string;
+      purchaserCity: string;
+      purchaserState: string;
+      purchaserZip: string;
+      purchaserIdDoc: string;
+      purchaserIdSub: string;
+      purchaserIdPlaceholder: string;
+      verificationNotice: string;
+      verificationPending: string;
+      purchasedTitle: string;
+      expiresAt: string;
+      purchaseInactive: string;
+      paymentSuccess: string;
+      paymentPending: string;
+      paymentFailed: string;
+      paymentCancelled: string;
+    };
+    settings: {
+      tabProfile: string;
+      tabSecurity: string;
+      tabDevices: string;
+      tabUsers: string;
+      tabPermissions: string;
+      tabLogs: string;
+      tabInvestigate: string;
+      tabNotifications: string;
+      notifTitle: string;
+      notifEyebrow: string;
+      notifDesc: string;
+      notifOn: string;
+      notifOff: string;
+      notifSaved: string;
+      notifSaveFailed: string;
+      notifFailedLoad: string;
+      groupAccount: string;
+      groupAdmin: string;
+      profileFailedLoad: string;
+      profilePhoneError: string;
+      profileUpdated: string;
+      profileFailedUpdate: string;
+      profileEyebrow: string;
+      profileTitle: string;
+      email: string;
+      name: string;
+      saveProfile: string;
+      profileEmpty: string;
+      pwChanged: string;
+      pwFailed: string;
+      securityEyebrow: string;
+      changePassword: string;
+      currentPassword: string;
+      newPassword: string;
+      updatePassword: string;
+      devicesFailedLoad: string;
+      deviceSignedOut: string;
+      deviceSignOutFailed: string;
+      trustRemoved: string;
+      trustRemovalFailed: string;
+      othersSignedOut: string;
+      othersSignOutFailed: string;
+      allSignedOut: string;
+      allSignOutFailed: string;
+      browser: string;
+      unknownDevice: string;
+      unknownUserAgent: string;
+      devicesTitle: string;
+      refresh: string;
+      signOutOthers: string;
+      signOutAll: string;
+      metricActiveSessions: string;
+      metricTrustedDevices: string;
+      metricThisSession: string;
+      noSessionsTitle: string;
+      noSessionsText: string;
+      statusCurrent: string;
+      statusTrusted: string;
+      statusUnknown: string;
+      sessionId: string;
+      deviceId: string;
+      ip: string;
+      lastUsed: string;
+      expires: string;
+      removeTrust: string;
+      revoke: string;
+      usersFailedLoad: string;
+      userUpdated: string;
+      userUpdateFailed: string;
+      userDeleteConfirm: string;
+      userDeleted: string;
+      userDeleteFailed: string;
+      usersTitle: string;
+      searchByNameEmail: string;
+      roleFilter: string;
+      usersVisibleTitle: string;
+      noUsersMatch: string;
+      roleUser: string;
+      roleSales: string;
+      roleAdmin: string;
+      roleSuperadmin: string;
+      delete: string;
+      permsFailedLoad: string;
+      permsRoleFailedLoad: string;
+      permsSaved: string;
+      permsSaveFailed: string;
+      rbacEyebrow: string;
+      manageRolePermissions: string;
+      saving: string;
+      saveChanges: string;
+      totalPermissions: string;
+      availablePermissions: string;
+      activePermissions: string;
+      resourceSuffix: string;
+      logsRefreshed: string;
+      logsFailedLoad: string;
+      logsTitle: string;
+      autoRefreshOn: string;
+      autoRefreshOff: string;
+      refreshNow: string;
+      logFilterLabel: string;
+      dateFrom: string;
+      dateTo: string;
+      eventTable: string;
+      noLogsMatch: string;
+      logActionOn: string;
+      noDescription: string;
+      ipAddress: string;
+      actorUserId: string;
+      userAgent: string;
+      investLoadHistoryFailed: string;
+      investCompleted: string;
+      investFailed: string;
+      investDetailFailed: string;
+      investLoading: string[];
+      investEyebrow: string;
+      investTitle: string;
+      analyzing: string;
+      runInvestigation: string;
+      streamingAnalysis: string;
+      latestResult: string;
+      investOutputTitle: string;
+      aiProcessing: string;
+      riskLevel: string;
+      riskWeightNote: string;
+      score: string;
+      timeline: string;
+      suspiciousSignals: string;
+      recommendations: string;
+      noItems: string;
+      readyTitle: string;
+      readyDesc: string;
+      savedCount: string;
+      savedTitle: string;
+      noSavedTitle: string;
+      noSavedDesc: string;
+      investigationId: string;
+      previous: string;
+      pageOf: string;
+      next: string;
+      investigationDetails: string;
+      closeDetails: string;
+      status: string;
+      riskNoteHigh: string;
+      riskNoteMedium: string;
+      riskNoteLow: string;
+      noResultYet: string;
+    };
+    upgrade: {
+      snapLoadError: string;
+      loadPlansFailed: string;
+      pleaseLogin: string;
+      freeActive: string;
+      tokenFailed: string;
+      waitingPayment: string;
+      paymentFailed: string;
+      paymentCancelled: string;
+      redirecting: string;
+      processFailed: string;
+      loadingPlans: string;
+      backToDashboard: string;
+      title: string;
+      subtitle: string;
+      paymentSuccess: string;
+      upgradingDesc: string;
+      freePrice: string;
+      currentPlan: string;
+      unavailable: string;
+      websitesCount: string;
+      aiGeneratePerMonth: string;
+      sectionRegenPerMonth: string;
+      designRegenPerMonth: string;
+      noCustomDomain: string;
+      customDomainFeature: string;
+      customDomainSubtext: string;
+      basicSeo: string;
+      popular: string;
+      perYear: string;
+      promoYearly: string;
+      equivalentPerMonth: string;
+      savingsPerYear: string;
+      perMonth: string;
+      promoMonths: string;
+      choosePlan: string;
+      yearly: string;
+      monthly: string;
+      customDomainCount: string;
+      seoOptimized: string;
+    };
+    adminPlans: {
+      noAccess: string;
+      title: string;
+      subtitle: string;
+      newPlan: string;
+      allPlans: string;
+      noPlansYet: string;
+      createFirstPlan: string;
+      perMonth: string;
+      perYear: string;
+      active: string;
+      inactive: string;
+      sitesCount: string;
+      aiCount: string;
+      membersCount: string;
+      tablePlan: string;
+      tablePrice: string;
+      tableSites: string;
+      tableAiGen: string;
+      tableMembers: string;
+      tableDomains: string;
+      tableStatus: string;
+      promoMonthly: string;
+      promoMonthsShort: string;
+      promoYearly: string;
+      promoTag: string;
+      editPlan: string;
+      createPlan: string;
+      name: string;
+      slug: string;
+      description: string;
+      featuresLabel: string;
+      featuresPlaceholder: string;
+      priceMonthly: string;
+      priceYearly: string;
+      promoPricing: string;
+      promoPriceMonthly: string;
+      promoPriceYearly: string;
+      noPromo: string;
+      durationMonths: string;
+      promoLabel: string;
+      promoLabelPlaceholder: string;
+      maxSites: string;
+      aiGenerates: string;
+      sectionRegens: string;
+      designRegens: string;
+      maxMembers: string;
+      customDomains: string;
+      planActive: string;
+      cancel: string;
+      saving: string;
+      updatePlan: string;
+      createPlanBtn: string;
+      deleteConfirm: string;
+      planDeleted: string;
+      planUpdated: string;
+      planCreated: string;
+      loadFailed: string;
+      saveFailed: string;
+      deleteFailed: string;
+      required: string;
+    };
+    adminHealth: {
+      noAccess: string;
+      title: string;
+      subtitle: string;
+      refresh: string;
+      loadFailed: string;
+      loadFailedTitle: string;
+      retry: string;
+      serviceDatabase: string;
+      dbPostgres: string;
+      serviceCache: string;
+      redisConnection: string;
+      serviceAi: string;
+      geminiStatus: string;
+      serviceVersion: string;
+      apiVersionDesc: string;
+      statusHealthy: string;
+      statusUnhealthy: string;
+      statusUnknown: string;
+      lastCheckedAt: string;
+      neverChecked: string;
+      allSystemsUp: string;
+      someIssues: string;
+    };
+    adminMetrics: {
+      noAccess: string;
+      title: string;
+      subtitle: string;
+      refresh: string;
+      loadFailed: string;
+      loadFailedTitle: string;
+      retry: string;
+      avgDuration: string;
+      avgDurationDesc: string;
+      p95: string;
+      p95Desc: string;
+      errorRate: string;
+      errorsOfRequests: string;
+      activeRequests: string;
+      activeRequestsDesc: string;
+      trendTitle: string;
+      trendDesc: string;
+      noTrendData: string;
+      recentRequests: string;
+      recentRequestsDesc: string;
+      noRequestsLogged: string;
+      sourceAI: string;
+      sourcePartial: string;
+      sourceMock: string;
+      aiRequests: string;
+      tokens: string;
+    };
+    adminTemplates: {
+      seedLoadFailed: string;
+      backfillConfirm: string;
+      backfillDone: string;
+      backfillFailed: string;
+      seedDeleteConfirm: string;
+      seedDeleted: string;
+      seedDeleteFailed: string;
+      accessDenied: string;
+      superadminOnly: string;
+      superadmin: string;
+      title: string;
+      subtitle: string;
+      backfillScores: string;
+      backfillScoresTooltip: string;
+      refreshSeeds: string;
+      bulkAesthetic: string;
+      bulkAestheticConfirm: string;
+      bulkAestheticDone: string;
+      bulkAestheticFailed: string;
+      bulkAestheticRateLimit: string;
+      bulkAestheticTooltip: string;
+      bulkAestheticRunning: string;
+      bulkAestheticStart: string;
+      pendingAestheticLabel: string;
+      tabComponents: string;
+      tabSeeds: string;
+      searchComponentsPlaceholder: string;
+      searchSeedsPlaceholder: string;
+      allCategories: string;
+      allBusinessTypes: string;
+      allMoods: string;
+      noTemplateMatch: string;
+      resetFilter: string;
+      score: string;
+      defaultSeed: string;
+      heading: string;
+      normal: string;
+      bodyFont: string;
+      body: string;
+      designQuality: string;
+      previewFullscreen: string;
+      loginRequired: string;
+      loginSession: string;
+      loadingSeeds: string;
+      superadminOnlyManage: string;
+      insufficientAccess: string;
+      noSeedsInDb: string;
+      noSeedsMatch: string;
+      resetSearch: string;
+      entriesCount: string;
+      noPalette: string;
+      base: string;
+      view: string;
+      delete: string;
+      sortNewest: string;
+      sortOldest: string;
+      sortScoreAsc: string;
+      sortScoreDesc: string;
+      sortAestheticAsc: string;
+      sortAestheticDesc: string;
+      ruleScoreLabel: string;
+      aestheticCritiqueLabel: string;
+      scoreBelowPlaceholder: string;
+      scoreFilterAll: string;
+      scoreFilterExcellent: string;
+      scoreFilterGood: string;
+      scoreFilterWeak: string;
+      aestheticFilterTitle: string;
+      aestheticFilterAll: string;
+      aestheticFilterReviewed: string;
+      aestheticFilterUnreviewed: string;
+      aestheticFilterHigh: string;
+      aestheticFilterMid: string;
+      aestheticFilterLow: string;
+      selectAllFiltered: string;
+      clearSelection: string;
+      selectedCount: string;
+      deleteSelected: string;
+      bulkDeleteConfirm: string;
+      bulkDeleted: string;
+      bulkDeletePartialFail: string;
+      critique: string;
+      critiqueRunning: string;
+      critiqueDone: string;
+      critiqueFailed: string;
+      aestheticScore: string;
+      needsReview: string;
+      critiqueTitle: string;
+      critiqueStrengths: string;
+      critiqueImprovements: string;
+      critiqueScreenshot: string;
+      critiqueViewDetails: string;
+      critiqueDetailsTitle: string;
+      critiqueDimensions: string;
+      critiqueScreenshotTitle: string;
+      critiqueOpenScreenshot: string;
+      critiqueClose: string;
+      critiqueNoScreenshot: string;
+      critiqueVerdict: string;
+    };
+    adminAnnouncements: {
+      noAccess: string;
+      title: string;
+      subtitle: string;
+      new: string;
+      all: string;
+      noItems: string;
+      createFirst: string;
+      active: string;
+      inactive: string;
+      expires: string;
+      loadFailed: string;
+      created: string;
+      createFailed: string;
+      deleteConfirm: string;
+      deleted: string;
+      deleteFailed: string;
+      titleField: string;
+      severity: string;
+      sevInfo: string;
+      sevWarning: string;
+      sevImportant: string;
+      contentField: string;
+      cancel: string;
+      creating: string;
+      create: string;
+    };
+    adminCommissions: {
+      loadFailed: string;
+      tier1RangeError: string;
+      tier2RangeError: string;
+      configUpdated: string;
+      configUpdateFailed: string;
+      amountPositiveError: string;
+      ruleUpdated: string;
+      ruleUpdateFailed: string;
+      loading: string;
+      accessRestricted: string;
+      accessRestrictedDesc: string;
+      title: string;
+      subtitle: string;
+      rateSettings: string;
+      activeScheme: string;
+      tieredScheme: string;
+      tier1FirstMonths: string;
+      tier2After: string;
+      tier1Label: string;
+      tier2Label: string;
+      save: string;
+      superadminOnlyEdit: string;
+      superadmin: string;
+      bonusRulesSettings: string;
+      tier: string;
+      onboardingDesc: string;
+      milestoneDesc: string;
+      bonusAmount: string;
+      recurringCommissions: string;
+      allBonuses: string;
+      allCommissionTxns: string;
+      pendingOnPage: string;
+      noCommissions: string;
+      colDate: string;
+      colSalesUser: string;
+      colTenantId: string;
+      colOrderId: string;
+      colGrossAmount: string;
+      colRate: string;
+      colCommission: string;
+      colStatus: string;
+      pageOf: string;
+      previous: string;
+      next: string;
+      allBonusesTitle: string;
+      noBonuses: string;
+      colBonusType: string;
+      colDetailPeriod: string;
+      colBonusAmount: string;
+      bonus: string;
+      tenant: string;
+      period: string;
+      markPaid: string;
+      bonusPayoutSuccess: string;
+      bonusPayoutFailed: string;
+      filterAll: string;
+      filterPending: string;
+      filterPaid: string;
+      filterVoided: string;
+      selectAllPending: string;
+    };
+    adminDesignAssets: {
+      accessDenied: string;
+      accessDeniedDesc: string;
+      superadmin: string;
+      loading: string;
+      title: string;
+      subtitle: string;
+      saving: string;
+      resetAll: string;
+      resetAllConfirm: string;
+      resetAllSuccess: string;
+      resetAllFailed: string;
+      saveLocalOnly: string;
+      tabSections: string;
+      tabTypography: string;
+      tabPalettes: string;
+      tabPresets: string;
+      hidden: string;
+      active: string;
+      optional: string;
+      required: string;
+      show: string;
+      hide: string;
+      require: string;
+      unrequire: string;
+      custom: string;
+      sectionsVisibilityTitle: string;
+      sectionsVisibilityDesc: string;
+      resetDefault: string;
+      variantsActive: string;
+      variantsTitle: string;
+      variantsDesc: string;
+      variantsCount: string;
+      mapTilesTitle: string;
+      mapTilesDesc: string;
+      tileLabelLight: string;
+      tileLabelDark: string;
+      tileLabelSatellite: string;
+      tileDescOsm: string;
+      tileDescCyclosm: string;
+      tileDescLight: string;
+      tileDescDark: string;
+      tileDescEsri: string;
+      tileDescSatellite: string;
+      addPairingTitle: string;
+      addPatternTitle: string;
+      addPresetTitle: string;
+      name: string;
+      description: string;
+      headingFont: string;
+      bodyFont: string;
+      weight: string;
+      heroSize: string;
+      emojiIcon: string;
+      fontPairing: string;
+      colorPalette: string;
+      mode: string;
+      light: string;
+      dark: string;
+      cancel: string;
+      save: string;
+      searchPairings: string;
+      searchPatterns: string;
+      searchPresets: string;
+      add: string;
+      noPairingsMatch: string;
+      noPatternsMatch: string;
+      noPresetsMatch: string;
+      score: string;
+      sectionRequiredError: string;
+      sectionHidden: string;
+      sectionShown: string;
+      sectionRequired: string;
+      sectionOptional: string;
+      variantHidden: string;
+      variantShown: string;
+      sectionsReset: string;
+      tileHidden: string;
+      tileShown: string;
+      pairingHidden: string;
+      pairingShown: string;
+      pairingAdded: string;
+      deletePairingConfirm: string;
+      pairingDeleted: string;
+      patternHidden: string;
+      patternShown: string;
+      patternAdded: string;
+      deletePatternConfirm: string;
+      patternDeleted: string;
+      presetHidden: string;
+      presetShown: string;
+      presetAdded: string;
+      deletePresetConfirm: string;
+      presetDeleted: string;
+    };
+    notifications: {
+      title: string;
+      loading: string;
+      loadFailed: string;
+      markReadFailed: string;
+      allRead: string;
+      markAllFailed: string;
+      markAllRead: string;
+      markReadTooltip: string;
+      viewTooltip: string;
+      unreadCount: string;
+      noNew: string;
+      emptyTitle: string;
+      emptyDesc: string;
+      justNow: string;
+      minutesAgo: string;
+      hoursAgo: string;
+      daysAgo: string;
+      typeAnnouncement: string;
+      typeLead: string;
+      typePayment: string;
+      typeNewUser: string;
+      typePlan: string;
+      typeSite: string;
+      typeInvitation: string;
+      typeSystem: string;
+      viewAll: string;
+      loadMore: string;
+    };
+    investigate: {
+      loadingClustering: string;
+      loadingTimeline: string;
+      loadingSignals: string;
+      loadingRecommendations: string;
+      loadHistoryFailed: string;
+      completed: string;
+      runFailed: string;
+      loadDetailFailed: string;
+      noResultNote: string;
+      noteHigh: string;
+      noteMedium: string;
+      noteLow: string;
+      eyebrowAi: string;
+      title: string;
+      analyzing: string;
+      runInvestigation: string;
+      fieldResource: string;
+      fieldStatus: string;
+      fieldAction: string;
+      fieldSearch: string;
+      fieldDateFrom: string;
+      fieldDateTo: string;
+      streamingAnalysis: string;
+      latestResult: string;
+      outputTitle: string;
+      aiProcessing: string;
+      riskLevel: string;
+      riskWeightedDesc: string;
+      score: string;
+      listTimeline: string;
+      listSignals: string;
+      listRecommendations: string;
+      emptyTitle: string;
+      emptyDesc: string;
+      savedCount: string;
+      savedTitle: string;
+      refresh: string;
+      noSavedTitle: string;
+      noSavedDesc: string;
+      investigationChip: string;
+      previous: string;
+      pageOf: string;
+      next: string;
+      detailsEyebrow: string;
+      closeLabel: string;
+      statusLabel: string;
+      noItems: string;
+      errorEyebrow: string;
+      errorTitle: string;
+      errorHeading: string;
+      errorDesc: string;
+      tryAgain: string;
+    };
+    sales: {
+      loadFailed: string;
+      codeCopied: string;
+      linkCopied: string;
+      regenerated: string;
+      regenerateFailed: string;
+      loading: string;
+      accessDeniedTitle: string;
+      accessDeniedDesc: string;
+      pageTitle: string;
+      pageDesc: string;
+      viewCommissions: string;
+      codeCardTitle: string;
+      codeCardDesc: string;
+      copied: string;
+      copyCode: string;
+      updatePrompt: string;
+      regenerateCode: string;
+      linkCardTitle: string;
+      linkCardDesc: string;
+      copyLink: string;
+      shareWhatsApp: string;
+      shareEmail: string;
+      copyInviteText: string;
+      emailInviteLabel: string;
+      emailInvitePlaceholder: string;
+      emailInviteSend: string;
+      emailInviteSent: string;
+      emailInviteFailed: string;
+      emailInviteSending: string;
+      inviteTextCopied: string;
+      tipsLabel: string;
+      tipsText: string;
+      programTitle: string;
+      commRatePrefix: string;
+      commRateSuffix: string;
+      commRecurringPrefix: string;
+      commRecurringSuffix: string;
+      commEditorPrefix: string;
+      commEditorSuffix: string;
+      dialogTitle: string;
+      confirmPrefix: string;
+      confirmSuffix: string;
+      cancel: string;
+      processing: string;
+      confirmRegenerate: string;
+    };
+    salesOverview: {
+      loadFailed: string;
+      loading: string;
+      accessDeniedTitle: string;
+      accessDeniedDesc: string;
+      pageTitle: string;
+      pageDesc: string;
+      cardTotal: string;
+      cardTotalDesc: string;
+      cardCommission: string;
+      cardCommissionDesc: string;
+      cardBonus: string;
+      cardBonusDesc: string;
+      cardPending: string;
+      cardPendingDesc: string;
+      refCardTitle: string;
+      refLinkLabel: string;
+      copyCode: string;
+      copyLink: string;
+      copied: string;
+      manageRef: string;
+      schemeTitle: string;
+      tier1Desc: string;
+      tier2Desc: string;
+      bonusSchemeTitle: string;
+      bonusOnboarding: string;
+      bonusMilestone: string;
+      quickLinksTitle: string;
+      linkCommissionsTitle: string;
+      linkCommissionsDesc: string;
+      linkReferralTitle: string;
+      linkReferralDesc: string;
+      codeCopied: string;
+      linkCopied: string;
+    };
+    salesCommissions: {
+      linkReferralCode: string;
+      loadFailed: string;
+      loading: string;
+      accessDeniedTitle: string;
+      accessDeniedDesc: string;
+      pageTitle: string;
+      pageDesc: string;
+      cardTotal: string;
+      cardTotalDesc: string;
+      cardCommission: string;
+      cardCommissionDesc: string;
+      cardBonus: string;
+      cardBonusDesc: string;
+      cardPending: string;
+      cardPendingDesc: string;
+      tabCommissions: string;
+      tabBonuses: string;
+      noCommissionsTitle: string;
+      noCommissionsDesc: string;
+      thDate: string;
+      thOrderId: string;
+      thTenantId: string;
+      thGross: string;
+      thRate: string;
+      thCommission: string;
+      thStatus: string;
+      tierLabel: string;
+      pageOf: string;
+      previous: string;
+      next: string;
+      noBonusesTitle: string;
+      noBonusesDesc: string;
+      thBonusType: string;
+      thDetail: string;
+      thAmount: string;
+      bonusTypeLabel: string;
+      bonusTenant: string;
+      bonusPeriod: string;
+    };
+    tenants: {
+      loadFailed: string;
+      accessDenied: string;
+      title: string;
+      emptyTitle: string;
+      thTenant: string;
+      thPlan: string;
+      thMembers: string;
+      thSites: string;
+      thCreated: string;
+      manage: string;
+    };
+    tenantDetail: {
+      loadFailed: string;
+      planUpdated: string;
+      assignFailed: string;
+      accessDenied: string;
+      notFoundTitle: string;
+      backToTenants: string;
+      tenantInfoTitle: string;
+      slugLabel: string;
+      ownerIdLabel: string;
+      planAssignmentTitle: string;
+      currentPlanLabel: string;
+      changePlanLabel: string;
+      selectPlan: string;
+      assign: string;
+      usageTitle: string;
+      usageGenerates: string;
+      usageSectionRegens: string;
+      usageDesignRegens: string;
+      usageTokenInput: string;
+      usageTokenOutput: string;
+      usageEmpty: string;
+      membersTitle: string;
+      noMembers: string;
+      thName: string;
+      thEmail: string;
+      thRole: string;
+      thJoined: string;
+      viewSites: string;
+      viewDomains: string;
+      viewLeads: string;
+    };
+    logs: {
+      refreshed: string;
+      loadFailed: string;
+      title: string;
+      autoRefreshOn: string;
+      autoRefreshOff: string;
+      refreshNow: string;
+      filterAction: string;
+      filterResource: string;
+      filterStatus: string;
+      filterIpSearch: string;
+      filterDateFrom: string;
+      filterDateTo: string;
+      eventTable: string;
+      emptyDesc: string;
+      actionOn: string;
+      noDescription: string;
+      detailIp: string;
+      detailActor: string;
+      detailAgent: string;
+    };
+    permissions: {
+      loadInitialFailed: string;
+      loadRoleFailed: string;
+      saveSuccess: string;
+      saveFailed: string;
+      eyebrow: string;
+      title: string;
+      saving: string;
+      save: string;
+      totalCount: string;
+      availablePermissions: string;
+      activeCount: string;
+      resourceLabel: string;
+    };
+    sessions: {
+      title: string;
+      refresh: string;
+      refreshLabel: string;
+      loadFailed: string;
+      signedOut: string;
+      signOutFailed: string;
+      trustRemoved: string;
+      trustRemoveFailed: string;
+      othersSignedOut: string;
+      othersSignOutFailed: string;
+      allSignedOut: string;
+      allSignOutFailed: string;
+      signOutOthers: string;
+      signOutAll: string;
+      metricActive: string;
+      metricTrusted: string;
+      metricCurrent: string;
+      emptyTitle: string;
+      emptyDesc: string;
+      statusCurrent: string;
+      statusTrusted: string;
+      statusUnknown: string;
+      sessionChip: string;
+      deviceChip: string;
+      trustChip: string;
+      unknownDevice: string;
+      unknownAgent: string;
+      ipLabel: string;
+      lastUsed: string;
+      trustedUsed: string;
+      expires: string;
+      removeTrust: string;
+      revokeSession: string;
+    };
+    users: {
+      title: string;
+      refresh: string;
+      searchPlaceholder: string;
+      rolePlaceholder: string;
+      loadFailed: string;
+      roleUpdated: string;
+      roleUpdateFailed: string;
+      deleteConfirm: string;
+      deleted: string;
+      deleteFailed: string;
+      adminVisibleTitle: string;
+      emptyDesc: string;
+      delete: string;
+    };
+    upgradeSuccess: {
+      confirmTimeout: string;
+      backToDashboard: string;
+      pendingTitle: string;
+      pendingDesc: string;
+      successTitle: string;
+      successDesc: string;
+      errorTitle: string;
+      errorDesc: string;
+      txDetails: string;
+      orderIdLabel: string;
+      totalLabel: string;
+      methodLabel: string;
+      timeLabel: string;
+      goToDashboard: string;
+      viewOtherPlans: string;
+    };
+    sitesNew: {
+      connecting: string;
+      noWorkspaceTitle: string;
+      noWorkspaceDesc: string;
+      backToDashboard: string;
+    };
+    sitesSeo: {
+      title: string;
+      webLink: string;
+      saving: string;
+      saved: string;
+      save: string;
+      loadFailed: string;
+      saveFailed: string;
+      gscSaved: string;
+      aiFailed: string;
+      upgradeTitle: string;
+      upgradeDesc: string;
+      upgradeNow: string;
+      later: string;
+    };
+    sitesIntegrations: {
+      title: string;
+      webLink: string;
+      loadFailed: string;
+      saved: string;
+      saveFailed: string;
+      save: string;
+      saving: string;
+      ga4Desc: string;
+      metaPixelDesc: string;
+    };
+    sitesTestimonials: {
+      loadFailed: string;
+      shareTitle: string;
+      copy: string;
+      linkCopied: string;
+      pendingTitle: string;
+      approved: string;
+      approvedDesc: string;
+      approve: string;
+      approveFailed: string;
+      rejected: string;
+      rejectedDesc: string;
+      reject: string;
+      rejectFailed: string;
+      validationRequired: string;
+      added: string;
+      addFailed: string;
+      add: string;
+      manualTitle: string;
+      manualDesc: string;
+      labelName: string;
+      labelRole: string;
+      labelQuote: string;
+      labelRating: string;
+      saving: string;
+      saveToSite: string;
+      cancel: string;
+      emptyDesc: string;
+    };
+    sitesKatalog: {
+      loadFailed: string;
+      saveFailed: string;
+      saving: string;
+      saved: string;
+      save: string;
+      webLink: string;
+      emojiPopular: string;
+      emojiFood: string;
+      emojiServices: string;
+      emojiSymbols: string;
+      emojiSymbol: string;
+      pickEmojiTitle: string;
+      close: string;
+      sectionTitleMenu: string;
+      sectionTitleCatalog: string;
+      itemLabelMenu: string;
+      itemLabelCatalog: string;
+      itemCountLabel: string;
+      noCategoriesTitle: string;
+      noCategoriesDesc: string;
+      itemNumberLabel: string;
+      noItemsDesc: string;
+      labelSectionTitle: string;
+      sectionSettingsSubtitle: string;
+      labelEyebrow: string;
+      labelSubtitle: string;
+      labelPhoto: string;
+      labelName: string;
+      labelPrice: string;
+      labelBadge: string;
+      badgeHint: string;
+      labelCapacity: string;
+      capacityHint: string;
+      labelFeatures: string;
+      featuresHint: string;
+      labelDescription: string;
+      bulletList: string;
+      numberedList: string;
+      addItemLabel: string;
+      addCategory: string;
+      defaultCategory: string;
+      bannerTitle: string;
+      bannerDesc1: string;
+      bannerDesc2: string;
+      bannerDesc3: string;
+      bannerPricePart: string;
+      addWord: string;
+      aiPromptLabelPrefix: string;
+      itemFallback: string;
+      aiModalTitle: string;
+      aiModalDesc: string;
+      aiFailed: string;
+      generate: string;
+      processing: string;
+      cancel: string;
+      aiGenerateTitle: string;
+      aiGenerateDesc: string;
+      optional: string;
+      upgradeTitle: string;
+      upgradeDesc: string;
+      upgradeNow: string;
+      later: string;
+      chipMenu: string;
+      chipCatalog: string;
+      chipCategoryCount: string;
+      statCategories: string;
+      statTotalItems: string;
+      statAvailable: string;
+      statVariants: string;
+      available: string;
+      outOfStock: string;
+      markAvailable: string;
+      markOutOfStock: string;
+      categoryPlaceholder: string;
+      dragCategory: string;
+      dragItem: string;
+      deleteCategory: string;
+      deleteItem: string;
+      deleteCategoryConfirm: string;
+      priceDisplay: string;
+      priceDisplayPlaceholder: string;
+      priceAmount: string;
+      priceAmountPlaceholder: string;
+      priceAmountHelp: string;
+      badgePlaceholder: string;
+      capacityPlaceholder: string;
+      featuresPlaceholder: string;
+      tagsPlaceholder: string;
+      deliveryPlatforms: string;
+      deliveryPlatformsHelp: string;
+      addDeliveryPlatform: string;
+      platformNamePlaceholder: string;
+      platformUrlPlaceholder: string;
+      photoPrimary: string;
+      photoGallery: string;
+      photoGalleryCount: string;
+      photoGalleryHelp: string;
+      photoSetPrimary: string;
+      photoAdd: string;
+      photoUploading: string;
+      variantsTitle: string;
+      variantsSubtitle: string;
+      variantsAddGroup: string;
+      variantsNoGroups: string;
+      variantsGroupName: string;
+      variantsGroupNamePlaceholder: string;
+      variantsTypeSingle: string;
+      variantsTypeMultiple: string;
+      variantsRequired: string;
+      variantsOptionsTitle: string;
+      variantsOptionName: string;
+      variantsOptionNamePlaceholder: string;
+      variantsOptionDelta: string;
+      variantsAddOption: string;
+      allChangesSaved: string;
+      paymentTitle: string;
+      paymentSubtitle: string;
+      paymentHint: string;
+      paymentsVisibleLabel: string;
+      paymentsVisibleHint: string;
+      methodsTitle: string;
+      methodTypeTransfer: string;
+      methodTypeQris: string;
+      methodTypeEwallet: string;
+      methodTypeCod: string;
+      methodTypeCard: string;
+      methodTypeOther: string;
+      methodLabelPlaceholder: string;
+      methodDetailPlaceholder: string;
+      methodDetailPlaceholderEwallet: string;
+      methodDetailPlaceholderCod: string;
+      methodDetailPlaceholderCard: string;
+      methodDetailPlaceholderOther: string;
+      methodQrisImageLabel: string;
+      methodQrisImagePlaceholder: string;
+      paymentTitleLabel: string;
+      methodRemove: string;
+      methodAdd: string;
+      shippingTitle: string;
+      shippingNotePlaceholder: string;
+      returnPolicy: string;
+      returnPolicyPlaceholder: string;
+      toggleItemDetail: string;
+      advancedSettings: string;
+      quickView: string;
+      previewItem: string;
+    };
+    sitesBlog: {
+      title: string;
+      webLink: string;
+      addNew: string;
+      layoutLabel: string;
+      aiPick: string;
+      nonPremiumText: string;
+      upgrade: string;
+      writePostTitle: string;
+      savePost: string;
+      cancel: string;
+      aiCardTitle: string;
+      generate: string;
+      generateLabel: string;
+      layoutGrid: string;
+      layoutGridDesc: string;
+      layoutList: string;
+      layoutListDesc: string;
+      layoutFeatured: string;
+      layoutFeaturedDesc: string;
+      layoutMinimal: string;
+      layoutMinimalDesc: string;
+      loadFailed: string;
+      draftCreated: string;
+      generateFailed: string;
+      postCreated: string;
+      createFailed: string;
+      publishFailed: string;
+      published: string;
+      layoutSaved: string;
+      layoutFailed: string;
+      publishedDate: string;
+      draftDate: string;
+      publishedBadge: string;
+      draftBadge: string;
+      edit: string;
+      publish: string;
+      emptyDesc1: string;
+      emptyDesc2: string;
+    };
+    sitesBlogPost: {
+      loadFailed: string;
+      saveFailed: string;
+      bold: string;
+      italic: string;
+      heading2: string;
+      heading3: string;
+      bulletList: string;
+      orderedList: string;
+      blockquote: string;
+      link: string;
+      uploadImage: string;
+      notFound: string;
+      back: string;
+      editor: string;
+      preview: string;
+      published: string;
+      draft: string;
+      unsaved: string;
+      savedAt: string;
+      save: string;
+      excerpt: string;
+      seoTitle: string;
+      seoDescription: string;
+      noindex: string;
+      noindexDesc: string;
+      cover: string;
+      aiFailed: string;
+      generating: string;
+      generate: string;
+      aiCardTitle: string;
+      aiPromptLabelPrefix: string;
+    };
+    sitesEditor: {
+      authenticating: string;
+      loading: string;
+      loadFailed: string;
+      loadMore: string;
+      backToSites: string;
+      back: string;
+      contentTab: string;
+      designTab: string;
+      styleLabel: string;
+      layoutLabel: string;
+      sectionOrder: string;
+      sectionSpacing: string;
+      cornerRadius: string;
+      cornerSharp: string;
+      cornerSoft: string;
+      cornerRounded: string;
+      heroStyle: string;
+      heroCentered: string;
+      heroSplit: string;
+      heroFullBleed: string;
+      heroImageCarousel: string;
+      heroMinimalist: string;
+      heroMinimalistElegant: string;
+      heroTechSaaS: string;
+      heroNeoBrutalist: string;
+      heroBentoGrid: string;
+      heroSplitEditorial: string;
+      heroNaturalOrganic: string;
+      heroPersonalBillboard: string;
+      heroPortraitShowcase: string;
+      heroWorkPreviewStrip: string;
+      heroChronologyBadge: string;
+      spacingCompact: string;
+      spacingRelaxed: string;
+      spacingCompactShort: string;
+      spacingRelaxedShort: string;
+      normal: string;
+      colorPalette: string;
+      primaryColor: string;
+      accentColor: string;
+      backgroundColor: string;
+      surfaceColor: string;
+      textColor: string;
+      primaryShort: string;
+      accentShort: string;
+      backgroundShort: string;
+      surfaceShort: string;
+      textShort: string;
+      visualCustomization: string;
+      layoutStyle: string;
+      aiDesignPrompt: string;
+      aiInstructionsTitle: string;
+      aiPromptDesc: string;
+      aiPromptPlaceholder: string;
+      aiPlaceholder: string;
+      fieldAiTitle: string;
+      fieldAiDesc: string;
+      fieldAiPlaceholder: string;
+      fieldAiImagePrompt: string;
+      fieldAiImageChip: string;
+      generateAi: string;
+      regenerateWithAi: string;
+      processing: string;
+      applyStyle: string;
+      cancel: string;
+      later: string;
+      upgradeToPro: string;
+      upgradeDefaultTitle: string;
+      upgradeDefaultBody: string;
+      upgradeRegenTitle: string;
+      upgradeRegenBody: string;
+      upgradeDesignTitle: string;
+      upgradeDesignBody: string;
+      upgradeSuggestionTitle: string;
+      upgradeSuggestionBody: string;
+      upgradeProDesc: string;
+      save: string;
+      saving: string;
+      saved: string;
+      saveSuccess: string;
+      saveFailed: string;
+      autosaveFailed: string;
+      notFoundTitle: string;
+      notFoundDesc: string;
+      inlineSave: string;
+      inlineCancel: string;
+      inlineSaved: string;
+      inlineClickToEdit: string;
+      inlineShortcutSingle: string;
+      inlineShortcutMulti: string;
+      changePhoto: string;
+      addPhoto: string;
+      uploadingPhoto: string;
+      preview: string;
+      previewDesktop: string;
+      previewTablet: string;
+      previewMobile: string;
+      toggleDarkAria: string;
+      themeMode: string;
+      light: string;
+      dark: string;
+      switchLight: string;
+      switchDark: string;
+      aiUsage: string;
+      generate: string;
+      sectionRegen: string;
+      designRegen: string;
+      qualityScore: string;
+      qualityTitle: string;
+      qualityDesc: string;
+      qualityWarning: string;
+      qualityFieldHint: string;
+      fill: string;
+      viewCompleteness: string;
+      undo: string;
+      undoAllTitle: string;
+      undoDesign: string;
+      undoDesignTitle: string;
+      noDesignChanges: string;
+      show: string;
+      hide: string;
+      showSection: string;
+      hideSection: string;
+      hidden: string;
+      showPageSections: string;
+      expandEditArea: string;
+      variantOptions: string;
+      visualGallery: string;
+      closeGallery: string;
+      pickVariant: string;
+      allVariants: string;
+      variantsCount: string;
+      variantPreviewHint: string;
+      done: string;
+      pageLayoutVariants: string;
+      activeSectionsCount: string;
+      pageLayoutVariantsDesc: string;
+      editSectionContent: string;
+      changeSectionVariant: string;
+      optionsCount: string;
+      variantLabel: string;
+      editShortcut: string;
+      mapStyleLabel: string;
+      mapTileLight: string;
+      mapTileDark: string;
+      mapTileSatellite: string;
+      mapPreviewLabel: string;
+      mapPreviewEmpty: string;
+      mapPreviewEditAria: string;
+      pickLocation: string;
+      selectSectionAria: string;
+      openSheet: string;
+      closeSheet: string;
+      publish: string;
+      publishShort: string;
+      publishSuccess: string;
+      publishFailed: string;
+      moderationAppealFailed: string;
+      applying: string;
+      applyLive: string;
+      apply: string;
+      live: string;
+      draft: string;
+      aiProcessing: string;
+      aiReviewActive: string;
+      aiReviewDesc1: string;
+      aiReviewDesc2: string;
+      diffAi: string;
+      diffChanges: string;
+      content: string;
+      old: string;
+      new: string;
+      use: string;
+      useThis: string;
+      revert: string;
+      aiApplied: string;
+      aiCancelled: string;
+      aiReverted: string;
+      aiNoChange: string;
+      aiNoChangeHint: string;
+      aiSectionDone: string;
+      aiSectionFailed: string;
+      aiStyleDone: string;
+      aiStyleFailed: string;
+      aiStyleNoChange: string;
+      aiProcessFailed: string;
+      siteStyle: string;
+      aiDesignEngine: string;
+      latestAiGenerated: string;
+      latest: string;
+      latestAiDesc: string;
+      aiResult: string;
+      aiMoodCreated: string;
+      editLabel: string;
+      confirmPublishTitle: string;
+      confirmPublishDesc: string;
+      confirmPublishBody: string;
+      confirmApply: string;
+      upgradeLabel: string;
+      aiInstructionsPlaceholder: string;
+      aiDesignInstructionsPlaceholder: string;
+      aiDesignFailed: string;
+      aiHistory: string;
+      templateLibraryAdmin: string;
+      aiMadeFor: string;
+      aiRecommendation: string;
+      aiTemplateCategory: string;
+      aiTemplateName: string;
+      appearancePreset: string;
+      bodyFont: string;
+      colorPattern: string;
+      headingFont: string;
+      headingWeight: string;
+      heroTitleSize: string;
+      manualFineTune: string;
+      orChoosePairing: string;
+      orChoosePalette: string;
+      scrollUp: string;
+      scrollDown: string;
+      viewLiveSite: string;
+      activeSectionTitle: string;
+      activeBadge: string;
+      orChoosePreset: string;
+      pageSections: string;
+      sizeLarge: string;
+      sizeMax: string;
+      sizeMedium: string;
+      sizeSmall: string;
+      sizeVeryLarge: string;
+      styleChoiceAria: string;
+      typographyStyle: string;
+      weightBold: string;
+      weightExtraBold: string;
+      weightMedium: string;
+      weightRegular: string;
+      weightSemiBold: string;
+      // SEO Preview & Form
+      seoPreviewBannerTitle: string;
+      seoPreviewBannerDesc: string;
+      seoEditInSidebar: string;
+      windowClose: string;
+      windowMinimize: string;
+      windowMaximize: string;
+      browserBack: string;
+      browserForward: string;
+      browserReload: string;
+      browserMenu: string;
+      copyUrl: string;
+      copied: string;
+      bookmarkSaved: string;
+      bookmarkAdd: string;
+      seoTabGoogle: string;
+      seoTabWhatsApp: string;
+      seoTabMetaTags: string;
+      seoSwitchView: string;
+      seoGoogleAll: string;
+      seoGoogleImages: string;
+      seoGoogleNews: string;
+      seoGoogleMaps: string;
+      seoGoogleVideos: string;
+      seoGoogleMore: string;
+      seoGoogleResultsCount: string;
+      seoGoogleClickToEdit: string;
+      seoGooglePlaceholderTitle: string;
+      seoGooglePlaceholderDesc: string;
+      seoSitelinkAbout: string;
+      seoSitelinkAboutDesc: string;
+      seoSitelinkContact: string;
+      seoSitelinkContactDesc: string;
+      seoDiagTitle: string;
+      seoDiagDesc: string;
+      seoDiagOptimal: string;
+      seoDiagTooLong: string;
+      seoDiagTooShort: string;
+      seoAdjustInSidebar: string;
+      seoWaChatWith: string;
+      seoWaOnline: string;
+      seoWaChatBadge: string;
+      seoWaMessage: string;
+      seoWaNoOgImage: string;
+      seoWaClickUpload: string;
+      seoWaDefaultDesc: string;
+      seoOgTipsTitle: string;
+      seoOgTipsDesc: string;
+      seoInspectorTitle: string;
+      seoCopyHtml: string;
+      seoTargetKeywords: string;
+      seoNotPublicTitle: string;
+      seoNotPublicDesc: string;
+      seoAiTitlePrompt: string;
+      seoAiTitleBtn: string;
+      seoAiDescPrompt: string;
+      seoAiDescBtn: string;
+      seoAiKeywordsPrompt: string;
+      seoKeywordsLabel: string;
+      seoKeywordsPlaceholderEmpty: string;
+      seoKeywordsPlaceholderMore: string;
+      seoFaviconLabel: string;
+      seoOgImageLabel: string;
+      seoSharePreviewTitle: string;
+      seoSharePlaceholderTitle: string;
+      seoSharePlaceholderDesc: string;
+      seoShareOgNotSet: string;
+      seoShareAutoUpdate: string;
+      seoAiOgTypePrompt: string;
+      seoAiOgTypeBtn: string;
+      seoAiTwitterCardPrompt: string;
+      seoAiTwitterCardBtn: string;
+      seoMetaTitleLabel: string;
+      seoMetaDescLabel: string;
+      seoOgTypeLabel: string;
+      seoOgTypeWebsite: string;
+      seoOgTypeArticle: string;
+      seoOgTypeProduct: string;
+      seoOgTypeProfile: string;
+      seoOgTypeBusiness: string;
+      seoTwitterCardLabel: string;
+      seoRobotsLabel: string;
+      seoRobotsIndexFollow: string;
+      seoRobotsNoindexFollow: string;
+      seoRobotsIndexNofollow: string;
+      seoRobotsNoindexNofollow: string;
+      seoOgLocaleLabel: string;
+      seoOgSiteNameLabel: string;
+      seoOgSiteNamePlaceholder: string;
+      seoCanonicalPathLabel: string;
+      mapTileOsm: string;
+      mapTileCyclOsm: string;
+      mapTileEsriStreet: string;
+      mapTileSatelliteLabel: string;
+      mapPickerTitle: string;
+      mapPickerSearchPlaceholder: string;
+      mapPickerSearchBtn: string;
+      mapPickerMyLocationAria: string;
+      mapPickerDetecting: string;
+      mapPickerLoading: string;
+      mapPickerClickHint: string;
+      mapPickerCancel: string;
+      mapPickerConfirm: string;
+      seoRobotsTxtTitle: string;
+      seoRobotsTxtLockedTitle: string;
+      seoRobotsTxtLockedDesc: string;
+      seoBoosterActiveTitle: string;
+      seoBoosterActiveDesc: string;
+      seoBoosterProTitle: string;
+      seoBoosterWithout: string;
+      seoBoosterWith: string;
+      seoBoosterCompetitor: string;
+      seoBoosterUpgradeBtn: string;
+      seoGscTitle: string;
+      seoGscSubtitle: string;
+      seoGscHowToTitle: string;
+      seoGscStep1: string;
+      seoGscStep2: string;
+      seoGscStep3: string;
+      seoGscStep4: string;
+      seoGscStep5: string;
+      seoGscPlaceholder: string;
+      seoGscSaving: string;
+      seoGscSaved: string;
+      seoGscSaveBtn: string;
+      seoReviewsCount: string;
+      seoBusinessOpenStatus: string;
+      seoBusinessClosedStatus: string;
+    };
+    wizard: {
+      initialMessage: string;
+      nameAckVariants: string[];
+      nameConfirmVariants: string[];
+      descriptionPrompt: string;
+      descriptionSkipKeyword: string;
+      descriptionInferenceHigh: string;
+      descriptionInferenceMedium: string;
+      descriptionInferenceNone: string;
+      descriptionAiFailed: string;
+      analyzingDescription: string;
+      descriptionRefinedIntro: string;
+      selectMoodPrompt: string;
+      selectLanguagePrompt: string;
+      preparingWebsite: string;
+      preparingTheme: string;
+      preparingComponents: string;
+      preparingOpening: string;
+      websiteReady: string;
+      confirmCardTitle: string;
+      confirmCardLabelName: string;
+      confirmCardLabelType: string;
+      confirmCardLabelTypeHeader: string;
+      confirmCardLabelWA: string;
+      confirmCardLabelArea: string;
+      confirmCardLabelLang: string;
+      confirmCardBtnChange: string;
+      confirmCardBtnFill: string;
+      confirmCardBtnClose: string;
+      confirmCardBtnGenerate: string;
+      confirmCardBtnGenerateRedo: string;
+      confirmCardBtnGenerating: string;
+      confirmCardBtnFinishEdit: string;
+      successModalTitle: string;
+      successModalDesc: string;
+      successModalBtnPreview: string;
+      successModalBtnEdit: string;
+      errorModalRetry: string;
+      errorModalCancel: string;
+      loadingBuildingTitle: string;
+      loadingBuildingTitleWithName: string;
+      loadingBuildingTitleGeneral: string;
+      loadingPleaseWait: string;
+      loadingCharsWritten: string;
+      loadingAiInsight: string;
+      loadingEstCountdown: string;
+      loadingEstFinalizing: string;
+      loadingEstDeepNote: string;
+      loadingChecklist0: string;
+      loadingChecklist1: string;
+      loadingChecklist2: string;
+      loadingChecklist3: string;
+      loadingChecklist4: string;
+      loadingChecklist5: string;
+      loadingCardChecklist0: string;
+      loadingCardChecklist1: string;
+      loadingCardChecklist2: string;
+      loadingCardChecklist3: string;
+      loadingCardChecklist4: string;
+      loadingCardChecklist5: string;
+      resetChatBtn: string;
+      resetChatTooltip: string;
+      untitledDraft: string;
+      inputPlaceholderName: string;
+      inputPlaceholderDesc: string;
+      inputPlaceholderGeneral: string;
+      sttListening: string;
+      sttUseVoice: string;
+      btnNext: string;
+      btnSkip: string;
+      btnChangeName: string;
+      btnYesContinue: string;
+      btnSeeOtherOptions: string;
+      btnSave: string;
+      btnCancel: string;
+      btnFinish: string;
+      btnSaveAndApply: string;
+      previewWebsiteTitle: string;
+      openForm: string;
+      closeForm: string;
+      businessDetailsTitle: string;
+      businessDetailsSubtitle: string;
+      waSaved: string;
+      waEmpty: string;
+      areaEmpty: string;
+      waHint: string;
+      serviceAreaHint: string;
+      voiceNotAvailable: string;
+      chooseMoreAppropriate: string;
+      placeholderPhone: string;
+      placeholderArea: string;
+      sttStopRecording: string;
+      sttStartRecording: string;
+      sttConnecting: string;
+      micHintTitle: string;
+      micHintDesc: string;
+      sttPromptGuide: string;
+      sttBtnDone: string;
+      sttBtnCancel: string;
+      sttProcessingTitle: string;
+      sttProcessingSubtitle: string;
+      sttReviewTitle: string;
+      sttReviewPrompt: string;
+      sttBtnEdit: string;
+      sttBtnConfirm: string;
+      editMessage: string;
+      editedBadge: string;
+      editShortcutHint: string;
+      editPlaceholder: string;
+      micReadyHint: string;
+      micPermissionDenied: string;
+      sttNoVoiceDetected: string;
+      backToChat: string;
+      generationFailed: string;
+      generationErrorMessage: string;
+      successToastTitle: string;
+      successToastDesc: string;
+      closeNotification: string;
+      btnLater: string;
+      btnCompleteData: string;
+      btnEditPublish: string;
+      btnConfirmYes: string;
+      btnChangeCategory: string;
+      btnTryOtherRecommendation: string;
+      recommendationHintTitle: string;
+      recommendationHintDesc: string;
+      inferenceHint: string;
+      notThisType: string;
+      changeSubType: string;
+      moreSpecific: string;
+      chooseMoodHint: string;
+      suggestedBadge: string;
+      typeSelectedChooseSub: string;
+      prefillTypePrompt: string;
+      btnContinueType: string;
+      wireframeAbout: string;
+      wireframeFeatures: string;
+      wireframeContact: string;
+      statusWaitingInput: string;
+      statusAnalyzingName: string;
+      statusAiGenerating: string;
+      statusPreviewReady: string;
+      statusPreparingAi: string;
+      preFetchingNameHint: string;
+      placeholderAnalyzingName: string;
+      nameConfirmPlaceholder: string;
+      nameConfirmYes: string;
+      nameConfirmChange: string;
+      nameChangePrompt: string;
+      descPlaceholder: string;
+      descPlaceholderWithMic: string;
+      labelBusinessName: string;
+      labelBusinessType: string;
+      labelBusinessSubType: string;
+      labelDescription: string;
+      labelWhatsapp: string;
+      labelServiceArea: string;
+      labelMood: string;
+      disambiguateJasaPortofolio: string;
+      categories: {
+        kuliner: string;
+        kulinerDesc: string;
+        tokoUmkm: string;
+        tokoUmkmDesc: string;
+        jasaBooking: string;
+        jasaBookingDesc: string;
+        portofolioKreator: string;
+        portofolioKreatorDesc: string;
+        company: string;
+        companyDesc: string;
+      };
+      moods: {
+        modernClean: string;
+        modernCleanDesc: string;
+        warmVintage: string;
+        warmVintageDesc: string;
+        boldEnergetic: string;
+        boldEnergeticDesc: string;
+        elegantLuxury: string;
+        elegantLuxuryDesc: string;
+        playfulFun: string;
+        playfulFunDesc: string;
+        retro: string;
+        retroDesc: string;
+        futuristic: string;
+        futuristicDesc: string;
+        minimalistDark: string;
+        minimalistDarkDesc: string;
+      };
+      subtypes: Record<string, string>;
+      resumePrompt: string;
+      resumeLastSession: string;
+      resumeSavedLabel: string;
+      resumeContinue: string;
+      resumeStartFresh: string;
+      starterTitle: string;
+      starterOrType: string;
+      timeJustNow: string;
+      timeMinutesAgo: string;
+      timeHoursAgo: string;
+      timeDaysAgo: string;
+    };
+    linkAccount: {
+      title: string;
+      emailLabel: string;
+      systemGenerated: string;
+      emailPlaceholder: string;
+      update: string;
+      phoneLabel: string;
+      passwordLabel: string;
+      passwordSet: string;
+      minChars: string;
+      setPassword: string;
+      confirmPassword: string;
+      googleLabel: string;
+      linkedStatus: string;
+      unlink: string;
+      needPasswordToUnlink: string;
+      linking: string;
+      linkGoogle: string;
+      emailUpdated: string;
+      emailUpdateFailed: string;
+      passwordSetSuccess: string;
+      passwordSetFailed: string;
+      googleClientMissing: string;
+      googleLinked: string;
+      googleLinkFailed: string;
+      enterPassword: string;
+      googleUnlinked: string;
+      googleUnlinkFailed: string;
+      loadFailed: string;
+      currentPassword: string;
+    };
+    emailPrompt: {
+      title: string;
+      description: string;
+      save: string;
+      dismiss: string;
+      emailUpdated: string;
+      emailUpdateFailed: string;
+    };
+  };
+}
+
+export const translations: Record<Locale, Translations> = {
+  id: {
+    landing: {
+      heroTitle: 'Generate website <br className="lg:hidden" />instan.<br /><span class="inline-block text-[0.6em] sm:text-[0.68em] lg:text-[0.62em] font-extrabold tracking-tight bg-primary text-primary-foreground dark:bg-white dark:text-black px-3.5 py-1 sm:px-5 sm:py-1.5 rounded-none mt-2 sm:mt-2.5 shadow-lg">Custom tanpa batas.</span>',
+      heroSubtitle: 'Hanya butuh <strong class="text-foreground font-bold">chat singkat</strong>, <strong class="text-foreground font-bold">tanpa coding</strong> —<br />website bisnis Anda <strong class="text-foreground font-bold">langsung live</strong> siap pakai.',
+      heroSubtitleBold: "",
+      ctaPrimary: "Buat Website Sekarang",
+      ctaFloating: "Buat Website Sekarang",
+      tryFree: "100% Gratis",
+      chatNotForm: "Chat AI, bukan form",
+      activeInMinutes: "Langsung Jadi",
+      howItWorksTitle: 'Dari chat ke website dalam <span class="text-primary">4 langkah mudah</span>',
+      howItWorksSubtitle: "CARA KERJANYA",
+      howItWorksCta: "Coba Sekarang — Gratis",
+      featuresEyebrow: "FITUR UNGGULAN",
+      featuresTitle: 'Lebih dari sekadar <span class="text-primary">website biasa</span>',
+      featuresTitleAccent: "website biasa",
+      dashboardBadge: "Dashboard",
+      dashboardTitle: "Pantau & kembangkan bisnis Anda",
+      dashboardDesc: "Dashboard lengkap dengan analytics pengunjung, manajemen leads, dan daftar website dalam satu tempat.",
+      dashboardTags: ["Analytics real-time", "Manajemen leads", "Daftar website"],
+      domainBadge: "Domain & SEO",
+      domainTitle: "Domain sendiri & SEO otomatis",
+      domainDesc: "Hubungkan domain custom Anda, SEO title/description, OG tags, JSON-LD, sitemap — semuanya diurus oleh AI.",
+      domainTags: ["Custom domain", "SEO otomatis", "Structured data", "Sitemap"],
+      catalogBadge: "Katalog & Menu",
+      catalogTitle: "Katalog produk & menu digital",
+      catalogDesc: "Tampilkan produk atau menu lengkap dengan foto, harga, dan deskripsi — pelanggan bisa langsung memesan tanpa aplikasi lain.",
+      catalogTags: ["Katalog produk", "Menu digital", "Pemesanan langsung", "Order WhatsApp"],
+      templatesEyebrow: "CONTOH HASIL AI",
+      templatesTitle: 'Website yang dihasilkan <span class="text-primary">untuk berbagai bisnis</span>',
+      templatesTitleAccent: "untuk berbagai bisnis",
+      templatesDesc: "AI memilih template dan menulis konten secara otomatis. Ini contoh hasil untuk beberapa jenis bisnis.",
+      whyEyebrow: "KENAPA WEBJOZ",
+      whyTitle: 'Semua yang Anda butuhkan, <span class="text-primary">sudah tersedia</span>',
+      whyTitleAccent: "sudah tersedia",
+      statsLabel1: "Waktu generate",
+      statsValue1: "< 5 menit",
+      statsLabel2: "Online otomatis",
+      statsValue2: "100%",
+      statsLabel3: "Satu dashboard",
+      statsValue3: "8 fitur",
+      statsLabel4: "Powered",
+      statsValue4: "AI",
+      pricingTitle: "Harga Sederhana",
+      pricingSubtitle: "Mulai gratis, kembangkan kapan pun Anda siap.",
+      monthly: "Bulanan",
+      yearly: "Tahunan",
+      saveBadge: "Hemat ~16%",
+      saveText: "Hemat hingga 2 bulan dengan langganan tahunan",
+      popularBadge: "Terpopuler",
+      priceFree: "Rp 0",
+      priceFreePeriod: "/bulan · selamanya",
+      perYear: "/tahun",
+      monthlyEq: "(Setara Rp {value}/bln)",
+      promo: "Promo",
+      perMonth: "/bulan",
+      perYear2: "/tahun",
+      startFree: "Mulai Gratis",
+      choosePlan: "Pilih {plan} ({cycle})",
+      ctaBannerTitle: "Siap buat website bisnis Anda?",
+      ctaBannerDesc: "Mulai gratis sekarang. Tidak perlu kartu kredit — cukup chat singkat dengan AI dan website Anda siap.",
+      ctaBannerCta: "Mulai Gratis Sekarang",
+      ctaBannerWhatsapp: "Konsultasi via WhatsApp",
+      ctaBannerHelper: "Butuh custom design atau company profile?",
+      ctaBannerContact: "Hubungi tim kami",
+      footerCopyright: "© {year} Webjoz by Giwangan Studio. AI Website Builder untuk Bisnis Indonesia.",
+      footerPrivacy: "Kebijakan Privasi",
+      footerTerms: "Syarat & Ketentuan",
+      footerRefund: "Kebijakan Refund",
+      footerContact: "Hubungi Kami",
+      footerHelp: "Pusat Bantuan",
+      footerChangelog: "Changelog",
+      footerLogin: "Login",
+      footerBlog: "Blog",
+      footerHome: "Beranda",
+      step1Title: "Kenalkan Bisnis Anda",
+      step1Desc: "Chat dengan AI dan beri tahu nama serta apa bisnis yang Anda jalankan. Semuanya lewat percakapan santai.",
+      step2Title: "Berikan Detail Singkat",
+      step2Desc: "Ceritakan sedikit tentang layanan, area jangkauan, atau apa yang membuat bisnis Anda spesial.",
+      step3Title: "Pilih Kategori & Mood",
+      step3Desc: "Pilih jenis industri dan suasana (mood) desain yang cocok agar AI bisa menyesuaikan tampilan website Anda.",
+      step4Title: "Generate & Publikasikan",
+      step4Desc: "Website selesai dibuat dalam hitungan detik. Langsung review, edit bagian mana pun, dan publikasikan segera.",
+      featureChatTitle: "Chat AI, Bukan Form",
+      featureChatDesc: "Tidak perlu isi form panjang. Cukup chat dengan AI, semua konten dan desain dibuat otomatis.",
+      featureDomainTitle: "Custom Domain",
+      featureDomainDesc: "Hubungkan domain sendiri dengan panduan CNAME. Cocok untuk branding profesional perusahaan Anda.",
+      featureAnalyticsTitle: "Analytics & Leads",
+      featureAnalyticsDesc: "Pantau pengunjung website dan kumpulkan leads langsung dari form kontak — semuanya di satu dashboard.",
+      featureEditTitle: "Edit Per Section",
+      featureEditDesc: "Tidak puas dengan bagian tertentu? Regenerate per section dengan AI, atau edit manual di editor.",
+      featureCustomTitle: "Kustomisasi Penuh",
+      featureCustomDesc: "Hero, profil, layanan, testimoni, menu, FAQ, footer, hingga SEO — semua konten bisa diedit dan disesuaikan sendiri kapan saja.",
+      featureWaTitle: "WhatsApp Terintegrasi",
+      featureWaDesc: "Tombol WhatsApp otomatis terpasang di setiap website. Pelanggan bisa langsung chat dalam satu klik.",
+      featureSeoTitle: "SEO Siap Pakai",
+      featureSeoDesc: "Title, description, OG tags, JSON-LD structured data, dan sitemap — semua sudah diurus oleh AI.",
+      featureSubTitle: "Subdomain Instan",
+      featureSubDesc: "Setiap website langsung aktif di subdomain Webjoz. Tidak perlu setup server atau DNS manual.",
+      featureCatalogTitle: "Katalog Produk",
+      featureCatalogDesc: "Tampilkan koleksi produk atau layanan Anda dengan katalog yang rapi, profesional, dan menarik.",
+      featureMenuTitle: "Menu Jualan",
+      featureMenuDesc: "Mudahkan pelanggan memesan dengan fitur menu interaktif yang siap digunakan untuk bertransaksi.",
+      navHowItWorks: "Cara Kerja",
+      navFeatures: "Fitur",
+      navPricing: "Harga",
+      navHelp: "Bantuan",
+      navDashboard: "Dashboard",
+      navLogin: "Login",
+      navCreateNew: "Buat Website Baru",
+      navStartFree: "Mulai Gratis",
+      mockupGreeting: "Halo! Apa nama bisnis Anda?",
+      mockupSwitchChat: "Chat",
+      mockupSwitchPreview: "Preview",
+      mockupPickType: "Keren! 👍 Pilih kategori:",
+      mockupChips: ["🍜 Kuliner", "🔧 Jasa", "🛍 Produk"],
+      mockupPickMood: "Mantap! 🎨 Pilih mood desain:",
+      mockupMoodChips: [
+        "✨ Modern & Bersih",
+        "🌿 Hangat & Alami",
+        "🎨 Ceria & Berwarna",
+        "👑 Elegan & Mewah",
+        "⚡ Tegas & Berenergi",
+        "⏳ Klasik & Retro",
+        "🤖 Futuristik",
+      ],
+      mockupGenerating: "⚡ AI sedang generate...",
+      mockupReady: "✅ Website siap!",
+      mockupStep: "Langkah 3 dari 6",
+      mockupSitesManage: "Kelola URL hasil generate (Super Admin)",
+      mockupSitesClose: "Tutup Editor",
+      mockupSitesTitle: "URL hasil generate website (dengan nama bisnis)",
+      mockupSitesHint: "Setiap baris berisi nama bisnis dan URL hasil generate. Website tampil di panel preview mockup satu per siklus, dan nama bisnisnya tampil di chat mockup. Kosongkan dan simpan untuk kembali ke preview template lokal.",
+      mockupSitesAdd: "Tambah URL",
+      mockupSitesReset: "Reset Default",
+      mockupSitesSave: "Simpan",
+      mockupSitesName: "Nama bisnis (tampil di chat mockup)",
+      mockupSitesNamePlaceholder: "Contoh: Kopi Jozz Jogja",
+      showcaseCreate: "Buat",
+      showcaseFallback: "Website",
+      categoryKuliner: "Kuliner",
+      categoryJasa: "Jasa",
+      categoryProduk: "Produk",
+      activeBadge: "Aktif",
+      yearlySavings: "Hemat Rp {value}/tahun",
+      websiteCount: "{n} Website",
+      aiGenerate: "AI Generate {n}x/bulan",
+      aiRegen: "AI Regenerasi {n}x/bulan",
+      aiDesign: "AI Design {n}x/bulan",
+      noCustomDomain: "Tidak ada custom domain",
+      customDomainFeature: "Custom Domain",
+      customDomainSubtext: "tidak termasuk domain",
+      seoBooster: "SEO Booster",
+      subdomainFeature: "Subdomain .webjoz.com",
+      hostingFeature: "Hosting & SSL gratis",
+      typeMessage: "Ketik pesan Anda...",
+      trustedBy: "Dipercaya oleh 1.000+ pemilik bisnis",
+      featureFreeCard: "Tanpa kartu kredit",
+      featureChatEasy: "Lebih cepat & mudah",
+      featureLiveInstant: "Live dalam hitungan menit",
+      heroReassurance: "Langsung coba tanpa daftar • 100% Gratis • Preview instan",
+      bottomNavHome: "Beranda",
+      bottomNavFeatures: "Fitur",
+      bottomNavCreate: "Buat",
+      bottomNavPricing: "Harga",
+      bottomNavAccount: "Akun",
+    },
+    auth: {
+      loginTitle: "Lanjutkan kelola website bisnis Anda.",
+      loginDesc: "Login untuk mengelola website, edit konten, lihat analytics, dan pantau performa — semua dari satu dashboard.",
+      loginCardTitle: "Login",
+      loginCardDesc: "Gunakan WhatsApp, email OTP, atau password untuk mengakses dashboard.",
+      loginFooterHome: "Beranda",
+      loginFooterRegister: "Buat akun",
+      loginFooterForgot: "Lupa password",
+      loginBadge: "Webjoz Console",
+      loginStats1Label: "AI Builder",
+      loginStats1Value: "Chat-Based",
+      loginStats1Helper: "Cukup chat dengan AI, website langsung jadi.",
+      loginStats2Label: "Mobile-First",
+      loginStats2Value: "Optimized",
+      loginStats2Helper: "Semua template dioptimalkan untuk tampilan mobile dan siap iklan.",
+      loginCardEyebrow: "Login untuk melanjutkan",
+      loginSending: "Mengirim kode...",
+      loginWhatsappHint: "Link atau kode OTP dikirim via WhatsApp. Nomor baru? Akun otomatis dibuat.",
+      loginOrContinueWith: "atau lanjutkan dengan",
+      loginOrEmail: "atau masuk dengan email",
+      loginEmailLabel: "Alamat email",
+      loginEmailPlaceholder: "Alamat email kamu",
+      loginEmailHint: "Link atau kode OTP dikirim via email. Email baru? Akun otomatis dibuat.",
+      loginSendCodeWhatsapp: "Kirim Kode OTP via WhatsApp",
+      loginSendCode: "Kirim Kode OTP",
+      loginPasswordTitle: "Login dengan password",
+      loginPasswordDesc: "Gunakan email dan password akun kamu.",
+      loginEmailField: "Email",
+      loginPasswordLabel: "Password",
+      loginForgotPassword: "Lupa password?",
+      loginPasswordPlaceholder: "Password akun",
+      loginPhonePlaceholder: "Nomor WhatsApp kamu",
+      loginPasswordField: "Password",
+      loginSigningIn: "Sedang masuk...",
+      loginPasswordButton: "Masuk dengan password",
+      loginHidePassword: "Sembunyikan password",
+      loginShowPassword: "Tampilkan password",
+      loginLoginLoading: "Login",
+      loginSubmitPassword: "Login dengan password",
+      loginCodeSentTo: "Kode dikirim via {channel} ke {target}. Berlaku 5 menit.",
+      loginCodeLabel: "Kode OTP",
+      loginTrustDevice: "Percayai perangkat ini",
+      loginBack: "Kembali",
+      loginVerifying: "Memverifikasi",
+      loginVerifyOtp: "Verifikasi OTP",
+      loginResendCountdown: "Kirim ulang ({sec}s)",
+      loginResend: "Tidak menerima kode? Kirim ulang",
+      loginLinkSent: "Link masuk telah dikirim. Buka link tersebut di perangkat ini untuk melanjutkan.",
+      loginOtherOptions: "Opsi lain",
+      loginOptionWhatsapp: "WhatsApp",
+      loginOptionEmail: "Email OTP",
+      loginOptionPassword: "Password",
+      errorEmailValid: "Masukkan alamat email yang valid.",
+      errorPhoneValid: "Masukkan nomor WhatsApp yang valid.",
+      errorFixFields: "Perbaiki field yang ditandai.",
+      errorOtpInvalid: "Masukkan kode OTP 6 digit.",
+      errorCredentialsInvalid: "Masukkan email dan password yang valid.",
+      errorWrongCredentials: "Email atau password salah.",
+      toastCodeSent: "Kode terkirim. Silakan cek pesan Anda.",
+      errorSendCode: "Gagal mengirim kode. Coba lagi.",
+      toastOtpVerified: "Kode OTP terverifikasi. Selamat datang kembali.",
+      errorOtpInvalidExpired: "Kode OTP tidak valid atau kedaluwarsa",
+      loginSuccess: "Berhasil masuk. Selamat datang kembali.",
+      toastSessionExpired: "Sesi Kedaluwarsa",
+      toastSessionExpiredDesc: "Sesi Anda telah kedaluwarsa. Silakan masuk kembali untuk melanjutkan.",
+      toastDismiss: "Tutup",
+      errorMagicLinkInvalid: "Link masuk tidak valid atau kedaluwarsa",
+      registerBadge: "Webjoz Console",
+      registerTitle: "Mulai kelola bisnis Anda dengan mudah.",
+      registerDesc: "Daftar untuk mulai membangun website bisnis yang profesional, cepat, dan siap iklan.",
+      registerCardEyebrow: "Buat akun baru",
+      registerCardTitle: "Registrasi",
+      registerCardDesc: "Isi detail di bawah untuk mendaftarkan akun Anda.",
+      registerFooterLogin: "Sudah punya akun? Login",
+      registerFullName: "Nama Lengkap",
+      registerEmail: "Email",
+      registerWhatsapp: "Nomor WhatsApp",
+      registerPassword: "Password",
+      registerLoading: "Mendaftar...",
+      registerSubmit: "Buat Akun",
+      registerSuccess: "Akun berhasil dibuat. Silakan login.",
+      errorRegisterFailed: "Gagal mendaftar. Coba lagi.",
+      forgotBadge: "Pemulihan Kata Sandi",
+      forgotTitle: "Mulai alur reset kata sandi dari frontend dashboard.",
+      forgotDesc: "Masukkan email Anda dan API Go akan menerbitkan token reset serta link email melalui alur forgot-password yang sudah ada.",
+      forgotCardEyebrow: "Pemulihan",
+      forgotCardTitle: "Lupa Kata Sandi",
+      forgotCardDesc: "Masukkan email akun Anda untuk meminta link reset kata sandi.",
+      forgotFooterLogin: "Kembali ke Login",
+      forgotFooterRegister: "Buat Akun",
+      forgotEmail: "Email",
+      forgotEmailPlaceholder: "kamu@email.com",
+      forgotSending: "Mengirim link...",
+      forgotSubmit: "Kirim Link Reset",
+      forgotSentSuccess: "Link reset terkirim. Periksa email Anda untuk link reset kata sandi.",
+      forgotSentToast: "Link reset terkirim.",
+      errorForgotSend: "Gagal mengirim link reset",
+      forgotStat1Label: "Pengiriman",
+      forgotStat1Value: "Link Email",
+      forgotStat1Helper: "Backend mengirim link reset ke alamat email yang Anda masukkan.",
+      forgotStat2Label: "Rute Reset",
+      forgotStat2Value: "/reset-password",
+      forgotStat2Helper: "Link yang dikirim membuka halaman reset di dashboard.",
+      resetBadge: "Atur Ulang Kata Sandi",
+      resetTitle: "Tetapkan kata sandi baru menggunakan token dari backend.",
+      resetDesc: "Halaman ini memproses token reset dari link email dan mengirimkan kata sandi baru langsung ke API Go.",
+      resetCardEyebrow: "Pemulihan",
+      resetCardTitle: "Pilih Kata Sandi Baru",
+      resetCardDesc: "Masukkan kata sandi baru Anda untuk menyelesaikan proses reset.",
+      resetCardDescNoToken: "Buka halaman ini dari email reset kata sandi agar token disertakan.",
+      resetFooterLogin: "Kembali ke Login",
+      resetFooterRequest: "Minta link reset lagi",
+      resetNewPassword: "Kata Sandi Baru",
+      resetNewPasswordPlaceholder: "Minimal 8 karakter",
+      resetConfirmPassword: "Konfirmasi Kata Sandi Baru",
+      resetUpdating: "Memperbarui kata sandi...",
+      resetUpdate: "Perbarui Kata Sandi",
+      errorResetTokenMissing: "Token reset tidak ada di URL.",
+      errorPasswordMismatch: "Kata sandi tidak cocok.",
+      toastResetSuccess: "Kata sandi berhasil diperbarui.",
+      errorResetFailed: "Gagal mengatur ulang kata sandi",
+      resetStat1Label: "Sumber Token",
+      resetStat1Value: "Query URL",
+      resetStat2Label: "Validasi",
+      resetStat2Value: "Prioritas Backend",
+      resetStat2Helper: "Token kedaluwarsa atau tidak valid ditolak oleh API.",
+      resetStat1Helper: "Backend mengirim link ke sini dengan parameter kueri `token`.",
+      verifyBadge: "Verifikasi Akun",
+      verifyTitle: "Memverifikasi alamat email Anda.",
+      verifyDesc: "Halaman ini memverifikasi email Anda menggunakan token di link yang dikirim ke inbox Anda.",
+      verifyCardEyebrow: "Verifikasi",
+      verifyCardTitle: "Verifikasi Email",
+      verifyCardIdle: "Periksa inbox Anda untuk link verifikasi.",
+      verifyCardLoading: "Memvalidasi token keamanan unik Anda...",
+      verifyFooterLogin: "Lanjut ke Login",
+      verifyFooterHome: "Kembali ke Beranda",
+      verifyLoadingSpinner: "Memverifikasi token Anda...",
+      verifyBackToLogin: "Kembali ke Login",
+      verifySuccessTitle: "Berhasil!",
+      verifyGoToLogin: "Ke Halaman Login",
+      verifyFailedTitle: "Verifikasi Gagal",
+      verifySentTo: "Email verifikasi dikirim ke {email}. Buka link di email tersebut untuk menyelesaikan verifikasi.",
+      verifyNoToken: "Buka halaman ini dari email verifikasi Anda agar token disertakan di URL.",
+      verifyDone: "Email Anda berhasil diverifikasi! Anda sekarang dapat login.",
+      errorVerifyFailed: "Gagal memverifikasi email. Link mungkin kedaluwarsa atau tidak valid.",
+      verifyStat1Label: "Sumber Token",
+      verifyStat1Value: "Query URL",
+      verifyStat1Helper: "Link email backend menyertakan parameter `token` unik.",
+      verifyStat2Label: "Status",
+      verifyStat2Value: "Validasi Real-time",
+      verifyStat2Helper: "Token divalidasi seketika saat halaman dimuat.",
+      inviteProcessing: "Memproses undangan...",
+      inviteSuccess: "Berhasil bergabung ke tim!",
+      inviteSuccessDesc: "Anda sekarang dapat mengakses tim di dashboard.",
+      inviteDashboard: "Ke Dashboard",
+      inviteFailedTitle: "Gagal",
+      inviteBackToLogin: "Kembali ke Login",
+      inviteRegisterTitle: "Buat akun untuk bergabung",
+      inviteRegisterDesc: "Akun Anda akan dibuat otomatis berdasarkan email undangan. Lengkapi data di bawah untuk melanjutkan.",
+      inviteRegisterEmailLabel: "Email",
+      inviteRegisterNameLabel: "Nama",
+      inviteRegisterNamePlaceholder: "Nama lengkap",
+      inviteRegisterPasswordLabel: "Password",
+      inviteRegisterPasswordHint: "Minimal 8 karakter",
+      inviteRegisterButton: "Buat Akun & Bergabung",
+      inviteRegisterLoading: "Membuat akun...",
+      inviteExistingAccount: "Sudah punya akun? Masuk",
+      inviteAlreadyRegistered: "Email ini sudah memiliki akun. Silakan masuk untuk menerima undangan.",
+      loginResetSuccess: "Kata sandi diperbarui. Anda dapat masuk sekarang.",
+      loginPasswordChanged: "Kata sandi diubah. Silakan masuk kembali.",
+    },
+    sections: {
+      faqEyebrow: "Pertanyaan Umum",
+      catalogEyebrow: "Koleksi Produk",
+      benefitsEyebrow: "Keunggulan",
+      aboutEyebrowFallback: "Mengenal Kami",
+      aboutImageAlt: "About",
+      ctaFallback: "Hubungi Kami",
+      footerSocial: "Media Sosial",
+      footerBrand: "Bisnis Kami",
+      footerCopyrightFallback: "© {year} {brand}. All rights reserved.",
+      heroImageAlt: "Hero",
+    },
+    common: {
+      dashboard: "Dashboard",
+      menu: "Menu",
+      loading: "Memuat...",
+      saving: "Menyimpan...",
+      failed: "Gagal",
+      retry: "Coba lagi",
+      backToHome: "← Kembali ke Beranda",
+      contact: "Kontak",
+      privacy: "Kebijakan Privasi",
+      terms: "Syarat & Ketentuan",
+      refund: "Kebijakan Pengembalian Dana",
+      allRightsReserved: "Hak cipta dilindungi.",
+      builtWith: "Dibangun dengan",
+    },
+    dashboard: {
+      authenticating: "Mengautentikasi...",
+      createWebsite: "Buat Website",
+      mainNav: "Navigasi utama",
+      switchAccentBlue: "Ganti ke aksen biru",
+      switchAccentMonochrome: "Ganti ke aksen monokrom",
+      switchLight: "Ganti ke mode terang",
+      switchDark: "Ganti ke mode gelap",
+      pro: "Pro",
+      consoleTitle: "Webjoz Console",
+      adminWorkspace: "AI Website Builder",
+      mode: "Mode",
+      upgradeLabel: "Upgrade",
+      authenticated: "Terautentikasi",
+      locked: "Terkunci",
+      appearance: "Tampilan",
+      language: "Bahasa",
+      logout: "Keluar",
+      backToWebsites: "Kembali ke daftar website",
+      subDashboard: "Pantau ringkasan performa dan aktivitas website Anda.",
+      subSites: "Kelola dan kustomisasi seluruh website Anda.",
+      subDomains: "Hubungkan dan kelola domain kustom Anda agar situs tampil lebih profesional.",
+      subLeads: "Inkuiri kontak dan prospek dari pengunjung situs publik Anda.",
+      subAnalytics: "Pantau volume kunjungan, asal lalu lintas, dan halaman paling populer.",
+      subSettings: "Kelola profil, keamanan akun, hak akses pengguna, dan log audit sistem.",
+      newWebsiteAi: "Website AI Baru",
+      loadingConsole: "Memuat Console...",
+      preparingWorkspace: "Menyiapkan akun & website Anda...",
+      signedOutLocally: "Keluar secara lokal. Sesi server mungkin masih perlu ditinjau.",
+      refreshed: "Dashboard diperbarui.",
+      welcome: "Selamat Datang{name}",
+      welcomeDesc: "Kelola website, domain, dan leads Anda dari satu tempat.",
+      newWebsite: "+ Website Baru",
+      usingFreePlan: "Anda sedang menggunakan paket {plan}",
+      upgradeToProDesc: "Upgrade ke Pro untuk custom domain, SEO optimasi, lebih banyak website, dan AI generates tanpa batas.",
+      upgradeToPro: "Upgrade ke Pro",
+      planExpiringSoon: "Paket {plan} Anda berakhir dalam {days} hari",
+      planExpiringSoonDesc: "Perpanjang sekarang agar website dan custom domain tetap aktif. Setelah masa aktif habis, website ditampilkan dalam mode penangguhan.",
+      planExpiredBanner: "Masa aktif paket Anda telah berakhir. Website Anda sementara ditampilkan dalam mode penangguhan.",
+      planExpiredDesc: "Website Anda sedang ditangguhkan. Data, konten, dan domain tetap aman — perpanjang paket dan website aktif kembali secara otomatis.",
+      planInGrace: "Paket Anda sudah jatuh tempo dan sedang dalam masa tenggang. Segera perpanjang sebelum {date} agar website tidak ditangguhkan.",
+      renewPlan: "Perpanjang Sekarang",
+      statWebsites: "Website",
+      statLeads: "Leads",
+      statVisitors: "Pengunjung",
+      statHealth: "Kesehatan",
+      sitesPublished: "{count} published",
+      newProspects: "Prospek baru",
+      setupLeadForm: "Pasang form lead",
+      thisWeek: "Minggu ini",
+      allSystemsNormal: "Semua sistem normal",
+      usageMeter: "Pemakaian Paket",
+      meterWebsites: "Website",
+      meterAiGenerate: "AI Generate",
+      meterSectionRegen: "Regen Section",
+      meterDesignRegen: "Regen Desain",
+      limitReached: "Habis",
+      nearLimit: "Hampir Habis",
+      unlimited: "Tak Terbatas",
+      unlimitedUsage: "Penggunaan tanpa batas pada paket ini.",
+      remaining: "{count} tersisa bulan ini",
+      loadFailed: "Gagal memuat data pemakaian.",
+      recentActivity: "Aktivitas Terbaru",
+      leadNew: "Lead baru: {name}",
+      siteUpdated: "Website \"{name}\" diupdate",
+      noActivity: "Belum ada aktivitas.",
+      aiInsights: "Wawasan AI",
+      insightTraffic: "📈 Traffic terpantau masuk minggu ini sebanyak {count} kunjungan.",
+      insightNoTraffic: "📉 Belum ada traffic signifikan minggu ini.",
+      insightLeads: "🔥 Anda memiliki {count} prospek baru!",
+      insightCreateSite: "✨ Buat website pertama Anda dengan AI Builder!",
+      usage: {
+        currentPlan: "Paket Aktif",
+        planDescription: "Detail pemakaian dan batas paket Anda saat ini.",
+        planLimits: "Batas Paket",
+        allPlans: "Perbandingan Semua Paket",
+        feature: "Fitur",
+        price: "Harga",
+        free: "Gratis",
+        resetMonthly: "Pemakaian di-reset setiap awal bulan",
+        currentPeriod: "Periode: {month}",
+        teamMembers: "Anggota Tim",
+        customDomains: "Custom Domain",
+        limitWarning: "Anda telah mencapai batas pemakaian paket.",
+        limitReachedDesc: "Upgrade paket untuk melanjutkan.",
+      },
+      admin: {
+        platformOverview: "Platform Overview",
+        platformStats: "{tenants} klien · {users} pengguna · {sites} website di seluruh platform",
+        loadingMetrics: "Memuat metrik platform...",
+        allTenants: "Semua Klien",
+        plans: "Plans",
+        totalTenants: "Total Klien",
+        totalUsers: "Total Pengguna",
+        totalSites: "Total Website",
+        activePlans: "Paket Aktif",
+        newUsers7d: "Pengguna Baru (7h)",
+        in7Days: "+{count} dalam 7 hari",
+        recentAccounts: "Akun Terbaru",
+        viewAll: "Lihat semua",
+        noAccounts: "Belum ada akun terdaftar.",
+        systemHealth: "Kesehatan Sistem",
+        svcDatabase: "Database",
+        svcCache: "Cache",
+        svcAiProvider: "Penyedia AI",
+        statusHealthy: "Sehat",
+        statusDown: "Down",
+        statusDisabled: "Nonaktif",
+        statusUnknown: "Tidak diketahui",
+        viewDetailedStatus: "Lihat status detail →",
+        quickActions: "Aksi Cepat",
+        qxHealth: "Health",
+        qxAnnounce: "Announce",
+        qxUsers: "Users",
+        qxAuditLogs: "Audit Logs",
+        platformManagement: "Manajemen Platform",
+        qlTenantsDesc: "Lihat & kelola semua akun klien",
+        qlPlansDesc: "Tentukan & tetapkan paket langganan",
+        qlHealthDesc: "Status database, cache & penyedia AI",
+        qlAnnounceDesc: "Kirim pesan ke semua klien",
+      },
+      nav: {
+        sectionDashboard: "Dashboard",
+        sectionWebsiteBuilder: "Website Builder",
+        sectionSalesReferral: "Sales & Referral",
+        sectionSystem: "Sistem",
+        overview: "Beranda",
+        notifications: "Notifikasi",
+        plans: "Manajemen Paket",
+        promos: "Kode Promo",
+        health: "Kesehatan Sistem",
+        announcements: "Pengumuman",
+        commissions: "Semua Komisi",
+        adminPayments: "Manajemen Pembayaran",
+        adminReports: "Revenue Report",
+        tenants: "Daftar Klien",
+        templates: "Galeri Template",
+        designAssets: "Aset Desain",
+        metrics: "Metrik",
+        sites: "Website Saya",
+        domains: "Custom Domain",
+        leads: "Customer Leads",
+        analytics: "Web Statistik",
+        salesOverview: "Sales Overview",
+        salesReferral: "Kode Referral",
+        salesCommissions: "Komisi Saya",
+        team: "Tim",
+        usage: "Pemakaian",
+        billing: "Riwayat Tagihan",
+        upgrade: "Upgrade Paket",
+        settings: "Pengaturan",
+      },
+      sites: {
+        close: "Tutup",
+        cancel: "Batal",
+        deleteTitle: "Hapus Website?",
+        deleteBody: "Anda akan menghapus website \"{name}\" secara permanen. Tindakan ini tidak dapat dibatalkan.",
+        deleteWarning: "Semua konten, pengaturan, dan data website ini akan dihapus dan tidak bisa dipulihkan.",
+        deleteFreeNotice: "Kamu pakai paket Free — kuota 1 website ini tidak akan kembali setelah dihapus. Kamu hanya bisa membuat 1 website gratis seumur hidup.",
+        deleting: "Menghapus...",
+        deleteConfirm: "Ya, Hapus",
+        renameTitle: "Ganti Nama Website",
+        renameDesc: "Masukkan nama baru untuk website Anda.",
+        save: "Simpan",
+        publishTitle: "Publikasikan Website",
+        publishOneStep: "Satu Langkah Lagi! 🚀",
+        publishReady: "Website {name} Anda siap untuk dipublikasikan ke seluruh dunia.",
+        subdomainLabel: "Nama Subdomain",
+        subdomainPlaceholder: "namaanda",
+        subdomainAvailable: "Tersedia: {url}",
+        subdomainInvalidHint: "Gunakan huruf kecil, angka, atau tanda hubung (-)",
+        subdomainHint: "Hanya huruf kecil, angka, dan tanda hubung. Subdomain tidak bisa diubah setelah dipublikasikan.",
+        connectCustomDomain: "Hubungkan Custom Domain",
+        customDomainDescPre: "Ingin brand yang lebih profesional seperti domainanda.com? Anda dapat mengaturnya di",
+        customDomainDescPost: "setelah website Anda live.",
+        customDomainLink: "Custom Domain",
+        launching: "Meluncurkan...",
+        launchWebsite: "Luncurkan Website",
+        publishTermsTitle: "Saya menyetujui",
+        publishTermsLink: "Syarat & Ketentuan Webjoz",
+        publishTermsRequired: "Mohon centang persetujuan untuk mempublikasikan website.",
+        moderationTitle: "Website tidak dapat dipublikasikan",
+        moderationDesc: "Konten website terindikasi melanggar Syarat & Ketentuan Webjoz. Perbaiki konten atau ajukan banding ke tim kami.",
+        moderationCatPinjol: "Layanan pinjaman online (pinjol)",
+        moderationCatJudi: "Perjudian / slot",
+        moderationCatAlkohol: "Penjualan minuman beralkohol",
+        moderationCatBarangHaram: "Penjualan barang haram / narkoba",
+        moderationKeywordPrefix: "Kata kunci terdeteksi: ",
+        moderationAppealTitle: "Menurut Anda ini bukan pelanggaran?",
+        moderationAppealPlaceholder: "Jelaskan alasan banding Anda...",
+        moderationAppealBtn: "Kirim Banding",
+        moderationAppealSubmitting: "Mengirim...",
+        moderationAppealRequired: "Tulis alasan banding terlebih dahulu.",
+        moderationAppealSent: "Banding terkirim. Tim kami akan meninjaunya.",
+        moderationAppealFailed: "Gagal mengirim banding. Silakan coba lagi.",
+        publishChecking: "Memeriksa konten...",
+        publishCheckingDesc: "Kami memeriksa konten Anda untuk memastikan sesuai Syarat & Ketentuan.",
+        errorLoadSites: "Gagal memuat situs",
+        connectingWorkspace: "Menghubungkan ke dashboard...",
+        toastPublished: "Website berhasil dipublikasikan! 🚀",
+        toastPublishFailed: "Gagal mempublikasikan website",
+        toastUnpublished: "Website berhasil di-draft kembali.",
+        toastUnpublishFailed: "Gagal mengubah status publikasi",
+        toastRenamed: "Nama website berhasil diubah.",
+        toastRenameFailed: "Gagal mengubah nama website",
+        toastDeleted: "Situs berhasil dihapus.",
+        toastDeleteFailed: "Gagal menghapus situs",
+        toastDuplicating: "Menduplikasi website...",
+        toastDuplicateFailed: "Gagal membuat duplikat website",
+        toastDuplicated: "Website berhasil diduplikat!",
+        toastDuplicateError: "Gagal menduplikasi website",
+        toastSiteLimitReached: "Batas jumlah website tercapai. Upgrade paket Anda untuk menduplikasi.",
+        publishedPrefix: "Dipublikasikan",
+        updatedPrefix: "Diubah",
+        justNow: "{prefix} baru saja",
+        minutesAgo: "{prefix} {n} menit lalu",
+        hoursAgo: "{prefix} {n} jam lalu",
+        yesterday: "{prefix} kemarin",
+        daysAgo: "{prefix} {n} hari lalu",
+        searchPlaceholder: "Cari website berdasarkan nama...",
+        reset: "Reset",
+        filterAll: "Semua",
+        filterDraft: "Draft",
+        filterPublished: "Dipublikasikan",
+        loadingSites: "Memuat situs Anda...",
+        noSitesMatch: "Tidak ada website yang cocok",
+        noSitesMatchDesc: "Coba kata kunci pencarian lain, filter status yang berbeda, atau buat website baru.",
+        clearSearch: "Bersihkan Pencarian",
+        statusLive: "Live",
+        statusDraft: "Draft",
+        moreOptions: "Opsi lainnya",
+        actionDuplicate: "Duplikat",
+        actionRename: "Ganti nama",
+        actionUnpublish: "Batalkan publikasi",
+        actionDelete: "Hapus",
+        domainNotSet: "Domain belum diatur",
+        copyLink: "Salin tautan",
+        editPreview: "Edit & Preview",
+        viewSite: "Lihat Web",
+        publish: "Publikasikan",
+        linkBlog: "Blog",
+        linkEditor: "Editor",
+        linkCatalog: "Katalog",
+        linkMenu: "Menu",
+        linkSeo: "SEO",
+        linkIntegrations: "Integrasi",
+        linkTestimonials: "Testimoni",
+        linkCustomDomain: "Custom Domain",
+        loadMore: "Muat Lebih Banyak",
+        congratsTitle: "Website Anda Telah Live",
+        congratsHeading: "Website Anda Resmi Mengudara!",
+        congratsBody: "Selamat! Halaman web {name} Anda sekarang aktif dan dapat diakses dari mana saja di seluruh dunia.",
+        openWebsite: "Buka Website",
+        copyLinkTitle: "Salin Link",
+        checkTip: "💡 Ingin mengecek? Klik link di atas untuk membuka website live Anda di tab baru.",
+        done: "Selesai",
+        continueEditing: "Lanjut Edit",
+        customDomainLinkLabel: "🔗 Hubungkan Custom Domain",
+        customDomainLinkHint: "Ingin pakai domain sendiri? Hubungkan domain kustom Anda ke website ini.",
+      },
+      leads: {
+        loadFailed: "Gagal memuat inbox leads",
+        loading: "Memuat kotak masuk leads...",
+        filter: "Filter",
+        allWebsites: "Semua Website",
+        emptyTitle: "Kotak Masuk Masih Kosong",
+        emptyDesc: "Formulir kontak dan pesanan WhatsApp dari website publik Anda akan otomatis masuk ke sini secara realtime.",
+        sender: "Pengirim",
+        date: "Waktu Masuk",
+        sourceSite: "Website Sumber",
+        actions: "Aksi",
+        siteId: "Situs #{id}",
+        detail: "Detail",
+        leadDetail: "Detail Leads Pelanggan",
+        inquiryMessage: "Isi Pesan Masuk",
+        receivedOn: "Diterima Pada",
+        sourceUrl: "Halaman Sumber",
+        selectPrompt: "Pilih salah satu baris untuk melihat rincian lengkap pesanan atau pesan.",
+        tabAll: "Semua",
+        tabOrders: "Pesanan",
+        tabContacts: "Pesan Kontak",
+        searchPlaceholder: "Cari nama, no HP, email, atau pesan...",
+        totalLeads: "Total Leads",
+        totalOrders: "Pesanan Masuk",
+        totalRevenue: "Estimasi Nilai Pesanan",
+        totalContacts: "Pesan Kontak",
+        noFilterResults: "Tidak Ada Hasil yang Cocok",
+        noFilterResultsDesc: "Tidak ditemukan leads atau pesanan yang sesuai dengan kata kunci atau filter saat ini.",
+        clearFilter: "Reset Filter",
+        chatWhatsapp: "Chat di WhatsApp",
+        callPhone: "Telepon",
+        sendEmail: "Kirim Email",
+        copyPhone: "Salin No HP",
+        copyEmail: "Salin Email",
+        copyMessage: "Salin Pesan",
+        copied: "Tersalin!",
+        orderBadge: "Pesanan",
+        contactBadge: "Kontak",
+        orderItemsList: "Daftar Item Pesanan",
+        totalOrderAmount: "Total Pesanan",
+        openWebsite: "Kunjungi Website",
+        openEditor: "Buka Editor Website",
+        close: "Tutup",
+        quickStatsTitle: "Ringkasan Leads",
+      },
+      team: {
+        loadFailed: "Gagal memuat data tim",
+        inviteSent: "Undangan terkirim",
+        inviteFailed: "Gagal mengirim undangan",
+        inviteRevoked: "Undangan dibatalkan",
+        revokeFailed: "Gagal membatalkan undangan",
+        memberRemoved: "Anggota dihapus",
+        removeFailed: "Gagal menghapus anggota",
+        membersTitle: "Anggota Tim ({count})",
+        invitePending: "Undangan menunggu · role: {role}",
+        pending: "Menunggu",
+        inviteLinkCopied: "Link undangan disalin",
+        noMembers: "Belum ada anggota tim.",
+        inviteTitle: "Undang Anggota Baru",
+        emailPlaceholder: "email@contoh.com",
+        sendInvite: "Kirim Undangan",
+        inviteHint: "Anggota dengan role editor bisa mengedit konten situs. Viewer hanya bisa melihat.",
+        limitTitle: "Batas Anggota Tim Tercapai",
+        later: "Nanti Saja",
+        upgradeToPro: "Upgrade ke Pro",
+        limitDesc: "Paket Anda saat ini memiliki batas jumlah anggota tim. Upgrade untuk menambah lebih banyak kolaborator.",
+        role: {
+          owner: "Pemilik",
+          editor: "Editor",
+          viewer: "Viewer",
+        },
+      },
+      analytics: {
+        loadFailed: "Gagal memuat data analitik",
+        loading: "Memuat data analitik...",
+        noChartData: "Belum ada data kunjungan untuk rentang waktu ini.",
+        chartAria: "Grafik kunjungan harian",
+        srActivePoint: "Tanggal {date}, {count} pageviews",
+        selectSite: "Pilih website",
+        preset7: "7 Hari",
+        preset30: "30 Hari",
+        preset90: "90 Hari",
+        to: "s/d",
+        statPageviews: "Total Kunjungan (Pageviews)",
+        up: "Naik",
+        down: "Turun",
+        fromPrevPeriod: "% dari periode sebelumnya",
+        prevPeriodComp: "Perbandingan periode sebelumnya",
+        statUniqueVisitors: "Kunjungan Unik",
+        visitorsEstimate: "Estimasi berbasis IP + perangkat",
+        statAvgDuration: "Rata-Rata Durasi",
+        durationNote: "Termasuk kunjungan 1 halaman (0 detik)",
+        dailyVisitsTitle: "Statistik Kunjungan Harian",
+        dailyVisitsDesc: "Visualisasi pergerakan volume pengunjung harian.",
+        leadsIn: "Leads Masuk",
+        leadsFromForms: "Dari form kontak di situs Anda",
+        conversion: " · konversi {pct}%",
+        viewAllLeads: "Lihat semua leads",
+        trafficSources: "Sumber Pengunjung",
+        noReferrerData: "Belum ada data rujukan.",
+        upsellTitle: "Buka Akses Analytics Penuh",
+        later: "Nanti Saja",
+        upgradeToPro: "Upgrade ke Pro",
+        free7Days: "Paket Free — Maksimal 7 Hari",
+        free7DaysDesc: "Akun Free hanya bisa melihat data analytics maksimal 7 hari ke belakang.",
+        selectedRange: "Kamu memilih rentang {from} s/d {to}.",
+        proUpgrade: "Upgrade ke Pro",
+        proUpgradeDesc: "Dengan paket Pro, kamu bisa mengakses analytics hingga 90 hari, plus fitur eksklusif lainnya seperti kustom domain dan AI content writer tanpa batas.",
+        invalidDateRange: "Tanggal awal tidak boleh lebih dari tanggal akhir.",
+      },
+      domains: {
+        loadFailed: "Gagal memuat data domain",
+        loading: "Memuat data domain...",
+        added: "Custom domain berhasil ditautkan! Silakan atur CNAME di DNS registrar Anda.",
+        addFailed: "Gagal menambahkan domain",
+        invalidFormat: "Format domain tidak valid. Contoh: domainanda.com",
+        verified: "Domain berhasil diverifikasi!",
+        verifyFailed: "Verifikasi DNS gagal. Periksa record CNAME Anda.",
+        confirmDelete: "Hapus domain ini?",
+        deleted: "Domain dihapus.",
+        deleteFailed: "Gagal menghapus domain",
+        continueConnect: "Lanjutkan Hubungkan",
+        upgradeToPro: "Upgrade ke Pro",
+        close: "Tutup",
+        upgradePlan: "Upgrade Paket",
+        connectedTitle: "Custom Domain Terhubung ({count})",
+        quotaTitle: "Paket {plan}: maksimal {max} domain per akun, tidak per website",
+        quota: "Kuota: {used} / {max} custom domain",
+        customDomainBadge: "Custom Domain",
+        siteId: "Site #{id}",
+        waitingPropagation: " · menunggu propagasi DNS",
+        active: "Aktif",
+        pending: "Pending",
+        checkDns: "Cek DNS",
+        delete: "Hapus",
+        connectTitle: "Hubungkan Custom Domain",
+        connectDesc: "Gunakan domain milik Anda sendiri untuk tampil lebih profesional.",
+        noPublished: "Belum ada website yang dipublikasikan",
+        noPublishedDesc: "Custom domain hanya bisa dihubungkan ke website yang sudah live. Publikasikan website Anda terlebih dahulu melalui halaman",
+        myWebsites: "My Websites",
+        linkToSite: "Tautkan ke Website",
+        domainAddress: "Alamat Custom Domain",
+        domainPlaceholder: "cth. tokokamu.com atau toko.domainanda.com",
+        validFormat: "✓ Format domain valid",
+        invalidFormatHint: "Format tidak valid — masukkan domain tanpa http:// atau www.",
+        dnsInstructions: "Petunjuk Konfigurasi DNS di Provider Domain",
+        step1: "Masuk ke akun Registrar Domain tempat Anda membeli domain (seperti Niagahoster, Rumahweb, Cloudflare, Namecheap, GoDaddy, dll).",
+        step2: "Cari domain yang ingin diatur dan buka halaman DNS Management, DNS Zone Editor, atau Manage DNS.",
+        step3: "Tambahkan DNS Record baru dengan tipe CNAME dan isi kolom sesuai data di bawah:",
+        step4: "Simpan perubahan DNS Anda. Proses propagasi dan verifikasi domain biasanya memerlukan waktu mulai dari 5 menit hingga maksimal 24 jam.",
+        dnsType: "Tipe / Type",
+        dnsHost: "Host / Nama",
+        dnsTarget: "Target / Value",
+        note: "Catatan: Jika ingin menggunakan subdomain kustom seperti toko.domainanda.com, ubah kolom Host / Nama menjadi toko.",
+        verifyHint: "Setelah menyimpan konfigurasi DNS di atas, kembali ke dashboard dan klik tombol \"Cek DNS\" (ikon Refresh) pada daftar domain Anda untuk memverifikasi.",
+        connectBtn: "Tautkan Custom Domain",
+        upsellTitle: "✨ Tingkatkan Kredibilitas Bisnis Anda",
+        upsellDesc: "Custom Domain adalah fitur Pro yang membantu brand Anda terlihat lebih profesional, terpercaya di mata pelanggan, dan lebih mudah ditemukan di Google (SEO).",
+        upsellBranding: "Branding Profesional",
+        upsellBrandingDesc: "Gunakan domain milik Anda (cth. tokomu.com) tanpa embel-embel .webjoz.com.",
+        upsellSeo: "SEO Lebih Baik",
+        upsellSeoDesc: "Google memprioritaskan domain utama untuk mendapatkan posisi teratas di hasil pencarian.",
+        upsellSsl: "SSL/HTTPS Otomatis",
+        upsellSslDesc: "Keamanan data terjamin dengan enkripsi SSL gratis yang dipasang langsung ke domain Anda.",
+        limitTitle: "Batas Custom Domain Tercapai",
+        limitDesc: "Paket {plan} Anda hanya mencakup {max} custom domain (berlaku untuk seluruh akun, bukan per website).",
+        limitDesc2: "Untuk menambahkan lebih banyak custom domain, silakan upgrade ke paket yang lebih tinggi.",
+        buyTab: "Beli Domain Baru",
+        ownTab: "Sudah Punya Domain",
+        buyTitle: "Beli Domain Baru",
+        buyDesc: "Daftarkan domain untuk website Anda langsung dari Webjoz. Setelah pembelian, DNS otomatis diarahkan ke website Anda.",
+        searchLabel: "Nama Domain",
+        searchPlaceholder: "cth. kopirempah",
+        searchBtn: "Cari Ketersediaan",
+        searching: "Memeriksa ketersediaan...",
+        chooseTlds: "Pilih Ekstensi (TLD)",
+        noResults: "Masukkan nama domain dan pilih minimal satu ekstensi untuk memeriksa ketersediaan.",
+        available: "Tersedia",
+        unavailable: "Sudah terdaftar / tidak tersedia",
+        perYear: "/tahun",
+        buyBtn: "Beli Sekarang",
+        buying: "Memproses pembelian...",
+        buySuccess: "Domain berhasil dibeli! DNS sedang diarahkan ke website Anda.",
+        buyFailed: "Gagal membeli domain",
+        purchaserTitle: "Data Pendaftaran Domain",
+        purchaserDesc: "Lengkapi data Anda untuk pendaftaran domain. Data ini akan digunakan sebagai data WHOIS domain.",
+        purchaserName: "Nama Lengkap",
+        purchaserCompany: "Perusahaan",
+        purchaserEmail: "Email",
+        purchaserPhone: "Telepon",
+        purchaserAddress: "Alamat",
+        purchaserCity: "Kota",
+        purchaserState: "Provinsi",
+        purchaserZip: "Kode Pos",
+        purchaserIdDoc: "Nomor Dokumen Identitas",
+        purchaserIdSub: "Untuk domain .id, .co.id, .web.id dan sejenisnya wajib mengisi NIK KTP (individu) atau NPWP/NIB (perusahaan) sesuai aturan registrar Indonesia.",
+        purchaserIdPlaceholder: "NIK (16 digit) / NPWP (15 digit) / NIB",
+        verificationNotice: "Domain .id, .co.id, .web.id dan .or.id memerlukan verifikasi identitas oleh registrar (1-3 hari kerja). Domain baru aktif setelah terverifikasi.",
+        verificationPending: "Menunggu verifikasi identitas",
+        purchasedTitle: "Domain Saya",
+        expiresAt: "Berlaku hingga",
+        purchaseInactive: "Pembelian domain sedang tidak aktif. Hubungi administrator.",
+        paymentSuccess: "Pembayaran berhasil! Domain Anda sedang didaftarkan.",
+        paymentPending: "Menunggu pembayaran... Silakan selesaikan di halaman Midtrans.",
+        paymentFailed: "Pembayaran gagal, silakan coba lagi.",
+        paymentCancelled: "Pembayaran dibatalkan.",
+      },
+      settings: {
+        tabProfile: "Profil",
+        tabSecurity: "Keamanan",
+        tabDevices: "Perangkat Aktif",
+        tabUsers: "Pengguna",
+        tabPermissions: "Izin Role",
+        tabLogs: "Audit Logs",
+        tabInvestigate: "AI Investigator",
+        tabNotifications: "Notifikasi",
+        notifTitle: "Preferensi Notifikasi",
+        notifEyebrow: "Notifikasi",
+        notifDesc: "Pilih jenis notifikasi yang ingin Anda terima. Notifikasi yang dimatikan tidak akan dikirim ke lonceng Anda.",
+        notifOn: "Aktif",
+        notifOff: "Nonaktif",
+        notifSaved: "Preferensi notifikasi disimpan",
+        notifSaveFailed: "Gagal menyimpan preferensi notifikasi",
+        notifFailedLoad: "Gagal memuat preferensi notifikasi",
+        groupAccount: "Akun",
+        groupAdmin: "Admin Sistem",
+        profileFailedLoad: "Gagal memuat profil",
+        profilePhoneError: "Gunakan format internasional, seperti +628123456789.",
+        profileUpdated: "Profil diperbarui.",
+        profileFailedUpdate: "Gagal memperbarui profil",
+        profileEyebrow: "Profil",
+        profileTitle: "Pengaturan Profil",
+        email: "Email",
+        name: "Nama",
+        saveProfile: "Simpan Profil",
+        profileEmpty: "Data profil akan muncul di sini setelah autentikasi.",
+        pwChanged: "Kata sandi berhasil diubah. Silakan masuk kembali.",
+        pwFailed: "Gagal mengubah kata sandi",
+        securityEyebrow: "Keamanan",
+        changePassword: "Ubah Kata Sandi",
+        currentPassword: "Kata Sandi Saat Ini",
+        newPassword: "Kata Sandi Baru",
+        updatePassword: "Perbarui Kata Sandi",
+        devicesFailedLoad: "Gagal memuat perangkat",
+        deviceSignedOut: "Perangkat berhasil keluar.",
+        deviceSignOutFailed: "Gagal mengeluarkan perangkat",
+        trustRemoved: "Perangkat tepercaya dihapus.",
+        trustRemovalFailed: "Gagal menghapus perangkat tepercaya",
+        othersSignedOut: "Perangkat lain berhasil keluar.",
+        othersSignOutFailed: "Gagal mengeluarkan perangkat lain",
+        allSignedOut: "Semua perangkat berhasil keluar.",
+        allSignOutFailed: "Gagal mengeluarkan semua perangkat",
+        browser: "Browser",
+        unknownDevice: "Perangkat tidak dikenal",
+        unknownUserAgent: "User agent tidak dikenal",
+        devicesTitle: "Manajemen Perangkat & Sesi",
+        refresh: "Muat Ulang",
+        signOutOthers: "Keluar dari perangkat lain",
+        signOutAll: "Keluar dari semua perangkat",
+        metricActiveSessions: "Sesi aktif",
+        metricTrustedDevices: "Perangkat tepercaya",
+        metricThisSession: "Sesi ini",
+        noSessionsTitle: "Belum ada sesi",
+        noSessionsText: "Tidak ada sesi aktif atau perangkat tepercaya yang terkait dengan akun ini.",
+        statusCurrent: "sedang masuk",
+        statusTrusted: "perangkat tepercaya",
+        statusUnknown: "perangkat tidak dikenal",
+        sessionId: "Sesi #{id}",
+        deviceId: "Perangkat {id}",
+        ip: "IP: {ip}",
+        lastUsed: "Terakhir digunakan: {date}",
+        expires: "Kedaluwarsa: {date}",
+        removeTrust: "Hapus kepercayaan",
+        revoke: "Cabut",
+        usersFailedLoad: "Gagal memuat pengguna",
+        userUpdated: "Pengguna diperbarui menjadi {role}",
+        userUpdateFailed: "Gagal memperbarui peran pengguna",
+        userDeleteConfirm: "Yakin ingin menghapus {name}?",
+        userDeleted: "Pengguna {name} berhasil dihapus",
+        userDeleteFailed: "Gagal menghapus pengguna",
+        usersTitle: "Manajemen Pengguna",
+        searchByNameEmail: "Cari berdasarkan nama atau email",
+        roleFilter: "Filter peran (user/sales/admin)",
+        usersVisibleTitle: "Pengguna yang terlihat admin",
+        noUsersMatch: "Tidak ada pengguna yang cocok dengan pencarian.",
+        roleUser: "Pengguna",
+        roleSales: "Sales",
+        roleAdmin: "Admin",
+        roleSuperadmin: "Superadmin",
+        delete: "Hapus",
+        permsFailedLoad: "Gagal memuat data awal",
+        permsRoleFailedLoad: "Gagal memuat izin peran",
+        permsSaved: "Izin berhasil diperbarui",
+        permsSaveFailed: "Gagal memperbarui izin",
+        rbacEyebrow: "Manajemen RBAC",
+        manageRolePermissions: "Kelola Izin Peran",
+        saving: "Menyimpan...",
+        saveChanges: "Simpan Perubahan",
+        totalPermissions: "Total {count}",
+        availablePermissions: "Izin Tersedia",
+        activePermissions: "Aktif {count}",
+        resourceSuffix: "Sumber Daya {resource}",
+        logsRefreshed: "Umpan audit dimuat ulang.",
+        logsFailedLoad: "Gagal memuat log",
+        logsTitle: "Umpan Log Audit Real-time",
+        autoRefreshOn: "Muat Ulang Otomatis Aktif",
+        autoRefreshOff: "Muat Ulang Otomatis Nonaktif",
+        refreshNow: "Muat Ulang Sekarang",
+        logFilterLabel: "IP / Cari",
+        dateFrom: "Dari Tanggal",
+        dateTo: "Sampai Tanggal",
+        eventTable: "Tabel Peristiwa",
+        noLogsMatch: "Tidak ada log audit yang cocok dengan filter saat ini.",
+        logActionOn: "{action} pada {resource}",
+        noDescription: "Tidak ada deskripsi",
+        ipAddress: "Alamat IP",
+        actorUserId: "ID Pengguna Aktor",
+        userAgent: "User Agent",
+        investLoadHistoryFailed: "Gagal memuat riwayat",
+        investCompleted: "Investigasi AI selesai.",
+        investFailed: "Gagal menginvestigasi log",
+        investDetailFailed: "Gagal memuat detail",
+        investLoading: [
+          "Mengelompokkan peristiwa audit yang cocok...",
+          "Menyusun linimasa insiden...",
+          "Memeriksa silang sinyal mencurigakan...",
+          "Menyusun rekomendasi untuk operator...",
+        ],
+        investEyebrow: "Didukung AI",
+        investTitle: "Investigasi dengan AI",
+        analyzing: "Menganalisis...",
+        runInvestigation: "Jalankan Investigasi",
+        streamingAnalysis: "Analisis streaming",
+        latestResult: "Hasil terbaru",
+        investOutputTitle: "Output Investigasi AI",
+        aiProcessing: "Pemrosesan AI",
+        riskLevel: "Tingkat Risiko",
+        riskWeightNote: "Ditimbang berdasarkan sinyal, urgensi, volume log, dan status insiden",
+        score: "Skor {score}",
+        timeline: "Linimasa",
+        suspiciousSignals: "Sinyal Mencurigakan",
+        recommendations: "Rekomendasi",
+        noItems: "Tidak ada item yang dikembalikan.",
+        readyTitle: "Siap dianalisis",
+        readyDesc: "Jalankan investigasi untuk menghasilkan ringkasan, linimasa, sinyal mencurigakan, dan rekomendasi.",
+        savedCount: "{count} tersimpan",
+        savedTitle: "Investigasi Tersimpan",
+        noSavedTitle: "Tidak ada investigasi tersimpan",
+        noSavedDesc: "Investigasi yang selesai akan muncul di sini untuk ditinjau ulang.",
+        investigationId: "Investigasi #{id}",
+        previous: "Sebelumnya",
+        pageOf: "Halaman {page} dari {total}",
+        next: "Berikutnya",
+        investigationDetails: "Detail Investigasi",
+        closeDetails: "Tutup detail investigasi",
+        status: "Status",
+        riskNoteHigh: "Segera eskalasi. Banyak sinyal kuat mengarah ke risiko tinggi.",
+        riskNoteMedium: "Perlu ditinjau. Pola mencurigakan perlu ditindaklanjuti operator.",
+        riskNoteLow: "Pantau saja. Insiden dengan keyakinan rendah.",
+        noResultYet: "Belum ada hasil investigasi yang dimuat.",
+      },
+      upgrade: {
+        snapLoadError: "Gagal memuat Midtrans Snap",
+        loadPlansFailed: "Gagal memuat paket",
+        pleaseLogin: "Silakan login terlebih dahulu",
+        freeActive: "Paket Free sudah aktif",
+        tokenFailed: "Gagal mendapatkan token pembayaran",
+        waitingPayment: "Menunggu pembayaran... Silakan selesaikan di halaman Midtrans.",
+        paymentFailed: "Pembayaran gagal, silakan coba lagi",
+        paymentCancelled: "Pembayaran dibatalkan",
+        redirecting: "Mengarahkan ke halaman pembayaran...",
+        processFailed: "Gagal memproses pembayaran",
+        loadingPlans: "Memuat paket...",
+        backToDashboard: "Kembali ke dashboard",
+        title: "Upgrade Paket",
+        subtitle: "Pilih paket langganan yang sesuai dengan skala bisnis Anda.",
+        paymentSuccess: "Pembayaran Berhasil!",
+        upgradingDesc: "Paket Anda sedang di-upgrade. Mengalihkan ke dashboard...",
+        freePrice: "Gratis",
+        currentPlan: "Paket Saat Ini",
+        unavailable: "Tidak Tersedia",
+        websitesCount: "{n} Website",
+        aiGeneratePerMonth: "{n} AI Generate / bln",
+        sectionRegenPerMonth: "{n} Section Regen / bln",
+        designRegenPerMonth: "{n} Design Regen / bln",
+        noCustomDomain: "Tidak ada custom domain",
+        basicSeo: "SEO dasar",
+        popular: "Terpopuler",
+        perYear: "/thn",
+        promoYearly: "Promo Tahunan",
+        equivalentPerMonth: "Setara Rp {value} /bln",
+        savingsPerYear: "🎉 Hemat Rp {value} / tahun",
+        perMonth: "/bln",
+        promoMonths: "Diskon {n} bulan",
+        choosePlan: "Pilih {name} ({cycle})",
+        yearly: "Tahunan",
+        monthly: "Bulanan",
+        customDomainCount: "{n} Custom Domain",
+        customDomainFeature: "Custom Domain",
+        customDomainSubtext: "tidak termasuk domain",
+        seoOptimized: "SEO optimasi",
+      },
+      adminPlans: {
+        noAccess: "Anda tidak memiliki akses ke halaman ini.",
+        title: "Manajemen Paket",
+        subtitle: "Tentukan dan kelola paket langganan untuk tenant.",
+        newPlan: "Paket Baru",
+        allPlans: "Semua Paket",
+        noPlansYet: "Belum ada paket yang ditentukan",
+        createFirstPlan: "Buat paket pertama",
+        perMonth: "/bln",
+        perYear: "/thn",
+        active: "Aktif",
+        inactive: "Nonaktif",
+        sitesCount: "{count} situs",
+        aiCount: "{count} AI",
+        membersCount: "{count} anggota",
+        tablePlan: "Paket",
+        tablePrice: "Harga",
+        tableSites: "Situs",
+        tableAiGen: "AI Gen",
+        tableMembers: "Anggota",
+        tableDomains: "Domain",
+        tableStatus: "Status",
+        promoMonthly: "Promo: {price}/bln ({months} bulan)",
+        promoMonthsShort: "bln",
+        promoYearly: "Promo Tahunan: {price}/thn",
+        promoTag: "— {label}",
+        editPlan: "Edit Paket",
+        createPlan: "Buat Paket",
+        name: "Nama",
+        slug: "Slug",
+        description: "Deskripsi",
+        featuresLabel: "Fitur (JSON atau daftar teks)",
+        featuresPlaceholder: "5 website, 100 AI generate/bulan",
+        priceMonthly: "Harga (Bulanan)",
+        priceYearly: "Harga (Tahunan)",
+        promoPricing: "Harga Promo",
+        promoPriceMonthly: "Harga Promo (Bulanan)",
+        promoPriceYearly: "Harga Promo (Tahunan)",
+        noPromo: "0 = tanpa promo",
+        durationMonths: "Durasi (bulan, untuk promo bulanan)",
+        promoLabel: "Label Promo",
+        promoLabelPlaceholder: "mis. Harga Perkenalan, Diskon Launching",
+        maxSites: "Maks. Situs",
+        aiGenerates: "AI Generate",
+        sectionRegens: "Section Regen",
+        designRegens: "Design Regen",
+        maxMembers: "Maks. Anggota",
+        customDomains: "Custom Domain",
+        planActive: "Paket aktif dan tersedia",
+        cancel: "Batal",
+        saving: "Menyimpan...",
+        updatePlan: "Perbarui Paket",
+        createPlanBtn: "Buat Paket",
+        deleteConfirm: "Yakin ingin menghapus paket ini?",
+        planDeleted: "Paket dihapus",
+        planUpdated: "Paket diperbarui",
+        planCreated: "Paket dibuat",
+        loadFailed: "Gagal memuat paket",
+        saveFailed: "Gagal menyimpan paket",
+        deleteFailed: "Gagal menghapus paket",
+        required: "wajib diisi",
+      },
+      adminHealth: {
+        noAccess: "Anda tidak memiliki akses ke halaman ini.",
+        title: "Kesehatan Sistem",
+        subtitle: "Pantau status layanan dan kesehatan platform.",
+        refresh: "Muat Ulang",
+        loadFailed: "Gagal mengambil data health",
+        loadFailedTitle: "Gagal memuat data",
+        retry: "Coba Lagi",
+        serviceDatabase: "Database",
+        dbPostgres: "Koneksi PostgreSQL",
+        serviceCache: "Cache",
+        redisConnection: "Koneksi Redis",
+        serviceAi: "AI Provider",
+        geminiStatus: "Status API Gemini",
+        serviceVersion: "Versi API",
+        apiVersionDesc: "Versi aplikasi",
+        statusHealthy: "Sehat",
+        statusUnhealthy: "Tidak Sehat",
+        statusUnknown: "Tidak Diketahui",
+        lastCheckedAt: "Terakhir diperiksa pukul",
+        neverChecked: "Belum pernah diperiksa",
+        allSystemsUp: "Semua sistem aktif",
+        someIssues: "Beberapa sistem bermasalah",
+      },
+      adminMetrics: {
+        noAccess: "Anda tidak memiliki akses ke halaman ini.",
+        title: "Metrik AI Generation",
+        subtitle: "Latensi, konkurensi, dan metrik kualitas untuk pembuatan konten AI.",
+        refresh: "Muat Ulang",
+        loadFailed: "Gagal memuat metrik",
+        loadFailedTitle: "Gagal memuat data",
+        retry: "Coba Lagi",
+        avgDuration: "Durasi Rata-Rata",
+        avgDurationDesc: "Rata-rata waktu pembuatan",
+        p95: "P95 (bucket terakhir)",
+        p95Desc: "Persentil latensi ke-95",
+        errorRate: "Tingkat Error",
+        errorsOfRequests: "{errors} error / {requests} request",
+        activeRequests: "Request Aktif",
+        activeRequestsDesc: "Generasi AI bersamaan",
+        trendTitle: "Tren (24 jam)",
+        trendDesc: "Durasi rata-rata dan tingkat error per jam",
+        noTrendData: "Belum ada data tren.",
+        recentRequests: "Request Terbaru (10 terakhir)",
+        recentRequestsDesc: "Percobaan pembuatan terbaru",
+        noRequestsLogged: "Belum ada request yang tercatat.",
+        sourceAI: "AI",
+        sourcePartial: "Partial",
+        sourceMock: "Mockengine",
+        aiRequests: "{count} panggilan AI",
+        tokens: "{count} token",
+      },
+      adminTemplates: {
+        seedLoadFailed: "Gagal mengambil data design token seeds",
+        backfillConfirm: "Backfill scores untuk semua template_library rows yang score=0?",
+        backfillDone: "Backfill selesai — scores sudah diperbarui",
+        backfillFailed: "Gagal backfill",
+        seedDeleteConfirm: "Apakah Anda yakin ingin menghapus design token seed ini secara permanen?",
+        seedDeleted: "Design token seed berhasil dihapus",
+        seedDeleteFailed: "Gagal menghapus seed",
+        accessDenied: "Akses Ditolak",
+        superadminOnly: "Halaman ini hanya dapat diakses oleh akun dengan peran",
+        superadmin: "Superadmin",
+        title: "Template Gallery",
+        subtitle: "Review template bawaan sistem dan design token seeds hasil inkubasi generator AI.",
+        backfillScores: "Hitung Ulang Skor",
+        backfillScoresTooltip: "Hitung ulang skor kualitas (rules) untuk semua seed di database",
+        refreshSeeds: "Refresh",
+        bulkAesthetic: "Jalankan Critique AI",
+        bulkAestheticConfirm: "Jalankan aesthetic critique massal pada seed yang belum dinilai (50 per run, berhenti saat rate limit)?",
+        bulkAestheticTooltip: "Evaluasi estetika template menggunakan AI Vision (screenshot + LLM)",
+        bulkAestheticRunning: "Sedang berjalan...",
+        bulkAestheticStart: "Mulai Evaluasi Estetika",
+        pendingAestheticLabel: "template belum dievaluasi estetikanya oleh AI",
+        bulkAestheticDone: "Bulk critique selesai — {processed} diproses, {critiqued} berhasil, {failed} gagal, {pending} menunggu",
+        bulkAestheticFailed: "Bulk aesthetic critique gagal",
+        bulkAestheticRateLimit: "berhenti karena rate limit, coba lagi dalam {sec}s",
+        tabComponents: "Komponen Template",
+        tabSeeds: "Design Token Seeds",
+        searchComponentsPlaceholder: "Cari nama, ID, atau deskripsi template...",
+        searchSeedsPlaceholder: "Cari tipe bisnis, mood, atau ID seed...",
+        allCategories: "Semua Kategori",
+        allBusinessTypes: "Semua Tipe Bisnis",
+        allMoods: "Semua Mood",
+        noTemplateMatch: "Tidak ada template yang cocok dengan pencarian Anda.",
+        resetFilter: "Reset Filter",
+        score: "Score",
+        defaultSeed: "Default Seed",
+        heading: "Heading",
+        normal: "Normal",
+        bodyFont: "Body Font",
+        body: "Body",
+        designQuality: "Kualitas Desain",
+        previewFullscreen: "Pratinjau Fullscreen",
+        loginRequired: "Sesi login diperlukan untuk melihat design token seeds.",
+        loginSession: "Login Sesi",
+        loadingSeeds: "Memuat design token seeds dari API...",
+        superadminOnlyManage: "Hanya Superadmin yang Bisa Mengelola Design Token Seeds.",
+        insufficientAccess: "Peran akun Anda saat ini tidak memiliki hak akses administratif yang cukup.",
+        noSeedsInDb: "Tidak ada design token seeds di database.",
+        noSeedsMatch: "Tidak ada seeds yang cocok dengan kata kunci.",
+        resetSearch: "Reset Pencarian",
+        entriesCount: "{shown} dari {total} entries di template_library",
+        noPalette: "No Palette",
+        base: "Base",
+        view: "Lihat",
+        delete: "Hapus",
+        sortNewest: "Terbaru",
+        sortOldest: "Terlama",
+        sortScoreAsc: "Skor Terendah",
+        sortScoreDesc: "Skor Tertinggi",
+        sortAestheticAsc: "Estetika Terendah",
+        sortAestheticDesc: "Estetika Tertinggi",
+        ruleScoreLabel: "Skor Kualitas (Rules)",
+        aestheticCritiqueLabel: "Kritik AI (LLM)",
+        scoreBelowPlaceholder: "Skor di bawah...",
+        scoreFilterAll: "Semua",
+        scoreFilterExcellent: "≥80",
+        scoreFilterGood: "60–79",
+        scoreFilterWeak: "<60",
+        aestheticFilterTitle: "Filter Skor Estetika (AI)",
+        aestheticFilterAll: "Semua",
+        aestheticFilterReviewed: "Ada Skor",
+        aestheticFilterUnreviewed: "Belum Review",
+        aestheticFilterHigh: "≥80",
+        aestheticFilterMid: "70–79",
+        aestheticFilterLow: "<70",
+        selectAllFiltered: "Pilih Semua ({count})",
+        clearSelection: "Batal Pilih",
+        selectedCount: "{count} dipilih",
+        deleteSelected: "Hapus Terpilih",
+        bulkDeleteConfirm: "Hapus permanen {count} design token seed yang dipilih?",
+        bulkDeleted: "{count} seed berhasil dihapus",
+        bulkDeletePartialFail: "{ok} berhasil dihapus, {fail} gagal — coba lagi untuk sisanya",
+        critique: "Kritik AI",
+        critiqueRunning: "Menganalisis...",
+        critiqueDone: "Kritik AI selesai — skor estetika diperbarui",
+        critiqueFailed: "Gagal menjalankan kritik AI",
+        aestheticScore: "Estetika",
+        needsReview: "Perlu Review",
+        critiqueTitle: "Kritik AI",
+        critiqueStrengths: "Kelebihan",
+        critiqueImprovements: "Perbaikan",
+        critiqueScreenshot: "screenshot",
+        critiqueViewDetails: "Lihat detail",
+        critiqueDetailsTitle: "Detail Kritik AI",
+        critiqueDimensions: "Skor Dimensi",
+        critiqueScreenshotTitle: "Screenshot",
+        critiqueOpenScreenshot: "Buka di tab baru",
+        critiqueClose: "Tutup",
+        critiqueNoScreenshot: "Tidak ada screenshot",
+        critiqueVerdict: "Penilaian",
+      },
+      adminAnnouncements: {
+        noAccess: "Anda tidak memiliki akses ke halaman ini.",
+        title: "Pengumuman",
+        subtitle: "Siarkan pesan ke semua tenant.",
+        new: "Pengumuman Baru",
+        all: "Semua Pengumuman",
+        noItems: "Belum ada pengumuman",
+        createFirst: "Buat pengumuman pertama",
+        active: "Aktif",
+        inactive: "Nonaktif",
+        expires: "Berakhir",
+        loadFailed: "Gagal memuat pengumuman",
+        created: "Pengumuman dibuat",
+        createFailed: "Gagal membuat pengumuman",
+        deleteConfirm: "Hapus pengumuman ini?",
+        deleted: "Pengumuman dihapus",
+        deleteFailed: "Gagal menghapus pengumuman",
+        titleField: "Judul",
+        severity: "Tingkat Kepentingan",
+        sevInfo: "Info",
+        sevWarning: "Peringatan",
+        sevImportant: "Penting",
+        contentField: "Konten",
+        cancel: "Batal",
+        creating: "Membuat...",
+        create: "Buat",
+      },
+      adminCommissions: {
+        loadFailed: "Gagal memuat semua komisi",
+        tier1RangeError: "Persentase Tier 1 harus antara 0 dan 100",
+        tier2RangeError: "Persentase Tier 2 harus antara 0 dan 100",
+        configUpdated: "Komisi berhasil diperbarui: Tier 1 {t1}% · Tier 2 {t2}%",
+        configUpdateFailed: "Gagal memperbarui komisi",
+        amountPositiveError: "Nominal bonus harus berupa angka positif",
+        ruleUpdated: "Aturan bonus berhasil diperbarui",
+        ruleUpdateFailed: "Gagal memperbarui aturan bonus",
+        loading: "Memuat data komisi admin...",
+        accessRestricted: "Akses Dibatasi",
+        accessRestrictedDesc: "Halaman ini khusus untuk Admin yang memiliki akses permission `commission:read_all`.",
+        title: "Manajemen Komisi & Bonus Sales (Admin)",
+        subtitle: "Pengaturan persentase komisi, skema bonus onboarding & milestone, dan seluruh transaksi sales partner.",
+        rateSettings: "Pengaturan Rate Komisi Sales",
+        activeScheme: "Skema Aktif",
+        tieredScheme: "Skema Komisi Bertingkat",
+        tier1FirstMonths: "tier 1 selama {months} bulan pertama",
+        tier2After: "tier 2 setelahnya (berlaku seterusnya)",
+        tier1Label: "Tier 1 — {months} bulan pertama (%)",
+        tier2Label: "Tier 2 — setelahnya (%)",
+        save: "Simpan",
+        superadminOnlyEdit: "Hanya {superadmin} yang dapat mengedit skema komisi.",
+        superadmin: "Superadmin",
+        bonusRulesSettings: "Pengaturan Aturan Bonus (Onboarding & Milestone)",
+        tier: "Tier",
+        onboardingDesc: "Bonus flat per tenant baru pertama kali bayar.",
+        milestoneDesc: "Capai {threshold} tenant baru teraktivasi dalam 1 bulan.",
+        bonusAmount: "Nominal Bonus (Rp)",
+        recurringCommissions: "Komisi Recurring ({count})",
+        allBonuses: "Semua Bonus Sales ({count})",
+        allCommissionTxns: "Semua Transaksi Komisi ({count})",
+        pendingOnPage: "Pending di Halaman Ini: Rp {amount}",
+        noCommissions: "Belum ada komisi tercatat di sistem",
+        colDate: "Tanggal",
+        colSalesUser: "Sales User ID",
+        colTenantId: "Tenant ID",
+        colOrderId: "Order ID",
+        colGrossAmount: "Gross Amount",
+        colRate: "Rate",
+        colCommission: "Komisi",
+        colStatus: "Status",
+        pageOf: "Halaman {page} dari {total}",
+        previous: "Sebelumnya",
+        next: "Selanjutnya",
+        allBonusesTitle: "Semua Bonus Sales ({count})",
+        noBonuses: "Belum ada bonus tercatat di sistem",
+        colBonusType: "Jenis Bonus",
+        colDetailPeriod: "Detail / Periode",
+        colBonusAmount: "Nominal Bonus",
+        bonus: "Bonus",
+        tenant: "Tenant",
+        period: "Periode",
+        markPaid: "Tandai Dibayar ({count})",
+        bonusPayoutSuccess: "{count} bonus berhasil ditandai sebagai dibayar",
+        bonusPayoutFailed: "Gagal menandai bonus sebagai dibayar",
+        filterAll: "Semua Status",
+        filterPending: "Pending",
+        filterPaid: "Dibayar",
+        filterVoided: "Dibatalkan",
+        selectAllPending: "Pilih semua pending di halaman ini",
+      },
+      adminDesignAssets: {
+        accessDenied: "Akses Ditolak",
+        accessDeniedDesc: "Halaman ini hanya dapat diakses oleh akun dengan peran {superadmin}.",
+        superadmin: "Superadmin",
+        loading: "Memuat konfigurasi design assets...",
+        title: "Design Assets",
+        subtitle: "Kelola section, tipografi, palet warna, dan paket tampilan yang tersedia di editor website.",
+        saving: "Menyimpan...",
+        resetAll: "Reset Semua",
+        resetAllConfirm: "Reset semua pengaturan Design Assets ke default?",
+        resetAllSuccess: "Semua pengaturan Design Assets direset ke default.",
+        resetAllFailed: "Gagal reset ke server.",
+        saveLocalOnly: "Gagal menyimpan ke server. Perubahan tersimpan lokal.",
+        tabSections: "Sections",
+        tabTypography: "Tipografi",
+        tabPalettes: "Palet Warna",
+        tabPresets: "Paket Tampilan",
+        hidden: "Disembunyikan",
+        active: "Aktif",
+        optional: "Opsional",
+        required: "Wajib",
+        show: "Tampilkan",
+        hide: "Sembunyikan",
+        require: "Wajibkan",
+        unrequire: "Lepas Wajib",
+        custom: "Custom",
+        sectionsVisibilityTitle: "Visibilitas Section",
+        sectionsVisibilityDesc: "Section yang disembunyikan tidak muncul di sidebar editor.",
+        resetDefault: "Reset Default",
+        variantsActive: "{active}/{total} variasi aktif",
+        variantsTitle: "Variasi Tampilan",
+        variantsDesc: "Kelola variasi tampilan per section. Variasi yang disembunyikan tidak muncul di dropdown editor.",
+        variantsCount: "{active}/{total} aktif",
+        mapTilesTitle: "Gaya Peta",
+        mapTilesDesc: "Kelola pilihan gaya peta yang muncul di editor section Kontak.",
+        tileLabelLight: "Terang",
+        tileLabelDark: "Gelap",
+        tileLabelSatellite: "Satelit",
+        tileDescOsm: "OpenStreetMap standar, detail dan gratis.",
+        tileDescCyclosm: "OSM dengan jalur sepeda, warna lebih cerah.",
+        tileDescLight: "Peta minimalis terang dari CartoCDN.",
+        tileDescDark: "Peta gelap elegan dari CartoCDN.",
+        tileDescEsri: "Peta jalan bergaya Esri / ArcGIS.",
+        tileDescSatellite: "Citra satelit dari Esri World Imagery.",
+        addPairingTitle: "Tambah Pasangan Font Baru",
+        addPatternTitle: "Tambah Palet Warna Baru",
+        addPresetTitle: "Tambah Paket Tampilan Baru",
+        name: "Nama",
+        description: "Deskripsi",
+        headingFont: "Font Heading",
+        bodyFont: "Font Body",
+        weight: "Ketebalan",
+        heroSize: "Ukuran Hero",
+        emojiIcon: "Ikon Emoji",
+        fontPairing: "Pasangan Font",
+        colorPalette: "Palet Warna",
+        mode: "Mode",
+        light: "Terang",
+        dark: "Gelap",
+        cancel: "Batal",
+        save: "Simpan",
+        searchPairings: "Cari pasangan font...",
+        searchPatterns: "Cari palet warna...",
+        searchPresets: "Cari paket tampilan...",
+        add: "Tambah",
+        noPairingsMatch: "Tidak ada pasangan font yang cocok.",
+        noPatternsMatch: "Tidak ada palet yang cocok.",
+        noPresetsMatch: "Tidak ada paket yang cocok.",
+        score: "Score: {score}",
+        sectionRequiredError: 'Section "{key}" wajib aktif dan tidak bisa disembunyikan.',
+        sectionHidden: 'Section "{key}" disembunyikan.',
+        sectionShown: 'Section "{key}" ditampilkan.',
+        sectionRequired: 'Section "{key}" dijadikan wajib.',
+        sectionOptional: 'Section "{key}" bisa disembunyikan.',
+        variantHidden: 'Variasi "{variant}" pada "{section}" disembunyikan.',
+        variantShown: 'Variasi "{variant}" pada "{section}" ditampilkan.',
+        sectionsReset: "Pengaturan sections direset.",
+        tileHidden: 'Gaya peta "{tile}" disembunyikan.',
+        tileShown: 'Gaya peta "{tile}" ditampilkan.',
+        pairingHidden: "Pasangan font disembunyikan.",
+        pairingShown: "Pasangan font ditampilkan.",
+        pairingAdded: 'Pasangan font "{name}" ditambahkan.',
+        deletePairingConfirm: "Hapus pasangan font custom ini?",
+        pairingDeleted: "Pasangan font dihapus.",
+        patternHidden: "Palet disembunyikan.",
+        patternShown: "Palet ditampilkan.",
+        patternAdded: 'Palet "{name}" ditambahkan.',
+        deletePatternConfirm: "Hapus palet custom ini?",
+        patternDeleted: "Palet dihapus.",
+        presetHidden: "Paket tampilan disembunyikan.",
+        presetShown: "Paket tampilan ditampilkan.",
+        presetAdded: 'Paket "{name}" ditambahkan.',
+        deletePresetConfirm: "Hapus paket tampilan custom ini?",
+        presetDeleted: "Paket tampilan dihapus.",
+      },
+      notifications: {
+        title: "Notifikasi",
+        loading: "Memuat notifikasi...",
+        loadFailed: "Gagal memuat notifikasi",
+        markReadFailed: "Gagal menandai notifikasi",
+        allRead: "Semua notifikasi telah dibaca",
+        markAllFailed: "Gagal menandai semua notifikasi",
+        markAllRead: "Tandai Semua Dibaca",
+        markReadTooltip: "Tandai dibaca",
+        viewTooltip: "Lihat detail",
+        unreadCount: "{count} notifikasi belum dibaca",
+        noNew: "Tidak ada notifikasi baru",
+        emptyTitle: "Tidak Ada Notifikasi",
+        emptyDesc: "Belum ada notifikasi. Anda akan mendapat pemberitahuan saat ada pengumuman baru atau lead masuk ke website Anda.",
+        justNow: "Baru saja",
+        minutesAgo: "{n}m yang lalu",
+        hoursAgo: "{n}j yang lalu",
+        daysAgo: "{n}h yang lalu",
+        typeAnnouncement: "Pengumuman",
+        typeLead: "Lead",
+        typePayment: "Pembayaran",
+        typeNewUser: "Pengguna Baru",
+        typePlan: "Paket",
+        typeSite: "Situs",
+        typeInvitation: "Undangan",
+        typeSystem: "Sistem",
+        viewAll: "Lihat semua notifikasi",
+        loadMore: "Muat Lebih Banyak",
+      },
+      investigate: {
+        loadingClustering: "Mengelompokkan event audit yang cocok...",
+        loadingTimeline: "Membangun linimasa insiden...",
+        loadingSignals: "Memeriksa silang sinyal mencurigakan...",
+        loadingRecommendations: "Menyusun rekomendasi untuk operator...",
+        loadHistoryFailed: "Gagal memuat riwayat investigasi",
+        completed: "Investigasi AI selesai.",
+        runFailed: "Gagal menginvestigasi log",
+        loadDetailFailed: "Gagal memuat detail investigasi",
+        noResultNote: "Belum ada hasil investigasi.",
+        noteHigh: "Segera eskalasi. Banyak sinyal kuat menunjuk ke risiko akun atau akses yang meningkat.",
+        noteMedium: "Perlu ditinjau. Terdapat cukup pola mencurigakan yang perlu tindak lanjut operator.",
+        noteLow: "Pantau saja. Bukti yang ada menunjukkan insiden dengan tingkat keyakinan rendah.",
+        eyebrowAi: "Didukung AI",
+        title: "Investigasi dengan AI",
+        analyzing: "Menganalisis...",
+        runInvestigation: "Jalankan Investigasi",
+        fieldResource: "Resource",
+        fieldStatus: "Status",
+        fieldAction: "Aksi",
+        fieldSearch: "Cari",
+        fieldDateFrom: "Tanggal Dari",
+        fieldDateTo: "Tanggal Sampai",
+        streamingAnalysis: "Analisis streaming",
+        latestResult: "Hasil terbaru",
+        outputTitle: "Hasil Investigasi AI",
+        aiProcessing: "Pemrosesan AI",
+        riskLevel: "Tingkat Risiko",
+        riskWeightedDesc: "Dibobot berdasarkan sinyal, urgensi, volume log, dan status insiden",
+        score: "Skor {score}",
+        listTimeline: "Linimasa",
+        listSignals: "Sinyal Mencurigakan",
+        listRecommendations: "Rekomendasi",
+        emptyTitle: "Siap untuk dianalisis",
+        emptyDesc: "Jalankan investigasi untuk membuat ringkasan, linimasa, sinyal mencurigakan, dan rekomendasi.",
+        savedCount: "{count} tersimpan",
+        savedTitle: "Investigasi Tersimpan",
+        refresh: "Muat Ulang",
+        noSavedTitle: "Tidak Ada Investigasi Tersimpan",
+        noSavedDesc: "Investigasi yang selesai akan muncul di sini untuk peninjauan cepat.",
+        investigationChip: "Investigasi #{id}",
+        previous: "Sebelumnya",
+        pageOf: "Halaman {page} dari {total}",
+        next: "Berikutnya",
+        detailsEyebrow: "Detail Investigasi",
+        closeLabel: "Tutup detail investigasi",
+        statusLabel: "Status",
+        noItems: "Tidak ada item yang ditampilkan.",
+        errorEyebrow: "Kesalahan Sistem",
+        errorTitle: "Gagal Memuat Dashboard",
+        errorHeading: "Terjadi kesalahan!",
+        errorDesc: "Kami menemui kesalahan tak terduga saat mencoba memuat modul investigasi. Ini bisa disebabkan masalah jaringan atau kegagalan server sementara.",
+        tryAgain: "Coba Lagi",
+      },
+      sales: {
+        loadFailed: "Gagal memuat kode referral",
+        codeCopied: "Kode referral berhasil disalin",
+        linkCopied: "Link referral berhasil disalin",
+        regenerated: "Kode referral baru berhasil dibuat!",
+        regenerateFailed: "Gagal membuat ulang kode referral",
+        loading: "Memuat data referral...",
+        accessDeniedTitle: "Akses Dibatasi",
+        accessDeniedDesc: "Halaman ini khusus untuk Sales Partner & Admin Webjoz. Silakan hubungi admin jika Anda tim sales.",
+        pageTitle: "Kode Referral Partner",
+        pageDesc: "Bagikan kode atau link referral Anda kepada klien untuk mendapatkan komisi dari setiap transaksi berbayar.",
+        viewCommissions: "Lihat Komisi Saya",
+        codeCardTitle: "Kode Referral Anda",
+        codeCardDesc: "Gunakan kode ini saat pendaftaran website / pengguna baru.",
+        copied: "Tersalin",
+        copyCode: "Salin Kode",
+        updatePrompt: "Ingin memperbarui kode?",
+        regenerateCode: "Buat Ulang Kode",
+        linkCardTitle: "Link Referral Pendaftaran",
+        linkCardDesc: "Klien yang mendaftar melalui link ini akan otomatis terhubung ke akun Anda.",
+        copyLink: "Salin Link",
+        shareWhatsApp: "Bagikan via WhatsApp",
+        shareEmail: "Bagikan via Email",
+        emailInviteLabel: "Kirim langsung ke email",
+        emailInvitePlaceholder: "teman@penerima.com",
+        emailInviteSend: "Kirim Email",
+        emailInviteSent: "Undangan referral berhasil dikirim!",
+        emailInviteFailed: "Gagal mengirim undangan email",
+        emailInviteSending: "Mengirim...",
+        copyInviteText: "Salin Pesan Ajakan",
+        inviteTextCopied: "Pesan ajakan berhasil disalin ke clipboard",
+        tipsLabel: "Tips:",
+        tipsText: "Cantumkan link ini di proposal, pesan WhatsApp, atau bio media sosial Anda.",
+        programTitle: "Ketentuan Komisi Sales Partner",
+        commRatePrefix: "Komisi sebesar",
+        commRateSuffix: "dari nilai transaksi berbayar yang diselesaikan oleh pengguna yang Anda undang.",
+        commRecurringPrefix: "Komisi berlaku",
+        commRecurringSuffix: "untuk setiap perpanjangan langganan bulanan maupun tahunan.",
+        commEditorPrefix: "Setiap website yang mendaftar dengan kode Anda otomatis menambahkan Anda sebagai",
+        commEditorSuffix: "partner kolaborasi pada website tersebut.",
+        dialogTitle: "Buat Ulang Kode Referral",
+        confirmPrefix: "Apakah Anda yakin ingin membuat kode referral baru? Kode lama",
+        confirmSuffix: "tidak akan berlaku lagi untuk pendaftaran baru.",
+        cancel: "Batal",
+        processing: "Memproses...",
+        confirmRegenerate: "Ya, Buat Kode Baru",
+      },
+      salesOverview: {
+        loadFailed: "Gagal memuat data sales",
+        loading: "Memuat ringkasan...",
+        accessDeniedTitle: "Akses Dibatasi",
+        accessDeniedDesc: "Halaman ini khusus untuk Sales Partner & Admin. Hubungi admin untuk mengaktifkan akses.",
+        pageTitle: "Sales Overview",
+        pageDesc: "Ringkasan pendapatan Anda — komisi Tier 1 {t1}% ({months} bln pertama) → Tier 2 {t2}%, plus bonus onboarding & milestone.",
+        cardTotal: "Total Pendapatan",
+        cardTotalDesc: "Komisi + Bonus terakumulasi",
+        cardCommission: "Komisi Recurring",
+        cardCommissionDesc: "Tier 1 {t1}% / Tier 2 {t2}%",
+        cardBonus: "Total Bonus",
+        cardBonusDesc: "{onboarding} Onboarding · {milestone} Milestone",
+        cardPending: "Pending Payout",
+        cardPendingDesc: "Menunggu proses pencairan",
+        refCardTitle: "Kode Referral Anda",
+        refLinkLabel: "Link Referral",
+        copyCode: "Salin Kode",
+        copyLink: "Salin Link",
+        copied: "Tersalin!",
+        manageRef: "Kelola kode referral",
+        schemeTitle: "Skema Komisi Berlaku",
+        tier1Desc: "{months} bulan pertama setelah signup",
+        tier2Desc: "Setelah {months} bulan berjalan",
+        bonusSchemeTitle: "Bonus Tambahan",
+        bonusOnboarding: "Bonus Onboarding per pengguna baru",
+        bonusMilestone: "Bonus Milestone bulanan",
+        quickLinksTitle: "Akses Cepat",
+        linkCommissionsTitle: "Riwayat Komisi & Bonus",
+        linkCommissionsDesc: "Lihat semua transaksi komisi dan bonus yang tercatat beserta statusnya.",
+        linkReferralTitle: "Kelola Kode Referral",
+        linkReferralDesc: "Salin, bagikan, atau regenerasi kode referral Anda.",
+        codeCopied: "Kode disalin!",
+        linkCopied: "Link disalin!",
+      },
+      salesCommissions: {
+        linkReferralCode: "Kode Referral",
+        loadFailed: "Gagal memuat data komisi",
+        loading: "Memuat data pendapatan...",
+        accessDeniedTitle: "Akses Dibatasi",
+        accessDeniedDesc: "Anda belum memiliki akses ke halaman komisi & bonus. Hubungi admin untuk mengaktifkan akses sales.",
+        pageTitle: "Pendapatan Saya",
+        pageDesc: "Komisi bertingkat Tier 1 {t1}% ({months} bulan pertama) → Tier 2 {t2}%, plus bonus onboarding & milestone.",
+        cardTotal: "Total Pendapatan",
+        cardTotalDesc: "Komisi + Bonus terakumulasi",
+        cardCommission: "Komisi Recurring",
+        cardCommissionDesc: "Komisi per pembayaran: {t1}% (Tier 1) / {t2}% (Tier 2)",
+        cardBonus: "Total Bonus",
+        cardBonusDesc: "{onboarding} Onboarding, {milestone} Milestone",
+        cardPending: "Pending Payout",
+        cardPendingDesc: "Menunggu proses pencairan",
+        tabCommissions: "Komisi Recurring ({count})",
+        tabBonuses: "Bonus Onboarding & Milestone ({count})",
+        noCommissionsTitle: "Belum ada komisi tercatat.",
+        noCommissionsDesc: "Bagikan kode referral Anda untuk mulai mendapatkan komisi.",
+        thDate: "Tanggal",
+        thOrderId: "Order ID",
+        thTenantId: "ID Pengguna",
+        thGross: "Gross Amount",
+        thRate: "Rate",
+        thCommission: "Komisi",
+        thStatus: "Status",
+        tierLabel: "Tier {tier}",
+        pageOf: "Halaman {page} dari {total}",
+        previous: "Sebelumnya",
+        next: "Selanjutnya",
+        noBonusesTitle: "Belum ada bonus tercatat.",
+        noBonusesDesc: "Bonus onboarding (Rp 50.000) dan bonus milestone bulanan akan tercatat otomatis ketika pengguna aktif.",
+        thBonusType: "Jenis Bonus",
+        thDetail: "Detail / Periode",
+        thAmount: "Nominal Bonus",
+        bonusTypeLabel: "Bonus {type}",
+        bonusTenant: "Pengguna #{id}",
+        bonusPeriod: "Periode {period} (Tier {tier})",
+      },
+      tenants: {
+        loadFailed: "Gagal memuat data tenant",
+        accessDenied: "Anda tidak memiliki akses ke halaman ini.",
+        title: "Semua Tenant",
+        emptyTitle: "Tidak ada tenant",
+        thTenant: "Tenant",
+        thPlan: "Paket",
+        thMembers: "Anggota",
+        thSites: "Situs",
+        thCreated: "Dibuat",
+        manage: "Kelola",
+      },
+      tenantDetail: {
+        loadFailed: "Gagal memuat detail tenant",
+        planUpdated: "Paket diperbarui",
+        assignFailed: "Gagal menetapkan paket",
+        accessDenied: "Anda tidak memiliki akses ke halaman ini.",
+        notFoundTitle: "Tenant tidak ditemukan",
+        backToTenants: "Kembali ke Tenant",
+        tenantInfoTitle: "Info Tenant",
+        slugLabel: "Slug",
+        ownerIdLabel: "ID Pemilik",
+        planAssignmentTitle: "Penetapan Paket",
+        currentPlanLabel: "Paket Saat Ini",
+        changePlanLabel: "Ganti Paket",
+        selectPlan: "Pilih paket...",
+        assign: "Tetapkan",
+        usageTitle: "Penggunaan AI (bulan ini)",
+        usageGenerates: "Generasi",
+        usageSectionRegens: "Regen Bagian",
+        usageDesignRegens: "Regen Desain",
+        usageTokenInput: "Token Masuk",
+        usageTokenOutput: "Token Keluar",
+        usageEmpty: "Tidak ada data penggunaan bulan ini",
+        membersTitle: "Anggota ({count})",
+        noMembers: "Tidak ada anggota",
+        thName: "Nama",
+        thEmail: "Email",
+        thRole: "Peran",
+        thJoined: "Bergabung",
+        viewSites: "Lihat Situs",
+        viewDomains: "Lihat Domain",
+        viewLeads: "Lihat Lead",
+      },
+      logs: {
+        refreshed: "Feed audit diperbarui.",
+        loadFailed: "Gagal memuat log",
+        title: "Feed Log Audit Real-time",
+        autoRefreshOn: "Auto-refresh Aktif",
+        autoRefreshOff: "Auto-refresh Nonaktif",
+        refreshNow: "Muat Ulang Sekarang",
+        filterAction: "Aksi",
+        filterResource: "Resource",
+        filterStatus: "Status",
+        filterIpSearch: "IP / Cari",
+        filterDateFrom: "Tanggal Dari",
+        filterDateTo: "Tanggal Sampai",
+        eventTable: "Tabel Event",
+        emptyDesc: "Tidak ada log audit yang cocok dengan filter saat ini.",
+        actionOn: "{action} pada {resource}",
+        noDescription: "Tidak ada deskripsi",
+        detailIp: "Alamat IP",
+        detailActor: "ID User Pelaku",
+        detailAgent: "User Agent",
+      },
+      permissions: {
+        loadInitialFailed: "Gagal memuat data awal",
+        loadRoleFailed: "Gagal memuat permission role",
+        saveSuccess: "Permission berhasil diperbarui",
+        saveFailed: "Gagal memperbarui permission",
+        eyebrow: "Manajemen RBAC",
+        title: "Kelola Permission Role",
+        saving: "Menyimpan...",
+        save: "Simpan Perubahan",
+        totalCount: "{count} Total",
+        availablePermissions: "Permission Tersedia",
+        activeCount: "{count} Aktif",
+        resourceLabel: "Resource {resource}",
+      },
+      sessions: {
+        title: "Manajemen Perangkat & Sesi",
+        refresh: "Muat Ulang",
+        refreshLabel: "Muat ulang perangkat",
+        loadFailed: "Gagal memuat perangkat",
+        signedOut: "Perangkat berhasil keluar.",
+        signOutFailed: "Gagal membuat perangkat keluar",
+        trustRemoved: "Perangkat tepercaya dihapus.",
+        trustRemoveFailed: "Gagal menghapus perangkat tepercaya",
+        othersSignedOut: "Perangkat lain berhasil keluar.",
+        othersSignOutFailed: "Gagal membuat perangkat lain keluar",
+        allSignedOut: "Semua perangkat berhasil keluar.",
+        allSignOutFailed: "Gagal membuat semua perangkat keluar",
+        signOutOthers: "Keluar dari yang lain",
+        signOutAll: "Keluar dari semua",
+        metricActive: "Sesi aktif",
+        metricTrusted: "Perangkat tepercaya",
+        metricCurrent: "Sesi ini",
+        emptyTitle: "Belum ada sesi",
+        emptyDesc: "Belum ada sesi aktif atau perangkat tepercaya yang terhubung ke akun ini.",
+        statusCurrent: "sedang masuk",
+        statusTrusted: "perangkat tepercaya",
+        statusUnknown: "perangkat tidak dikenal",
+        sessionChip: "Sesi #{id}",
+        deviceChip: "Perangkat {id}",
+        trustChip: "Tepercaya {id}",
+        unknownDevice: "Perangkat tidak dikenal",
+        unknownAgent: "User agent tidak dikenal",
+        ipLabel: "IP: {ip}",
+        lastUsed: "Terakhir dipakai: {date}",
+        trustedUsed: "Pemakaian tepercaya: {date}",
+        expires: "Kedaluwarsa: {date}",
+        removeTrust: "Hapus kepercayaan",
+        revokeSession: "Cabut sesi",
+      },
+      users: {
+        title: "Manajemen User",
+        refresh: "Muat Ulang",
+        searchPlaceholder: "Cari berdasarkan nama atau email",
+        rolePlaceholder: "Filter role (user/sales/admin)",
+        loadFailed: "Gagal memuat user",
+        roleUpdated: "Role {name} diperbarui menjadi {role}",
+        roleUpdateFailed: "Gagal memperbarui role user",
+        deleteConfirm: "Yakin ingin menghapus {name}?",
+        deleted: "User {name} berhasil dihapus",
+        deleteFailed: "Gagal menghapus user",
+        adminVisibleTitle: "User yang terlihat admin",
+        emptyDesc: "Tidak ada user yang cocok dengan pencarian.",
+        delete: "Hapus",
+      },
+      upgradeSuccess: {
+        confirmTimeout: "Konfirmasi pembayaran sedang diproses...",
+        backToDashboard: "Kembali ke Dashboard",
+        pendingTitle: "Pembayaran Sedang Diproses",
+        pendingDesc: "Kami sedang memverifikasi pembayaran Anda. Halaman ini akan refresh otomatis saat pembayaran dikonfirmasi.",
+        successTitle: "Paket Berhasil Diupgrade!",
+        successDesc: "Selamat! Akun Anda kini menggunakan paket Pro. Nikmati AI generate tanpa batas, custom domain, dan SEO otomatis.",
+        errorTitle: "Pembayaran Gagal",
+        errorDesc: "Pembayaran Anda tidak dapat diproses. Silakan coba lagi atau periksa metode pembayaran Anda.",
+        txDetails: "Detail Transaksi",
+        orderIdLabel: "Order ID",
+        totalLabel: "Total",
+        methodLabel: "Metode",
+        timeLabel: "Waktu",
+        goToDashboard: "Ke Dashboard",
+        viewOtherPlans: "Lihat Paket Lain",
+      },
+      sitesNew: {
+        connecting: "Menghubungkan...",
+        noWorkspaceTitle: "Tidak Ada Workspace Aktif",
+        noWorkspaceDesc: "Anda perlu bergabung dengan sebuah workspace terlebih dahulu untuk membuat website baru.",
+        backToDashboard: "Kembali ke Dashboard",
+      },
+      sitesSeo: {
+        title: "SEO & Performance",
+        webLink: "Web",
+        saving: "Menyimpan...",
+        saved: "Tersimpan",
+        save: "Simpan",
+        loadFailed: "Gagal memuat pengaturan SEO",
+        saveFailed: "Gagal menyimpan SEO",
+        gscSaved: "Tersimpan ke Google Search Console",
+        aiFailed: "AI gagal mengoptimasi SEO",
+        upgradeTitle: "Optimasi AI — Plan Pro",
+        upgradeDesc: "AI SEO optimization tersedia tanpa batas di paket Pro.",
+        upgradeNow: "Upgrade Sekarang",
+        later: "Nanti",
+      },
+      sitesIntegrations: {
+        title: "Integrasi",
+        webLink: "Web",
+        loadFailed: "Gagal memuat integrasi",
+        saved: "Tersimpan",
+        saveFailed: "Gagal menyimpan integrasi",
+        save: "Simpan",
+        saving: "Menyimpan...",
+        ga4Desc: "Hubungkan Google Analytics 4 untuk melacak pengunjung, perilaku, dan konversi di website Anda.",
+        metaPixelDesc: "Tambahkan Meta Pixel untuk melacak konversi iklan dan membuat audiens ulangan di Instagram & Facebook.",
+      },
+      sitesTestimonials: {
+        loadFailed: "Gagal memuat testimoni",
+        shareTitle: "Bagikan Testimoni",
+        copy: "Salin",
+        linkCopied: "Link testimoni disalin.",
+        pendingTitle: "{count} Testimoni Menunggu Persetujuan",
+        approved: "Disetujui",
+        approvedDesc: "Testimoni ini sudah disetujui dan tampil di website.",
+        approve: "Setujui",
+        approveFailed: "Gagal menyetujui testimoni",
+        rejected: "Ditolak",
+        rejectedDesc: "Testimoni ini tidak disetujui.",
+        reject: "Tolak",
+        rejectFailed: "Gagal menolak testimoni",
+        validationRequired: "Validasi diperlukan",
+        added: "Testimoni berhasil ditambahkan.",
+        addFailed: "Gagal menambahkan testimoni",
+        add: "Tambah Manual",
+        manualTitle: "Tambah Testimoni Manual",
+        manualDesc: "Masukkan data testimoni secara langsung.",
+        labelName: "Nama",
+        labelRole: "Peran",
+        labelQuote: "Testimoni",
+        labelRating: "Rating",
+        saving: "Menyimpan...",
+        saveToSite: "Simpan ke Situs",
+        cancel: "Batal",
+        emptyDesc: "Belum ada testimoni. Klik Tambah Manual untuk menambahkan testimonial pertama.",
+      },
+      sitesKatalog: {
+        loadFailed: "Gagal memuat katalog",
+        saveFailed: "Gagal menyimpan katalog",
+        saving: "Menyimpan...",
+        saved: "Tersimpan",
+        save: "Simpan",
+        webLink: "Web",
+        emojiPopular: "Populer",
+        emojiFood: "Makanan",
+        emojiServices: "Jasa",
+        emojiSymbols: "Simbol",
+        emojiSymbol: "Simbol Lainnya",
+        pickEmojiTitle: "Pilih Emoji",
+        close: "Tutup",
+        sectionTitleMenu: "Menu",
+        sectionTitleCatalog: "Katalog Produk",
+        itemLabelMenu: "menu",
+        itemLabelCatalog: "produk",
+        itemCountLabel: "{count} item",
+        noCategoriesTitle: "Belum ada kategori",
+        noCategoriesDesc: "Klik + Tambah Kategori untuk memulai, atau tambahkan {itemLabel} langsung.",
+        itemNumberLabel: "Item {number}",
+        noItemsDesc: "Belum ada {itemLabel} di kategori ini.",
+        labelSectionTitle: "Judul Bagian",
+        sectionSettingsSubtitle: "Atur judul, subjudul, dan teks pengantar katalog di website",
+        labelEyebrow: "Eyebrow",
+        labelSubtitle: "Subjudul",
+        labelPhoto: "Foto",
+        labelName: "Nama",
+        labelPrice: "Harga",
+        labelBadge: "Badge",
+        badgeHint: "Badge menandai item sebagai unggulan dan menampilkan badge di showcase.",
+        labelCapacity: "Kapasitas",
+        capacityHint: "(opsional — jml tamu utk kamar / jml unit)",
+        labelFeatures: "Fitur / Fasilitas",
+        featuresHint: "(misal: AC, WiFi, Sarapan — utk kamar homestay)",
+        labelDescription: "Deskripsi",
+        bulletList: "Bullet List",
+        numberedList: "Numbered List",
+        addItemLabel: "Tambah {label} ke {category}",
+        addCategory: "Tambah Kategori",
+        defaultCategory: "Kategori {number}",
+        bannerTitle: "Kelola {itemLabel} situs Anda",
+        bannerDesc1: "Tambah kategori dan {itemLabel} di sini. Anda bisa melengkapi foto, nama, deskripsi{itemPricePart}, dan badge.",
+        bannerDesc2: "Item dengan badge otomatis ditandai sebagai unggulan di tampilan showcase.",
+        bannerDesc3: "Pengunjung website dapat menambah {itemLabel} yang Anda mintinkan.",
+        bannerPricePart: ", harga",
+        addWord: "Tambah",
+        aiPromptLabelPrefix: "Buat deskripsi untuk",
+        itemFallback: "Item {number}",
+        aiModalTitle: "Instruksi AI",
+        aiModalDesc: "Apa deskripsi yang ingin Anda buat?",
+        aiFailed: "AI gagal membuat deskripsi",
+        generate: "Generate",
+        processing: "Memproses...",
+        cancel: "Batal",
+        aiGenerateTitle: "Generate dengan AI",
+        aiGenerateDesc: "Gunakan AI untuk menghasilkan deskripsi item secara otomatis.",
+        optional: "Opsional",
+        upgradeTitle: "Fitur AI — Plan Pro",
+        upgradeDesc: "Generate deskripsi dengan AI tersedia tanpa batas di paket Pro.",
+        upgradeNow: "Upgrade Sekarang",
+        later: "Nanti",
+        chipMenu: "Menu",
+        chipCatalog: "Katalog",
+        chipCategoryCount: "{count} kategori",
+        statCategories: "Kategori",
+        statTotalItems: "Total Produk",
+        statAvailable: "Tersedia",
+        statVariants: "Varian / Opsi",
+        available: "Tersedia",
+        outOfStock: "Habis",
+        markAvailable: "Tandai Tersedia",
+        markOutOfStock: "Tandai Habis",
+        categoryPlaceholder: "Nama Kategori (cth: Makanan Utama, Paket Hemat)",
+        dragCategory: "Geser urutan kategori",
+        dragItem: "Geser urutan item",
+        deleteCategory: "Hapus Kategori",
+        deleteItem: "Hapus Item",
+        deleteCategoryConfirm: "Apakah Anda yakin ingin menghapus kategori ini beserta seluruh isinya?",
+        priceDisplay: "Tampilan Harga",
+        priceDisplayPlaceholder: "cth. Rp 25.000 atau Mulai Rp 15rb",
+        priceAmount: "Nominal (Angka)",
+        priceAmountPlaceholder: "cth. 25000",
+        priceAmountHelp: "Digunakan untuk perhitungan subtotal checkout & pesanan",
+        badgePlaceholder: "cth. Terlaris, Best Seller, Diskon 20%, Baru",
+        capacityPlaceholder: "cth. 2 orang, 4 pax, 1 set",
+        featuresPlaceholder: "Ketik fasilitas/fitur lalu tekan Enter (cth: WiFi, AC, Breakfast)",
+        tagsPlaceholder: "Ketik tag lalu tekan Enter (cth: Pedas, Best Seller)",
+        deliveryPlatforms: "Platform Delivery Online",
+        deliveryPlatformsHelp: "Tautkan link GoFood, GrabFood, ShopeeFood, Tokopedia, dll.",
+        addDeliveryPlatform: "Tambah Platform Delivery",
+        platformNamePlaceholder: "Nama (cth. GrabFood)",
+        platformUrlPlaceholder: "https://...",
+        photoPrimary: "Foto Utama",
+        photoGallery: "Galeri Foto Tambahan",
+        photoGalleryCount: "Galeri Foto ({count})",
+        photoGalleryHelp: "Unggah foto tambahan dari sudut berbeda atau variasi produk.",
+        photoSetPrimary: "Jadikan Utama",
+        photoAdd: "Foto",
+        photoUploading: "Mengunggah...",
+        variantsTitle: "Varian & Opsi Tambahan",
+        variantsSubtitle: "Kustomisasi pilihan produk seperti Ukuran, Topping, Tingkat Manis, atau Opsi Tambahan.",
+        variantsAddGroup: "Tambah Grup Varian",
+        variantsNoGroups: "Belum ada varian atau add-on untuk produk ini.",
+        variantsGroupName: "Nama Grup",
+        variantsGroupNamePlaceholder: "cth. Ukuran Porsi, Topping Ekstra, Level Pedas",
+        variantsTypeSingle: "Pilih 1 Saja (Radio)",
+        variantsTypeMultiple: "Bisa Pilih Banyak (Checkbox)",
+        variantsRequired: "Wajib Dipilih Pengunjung",
+        variantsOptionsTitle: "Daftar Pilihan / Opsi",
+        variantsOptionName: "Nama Pilihan",
+        variantsOptionNamePlaceholder: "cth. Regular, Large, Ekstra Keju",
+        variantsOptionDelta: "+Tambahan Harga",
+        variantsAddOption: "Tambah Pilihan",
+        allChangesSaved: "Semua perubahan otomatis tersimpan secara aman",
+        paymentTitle: "Metode Pembayaran & Pengiriman",
+        paymentSubtitle: "Tampilkan info pembayaran dan pengiriman di keranjang pesanan pengunjung. Belum perlu integrasi payment gateway — cukup info rekening/QRIS statis.",
+        paymentHint: "Perubahan tersimpan otomatis. Informasi ini hanya ditampilkan sebagai catatan — pembayaran dikonfirmasi manual lewat WhatsApp.",
+        paymentsVisibleLabel: "Tampilkan blok pembayaran & pengiriman",
+        paymentsVisibleHint: "Matikan untuk menyembunyikan info ini dari keranjang dan footer",
+        methodsTitle: "Metode Pembayaran",
+        methodTypeTransfer: "Transfer Bank",
+        methodTypeQris: "QRIS",
+        methodTypeEwallet: "E-Wallet",
+        methodTypeCod: "Bayar di Tempat (COD)",
+        methodTypeCard: "Kartu Kredit/Debit",
+        methodTypeOther: "Lainnya",
+        methodLabelPlaceholder: "Nama metode (cth. Transfer Bank BCA)",
+        methodDetailPlaceholder: "No. rekening (cth. 1234567890 a.n. Nama)",
+        methodDetailPlaceholderEwallet: "Nomor HP / ID e-wallet (cth. 081234567890)",
+        methodDetailPlaceholderCod: "Catatan (cth. Bayar tunai saat pesanan tiba)",
+        methodDetailPlaceholderCard: "cth. Visa / Mastercard (bayar langsung ke toko)",
+        methodDetailPlaceholderOther: "Catatan metode (cth. transfer via platform lain)",
+        methodQrisImageLabel: "Gambar QR",
+        methodQrisImagePlaceholder: "https://... atau unggah gambar QRIS",
+        paymentTitleLabel: "Judul Header",
+        methodRemove: "Hapus metode",
+        methodAdd: "Tambah Metode",
+        shippingTitle: "Info Pengiriman",
+        shippingNotePlaceholder: "cth. Ongkir menyesuaikan lokasi. Estimasi 1–3 hari kerja.",
+        returnPolicy: "Kebijakan Retur",
+        returnPolicyPlaceholder: "cth. Barang dapat dikembalikan/ditukar dalam 7 hari. Hubungi kami lewat WhatsApp.",
+        toggleItemDetail: "Buka/tutup detail item",
+        advancedSettings: "Pengaturan lanjutan",
+        quickView: "Lihat Detail",
+        previewItem: "Pratinjau",
+      },
+      sitesBlog: {
+        title: "Blog Postingan",
+        webLink: "Web",
+        addNew: "Tambah Baru",
+        layoutLabel: "Tampilan Blog",
+        aiPick: "Direkomendasikan AI untuk gaya situs Anda",
+        nonPremiumText: "AI content generation tersedia di paket",
+        upgrade: "Upgrade →",
+        writePostTitle: "Tulis Postingan Baru",
+        savePost: "Simpan Postingan",
+        cancel: "Batal",
+        aiCardTitle: "Buat Konten Blog dengan AI",
+        generate: "Generate",
+        generateLabel: "Generate",
+        layoutGrid: "Grid",
+        layoutGridDesc: "Kartu dalam 3 kolom",
+        layoutList: "List",
+        layoutListDesc: "Horizontal dengan gambar",
+        layoutFeatured: "Unggulan",
+        layoutFeaturedDesc: "Hero + grid di bawah",
+        layoutMinimal: "Minimal",
+        layoutMinimalDesc: "Daftar judul & tanggal",
+        loadFailed: "Gagal memuat blog",
+        draftCreated: "Draft blog berhasil dibuat",
+        generateFailed: "Gagal generate blog",
+        postCreated: "Postingan berhasil dibuat",
+        createFailed: "Gagal membuat postingan",
+        publishFailed: "Gagal menerbitkan",
+        published: "Terbit",
+        layoutSaved: "Tampilan blog diperbarui",
+        layoutFailed: "Gagal menyimpan tampilan",
+        publishedDate: "Terbit {date}",
+        draftDate: "Draft · {date}",
+        publishedBadge: "Terbit",
+        draftBadge: "Draft",
+        edit: "Edit",
+        publish: "Terbitkan",
+        emptyDesc1: "Belum ada konten blog. Klik",
+        emptyDesc2: "untuk membuat postingan pertama.",
+      },
+      sitesBlogPost: {
+        loadFailed: "Gagal memuat postingan",
+        saveFailed: "Gagal menyimpan",
+        bold: "Bold",
+        italic: "Italic",
+        heading2: "Heading 2",
+        heading3: "Heading 3",
+        bulletList: "Bullet List",
+        orderedList: "Ordered List",
+        blockquote: "Blockquote",
+        link: "Link",
+        uploadImage: "Upload Image",
+        notFound: "Postingan tidak ditemukan",
+        back: "Kembali",
+        editor: "Editor",
+        preview: "Preview",
+        published: "Terbit",
+        draft: "Draft",
+        unsaved: "Belum tersimpan",
+        savedAt: "Tersimpan {time}",
+        save: "Simpan",
+        excerpt: "Excerpt",
+        seoTitle: "SEO Title",
+        seoDescription: "SEO Description",
+        noindex: "Noindex (Sembunyi dari Google)",
+        noindexDesc: "Halaman ini tidak akan muncul di hasil pencarian Google.",
+        cover: "Cover Image",
+        aiFailed: "AI gagal",
+        generating: "Generate...",
+        generate: "Generate",
+        aiCardTitle: "Buat Konten Blog dengan AI",
+        aiPromptLabelPrefix: "Buat deskripsi untuk",
+      },
+      sitesEditor: {
+        authenticating: "Mengautentikasi...",
+        loading: "Memuat editor...",
+        loadFailed: "Gagal memuat situs",
+        loadMore: "Muat Lebih Banyak ({count} tersisa)",
+        backToSites: "Kembali ke daftar situs",
+        back: "Kembali",
+        contentTab: "Konten",
+        designTab: "Desain",
+        styleLabel: "Gaya Situs",
+        layoutLabel: "Tata Letak",
+        sectionOrder: "Urutan section",
+        sectionSpacing: "Jarak Seksi (Spacing)",
+        cornerRadius: "Sudut Border (Radius)",
+        cornerSharp: "Tajam (0px)",
+        cornerSoft: "Lembut (8px)",
+        cornerRounded: "Bulat (20px)",
+        heroStyle: "Gaya Hero",
+        heroCentered: "Hero: Centered",
+        heroSplit: "Hero: Split Screen",
+        heroFullBleed: "Hero: Full Bleed",
+        heroImageCarousel: "Hero: Carousel Gambar",
+        heroMinimalist: "Hero: Minimalist",
+        heroMinimalistElegant: "Hero: Minimalis Elegan",
+        heroTechSaaS: "Hero: Tech SaaS",
+        heroNeoBrutalist: "Hero: Neo-Brutalist",
+        heroBentoGrid: "Hero: Bento Grid",
+        heroSplitEditorial: "Hero: Editorial Split",
+        heroNaturalOrganic: "Hero: Natural Organik",
+        heroPersonalBillboard: "Hero: Billboard Personal",
+        heroPortraitShowcase: "Hero: Showcase Potret",
+        heroWorkPreviewStrip: "Hero: Strip Karya Unggulan",
+        heroChronologyBadge: "Hero: Badge Kronologi",
+        spacingCompact: "Rapat (Compact)",
+        spacingRelaxed: "Longgar (Relaxed)",
+        spacingCompactShort: "Rapat",
+        spacingRelaxedShort: "Longgar",
+        normal: "Normal",
+        colorPalette: "Palet Warna",
+        primaryColor: "Warna Utama (Primary)",
+        accentColor: "Warna Aksen (Accent)",
+        backgroundColor: "Warna Latar (Background)",
+        surfaceColor: "Warna Permukaan (Surface)",
+        textColor: "Warna Teks (Text)",
+        primaryShort: "Primary",
+        accentShort: "Accent",
+        backgroundShort: "Latar",
+        surfaceShort: "Surface",
+        textShort: "Teks",
+        visualCustomization: "Kustomisasi Visual",
+        layoutStyle: "Tata Letak & Gaya",
+        aiDesignPrompt: "AI Design Prompt",
+        aiInstructionsTitle: "Instruksi AI",
+        aiPromptDesc: "Apa yang ingin kamu ubah di bagian {label}?",
+        aiPromptPlaceholder: "cth. \"buat lebih persuasif dan emosional\"",
+        aiPlaceholder: "Buat copy lebih jelas dan meyakinkan...",
+        fieldAiTitle: "Instruksi AI — {label}",
+        fieldAiDesc: "Tambahkan instruksi khusus atau langsung klik Generate.",
+        fieldAiPlaceholder: "cth. \"buat lebih kasual dan ramah\"",
+        fieldAiImagePrompt: "Tulis deskripsi berdasarkan foto produk ini",
+        fieldAiImageChip: "Tulis deskripsi dari foto produk",
+        generateAi: "Generate AI",
+        regenerateWithAi: "Regenerate dengan AI",
+        processing: "Memproses...",
+        applyStyle: "Terapkan Gaya",
+        cancel: "Batal",
+        later: "Nanti",
+        upgradeToPro: "Upgrade ke Pro",
+        upgradeDefaultTitle: "Fitur AI Only untuk Pro",
+        upgradeDefaultBody: "Fitur AI hanya tersedia untuk pengguna Pro.",
+        upgradeProDesc: "Dengan Pro, kamu bisa menggunakan AI Generate untuk konten, gambar, SEO, dan desain website.",
+        upgradeRegenTitle: "Regenerasi AI — fitur Pro",
+        upgradeRegenBody: "Regenerasi ulang konten section dengan AI tersedia tanpa batas di paket Pro.",
+        upgradeDesignTitle: "Desain ulang dengan AI — fitur Pro",
+        upgradeDesignBody: "Minta AI mengubah gaya, warna, dan layout website Anda secara instan di paket Pro.",
+        upgradeSuggestionTitle: "Saran instruksi AI — fitur Pro",
+        upgradeSuggestionBody: "Gunakan saran instruksi siap pakai untuk mempercepat proses AI di paket Pro.",
+        save: "Simpan",
+        saving: "Menyimpan...",
+        saved: "Tersimpan",
+        saveSuccess: "Perubahan berhasil disimpan!",
+        saveFailed: "Gagal menyimpan perubahan",
+        autosaveFailed: "Gagal menyimpan",
+        notFoundTitle: "Situs Tidak Ditemukan",
+        notFoundDesc: "Kami tidak dapat menemukan situs yang Anda cari pada workspace saat ini.",
+        inlineSave: "Simpan",
+        inlineCancel: "Batal",
+        inlineSaved: "Tersimpan",
+        inlineClickToEdit: "Klik untuk mengedit teks",
+        inlineShortcutSingle: "↵ Simpan",
+        inlineShortcutMulti: "Ctrl+↵ Simpan",
+        changePhoto: "Ganti Foto",
+        addPhoto: "Tambah Foto",
+        uploadingPhoto: "Mengunggah...",
+        preview: "Preview",
+        previewDesktop: "Preview desktop",
+        previewTablet: "Preview tablet",
+        previewMobile: "Preview mobile",
+        toggleDarkAria: "Toggle dark mode",
+        themeMode: "Mode Tema",
+        light: "Terang",
+        dark: "Gelap",
+        switchLight: "Mode Terang",
+        switchDark: "Mode Gelap",
+        aiUsage: "AI Usage",
+        generate: "Generate",
+        sectionRegen: "Section Regen",
+        designRegen: "Design Regen",
+        qualityScore: "Kualitas: {score}%",
+        qualityTitle: "Kelengkapan Konten ({score}%)",
+        qualityDesc: "{count} field perlu diisi agar tampilan website kamu maksimal:",
+        qualityWarning: "⚠️ {count} field perlu dicek",
+        qualityFieldHint: "Field belum diisi atau berisi teks contoh",
+        fill: "Isi",
+        viewCompleteness: "Lihat kelengkapan konten",
+        undo: "Undo",
+        undoAllTitle: "Urungkan perubahan terakhir (teks, desain, atau urutan section)",
+        undoDesign: "Undo Desain",
+        undoDesignTitle: "Urungkan perubahan desain terakhir",
+        noDesignChanges: "Belum ada perubahan desain",
+        show: "Tampilkan",
+        hide: "Sembunyikan",
+        showSection: "Tampilkan section",
+        hideSection: "Sembunyikan section",
+        hidden: "Tersembunyi",
+        showPageSections: "Tampilkan Bagian Halaman",
+        expandEditArea: "Perluas area edit",
+        variantOptions: "Variasi Tampilan",
+        visualGallery: "Galeri Visual",
+        closeGallery: "Tutup",
+        pickVariant: "Pilih Varian",
+        allVariants: "Semua",
+        variantsCount: "varian",
+        variantPreviewHint: "Klik varian untuk pratinjau langsung di kanvas.",
+        done: "Selesai",
+        pageLayoutVariants: "Tata Letak Bagian",
+        activeSectionsCount: "bagian aktif",
+        pageLayoutVariantsDesc: "Sesuaikan gaya dan tata letak setiap bagian halaman situs Anda secara terpusat.",
+        editSectionContent: "Edit konten bagian ini",
+        changeSectionVariant: "Ganti varian tampilan bagian ini",
+        optionsCount: "opsi",
+        variantLabel: "Varian",
+        editShortcut: "Edit",
+        mapStyleLabel: "Gaya Peta",
+        mapTileLight: "Terang",
+        mapTileDark: "Gelap",
+        mapTileSatellite: "Satelit",
+        mapPreviewLabel: "Pratinjau Peta",
+        mapPreviewEmpty: "Belum ada lokasi. Klik \"Pilih Lokasi\" untuk menandai lokasi di peta.",
+        mapPreviewEditAria: "Ubah lokasi peta",
+        pickLocation: "Pilih Lokasi",
+        selectSectionAria: "Pilih Bagian",
+        openSheet: "Buka sheet",
+        closeSheet: "Tutup sheet",
+        publish: "Publikasikan",
+        publishShort: "Publish",
+        publishSuccess: "Website berhasil dipublikasikan! 🚀",
+        publishFailed: "Gagal memublikasikan website",
+        moderationAppealFailed: "Gagal mengirim banding. Silakan coba lagi.",
+        applying: "Menerapkan...",
+        applyLive: "Terapkan ke Live",
+        apply: "Terapkan",
+        live: "Live",
+        draft: "Draft",
+        aiProcessing: "AI sedang memproses...",
+        aiReviewActive: "Review AI Sedang Aktif",
+        aiReviewDesc1: "Silakan gunakan atau kembalikan perubahan AI pada bagian",
+        aiReviewDesc2: "di bagian atas halaman preview terlebih dahulu.",
+        diffAi: "Diff AI: {label}",
+        diffChanges: "{count} perubahan",
+        content: "Konten",
+        old: "Lama:",
+        new: "Baru:",
+        use: "Gunakan",
+        useThis: "Gunakan ini",
+        revert: "Kembalikan",
+        aiApplied: "Hasil AI untuk {label} dipakai.",
+        aiCancelled: "Hasil AI dibatalkan.",
+        aiReverted: "Perubahan AI pada {label} dikembalikan.",
+        aiNoChange: "AI belum menghasilkan perubahan nyata.",
+        aiNoChangeHint: "Coba instruksi yang lebih spesifik, misalnya: ubah jadi headline emosional, maksimal 8 kata, dan hilangkan teks input mentah.",
+        aiSectionDone: "AI selesai menulis {label}. Cek diff sebelum dipakai.",
+        aiSectionFailed: "AI gagal meregenerasi bagian ini.",
+        aiStyleDone: "AI selesai mendesain ulang gaya situs. Cek hasil visual sebelum disimpan.",
+        aiStyleFailed: "AI gagal meregenerasi gaya website.",
+        aiStyleNoChange: "AI belum menghasilkan perubahan gaya yang nyata.",
+        aiProcessFailed: "AI gagal memproses.",
+        siteStyle: "gaya situs",
+        aiDesignEngine: "AI Design Engine",
+        latestAiGenerated: "Latest AI Generated",
+        latest: "Terbaru",
+        latestAiDesc: "Gaya visual unik buatan AI terbaru untuk website Anda.",
+        aiResult: "Hasil AI",
+        aiMoodCreated: "Nuansa {mood}. Dibuat pada {date}.",
+        editLabel: "Edit — {label}",
+        confirmPublishTitle: "Terapkan Perubahan ke Live?",
+        confirmPublishDesc: "Pengunjung situs akan segera melihat versi terbaru.",
+        confirmPublishBody: "Semua perubahan draf yang sudah disimpan akan diterapkan ke website live {subdomain}.webjoz.com.",
+        confirmApply: "Ya, Terapkan",
+        upgradeLabel: "Upgrade ke Pro",
+        aiInstructionsPlaceholder: "cth. \"buat lebih persuasif dan emosional\"",
+        aiDesignInstructionsPlaceholder: "cth: tema kopi vintage hangat...",
+        aiDesignFailed: "Terjadi kesalahan saat membuat ulang desain dengan AI",
+        aiHistory: "Riwayat AI",
+        templateLibraryAdmin: "Template Library (Admin)",
+        aiMadeFor: "Dibuat khusus berdasarkan info bisnis Anda",
+        aiRecommendation: "Rekomendasi AI",
+        aiTemplateCategory: "Kategori template",
+        aiTemplateName: "Nama template",
+        appearancePreset: "Paket Tampilan",
+        bodyFont: "Font Body",
+        colorPattern: "Corak Warna",
+        headingFont: "Font Heading",
+        headingWeight: "Ketebalan Heading",
+        heroTitleSize: "Ukuran Hero Title",
+        manualFineTune: "Fine-tune manual",
+        orChoosePairing: "— atau pilih pasangan font favorit Anda —",
+        orChoosePalette: "— atau pilih palet favorit Anda —",
+        scrollUp: "Scroll ke atas",
+        scrollDown: "Scroll ke bawah",
+        viewLiveSite: "Buka website live di tab baru",
+        activeSectionTitle: "Bagian: {label}",
+        activeBadge: "Dipakai",
+        orChoosePreset: "— atau pilih paket tampilan favorit Anda —",
+        pageSections: "Bagian Halaman",
+        sizeLarge: "Besar",
+        sizeMax: "Maksimal",
+        sizeMedium: "Sedang",
+        sizeSmall: "Kecil",
+        sizeVeryLarge: "Sangat Besar",
+        styleChoiceAria: "Pilih gaya visual",
+        typographyStyle: "Gaya Tipografi",
+        weightBold: "Bold",
+        weightExtraBold: "Extra-Bold",
+        weightMedium: "Medium",
+        weightRegular: "Regular",
+        weightSemiBold: "Semi-Bold",
+        // SEO Preview & Form
+        seoPreviewBannerTitle: "Pratinjau SEO & Metadata:",
+        seoPreviewBannerDesc: "Hanya dibaca mesin pencari & saat link dibagikan di media sosial.",
+        seoEditInSidebar: "Edit di Sidebar",
+        windowClose: "Tutup",
+        windowMinimize: "Kecilkan",
+        windowMaximize: "Perbesar",
+        browserBack: "Kembali",
+        browserForward: "Maju",
+        browserReload: "Muat Ulang Halaman",
+        browserMenu: "Menu Browser",
+        copyUrl: "Salin URL",
+        copied: "Tersalin!",
+        bookmarkSaved: "Bookmark disimpan",
+        bookmarkAdd: "Tambahkan Bookmark",
+        seoTabGoogle: "Google Search",
+        seoTabWhatsApp: "WhatsApp Share",
+        seoTabMetaTags: "Meta Tags & Kode",
+        seoSwitchView: "Ganti Tampilan",
+        seoGoogleAll: "Semua",
+        seoGoogleImages: "Gambar",
+        seoGoogleNews: "Berita",
+        seoGoogleMaps: "Maps",
+        seoGoogleVideos: "Video",
+        seoGoogleMore: "Lainnya",
+        seoGoogleResultsCount: "Sekitar 124.000 hasil (0,32 detik)",
+        seoGoogleClickToEdit: "Klik untuk edit di sidebar",
+        seoGooglePlaceholderTitle: "Tambahkan SEO Title di sidebar editor...",
+        seoGooglePlaceholderDesc: "Meta description belum diisi. Tambahkan deskripsi yang relevan di sidebar editor agar calon pengunjung tertarik mengklik link website Anda di hasil pencarian.",
+        seoSitelinkAbout: "Tentang Kami",
+        seoSitelinkAboutDesc: "Kenali profil dan layanan terbaik kami.",
+        seoSitelinkContact: "Kontak & Lokasi",
+        seoSitelinkContactDesc: "Hubungi WhatsApp atau kunjungi langsung.",
+        seoDiagTitle: "Title:",
+        seoDiagDesc: "Deskripsi:",
+        seoDiagOptimal: "Optimal",
+        seoDiagTooLong: "⚠️ Kepanjangan",
+        seoDiagTooShort: "ℹ️ Terlalu pendek",
+        seoAdjustInSidebar: "Sesuaikan di Panel Editor",
+        seoWaChatWith: "Calon Pelanggan / Teman",
+        seoWaOnline: "online",
+        seoWaChatBadge: "WhatsApp Chat",
+        seoWaMessage: "Halo! Cek website resmi kami di sini ya:",
+        seoWaNoOgImage: "Belum ada OG Image share",
+        seoWaClickUpload: "Klik untuk upload di sidebar",
+        seoWaDefaultDesc: "Deskripsi website yang menarik akan muncul di sini saat tautan dibagikan.",
+        seoOgTipsTitle: "Tips Gambar Open Graph:",
+        seoOgTipsDesc: "Ukuran ideal: 1200 × 630 px (rasio 1.91:1). Gambar ini otomatis dipakai oleh WhatsApp, Telegram, Facebook, X (Twitter), dan LinkedIn saat link Anda dibagikan.",
+        seoInspectorTitle: "HTML <head> SEO Inspector",
+        seoCopyHtml: "Salin Kode HTML",
+        seoTargetKeywords: "Target Kata Kunci (Keywords):",
+        seoNotPublicTitle: "SEO tidak tampil sebagai section di halaman publik.",
+        seoNotPublicDesc: "Data ini dipakai mesin pencari dan preview saat link dibagikan, seperti judul Google, deskripsi, favicon, dan gambar share.",
+        seoAiTitlePrompt: "Buat SEO title yang mengandung nama bisnis, lokasi, dan layanan utama. Maks 60 karakter.",
+        seoAiTitleBtn: "AI: generate SEO title",
+        seoAiDescPrompt: "Buat meta description yang menarik klik di Google. Maks 155 karakter, sertakan nama bisnis dan value proposition.",
+        seoAiDescBtn: "AI: generate meta description",
+        seoAiKeywordsPrompt: "Generate 3-8 keyword SEO yang relevan untuk bisnis ini, fokus pada produk, layanan, dan lokasi.",
+        seoKeywordsLabel: "Keywords SEO",
+        seoKeywordsPlaceholderEmpty: "Ketik keyword lalu Enter...",
+        seoKeywordsPlaceholderMore: "Tambah keyword...",
+        seoFaviconLabel: "Favicon",
+        seoOgImageLabel: "OG Image",
+        seoSharePreviewTitle: "Preview Saat Link Dibagikan",
+        seoSharePlaceholderTitle: "Judul belum diisi",
+        seoSharePlaceholderDesc: "Deskripsi belum diisi",
+        seoShareOgNotSet: "OG Image belum diatur (1200×630 px)",
+        seoShareAutoUpdate: "Preview otomatis diperbarui saat Anda mengisi Meta Title, Deskripsi, & OG Image.",
+        seoAiOgTypePrompt: "Pilih og_type yang paling sesuai: website, article, product, profile.",
+        seoAiOgTypeBtn: "AI: suggest OG type",
+        seoAiTwitterCardPrompt: "Pilih Twitter card: summary_large_image untuk kebanyakan bisnis.",
+        seoAiTwitterCardBtn: "AI: suggest Twitter card",
+        seoMetaTitleLabel: "Meta Title",
+        seoMetaDescLabel: "Meta Description",
+        seoOgTypeLabel: "Tipe OG",
+        seoOgTypeWebsite: "Website",
+        seoOgTypeArticle: "Artikel",
+        seoOgTypeProduct: "Produk",
+        seoOgTypeProfile: "Profil",
+        seoOgTypeBusiness: "Bisnis",
+        seoTwitterCardLabel: "Twitter Card",
+        seoRobotsLabel: "Robots",
+        seoRobotsIndexFollow: "index, follow",
+        seoRobotsNoindexFollow: "noindex, follow",
+        seoRobotsIndexNofollow: "index, nofollow",
+        seoRobotsNoindexNofollow: "noindex, nofollow",
+        seoOgLocaleLabel: "OG Locale",
+        seoOgSiteNameLabel: "Nama Situs OG",
+        seoOgSiteNamePlaceholder: "Nama bisnis",
+        seoCanonicalPathLabel: "Canonical Path",
+        mapTileOsm: "OSM",
+        mapTileCyclOsm: "CyclOSM",
+        mapTileEsriStreet: "Esri Street",
+        mapTileSatelliteLabel: "Satelit",
+        mapPickerTitle: "Pilih Lokasi",
+        mapPickerSearchPlaceholder: "Cari tempat...",
+        mapPickerSearchBtn: "Cari",
+        mapPickerMyLocationAria: "Lokasi saya saat ini",
+        mapPickerDetecting: "Mendeteksi lokasi...",
+        mapPickerLoading: "Memuat peta...",
+        mapPickerClickHint: "Klik peta untuk memilih lokasi",
+        mapPickerCancel: "Batal",
+        mapPickerConfirm: "Pilih",
+        seoRobotsTxtTitle: "Custom Robots.txt",
+        seoRobotsTxtLockedTitle: "Kustomisasi robots.txt untuk situs Anda",
+        seoRobotsTxtLockedDesc: "Kontrol halaman mana yang di-index Google, blok AI crawler, dan atur sitemap rules.",
+        seoBoosterActiveTitle: "SEO Booster Aktif",
+        seoBoosterActiveDesc: "Structured data rich snippet otomatis dipasang di situs Anda. Google akan menampilkan rating, harga, dan informasi bisnis langsung di hasil pencarian.",
+        seoBoosterProTitle: "SEO BOOSTER (PRO)",
+        seoBoosterWithout: "TANPA SEO BOOSTER",
+        seoBoosterWith: "DENGAN SEO BOOSTER",
+        seoBoosterCompetitor: "Kompetitor Anda mungkin sudah tampil seperti contoh kanan di pencarian Google.",
+        seoBoosterUpgradeBtn: "🔓 Upgrade ke Pro — Tampil Lebih Menonjol di Google",
+        seoGscTitle: "Google Search Console",
+        seoGscSubtitle: "Verifikasi kepemilikan domain Anda di GSC",
+        seoGscHowToTitle: "Cara mendapatkan kode verifikasi:",
+        seoGscStep1: "Buka Google Search Console",
+        seoGscStep2: "Tambah properti → pilih Awalan URL",
+        seoGscStep3: "Masukkan URL website Anda, lalu pilih metode Tag HTML",
+        seoGscStep4: "Salin nilai content dari meta tag yang diberikan",
+        seoGscStep5: "Tempel di field di bawah, lalu klik Simpan & Verifikasi",
+        seoGscPlaceholder: "Tempel kode verifikasi di sini...",
+        seoGscSaving: "Menyimpan...",
+        seoGscSaved: "Tersimpan",
+        seoGscSaveBtn: "Simpan & Verifikasi",
+        seoReviewsCount: "ulasan",
+        seoBusinessOpenStatus: "Buka",
+        seoBusinessClosedStatus: "Tutup",
+      },
+      wizard: {
+        initialMessage: "Halo! Saya Joz-AI, asisten AI yang akan membantu Anda membuat website. Mari kita mulai: apa nama bisnis atau brand Anda?",
+        nameAckVariants: [
+          "Baik, nama telah dicatat.",
+          "Nama berhasil disimpan.",
+          "Oke, nama sudah tersimpan.",
+          "Siap, nama tercatat.",
+          "Nama Anda sudah masuk sistem.",
+          "Baik, nama sudah terdaftar."
+        ],
+        nameConfirmVariants: [
+          "Itu nama aslinya, atau masih nama sementara? Pilih 'Ya' untuk lanjut, atau 'Ganti' jika ingin diubah 😊",
+          "Apakah itu nama sebenarnya? Klik 'Ya' untuk lanjut, atau 'Ganti' jika ingin memasukkan nama lain.",
+          "Nama tersebut terdengar seperti percobaan — pastikan ini yang Anda mau. Klik 'Ya' untuk lanjut atau 'Ganti'."
+        ],
+        descriptionPrompt: "Ceritakan bisnis atau profil Anda secara singkat — cukup 1-2 kalimat. Misalnya: karya/jasa yang ditawarkan, keahlian Anda, atau untuk siapa. Tekan Enter untuk lanjut jika ingin skip.",
+        descriptionSkipKeyword: "lewat",
+        descriptionInferenceHigh: "Sepertinya Anda cocok di kategori **{subType}**. Langsung buat website-nya?",
+        descriptionInferenceMedium: "Sepertinya bidang Anda adalah {type}. Bisa pilih yang lebih spesifik?",
+        descriptionInferenceNone: "Baik, silakan pilih kategori Anda:",
+        descriptionAiFailed: "Koneksi ke AI bermasalah. Silakan pilih kategori Anda:",
+        analyzingDescription: "Menganalisis profil Anda...",
+        descriptionRefinedIntro: "Siap! Deskripsi Anda:",
+        selectMoodPrompt: "Website Anda nanti mau tampil seperti apa?",
+        selectLanguagePrompt: "Dalam bahasa apa website ini akan dibuat?",
+        preparingWebsite: "Baik, AI sedang menyiapkan website Anda...",
+        preparingTheme: "Meracik tema & karakter visual...",
+        preparingComponents: "Menyusun layout & komponen website...",
+        preparingOpening: "Membuka tampilan website...",
+        websiteReady: "Selamat! Website Anda siap. Gunakan tombol Edit untuk kustomisasi konten, lalu klik Publish untuk mempublikasikan website Anda.",
+        confirmCardTitle: "Hampir jadi — cek dan lengkapi",
+        confirmCardLabelName: "Nama",
+        confirmCardLabelType: "Jenis",
+        confirmCardLabelTypeHeader: "Kategori",
+        confirmCardLabelWA: "WA",
+        confirmCardLabelArea: "Jangkauan",
+        confirmCardLabelLang: "Bahasa Situs",
+        confirmCardBtnChange: "Ubah",
+        confirmCardBtnFill: "Isi",
+        confirmCardBtnClose: "✕ tutup",
+        confirmCardBtnGenerate: "Generate Website →",
+        confirmCardBtnGenerateRedo: "Terapkan & Generate Ulang →",
+        confirmCardBtnGenerating: "Sedang dibuat...",
+        confirmCardBtnFinishEdit: "Selesai edit dulu ↑",
+        successModalTitle: "Selamat! Website Anda Telah Siap 🎉",
+        successModalDesc: "Website telah berhasil dibuat oleh AI. Silakan periksa hasil tampilannya terlebih dahulu. Jika ada bagian konten, gambar, warna, atau tata letak yang kurang pas, Anda bisa dengan mudah menyesuaikan semuanya di halaman Editor.",
+        successModalBtnPreview: "Lihat Preview",
+        successModalBtnEdit: "Edit & Publikasikan",
+        errorModalRetry: "Coba lagi",
+        errorModalCancel: "Batal",
+        loadingBuildingTitle: "Membangun website...",
+        loadingBuildingTitleWithName: "Membangun website {name} ✨",
+        loadingBuildingTitleGeneral: "AI sedang membangun website Anda ✨",
+        loadingPleaseWait: "Mohon tunggu sebentar...",
+        loadingCharsWritten: "✍️ {count} karakter ditulis",
+        loadingAiInsight: "AI Insight",
+        loadingEstCountdown: "Estimasi: ~{secs} dtk lagi",
+        loadingEstFinalizing: "Sedang merapikan copywriting...",
+        loadingEstDeepNote: "AI merancang seluruh halaman (~20-25 dtk)",
+        loadingChecklist0: "Menulis headline & hero",
+        loadingChecklist1: "Menyusun cerita bisnis",
+        loadingChecklist2: "Menulis keunggulan & layanan",
+        loadingChecklist3: "Menyiapkan testimoni & FAQ",
+        loadingChecklist4: "Menyusun katalog & galeri",
+        loadingChecklist5: "Optimasi SEO & finalisasi",
+        loadingCardChecklist0: "Analisis bisnis & target pasar",
+        loadingCardChecklist1: "Menyusun struktur halaman",
+        loadingCardChecklist2: "Menulis headline & copywriting",
+        loadingCardChecklist3: "Optimasi SEO on-page",
+        loadingCardChecklist4: "Memilih palet warna & tipografi",
+        loadingCardChecklist5: "Website siap dipublish!",
+        resetChatBtn: "Reset Chat",
+        resetChatTooltip: "Mulai ulang chat dari awal",
+        untitledDraft: "Draft Tanpa Nama",
+        inputPlaceholderName: "Masukkan nama bisnis Anda...",
+        inputPlaceholderDesc: "Ceritakan singkat tentang bisnis Anda...",
+        inputPlaceholderGeneral: "Ketik nama bisnis atau jawaban...",
+        sttListening: "Mendengarkan...",
+        sttUseVoice: "Gunakan Suara (STT)",
+        btnNext: "Lanjut",
+        btnSkip: "Lewati",
+        btnChangeName: "Ganti Nama",
+        btnYesContinue: "Ya, Lanjut",
+        btnSeeOtherOptions: "Lihat Pilihan Lain",
+        btnSave: "Simpan",
+        btnCancel: "Batal",
+        btnFinish: "Selesai",
+        btnSaveAndApply: "Simpan & Terapkan",
+        previewWebsiteTitle: "Pratinjau Website",
+        openForm: "Buka Form",
+        closeForm: "Tutup Form",
+        businessDetailsTitle: "Detail Bisnis",
+        businessDetailsSubtitle: "Dua data ini langsung dipakai AI untuk isi tombol kontak dan bikin copy yang lebih relevan.",
+        waSaved: "WA tersimpan",
+        waEmpty: "WA belum diisi",
+        areaEmpty: "Area belum diisi",
+        waHint: "Langsung jadi tombol chat di hero & footer",
+        serviceAreaHint: "AI pakai ini untuk nulis copy yang lebih relevan",
+        voiceNotAvailable: "Browser Anda tidak mendukung fitur Voice/STT.",
+        chooseMoreAppropriate: "Baik, silakan pilih yang lebih tepat:",
+        placeholderPhone: "cth. 081234567890",
+        placeholderArea: "cth. Jogja, Jabodetabek, seluruh Indonesia",
+        sttStopRecording: "Berhenti merekam",
+        sttStartRecording: "Bicara dengan mic",
+        sttConnecting: "Menyiapkan mic...",
+        micHintTitle: "Bicara lebih cepat dengan AI",
+        micHintDesc: "Tekan tombol mic untuk menjelaskan bisnis Anda.",
+        sttPromptGuide: "Ceritakan bisnis Anda...",
+        sttBtnDone: "Selesai",
+        sttBtnCancel: "Batal",
+        sttProcessingTitle: "Memproses suara Anda...",
+        sttProcessingSubtitle: "Membuat draft informasi bisnis...",
+        sttReviewTitle: "Berikut yang saya dengar dari Anda:",
+        sttReviewPrompt: "Apakah sudah sesuai? Anda bisa edit sebelum saya lanjutkan.",
+        sttBtnEdit: "Edit",
+        sttBtnConfirm: "Ya, lanjutkan",
+        editMessage: "Edit pesan",
+        editedBadge: "(diedit)",
+        editShortcutHint: "Enter untuk simpan, Esc untuk batal",
+        editPlaceholder: "Ketik perubahan pesan...",
+        micReadyHint: "Klik icon mic untuk menjelaskan bisnis Anda secara lisan",
+        micPermissionDenied: "Izin mikrofon diperlukan untuk merekam suara. Silakan aktifkan izin mikrofon pada browser Anda.",
+        sttNoVoiceDetected: "Tidak ada suara yang terdeteksi. Silakan coba lagi atau ketik deskripsi bisnis Anda secara langsung.",
+        backToChat: "Kembali ke chat",
+        generationFailed: "Generate belum berhasil",
+        generationErrorMessage: "Terjadi kesalahan saat membuat preview.",
+        successToastTitle: "Website Anda Telah Siap!",
+        successToastDesc: "Konten, warna, atau tata letak bisa diubah kapan saja di halaman Editor.",
+        closeNotification: "Tutup notifikasi",
+        btnLater: "Nanti saja",
+        btnCompleteData: "Lengkapi Data",
+        btnEditPublish: "Edit & Publikasikan",
+        btnConfirmYes: "Ya, lanjut",
+        btnChangeCategory: "Ganti kategori",
+        btnTryOtherRecommendation: "Coba rekomendasi lain ({current}/{total})",
+        recommendationHintTitle: "Ada {count} rekomendasi desain!",
+        recommendationHintDesc: "Klik untuk lihat pilihan tampilan lain.",
+        inferenceHint: "Klik untuk lanjut, atau pilih kategori lain",
+        notThisType: "Bukan ini? Pilih kategori lain",
+        changeSubType: "Pilih jenis lain",
+        moreSpecific: "Lebih spesifik:",
+        chooseMoodHint: "Pilih mood yang sesuai dengan brand Anda",
+        suggestedBadge: "✨ Disarankan",
+        typeSelectedChooseSub: "✓ Dipilih — pilih jenis di bawah",
+        prefillTypePrompt: "Saya sudah memperkirakan kategori website Anda. Lanjutkan jika sesuai, atau ubah dulu:",
+        btnContinueType: "Lanjut dengan jenis ini →",
+        wireframeAbout: "Tentang",
+        wireframeFeatures: "Keunggulan",
+        wireframeContact: "Kontak",
+        statusWaitingInput: "Menunggu input...",
+        statusAnalyzingName: "AI menganalisis nama...",
+        statusAiGenerating: "AI sedang generate...",
+        statusPreviewReady: "Preview siap ✓",
+        statusPreparingAi: "Menyiapkan AI...",
+        preFetchingNameHint: "AI menganalisis kategori nama usaha...",
+        placeholderAnalyzingName: "Menganalisis nama usaha... atau ketik deskripsi Anda",
+        nameConfirmPlaceholder: "Pilih opsi di atas atau ketik nama bisnis...",
+        nameConfirmYes: "Ya",
+        nameConfirmChange: "Ganti",
+        nameChangePrompt: "Baik, silakan ketik nama bisnis yang ingin Anda gunakan:",
+        descPlaceholder: "Contoh: Jual kopi spesial di Jogja, melayani pesanan partai besar",
+        descPlaceholderWithMic: "Ceritakan tentang bisnis Anda, atau klik mic 🎤",
+        labelBusinessName: "Nama Bisnis",
+        labelBusinessType: "Kategori",
+        labelBusinessSubType: "Sub Kategori",
+        labelDescription: "Deskripsi",
+        labelWhatsapp: "Nomor WhatsApp",
+        labelServiceArea: "Wilayah Layanan",
+        labelMood: "Gaya & Suasana Website (Mood)",
+        disambiguateJasaPortofolio: "Bingung Jasa & Booking vs Kreatif & Profesional? Kalau pelanggan Anda perlu booking jadwal/reservasi → pilih Jasa & Booking. Kalau mereka perlu lihat contoh hasil kerja dulu sebelum order → pilih Kreatif & Profesional.",
+        categories: {
+          kuliner: "Kuliner",
+          kulinerDesc: "Restoran, Warung, Cafe & Catering",
+          tokoUmkm: "Toko Online & Retail",
+          tokoUmkmDesc: "Katalog produk, jualan online & toko fisik",
+          jasaBooking: "Layanan & Reservasi",
+          jasaBookingDesc: "Salon, Workshop, Klinik, dll",
+          // Kategori "Kreatif & Profesional" mencakup website portofolio, kreator, seniman, agensi, dan profesional
+          portofolioKreator: "Kreatif & Profesional",
+          portofolioKreatorDesc: "Portofolio, Kreator, Developer, Desainer, Agency, dll",
+          company: "Company Profile",
+          companyDesc: "Properti, Konstruksi, Manufaktur, Yayasan, & Institusi",
+        },
+        moods: {
+          modernClean: "Modern & Bersih",
+          modernCleanDesc: "Bersih, rapi, dan profesional",
+          warmVintage: "Hangat & Alami",
+          warmVintageDesc: "Hangat, alami, dan bersahaja",
+          boldEnergetic: "Tegas & Berenergi",
+          boldEnergeticDesc: "Kontras tinggi, tegas, dan bersemangat",
+          elegantLuxury: "Elegan & Mewah",
+          elegantLuxuryDesc: "Mewah, eksklusif, dan anggun",
+          playfulFun: "Ceria & Berwarna",
+          playfulFunDesc: "Ceria, ramah, dan penuh warna",
+          retro: "Klasik & Retro",
+          retroDesc: "Klasik, nostalgia, dan berkarakter",
+          futuristic: "Futuristik",
+          futuristicDesc: "Modern, teknologi, dan futuristik",
+          minimalistDark: "Minimalis Gelap",
+          minimalistDarkDesc: "Gelap, futuristik, dan modern",
+        },
+        subtypes: {
+          // Kuliner
+          "Restoran & Warung Makan": "Restoran",
+          "Kuliner Tradisional & Nusantara": "Kuliner Tradisional",
+          "Kafe": "Kafe",
+          "Bakery & Pastry": "Bakery",
+          "Catering": "Catering",
+          "Minuman & Bubble Tea": "Minuman",
+          "Makanan Rumahan & Frozen Food": "Dapur Rumahan",
+          "Frozen Food Homemade": "Frozen Food",
+          "Kuliner Kaki Lima & Angkringan": "Kaki Lima",
+          "Jajanan Pasar & Kuliner Tradisional": "Jajanan Pasar",
+          "Herbal & Jamu": "Herbal & Jamu",
+          // Toko
+          "Fashion & Pakaian": "Fashion",
+          "Elektronik": "Elektronik",
+          "Kecantikan & Kosmetik": "Kosmetik & Skincare",
+          "Produk Lokal Handmade": "Handmade",
+          "Toko Online": "Toko Online",
+          "Minimarket & Sembako": "Minimarket & Sembako",
+          "Perabot & Furnitur": "Furnitur",
+          "Otomotif & Sparepart": "Sparepart & Aksesoris",
+          "Pertanian & Peternakan": "Pertanian & Peternakan",
+          // Layanan & Reservasi
+          "Rental Mobil & Kendaraan": "Rental Mobil & Kendaraan",
+          "Travel & Wisata": "Travel & Wisata",
+          "Hotel & Penginapan": "Penginapan",
+          "Salon & Kecantikan": "Salon & Spa",
+          "Barbershop": "Barbershop",
+          "Klinik & Kesehatan": "Klinik & Kesehatan",
+          "Gym & Olahraga": "Gym & Olahraga",
+          "Event & Wedding Organizer": "Event Organizer",
+          "Otomotif & Bengkel": "Bengkel & Servis",
+          "Laundry": "Laundry",
+          "Jasa Rumah & Kebersihan": "Jasa Rumah & Kebersihan",
+          "Pendidikan & Kursus": "Les & Kursus",
+          "Biro Jasa & Perizinan": "Biro Jasa",
+          // Portofolio & Kreator / Kreatif & Profesional
+          "Konten Kreator": "Konten Kreator",
+          "Fotografer": "Fotografer",
+          "Videografer": "Videografer",
+          "Desainer": "Desainer",
+          "Ilustrator & Seniman": "Ilustrator & Seniman",
+          "Arsitek & Desainer Interior": "Arsitek & Interior",
+          "Penulis & Copywriter": "Penulis & Copywriter",
+          "Developer & IT": "Developer & IT",
+          "SEO & Digital Specialist": "SEO & Digital",
+          "Digital & Marketing Agency": "Digital Agency",
+          "Konsultan": "Konsultan",
+          "Tutor & Life Coach": "Tutor & Coach",
+          "Public Speaker & Trainer": "Speaker & Trainer",
+          "Musisi & Entertainer": "Musisi & Hiburan",
+          "Notaris & PPAT": "Notaris & PPAT",
+          // Company Profile
+          "Properti & Real Estate": "Properti",
+          "Konstruksi & Kontraktor": "Konstruksi & Kontraktor",
+          "Manufaktur & Pabrik": "Manufaktur & Pabrik",
+          "Logistik & Ekspedisi": "Logistik & Ekspedisi",
+          "Yayasan & Organisasi Nonprofit": "Yayasan & Organisasi",
+          "Institusi Pendidikan & Pesantren": "Sekolah & Kampus",
+        },
+        resumePrompt: "Lanjutkan sesi sebelumnya?",
+        resumeLastSession: "Sesi terakhir",
+        resumeSavedLabel: "Tersimpan {time}",
+        resumeContinue: "Lanjutkan",
+        resumeStartFresh: "Mulai baru",
+        starterTitle: "Coba salah satu",
+        starterOrType: "atau ketik sendiri",
+        timeJustNow: "baru saja",
+        timeMinutesAgo: "{count} menit lalu",
+        timeHoursAgo: "{count} jam lalu",
+        timeDaysAgo: "{count} hari lalu",
+      },
+      linkAccount: {
+        title: "Akun Tertaut",
+        emailLabel: "Email",
+        systemGenerated: "Dibuat sistem",
+        emailPlaceholder: "email-nyata-anda@contoh.com",
+        update: "Perbarui",
+        phoneLabel: "Telepon (WhatsApp)",
+        passwordLabel: "Kata Sandi",
+        passwordSet: "Diatur",
+        minChars: "Min. 8 karakter",
+        setPassword: "Atur Kata Sandi",
+        confirmPassword: "Konfirmasi kata sandi",
+        googleLabel: "Google",
+        linkedStatus: "Tertaut",
+        unlink: "Putuskan",
+        needPasswordToUnlink: "Atur kata sandi terlebih dahulu untuk memutuskan",
+        linking: "Menautkan...",
+        linkGoogle: "Tautkan Akun Google",
+        emailUpdated: "Email berhasil diperbarui",
+        emailUpdateFailed: "Gagal memperbarui email",
+        passwordSetSuccess: "Kata sandi berhasil diatur",
+        passwordSetFailed: "Gagal mengatur kata sandi",
+        googleClientMissing: "Google Client ID tidak dikonfigurasi",
+        googleLinked: "Akun Google berhasil ditautkan",
+        googleLinkFailed: "Gagal menautkan Google. Silakan coba lagi.",
+        enterPassword: "Masukkan kata sandi untuk mengonfirmasi",
+        googleUnlinked: "Akun Google berhasil diputuskan",
+        googleUnlinkFailed: "Gagal memutuskan Google",
+        loadFailed: "Gagal memuat metode akun",
+        currentPassword: "Kata sandi saat ini",
+      },
+      emailPrompt: {
+        title: "Tambahkan email Anda untuk menerima faktur dan notifikasi penting",
+        description: "Akun Anda saat ini menggunakan email yang dibuat sistem. Tambahkan email nyata untuk menerima pembayaran dan pembaruan.",
+        save: "Simpan",
+        dismiss: "Tutup",
+        emailUpdated: "Email berhasil diperbarui",
+        emailUpdateFailed: "Gagal memperbarui email",
+      },
+    },
+  },
+  en: {
+    landing: {
+      heroTitle: 'Generate websites <br className="lg:hidden" />instantly.<br /><span class="inline-block text-[0.58em] sm:text-[0.66em] lg:text-[0.6em] font-extrabold tracking-tight bg-primary text-primary-foreground dark:bg-white dark:text-black px-3.5 py-1 sm:px-5 sm:py-1.5 rounded-none mt-2 sm:mt-2.5 shadow-lg">Unlimited customization.</span>',
+      heroSubtitle: 'Just a <strong class="text-foreground font-bold">quick chat</strong>, <strong class="text-foreground font-bold">no coding</strong> —<br />your business website is <strong class="text-foreground font-bold">instantly live</strong>.',
+      heroSubtitleBold: "",
+      ctaPrimary: "Create Website Now",
+      ctaFloating: "Create Website Now",
+      tryFree: "100% Free",
+      chatNotForm: "AI Chat, not forms",
+      activeInMinutes: "Live in Minutes",
+      howItWorksTitle: 'From chat to website in <span class="text-primary">4 easy steps</span>',
+      howItWorksSubtitle: "HOW IT WORKS",
+      howItWorksCta: "Try Now — Free",
+      featuresEyebrow: "KEY FEATURES",
+      featuresTitle: 'More than just a <span class="text-primary">regular website</span>',
+      featuresTitleAccent: "regular website",
+      dashboardBadge: "Dashboard",
+      dashboardTitle: "Monitor & grow your business",
+      dashboardDesc: "Complete dashboard with visitor analytics, lead management, and website list in one place.",
+      dashboardTags: ["Real-time analytics", "Lead management", "Website list"],
+      domainBadge: "Domain & SEO",
+      domainTitle: "Custom domain & automatic SEO",
+      domainDesc: "Connect your custom domain, SEO title/description, OG tags, JSON-LD, sitemap — all handled by AI.",
+      domainTags: ["Custom domain", "Automatic SEO", "Structured data", "Sitemap"],
+      catalogBadge: "Catalog & Menu",
+      catalogTitle: "Product catalog & digital menu",
+      catalogDesc: "Showcase products or menus with photos, prices, and descriptions — customers can order directly without another app.",
+      catalogTags: ["Product catalog", "Digital menu", "Direct ordering", "WhatsApp order"],
+      templatesEyebrow: "AI GENERATED EXAMPLES",
+      templatesTitle: 'Websites generated <span class="text-primary">for various businesses</span>',
+      templatesTitleAccent: "for various businesses",
+      templatesDesc: "AI selects templates and writes content automatically. Here are examples for several business types.",
+      whyEyebrow: "WHY WEBJOZ",
+      whyTitle: 'Everything you need, <span class="text-primary">already available</span>',
+      whyTitleAccent: "already available",
+      statsLabel1: "Generation time",
+      statsValue1: "< 5 mins",
+      statsLabel2: "Auto online",
+      statsValue2: "100%",
+      statsLabel3: "One dashboard",
+      statsValue3: "8 features",
+      statsLabel4: "Powered",
+      statsValue4: "AI",
+      pricingTitle: "Simple Pricing",
+      pricingSubtitle: "Start free, expand whenever you're ready.",
+      monthly: "Monthly",
+      yearly: "Yearly",
+      saveBadge: "Save ~16%",
+      saveText: "Save up to 2 months with annual subscription",
+      popularBadge: "Most Popular",
+      priceFree: "$0",
+      priceFreePeriod: "/month · forever",
+      perYear: "/year",
+      monthlyEq: "(≈ {value}/mo)",
+      promo: "Promo",
+      perMonth: "/month",
+      perYear2: "/year",
+      startFree: "Start Free",
+      choosePlan: "Choose {plan} ({cycle})",
+      ctaBannerTitle: "Ready to build your business website?",
+      ctaBannerDesc: "Start for free now. No credit card needed — just a short chat with AI and your website is ready.",
+      ctaBannerCta: "Start Free Now",
+      ctaBannerWhatsapp: "Consult via WhatsApp",
+      ctaBannerHelper: "Need custom design or company profile?",
+      ctaBannerContact: "Contact our team",
+      footerCopyright: "© {year} Webjoz by Giwangan Studio. AI Website Builder for Indonesian Businesses.",
+      footerPrivacy: "Privacy Policy",
+      footerTerms: "Terms & Conditions",
+      footerRefund: "Refund Policy",
+      footerContact: "Contact Us",
+      footerHelp: "Help Center",
+      footerChangelog: "Changelog",
+      footerLogin: "Login",
+      footerBlog: "Blog",
+      footerHome: "Home",
+      step1Title: "Introduce Your Business",
+      step1Desc: "Chat with AI and tell them the name and type of business you run. All through a casual conversation.",
+      step2Title: "Share Brief Details",
+      step2Desc: "Tell them a little about your services, coverage area, or what makes your business special.",
+      step3Title: "Choose Category & Mood",
+      step3Desc: "Pick your industry type and design mood so AI can match your website's appearance.",
+      step4Title: "Generate & Publish",
+      step4Desc: "Website is built in seconds. Review, edit any section, and publish immediately.",
+      featureChatTitle: "AI Chat, Not Forms",
+      featureChatDesc: "No long forms to fill. Just chat with AI and all content and design are generated automatically.",
+      featureDomainTitle: "Custom Domain",
+      featureDomainDesc: "Connect your own domain with CNAME guidance. Perfect for professional company branding.",
+      featureAnalyticsTitle: "Analytics & Leads",
+      featureAnalyticsDesc: "Track website visitors and collect leads directly from the contact form — all in one dashboard.",
+      featureEditTitle: "Edit Per Section",
+      featureEditDesc: "Not satisfied with a section? Regenerate it with AI, or edit manually in the editor.",
+      featureCustomTitle: "Full Customization",
+      featureCustomDesc: "Hero, profile, services, testimonials, menu, FAQ, footer, and SEO — all content can be edited and customized anytime.",
+      featureWaTitle: "Integrated WhatsApp",
+      featureWaDesc: "WhatsApp button is automatically installed on every website. Customers can chat in one click.",
+      featureSeoTitle: "SEO Ready",
+      featureSeoDesc: "Title, description, OG tags, JSON-LD structured data, and sitemap — all handled by AI.",
+      featureSubTitle: "Instant Subdomain",
+      featureSubDesc: "Every website is instantly active on a Webjoz subdomain. No server setup or manual DNS needed.",
+      featureCatalogTitle: "Product Catalog",
+      featureCatalogDesc: "Showcase your products or services with a neat, professional, and attractive catalog.",
+      featureMenuTitle: "Sales Menu",
+      featureMenuDesc: "Make it easy for customers to order with an interactive menu ready for transactions.",
+      navHowItWorks: "How It Works",
+      navFeatures: "Features",
+      navPricing: "Pricing",
+      navHelp: "Help",
+      navDashboard: "Dashboard",
+      navLogin: "Login",
+      navCreateNew: "Create New Website",
+      navStartFree: "Start Free",
+      mockupGreeting: "Hi! What's your business name?",
+      mockupSwitchChat: "Chat",
+      mockupSwitchPreview: "Preview",
+      mockupPickType: "Awesome! 👍 Pick your category:",
+      mockupChips: ["🍜 Food & Beverage", "🔧 Services", "🛍 Products"],
+      mockupPickMood: "Nice! 🎨 Pick a design mood:",
+      mockupMoodChips: [
+        "✨ Modern & Clean",
+        "🌿 Warm & Earthy",
+        "🎨 Bold & Vibrant",
+        "👑 Elegant & Luxury",
+        "⚡ Bold & Energetic",
+        "⏳ Classic & Retro",
+        "🤖 Futuristic",
+      ],
+      mockupGenerating: "⚡ AI is generating...",
+      mockupReady: "✅ Website ready!",
+      mockupStep: "Step 3 of 6",
+      mockupSitesManage: "Manage generated site URLs (Super Admin)",
+      mockupSitesClose: "Close Editor",
+      mockupSitesTitle: "Generated website result URLs (with business name)",
+      mockupSitesHint: "Each row has a business name and a generated result URL. The sites appear in the mockup preview panel one per cycle, and the business name shows in the mockup chat. Save empty to fall back to the local template preview.",
+      mockupSitesAdd: "Add URL",
+      mockupSitesReset: "Reset Default",
+      mockupSitesSave: "Save",
+      mockupSitesName: "Business name (shown in the mockup chat)",
+      mockupSitesNamePlaceholder: "e.g. Kopi Jozz Jogja",
+      showcaseCreate: "Create",
+      showcaseFallback: "Website",
+      categoryKuliner: "Food & Beverage",
+      categoryJasa: "Services",
+      categoryProduk: "Products",
+      activeBadge: "Active",
+      yearlySavings: "Save Rp {value}/year",
+      websiteCount: "{n} Website",
+      aiGenerate: "AI Generate {n}x/month",
+      aiRegen: "AI Regen {n}x/month",
+      aiDesign: "AI Design {n}x/month",
+      noCustomDomain: "No custom domain",
+      customDomainFeature: "Custom Domain",
+      customDomainSubtext: "domain not included",
+      seoBooster: "SEO Booster",
+      subdomainFeature: "Subdomain .webjoz.com",
+      hostingFeature: "Free Hosting & SSL",
+      typeMessage: "Type your message...",
+      trustedBy: "Trusted by 1,000+ business owners",
+      featureFreeCard: "No credit card required",
+      featureChatEasy: "Faster & easier",
+      featureLiveInstant: "Live in minutes",
+      heroReassurance: "Try instantly without signing up • 100% Free • Live preview",
+      bottomNavHome: "Home",
+      bottomNavFeatures: "Features",
+      bottomNavCreate: "Create",
+      bottomNavPricing: "Pricing",
+      bottomNavAccount: "Account",
+    },
+    auth: {
+      loginTitle: "Continue managing your business website.",
+      loginDesc: "Log in to manage your website, edit content, view analytics, and monitor performance — all from one dashboard.",
+      loginCardTitle: "Login",
+      loginCardDesc: "Use WhatsApp, email OTP, or password to access the dashboard.",
+      loginFooterHome: "Home",
+      loginFooterRegister: "Create account",
+      loginFooterForgot: "Forgot password",
+      loginBadge: "Webjoz Console",
+      loginStats1Label: "AI Builder",
+      loginStats1Value: "Chat-Based",
+      loginStats1Helper: "Just chat with AI, website is ready instantly.",
+      loginStats2Label: "Mobile-First",
+      loginStats2Value: "Optimized",
+      loginStats2Helper: "All templates are optimized for mobile and ad-ready.",
+      loginCardEyebrow: "Login to continue",
+      loginSending: "Sending code...",
+      loginWhatsappHint: "A link or OTP code is sent via WhatsApp. New number? An account is created automatically.",
+      loginOrContinueWith: "or continue with",
+      loginOrEmail: "or log in with email",
+      loginEmailLabel: "Email address",
+      loginEmailPlaceholder: "Your email address",
+      loginEmailHint: "A link or OTP code is sent via email. New email? An account is created automatically.",
+      loginSendCodeWhatsapp: "Send OTP via WhatsApp",
+      loginSendCode: "Send OTP",
+      loginPasswordTitle: "Log in with password",
+      loginPasswordDesc: "Use your account email and password.",
+      loginEmailField: "Email",
+      loginPasswordLabel: "Password",
+      loginForgotPassword: "Forgot password?",
+      loginPasswordPlaceholder: "Account password",
+      loginPhonePlaceholder: "Your WhatsApp number",
+      loginPasswordField: "Password",
+      loginSigningIn: "Signing in...",
+      loginPasswordButton: "Sign in with password",
+      loginHidePassword: "Hide password",
+      loginShowPassword: "Show password",
+      loginLoginLoading: "Logging in",
+      loginSubmitPassword: "Log in with password",
+      loginCodeSentTo: "Code sent via {channel} to {target}. Valid for 5 minutes.",
+      loginCodeLabel: "OTP Code",
+      loginTrustDevice: "Trust this device",
+      loginBack: "Back",
+      loginVerifying: "Verifying",
+      loginVerifyOtp: "Verify OTP",
+      loginResendCountdown: "Resend ({sec}s)",
+      loginResend: "Didn't receive a code? Resend",
+      loginLinkSent: "A login link has been sent. Open it on this device to continue.",
+      loginOtherOptions: "Other options",
+      loginOptionWhatsapp: "WhatsApp",
+      loginOptionEmail: "Email OTP",
+      loginOptionPassword: "Password",
+      errorEmailValid: "Please enter a valid email address.",
+      errorPhoneValid: "Please enter a valid WhatsApp number.",
+      errorFixFields: "Please fix the highlighted fields.",
+      errorOtpInvalid: "Please enter a 6-digit OTP code.",
+      errorCredentialsInvalid: "Please enter a valid email and password.",
+      errorWrongCredentials: "Incorrect email or password.",
+      toastCodeSent: "Code sent. Please check your messages.",
+      errorSendCode: "Failed to send code. Try again.",
+      toastOtpVerified: "OTP verified. Welcome back.",
+      errorOtpInvalidExpired: "Invalid or expired OTP code",
+      loginSuccess: "Successfully logged in. Welcome back.",
+      toastSessionExpired: "Session Expired",
+      toastSessionExpiredDesc: "Your session has expired. Please log in again to continue.",
+      toastDismiss: "Dismiss",
+      errorMagicLinkInvalid: "Login link is invalid or expired",
+      registerBadge: "Webjoz Console",
+      registerTitle: "Start managing your business with ease.",
+      registerDesc: "Sign up to start building a professional, fast, ad-ready business website.",
+      registerCardEyebrow: "Create new account",
+      registerCardTitle: "Registration",
+      registerCardDesc: "Fill in the details below to register your account.",
+      registerFooterLogin: "Already have an account? Login",
+      registerFullName: "Full Name",
+      registerEmail: "Email",
+      registerWhatsapp: "WhatsApp Number",
+      registerPassword: "Password",
+      registerLoading: "Signing up...",
+      registerSubmit: "Create Account",
+      registerSuccess: "Account created successfully. Please log in.",
+      errorRegisterFailed: "Failed to sign up. Try again.",
+      forgotBadge: "Password Recovery",
+      forgotTitle: "Start the password reset flow from the dashboard frontend.",
+      forgotDesc: "Submit your email and the Go API will issue the reset token and email link through its existing forgot-password flow.",
+      forgotCardEyebrow: "Recovery",
+      forgotCardTitle: "Forgot Password",
+      forgotCardDesc: "Enter your account email to request a password reset link.",
+      forgotFooterLogin: "Back to login",
+      forgotFooterRegister: "Create account",
+      forgotEmail: "Email",
+      forgotEmailPlaceholder: "you@mail.com",
+      forgotSending: "Sending link...",
+      forgotSubmit: "Send Reset Link",
+      forgotSentSuccess: "Reset link sent. Check your email for the password reset link.",
+      forgotSentToast: "Reset link sent.",
+      errorForgotSend: "Failed to send reset link",
+      forgotStat1Label: "Delivery",
+      forgotStat1Value: "Email Link",
+      forgotStat1Helper: "The backend sends a reset link to the email address you submit.",
+      forgotStat2Label: "Reset Route",
+      forgotStat2Value: "/reset-password",
+      forgotStat2Helper: "The emailed link lands on the dashboard reset page.",
+      resetBadge: "Reset Password",
+      resetTitle: "Set a new password using the token issued by the backend.",
+      resetDesc: "This page consumes the password reset token from the email link and submits the new password directly to the Go API.",
+      resetCardEyebrow: "Recovery",
+      resetCardTitle: "Choose a New Password",
+      resetCardDesc: "Enter your new password to complete the reset flow.",
+      resetCardDescNoToken: "Open this page from the password reset email so the token is included.",
+      resetFooterLogin: "Back to login",
+      resetFooterRequest: "Request another reset link",
+      resetNewPassword: "New Password",
+      resetNewPasswordPlaceholder: "Minimum 8 characters",
+      resetConfirmPassword: "Confirm New Password",
+      resetUpdating: "Updating password...",
+      resetUpdate: "Update Password",
+      errorResetTokenMissing: "Reset token is missing from the URL.",
+      errorPasswordMismatch: "Passwords do not match.",
+      toastResetSuccess: "Password updated successfully.",
+      errorResetFailed: "Failed to reset password",
+      resetStat1Label: "Token Source",
+      resetStat1Value: "URL Query",
+      resetStat1Helper: "The backend email links here with a `token` query parameter.",
+      resetStat2Label: "Validation",
+      resetStat2Value: "Backend-first",
+      resetStat2Helper: "Expired or invalid tokens are rejected by the API.",
+      verifyBadge: "Account Verification",
+      verifyTitle: "Verifying your email address.",
+      verifyDesc: "This page verifies your email using the token provided in the link sent to your inbox.",
+      verifyCardEyebrow: "Verification",
+      verifyCardTitle: "Email Verification",
+      verifyCardIdle: "Check your inbox for the verification link.",
+      verifyCardLoading: "Validating your unique secure token...",
+      verifyFooterLogin: "Proceed to login",
+      verifyFooterHome: "Back to home",
+      verifyLoadingSpinner: "Verifying your token...",
+      verifyBackToLogin: "Back to Login",
+      verifySuccessTitle: "Success!",
+      verifyGoToLogin: "Go to Login",
+      verifyFailedTitle: "Verification Failed",
+      verifySentTo: "A verification email was sent to {email}. Open the link in that email to complete verification.",
+      verifyNoToken: "Open this page from your verification email so the token is included in the URL.",
+      verifyDone: "Your email has been successfully verified! You can now log in.",
+      errorVerifyFailed: "Failed to verify email. The link might be expired or invalid.",
+      verifyStat1Label: "Token Source",
+      verifyStat1Value: "URL Query",
+      verifyStat1Helper: "The backend email link includes a unique `token` parameter.",
+      verifyStat2Label: "Status",
+      verifyStat2Value: "Real-time Validation",
+      verifyStat2Helper: "Tokens are validated instantly upon page load.",
+      inviteProcessing: "Processing invitation...",
+      inviteSuccess: "Successfully joined the team!",
+      inviteSuccessDesc: "You can now access the team in the dashboard.",
+      inviteDashboard: "Go to Dashboard",
+      inviteFailedTitle: "Failed",
+      inviteBackToLogin: "Back to Login",
+      inviteRegisterTitle: "Create your account to join",
+      inviteRegisterDesc: "Your account will be created automatically from the invitation email. Fill in your details below to continue.",
+      inviteRegisterEmailLabel: "Email",
+      inviteRegisterNameLabel: "Name",
+      inviteRegisterNamePlaceholder: "Full name",
+      inviteRegisterPasswordLabel: "Password",
+      inviteRegisterPasswordHint: "Minimum 8 characters",
+      inviteRegisterButton: "Create Account & Join",
+      inviteRegisterLoading: "Creating account...",
+      inviteExistingAccount: "Already have an account? Sign in",
+      inviteAlreadyRegistered: "This email already has an account. Please sign in to accept the invitation.",
+      loginResetSuccess: "Password updated. You can sign in now.",
+      loginPasswordChanged: "Password changed. Please sign in again.",
+    },
+    sections: {
+      faqEyebrow: "FAQ",
+      catalogEyebrow: "Product Collection",
+      benefitsEyebrow: "Benefits",
+      aboutEyebrowFallback: "About Us",
+      aboutImageAlt: "About",
+      ctaFallback: "Contact Us",
+      footerSocial: "Social Media",
+      footerBrand: "Our Business",
+      footerCopyrightFallback: "© {year} {brand}. All rights reserved.",
+      heroImageAlt: "Hero",
+    },
+    common: {
+      dashboard: "Dashboard",
+      menu: "Menu",
+      loading: "Loading...",
+      saving: "Saving...",
+      failed: "Failed",
+      retry: "Retry",
+      backToHome: "← Back to Home",
+      contact: "Contact",
+      privacy: "Privacy Policy",
+      terms: "Terms & Conditions",
+      refund: "Refund Policy",
+      allRightsReserved: "All rights reserved.",
+      builtWith: "Built with",
+    },
+    dashboard: {
+      authenticating: "Authenticating...",
+      createWebsite: "Create Website",
+      mainNav: "Main navigation",
+      switchAccentBlue: "Switch to blue accent",
+      switchAccentMonochrome: "Switch to monochrome accent",
+      switchLight: "Switch to light mode",
+      switchDark: "Switch to dark mode",
+      pro: "Pro",
+      consoleTitle: "Webjoz Console",
+      adminWorkspace: "AI Website Builder",
+      mode: "Mode",
+      upgradeLabel: "Upgrade",
+      authenticated: "Authenticated",
+      locked: "Locked",
+      appearance: "Appearance",
+      language: "Language",
+      logout: "Logout",
+      backToWebsites: "Back to websites list",
+      subDashboard: "Monitor the summary of your website's performance and activity.",
+      subSites: "Manage and customize all of your websites.",
+      subDomains: "Connect and manage custom domains to make your site look more professional.",
+      subLeads: "Contact inquiries and prospects from your public site visitors.",
+      subAnalytics: "Monitor visit volume, traffic sources, and most popular pages.",
+      subSettings: "Manage profile, account security, user access, and system audit logs.",
+      newWebsiteAi: "New AI Website",
+      loadingConsole: "Loading Console...",
+      preparingWorkspace: "Preparing your account & websites...",
+      signedOutLocally: "Signed out locally. The server session may still need review.",
+      refreshed: "Dashboard refreshed.",
+      welcome: "Welcome{name}",
+      welcomeDesc: "Manage your websites, domains, and leads in one place.",
+      newWebsite: "+ New Website",
+      usingFreePlan: "You are currently on the {plan} plan",
+      upgradeToProDesc: "Upgrade to Pro for custom domain, SEO optimization, more websites, and unlimited AI generates.",
+      upgradeToPro: "Upgrade to Pro",
+      planExpiringSoon: "Your {plan} plan expires in {days} days",
+      planExpiringSoonDesc: "Renew now to keep your websites and custom domains active. After the plan lapses, websites show a suspension page.",
+      planExpiredBanner: "Your subscription has expired. Your websites are temporarily showing a suspension page.",
+      planExpiredDesc: "Your websites are suspended. Your data, content, and domains are safe — renew and they go back online automatically.",
+      planInGrace: "Your plan is past due and in its grace period. Renew before {date} to avoid suspension.",
+      renewPlan: "Renew Now",
+      statWebsites: "Websites",
+      statLeads: "Leads",
+      statVisitors: "Visitors",
+      statHealth: "Health",
+      sitesPublished: "{count} published",
+      newProspects: "New prospects",
+      setupLeadForm: "Set up lead form",
+      thisWeek: "This week",
+      allSystemsNormal: "All systems normal",
+      usageMeter: "Plan Usage",
+      meterWebsites: "Websites",
+      meterAiGenerate: "AI Generate",
+      meterSectionRegen: "Section Regen",
+      meterDesignRegen: "Design Regen",
+      limitReached: "Limit Reached",
+      nearLimit: "Near Limit",
+      unlimited: "Unlimited",
+      unlimitedUsage: "Unlimited usage on this plan.",
+      remaining: "{count} remaining this month",
+      loadFailed: "Failed to load usage data.",
+      recentActivity: "Recent Activity",
+      leadNew: "New lead: {name}",
+      siteUpdated: "Website \"{name}\" updated",
+      noActivity: "No activity yet.",
+      aiInsights: "AI Insights",
+      insightTraffic: "📈 Traffic is being monitored entering this week with {count} visits.",
+      insightNoTraffic: "📉 No significant traffic this week yet.",
+      insightLeads: "🔥 You have {count} new prospects!",
+      insightCreateSite: "✨ Create your first website with AI Builder!",
+      usage: {
+        currentPlan: "Current Plan",
+        planDescription: "Your current plan details and usage limits.",
+        planLimits: "Plan Limits",
+        allPlans: "Compare All Plans",
+        feature: "Feature",
+        price: "Price",
+        free: "Free",
+        resetMonthly: "Usage resets at the beginning of each month",
+        currentPeriod: "Period: {month}",
+        teamMembers: "Team Members",
+        customDomains: "Custom Domains",
+        limitWarning: "You have reached your plan usage limit.",
+        limitReachedDesc: "Upgrade your plan to continue.",
+      },
+      admin: {
+        platformOverview: "Platform Overview",
+        platformStats: "{tenants} tenants · {users} users · {sites} sites across the platform",
+        loadingMetrics: "Loading platform metrics...",
+        allTenants: "All Tenants",
+        plans: "Plans",
+        totalTenants: "Total Tenants",
+        totalUsers: "Total Users",
+        totalSites: "Total Sites",
+        activePlans: "Active Plans",
+        newUsers7d: "New Users (7d)",
+        in7Days: "+{count} in 7 days",
+        recentAccounts: "Recent Accounts",
+        viewAll: "View all",
+        noAccounts: "No accounts registered yet.",
+        systemHealth: "System Health",
+        svcDatabase: "Database",
+        svcCache: "Cache",
+        svcAiProvider: "AI Provider",
+        statusHealthy: "Healthy",
+        statusDown: "Down",
+        statusDisabled: "Disabled",
+        statusUnknown: "Unknown",
+        viewDetailedStatus: "View detailed status →",
+        quickActions: "Quick Actions",
+        qxHealth: "Health",
+        qxAnnounce: "Announce",
+        qxUsers: "Users",
+        qxAuditLogs: "Audit Logs",
+        platformManagement: "Platform Management",
+        qlTenantsDesc: "View & manage all tenant accounts",
+        qlPlansDesc: "Define & assign subscription plans",
+        qlHealthDesc: "Database, cache & AI provider status",
+        qlAnnounceDesc: "Broadcast messages to all tenants",
+      },
+      nav: {
+        sectionDashboard: "Dashboard",
+        sectionWebsiteBuilder: "Website Builder",
+        sectionSalesReferral: "Sales & Referral",
+        sectionSystem: "System",
+        overview: "Overview",
+        notifications: "Notifications",
+        plans: "Plan Management",
+        promos: "Promo Codes",
+        health: "System Health",
+        announcements: "Announcements",
+        commissions: "All Commissions",
+        adminPayments: "Payment Management",
+        adminReports: "Revenue Report",
+        tenants: "All Tenants",
+        templates: "Template Gallery",
+        designAssets: "Design Assets",
+        metrics: "Metrics",
+        sites: "My Websites",
+        domains: "Custom Domain",
+        leads: "Customer Leads",
+        analytics: "Web Statistics",
+        salesOverview: "Sales Overview",
+        salesReferral: "Referral Code",
+        salesCommissions: "My Commissions",
+        team: "Team",
+        usage: "Usage",
+        billing: "Billing History",
+        upgrade: "Upgrade Plan",
+        settings: "Settings",
+      },
+      sites: {
+        close: "Close",
+        cancel: "Cancel",
+        deleteTitle: "Delete Website?",
+        deleteBody: "You are about to permanently delete website \"{name}\". This action cannot be undone.",
+        deleteWarning: "All content, settings, and data of this website will be deleted and cannot be recovered.",
+        deleteFreeNotice: "You are on the Free plan — this 1 website quota will not be returned after deletion. You can only create 1 free website for life.",
+        deleting: "Deleting...",
+        deleteConfirm: "Yes, Delete",
+        renameTitle: "Rename Website",
+        renameDesc: "Enter a new name for your website.",
+        save: "Save",
+        publishTitle: "Publish Website",
+        publishOneStep: "One Step Left! 🚀",
+        publishReady: "Your website {name} is ready to be published to the world.",
+        subdomainLabel: "Subdomain Name",
+        subdomainPlaceholder: "yourname",
+        subdomainAvailable: "Available: {url}",
+        subdomainInvalidHint: "Use lowercase letters, numbers, or hyphens (-)",
+        subdomainHint: "Only lowercase letters, numbers, and hyphens. Subdomain cannot be changed after publishing.",
+        connectCustomDomain: "Connect Custom Domain",
+        customDomainDescPre: "Want a more professional brand like domainanda.com? You can set it up in",
+        customDomainDescPost: "after your website is live.",
+        customDomainLink: "Custom Domain",
+        launching: "Launching...",
+        launchWebsite: "Launch Website",
+        publishTermsTitle: "I agree to",
+        publishTermsLink: "Webjoz's Terms & Conditions",
+        publishTermsRequired: "Please check this box to publish the website.",
+        moderationTitle: "Website cannot be published",
+        moderationDesc: "Your website content appears to violate Webjoz's Terms & Conditions. Please fix the content or submit an appeal to our team.",
+        moderationCatPinjol: "Online lending (pinjol) services",
+        moderationCatJudi: "Gambling / slots",
+        moderationCatAlkohol: "Selling alcoholic beverages",
+        moderationCatBarangHaram: "Selling haram / narcotics goods",
+        moderationKeywordPrefix: "Detected keywords: ",
+        moderationAppealTitle: "Think this isn't a violation?",
+        moderationAppealPlaceholder: "Explain your appeal...",
+        moderationAppealBtn: "Submit Appeal",
+        moderationAppealSubmitting: "Submitting...",
+        moderationAppealRequired: "Please write your appeal first.",
+        moderationAppealSent: "Appeal submitted. Our team will review it.",
+        moderationAppealFailed: "Failed to submit appeal. Please try again.",
+        publishChecking: "Checking content...",
+        publishCheckingDesc: "We're checking your content to make sure it complies with our Terms & Conditions.",
+        errorLoadSites: "Failed to load sites",
+        connectingWorkspace: "Connecting to dashboard...",
+        toastPublished: "Website published successfully! 🚀",
+        toastPublishFailed: "Failed to publish website",
+        toastUnpublished: "Website has been set back to draft.",
+        toastUnpublishFailed: "Failed to change publication status",
+        toastRenamed: "Website name updated.",
+        toastRenameFailed: "Failed to rename website",
+        toastDeleted: "Site deleted successfully.",
+        toastDeleteFailed: "Failed to delete site",
+        toastDuplicating: "Duplicating website...",
+        toastDuplicateFailed: "Failed to create website duplicate",
+        toastDuplicated: "Website duplicated successfully!",
+        toastDuplicateError: "Failed to duplicate website",
+        toastSiteLimitReached: "Website limit reached. Upgrade your plan to duplicate.",
+        publishedPrefix: "Published",
+        updatedPrefix: "Updated",
+        justNow: "{prefix} just now",
+        minutesAgo: "{prefix} {n} minutes ago",
+        hoursAgo: "{prefix} {n} hours ago",
+        yesterday: "{prefix} yesterday",
+        daysAgo: "{prefix} {n} days ago",
+        searchPlaceholder: "Search websites by name...",
+        reset: "Reset",
+        filterAll: "All",
+        filterDraft: "Draft",
+        filterPublished: "Published",
+        loadingSites: "Loading your sites...",
+        noSitesMatch: "No matching websites",
+        noSitesMatchDesc: "Try a different search keyword, another status filter, or create a new website.",
+        clearSearch: "Clear Search",
+        statusLive: "Live",
+        statusDraft: "Draft",
+        moreOptions: "More options",
+        actionDuplicate: "Duplicate",
+        actionRename: "Rename",
+        actionUnpublish: "Unpublish",
+        actionDelete: "Delete",
+        domainNotSet: "Domain not set",
+        copyLink: "Copy link",
+        editPreview: "Edit & Preview",
+        viewSite: "View Site",
+        publish: "Publish",
+        linkBlog: "Blog",
+        linkEditor: "Editor",
+        linkCatalog: "Catalog",
+        linkMenu: "Menu",
+        linkSeo: "SEO",
+        linkIntegrations: "Integrations",
+        linkTestimonials: "Testimonials",
+        linkCustomDomain: "Custom Domain",
+        loadMore: "Load More",
+        congratsTitle: "Your Website Is Live",
+        congratsHeading: "Your Website Is Officially Live!",
+        congratsBody: "Congratulations! Your web page {name} is now active and accessible from anywhere in the world.",
+        openWebsite: "Open Website",
+        copyLinkTitle: "Copy Link",
+        checkTip: "💡 Want to check? Click the link above to open your live website in a new tab.",
+        done: "Done",
+        continueEditing: "Continue Editing",
+        customDomainLinkLabel: "🔗 Connect Custom Domain",
+        customDomainLinkHint: "Want to use your own domain? Connect a custom domain to this website.",
+      },
+      leads: {
+        loadFailed: "Failed to load leads inbox",
+        loading: "Loading leads inbox...",
+        filter: "Filter",
+        allWebsites: "All Websites",
+        emptyTitle: "Inbox is Empty",
+        emptyDesc: "Contact form inquiries and WhatsApp catalog orders from your public website visitors will appear here automatically.",
+        sender: "Sender",
+        date: "Received At",
+        sourceSite: "Source Website",
+        actions: "Actions",
+        siteId: "Site #{id}",
+        detail: "Detail",
+        leadDetail: "Customer Lead Details",
+        inquiryMessage: "Inquiry Message",
+        receivedOn: "Received On",
+        sourceUrl: "Source Page URL",
+        selectPrompt: "Select a lead or order to inspect the full details.",
+        tabAll: "All",
+        tabOrders: "Orders",
+        tabContacts: "Contact Inquiries",
+        searchPlaceholder: "Search name, phone, email, or message...",
+        totalLeads: "Total Leads",
+        totalOrders: "Orders Received",
+        totalRevenue: "Estimated Order Value",
+        totalContacts: "Contact Messages",
+        noFilterResults: "No Matching Leads Found",
+        noFilterResultsDesc: "No leads or orders match your current search query or filter selection.",
+        clearFilter: "Reset Filter",
+        chatWhatsapp: "Chat on WhatsApp",
+        callPhone: "Call",
+        sendEmail: "Send Email",
+        copyPhone: "Copy Phone",
+        copyEmail: "Copy Email",
+        copyMessage: "Copy Message",
+        copied: "Copied!",
+        orderBadge: "Order",
+        contactBadge: "Contact",
+        orderItemsList: "Ordered Items Breakdown",
+        totalOrderAmount: "Total Order Amount",
+        openWebsite: "Visit Website",
+        openEditor: "Open Website Builder",
+        close: "Close",
+        quickStatsTitle: "Leads Overview",
+      },
+      team: {
+        loadFailed: "Failed to load team data",
+        inviteSent: "Invitation sent",
+        inviteFailed: "Failed to send invitation",
+        inviteRevoked: "Invitation revoked",
+        revokeFailed: "Failed to revoke invitation",
+        memberRemoved: "Member removed",
+        removeFailed: "Failed to remove member",
+        membersTitle: "Team Members ({count})",
+        invitePending: "Invitation pending · role: {role}",
+        pending: "Pending",
+        inviteLinkCopied: "Invitation link copied",
+        noMembers: "No team members yet.",
+        inviteTitle: "Invite New Member",
+        emailPlaceholder: "email@example.com",
+        sendInvite: "Send Invitation",
+        inviteHint: "Members with the editor role can edit site content. Viewers can only view.",
+        limitTitle: "Team Member Limit Reached",
+        later: "Later",
+        upgradeToPro: "Upgrade to Pro",
+        limitDesc: "Your current plan has a limit on the number of team members. Upgrade to add more collaborators.",
+        role: {
+          owner: "Owner",
+          editor: "Editor",
+          viewer: "Viewer",
+        },
+      },
+      analytics: {
+        loadFailed: "Failed to load analytics data",
+        loading: "Loading analytics data...",
+        noChartData: "No visit data for this time range yet.",
+        chartAria: "Daily visits chart",
+        srActivePoint: "Date {date}, {count} pageviews",
+        selectSite: "Select website",
+        preset7: "7 Days",
+        preset30: "30 Days",
+        preset90: "90 Days",
+        to: "to",
+        statPageviews: "Total Pageviews",
+        up: "Up",
+        down: "Down",
+        fromPrevPeriod: "% vs previous period",
+        prevPeriodComp: "Comparison with previous period",
+        statUniqueVisitors: "Unique Visitors",
+        visitorsEstimate: "Estimated based on IP + device",
+        statAvgDuration: "Average Duration",
+        durationNote: "Includes single-page visits (0 seconds)",
+        dailyVisitsTitle: "Daily Visit Statistics",
+        dailyVisitsDesc: "Visualization of daily visitor volume movement.",
+        leadsIn: "Incoming Leads",
+        leadsFromForms: "From contact forms on your sites",
+        conversion: " · conversion {pct}%",
+        viewAllLeads: "View all leads",
+        trafficSources: "Traffic Sources",
+        noReferrerData: "No referral data yet.",
+        upsellTitle: "Unlock Full Analytics",
+        later: "Later",
+        upgradeToPro: "Upgrade to Pro",
+        free7Days: "Free Plan — Max 7 Days",
+        free7DaysDesc: "Free accounts can only view analytics up to 7 days back.",
+        selectedRange: "You selected the range {from} to {to}.",
+        proUpgrade: "Upgrade to Pro",
+        proUpgradeDesc: "With the Pro plan, you can access up to 90 days of analytics, plus exclusive features like custom domains and unlimited AI content writer.",
+        invalidDateRange: "Start date cannot be after end date.",
+      },
+      domains: {
+        loadFailed: "Failed to load domain data",
+        loading: "Loading domain data...",
+        added: "Custom domain connected! Set up the CNAME record at your DNS registrar.",
+        addFailed: "Failed to add domain",
+        invalidFormat: "Invalid domain format. Example: domainanda.com",
+        verified: "Domain verified successfully!",
+        verifyFailed: "DNS verification failed. Check your CNAME record.",
+        confirmDelete: "Delete this domain?",
+        deleted: "Domain deleted.",
+        deleteFailed: "Failed to delete domain",
+        continueConnect: "Continue Connecting",
+        upgradeToPro: "Upgrade to Pro",
+        close: "Close",
+        upgradePlan: "Upgrade Plan",
+        connectedTitle: "Connected Custom Domains ({count})",
+        quotaTitle: "{plan} plan: max {max} domains per account, not per website",
+        quota: "Quota: {used} / {max} custom domains",
+        customDomainBadge: "Custom Domain",
+        siteId: "Site #{id}",
+        waitingPropagation: " · waiting for DNS propagation",
+        active: "Active",
+        pending: "Pending",
+        checkDns: "Check DNS",
+        delete: "Delete",
+        connectTitle: "Connect Custom Domain",
+        connectDesc: "Use your own domain to look more professional.",
+        noPublished: "No published websites yet",
+        noPublishedDesc: "Custom domains can only be connected to live websites. Publish your website first via the",
+        myWebsites: "My Websites",
+        linkToSite: "Link to Website",
+        domainAddress: "Custom Domain Address",
+        domainPlaceholder: "e.g. tokokamu.com or toko.domainanda.com",
+        validFormat: "✓ Valid domain format",
+        invalidFormatHint: "Invalid format — enter a domain without http:// or www.",
+        dnsInstructions: "DNS Configuration Guide at Your Domain Provider",
+        step1: "Log in to your Domain Registrar account where you bought the domain (such as Niagahoster, Rumahweb, Cloudflare, Namecheap, GoDaddy, etc.).",
+        step2: "Find the domain you want to manage and open the DNS Management, DNS Zone Editor, or Manage DNS page.",
+        step3: "Add a new DNS Record with type CNAME and fill in the columns according to the data below:",
+        step4: "Save your DNS changes. Propagation and domain verification usually take from 5 minutes up to 24 hours.",
+        dnsType: "Type",
+        dnsHost: "Host / Name",
+        dnsTarget: "Target / Value",
+        note: "Note: If you want to use a custom subdomain like toko.domainanda.com, change the Host / Name column to toko.",
+        verifyHint: "After saving the DNS configuration above, return to the dashboard and click the \"Check DNS\" (Refresh icon) button on your domain list to verify.",
+        connectBtn: "Connect Custom Domain",
+        upsellTitle: "✨ Boost Your Business Credibility",
+        upsellDesc: "Custom Domain is a Pro feature that makes your brand look more professional, trustworthy to customers, and easier to find on Google (SEO).",
+        upsellBranding: "Professional Branding",
+        upsellBrandingDesc: "Use your own domain (e.g. tokomu.com) without the .webjoz.com suffix.",
+        upsellSeo: "Better SEO",
+        upsellSeoDesc: "Google prioritizes primary domains to rank at the top of search results.",
+        upsellSsl: "Automatic SSL/HTTPS",
+        upsellSslDesc: "Data security is guaranteed with free SSL encryption installed directly on your domain.",
+        limitTitle: "Custom Domain Limit Reached",
+        limitDesc: "Your {plan} plan only includes {max} custom domains (applies to the whole account, not per website).",
+        limitDesc2: "To add more custom domains, please upgrade to a higher plan.",
+        buyTab: "Buy New Domain",
+        ownTab: "I Already Own a Domain",
+        buyTitle: "Buy a New Domain",
+        buyDesc: "Register a domain for your website right from Webjoz. After purchase, DNS is automatically pointed to your website.",
+        searchLabel: "Domain Name",
+        searchPlaceholder: "e.g. kopirempah",
+        searchBtn: "Check Availability",
+        searching: "Checking availability...",
+        chooseTlds: "Choose Extensions (TLDs)",
+        noResults: "Enter a domain name and select at least one extension to check availability.",
+        available: "Available",
+        unavailable: "Already registered / not available",
+        perYear: "/year",
+        buyBtn: "Buy Now",
+        buying: "Processing purchase...",
+        buySuccess: "Domain purchased! DNS is being pointed to your website.",
+        buyFailed: "Failed to buy domain",
+        purchaserTitle: "Domain Registration Data",
+        purchaserDesc: "Complete your details for domain registration. This data will be used as the domain WHOIS information.",
+        purchaserName: "Full Name",
+        purchaserCompany: "Company",
+        purchaserEmail: "Email",
+        purchaserPhone: "Phone",
+        purchaserAddress: "Address",
+        purchaserCity: "City",
+        purchaserState: "State/Province",
+        purchaserZip: "Postal Code",
+        purchaserIdDoc: "Identity Document Number",
+        purchaserIdSub: ".id, .co.id, .web.id and similar domains require your NIK KTP (individual) or NPWP/NIB (business), following Indonesian registrar rules.",
+        purchaserIdPlaceholder: "NIK (16 digits) / NPWP (15 digits) / NIB",
+        verificationNotice: ".id, .co.id, .web.id and .or.id domains require identity verification by the registrar (1-3 working days). The domain becomes active only after verification.",
+        verificationPending: "Awaiting identity verification",
+        purchasedTitle: "My Domains",
+        expiresAt: "Valid until",
+        purchaseInactive: "Domain purchase is currently inactive. Contact an administrator.",
+        paymentSuccess: "Payment successful! Your domain is being registered.",
+        paymentPending: "Waiting for payment... Please complete it on the Midtrans page.",
+        paymentFailed: "Payment failed, please try again.",
+        paymentCancelled: "Payment cancelled.",
+      },
+      settings: {
+        tabProfile: "Profile",
+        tabSecurity: "Security",
+        tabDevices: "Active Devices",
+        tabUsers: "Users",
+        tabPermissions: "Role Permissions",
+        tabLogs: "Audit Logs",
+        tabInvestigate: "AI Investigator",
+        tabNotifications: "Notifications",
+        notifTitle: "Notification Preferences",
+        notifEyebrow: "Notifications",
+        notifDesc: "Choose which types of notifications you want to receive. Disabled types will not be sent to your bell.",
+        notifOn: "On",
+        notifOff: "Off",
+        notifSaved: "Notification preferences saved",
+        notifSaveFailed: "Failed to save notification preferences",
+        notifFailedLoad: "Failed to load notification preferences",
+        groupAccount: "Account",
+        groupAdmin: "System Admin",
+        profileFailedLoad: "Failed to load profile",
+        profilePhoneError: "Use international format, like +628123456789.",
+        profileUpdated: "Profile updated.",
+        profileFailedUpdate: "Failed to update profile",
+        profileEyebrow: "Profile",
+        profileTitle: "Profile Settings",
+        email: "Email",
+        name: "Name",
+        saveProfile: "Save Profile",
+        profileEmpty: "Profile data will appear here after authentication.",
+        pwChanged: "Password changed. Please sign in again.",
+        pwFailed: "Failed to change password",
+        securityEyebrow: "Security",
+        changePassword: "Change Password",
+        currentPassword: "Current Password",
+        newPassword: "New Password",
+        updatePassword: "Update Password",
+        devicesFailedLoad: "Failed to load devices",
+        deviceSignedOut: "Device signed out.",
+        deviceSignOutFailed: "Failed to sign out device",
+        trustRemoved: "Trusted device removed.",
+        trustRemovalFailed: "Failed to remove trusted device",
+        othersSignedOut: "Other devices signed out.",
+        othersSignOutFailed: "Failed to sign out other devices",
+        allSignedOut: "All devices signed out.",
+        allSignOutFailed: "Failed to sign out all devices",
+        browser: "Browser",
+        unknownDevice: "Unknown device",
+        unknownUserAgent: "Unknown user agent",
+        devicesTitle: "Device & Session Management",
+        refresh: "Refresh",
+        signOutOthers: "Sign out others",
+        signOutAll: "Sign out all",
+        metricActiveSessions: "Active sessions",
+        metricTrustedDevices: "Trusted devices",
+        metricThisSession: "This session",
+        noSessionsTitle: "No sessions yet",
+        noSessionsText: "No active sessions or trusted devices associated with this account.",
+        statusCurrent: "currently signed in",
+        statusTrusted: "trusted device",
+        statusUnknown: "unknown device",
+        sessionId: "Session #{id}",
+        deviceId: "Device {id}",
+        ip: "IP: {ip}",
+        lastUsed: "Last used: {date}",
+        expires: "Expires: {date}",
+        removeTrust: "Remove trust",
+        revoke: "Revoke",
+        usersFailedLoad: "Failed to load users",
+        userUpdated: "User updated to {role}",
+        userUpdateFailed: "Failed to update user role",
+        userDeleteConfirm: "Are you sure you want to delete {name}?",
+        userDeleted: "User {name} deleted successfully",
+        userDeleteFailed: "Failed to delete user",
+        usersTitle: "User Management",
+        searchByNameEmail: "Search by name or email",
+        roleFilter: "Role filter (user/sales/admin)",
+        usersVisibleTitle: "Admin-visible users",
+        noUsersMatch: "No users matched the current query.",
+        roleUser: "User",
+        roleSales: "Sales",
+        roleAdmin: "Admin",
+        roleSuperadmin: "Superadmin",
+        delete: "Delete",
+        permsFailedLoad: "Failed to load initial data",
+        permsRoleFailedLoad: "Failed to load role permissions",
+        permsSaved: "Permissions updated successfully",
+        permsSaveFailed: "Failed to update permissions",
+        rbacEyebrow: "RBAC Management",
+        manageRolePermissions: "Manage Role Permissions",
+        saving: "Saving...",
+        saveChanges: "Save Changes",
+        totalPermissions: "{count} Total",
+        availablePermissions: "Available Permissions",
+        activePermissions: "{count} Active",
+        resourceSuffix: "{resource} Resource",
+        logsRefreshed: "Audit feed refreshed.",
+        logsFailedLoad: "Failed to load logs",
+        logsTitle: "Real-time Audit Log Feed",
+        autoRefreshOn: "Auto-refresh On",
+        autoRefreshOff: "Auto-refresh Off",
+        refreshNow: "Refresh Now",
+        logFilterLabel: "IP / Search",
+        dateFrom: "Date From",
+        dateTo: "Date To",
+        eventTable: "Event Table",
+        noLogsMatch: "No audit logs matched the current filters.",
+        logActionOn: "{action} on {resource}",
+        noDescription: "No description",
+        ipAddress: "IP Address",
+        actorUserId: "Actor User ID",
+        userAgent: "User Agent",
+        investLoadHistoryFailed: "Failed to load history",
+        investCompleted: "AI investigation completed.",
+        investFailed: "Failed to investigate logs",
+        investDetailFailed: "Failed to load detail",
+        investLoading: [
+          "Clustering matching audit events...",
+          "Building incident timeline...",
+          "Cross-checking suspicious signals...",
+          "Drafting recommendations for the operator...",
+        ],
+        investEyebrow: "AI Powered",
+        investTitle: "Investigate with AI",
+        analyzing: "Analyzing...",
+        runInvestigation: "Run Investigation",
+        streamingAnalysis: "Streaming analysis",
+        latestResult: "Latest result",
+        investOutputTitle: "AI Investigation Output",
+        aiProcessing: "AI Processing",
+        riskLevel: "Risk Level",
+        riskWeightNote: "Weighted by signals, urgency, log volume, and incident status",
+        score: "Score {score}",
+        timeline: "Timeline",
+        suspiciousSignals: "Suspicious Signals",
+        recommendations: "Recommendations",
+        noItems: "No items returned.",
+        readyTitle: "Ready for analysis",
+        readyDesc: "Run an investigation to generate a summary, timeline, suspicious signals, and recommendations.",
+        savedCount: "{count} saved",
+        savedTitle: "Saved Investigations",
+        noSavedTitle: "No saved investigations",
+        noSavedDesc: "Completed investigations will appear here for quick review.",
+        investigationId: "Investigation #{id}",
+        previous: "Previous",
+        pageOf: "Page {page} of {total}",
+        next: "Next",
+        investigationDetails: "Investigation Details",
+        closeDetails: "Close investigation details",
+        status: "Status",
+        riskNoteHigh: "Escalate quickly. Multiple strong signals point to elevated risk.",
+        riskNoteMedium: "Needs review. Suspicious patterns warrant operator follow-up.",
+        riskNoteLow: "Monitor only. Lower-confidence incident.",
+        noResultYet: "No investigation result loaded yet.",
+      },
+      upgrade: {
+        snapLoadError: "Failed to load Midtrans Snap",
+        loadPlansFailed: "Failed to load plans",
+        pleaseLogin: "Please log in first",
+        freeActive: "Free plan is already active",
+        tokenFailed: "Failed to get payment token",
+        waitingPayment: "Waiting for payment... Please complete it on the Midtrans page.",
+        paymentFailed: "Payment failed, please try again",
+        paymentCancelled: "Payment cancelled",
+        redirecting: "Redirecting to payment page...",
+        processFailed: "Failed to process payment",
+        loadingPlans: "Loading plans...",
+        backToDashboard: "Back to dashboard",
+        title: "Upgrade Plan",
+        subtitle: "Choose a subscription plan that fits your business scale.",
+        paymentSuccess: "Payment Successful!",
+        upgradingDesc: "Your plan is being upgraded. Redirecting to dashboard...",
+        freePrice: "Free",
+        currentPlan: "Current Plan",
+        unavailable: "Not Available",
+        websitesCount: "{n} Websites",
+        aiGeneratePerMonth: "{n} AI Generate / mo",
+        sectionRegenPerMonth: "{n} Section Regen / mo",
+        designRegenPerMonth: "{n} Design Regen / mo",
+        noCustomDomain: "No custom domain",
+        basicSeo: "Basic SEO",
+        popular: "Most Popular",
+        perYear: "/yr",
+        promoYearly: "Yearly Promo",
+        equivalentPerMonth: "Equal to Rp {value} /mo",
+        savingsPerYear: "🎉 Save Rp {value} / year",
+        perMonth: "/mo",
+        promoMonths: "Discount {n} months",
+        choosePlan: "Choose {name} ({cycle})",
+        yearly: "Yearly",
+        monthly: "Monthly",
+        customDomainCount: "{n} Custom Domains",
+        customDomainFeature: "Custom Domain",
+        customDomainSubtext: "domain not included",
+        seoOptimized: "SEO optimized",
+      },
+      adminPlans: {
+        noAccess: "You do not have access to this page.",
+        title: "Plan Management",
+        subtitle: "Define and manage subscription plans for tenants.",
+        newPlan: "New Plan",
+        allPlans: "All Plans",
+        noPlansYet: "No plans defined yet",
+        createFirstPlan: "Create your first plan",
+        perMonth: "/mo",
+        perYear: "/yr",
+        active: "Active",
+        inactive: "Inactive",
+        sitesCount: "{count} sites",
+        aiCount: "{count} AI",
+        membersCount: "{count} members",
+        tablePlan: "Plan",
+        tablePrice: "Price",
+        tableSites: "Sites",
+        tableAiGen: "AI Gen",
+        tableMembers: "Members",
+        tableDomains: "Domains",
+        tableStatus: "Status",
+        promoMonthly: "Promo: {price}/mo ({months} months)",
+        promoMonthsShort: "mo",
+        promoYearly: "Yearly Promo: {price}/yr",
+        promoTag: "— {label}",
+        editPlan: "Edit Plan",
+        createPlan: "Create Plan",
+        name: "Name",
+        slug: "Slug",
+        description: "Description",
+        featuresLabel: "Features (JSON or text list)",
+        featuresPlaceholder: "5 websites, 100 AI generates/month",
+        priceMonthly: "Price (Monthly)",
+        priceYearly: "Price (Yearly)",
+        promoPricing: "Promo Pricing",
+        promoPriceMonthly: "Promo Price (Monthly)",
+        promoPriceYearly: "Promo Price (Yearly)",
+        noPromo: "0 = no promo",
+        durationMonths: "Duration (months, for monthly promo)",
+        promoLabel: "Promo Label",
+        promoLabelPlaceholder: "e.g. Intro Price, Launch Discount",
+        maxSites: "Max Sites",
+        aiGenerates: "AI Generates",
+        sectionRegens: "Section Regens",
+        designRegens: "Design Regens",
+        maxMembers: "Max Members",
+        customDomains: "Custom Domains",
+        planActive: "Plan is active and available",
+        cancel: "Cancel",
+        saving: "Saving...",
+        updatePlan: "Update Plan",
+        createPlanBtn: "Create Plan",
+        deleteConfirm: "Are you sure you want to delete this plan?",
+        planDeleted: "Plan deleted",
+        planUpdated: "Plan updated",
+        planCreated: "Plan created",
+        loadFailed: "Failed to load plans",
+        saveFailed: "Failed to save plan",
+        deleteFailed: "Failed to delete plan",
+        required: "required",
+      },
+      adminHealth: {
+        noAccess: "You do not have access to this page.",
+        title: "System Health",
+        subtitle: "Monitor platform service status and health.",
+        refresh: "Refresh",
+        loadFailed: "Failed to fetch health data",
+        loadFailedTitle: "Failed to load data",
+        retry: "Try Again",
+        serviceDatabase: "Database",
+        dbPostgres: "PostgreSQL connection",
+        serviceCache: "Cache",
+        redisConnection: "Redis connection",
+        serviceAi: "AI Provider",
+        geminiStatus: "Gemini API status",
+        serviceVersion: "API Version",
+        apiVersionDesc: "App version",
+        statusHealthy: "Healthy",
+        statusUnhealthy: "Unhealthy",
+        statusUnknown: "Unknown",
+        lastCheckedAt: "Last checked at",
+        neverChecked: "Never checked",
+        allSystemsUp: "All systems operational",
+        someIssues: "Some systems have issues",
+      },
+      adminMetrics: {
+        noAccess: "You do not have access to this page.",
+        title: "AI Generation Metrics",
+        subtitle: "Latency, concurrency, and quality metrics for AI content generation.",
+        refresh: "Refresh",
+        loadFailed: "Failed to load metrics",
+        loadFailedTitle: "Failed to load data",
+        retry: "Retry",
+        avgDuration: "Avg Duration",
+        avgDurationDesc: "Average generation time",
+        p95: "P95 (last bucket)",
+        p95Desc: "95th percentile latency",
+        errorRate: "Error Rate",
+        errorsOfRequests: "{errors} errors / {requests} requests",
+        activeRequests: "Active Requests",
+        activeRequestsDesc: "Concurrent AI generations",
+        trendTitle: "Trend (24h)",
+        trendDesc: "Hourly average duration and error rate",
+        noTrendData: "No trend data available yet.",
+        recentRequests: "Recent Requests (last 10)",
+        recentRequestsDesc: "Latest generation attempts",
+        noRequestsLogged: "No requests logged yet.",
+        sourceAI: "AI",
+        sourcePartial: "Partial",
+        sourceMock: "Mockengine",
+        aiRequests: "{count} AI calls",
+        tokens: "{count} tokens",
+      },
+      adminTemplates: {
+        seedLoadFailed: "Failed to fetch design token seeds",
+        backfillConfirm: "Backfill scores for all template_library rows with score=0?",
+        backfillDone: "Backfill complete — scores updated",
+        backfillFailed: "Backfill failed",
+        seedDeleteConfirm: "Are you sure you want to permanently delete this design token seed?",
+        seedDeleted: "Design token seed deleted",
+        seedDeleteFailed: "Failed to delete seed",
+        accessDenied: "Access Denied",
+        superadminOnly: "This page can only be accessed by accounts with the",
+        superadmin: "Superadmin",
+        title: "Template Gallery",
+        subtitle: "Review system built-in templates and design token seeds from AI generator incubation.",
+        backfillScores: "Recalculate Scores",
+        backfillScoresTooltip: "Recalculate rule-based quality scores for all seeds in the database",
+        refreshSeeds: "Refresh",
+        bulkAesthetic: "Run AI Critique",
+        bulkAestheticConfirm: "Run bulk aesthetic critique on unscored seeds (50 per run, stops on rate limit)?",
+        bulkAestheticTooltip: "Evaluate template aesthetics using AI Vision (screenshot + LLM)",
+        bulkAestheticRunning: "Running...",
+        bulkAestheticStart: "Start Aesthetic Evaluation",
+        pendingAestheticLabel: "templates have not been evaluated by AI yet",
+        bulkAestheticDone: "Bulk critique done — {processed} processed, {critiqued} scored, {failed} failed, {pending} remaining",
+        bulkAestheticFailed: "Bulk aesthetic critique failed",
+        bulkAestheticRateLimit: "stopped on rate limit, retry in {sec}s",
+        tabComponents: "Template Components",
+        tabSeeds: "Design Token Seeds",
+        searchComponentsPlaceholder: "Search template name, ID, or description...",
+        searchSeedsPlaceholder: "Search business type, mood, or seed ID...",
+        allCategories: "All Categories",
+        allBusinessTypes: "All Business Types",
+        allMoods: "All Moods",
+        noTemplateMatch: "No templates matched your search.",
+        resetFilter: "Reset Filter",
+        score: "Score",
+        defaultSeed: "Default Seed",
+        heading: "Heading",
+        normal: "Normal",
+        bodyFont: "Body Font",
+        body: "Body",
+        designQuality: "Design Quality",
+        previewFullscreen: "Fullscreen Preview",
+        loginRequired: "A login session is required to view design token seeds.",
+        loginSession: "Login Session",
+        loadingSeeds: "Loading design token seeds from API...",
+        superadminOnlyManage: "Only Superadmins Can Manage Design Token Seeds.",
+        insufficientAccess: "Your current account role does not have sufficient administrative access.",
+        noSeedsInDb: "No design token seeds in the database.",
+        noSeedsMatch: "No seeds matched the search keywords.",
+        resetSearch: "Reset Search",
+        entriesCount: "{shown} of {total} entries in template_library",
+        noPalette: "No Palette",
+        base: "Base",
+        view: "View",
+        delete: "Delete",
+        sortNewest: "Newest",
+        sortOldest: "Oldest",
+        sortScoreAsc: "Lowest Score",
+        sortScoreDesc: "Highest Score",
+        sortAestheticAsc: "Lowest Aesthetic",
+        sortAestheticDesc: "Highest Aesthetic",
+        ruleScoreLabel: "Quality Score (Rules)",
+        aestheticCritiqueLabel: "AI Critique (LLM)",
+        scoreBelowPlaceholder: "Score below...",
+        scoreFilterAll: "All",
+        scoreFilterExcellent: "≥80",
+        scoreFilterGood: "60–79",
+        scoreFilterWeak: "<60",
+        aestheticFilterTitle: "Aesthetic (AI) Score Filter",
+        aestheticFilterAll: "All",
+        aestheticFilterReviewed: "Has Score",
+        aestheticFilterUnreviewed: "Not Reviewed",
+        aestheticFilterHigh: "≥80",
+        aestheticFilterMid: "70–79",
+        aestheticFilterLow: "<70",
+        selectAllFiltered: "Select All ({count})",
+        clearSelection: "Clear Selection",
+        selectedCount: "{count} selected",
+        deleteSelected: "Delete Selected",
+        bulkDeleteConfirm: "Permanently delete {count} selected design token seeds?",
+        bulkDeleted: "{count} seeds deleted",
+        bulkDeletePartialFail: "{ok} deleted, {fail} failed — try again for the rest",
+        critique: "AI Critique",
+        critiqueRunning: "Analyzing...",
+        critiqueDone: "AI critique completed — aesthetic score updated",
+        critiqueFailed: "Failed to run AI critique",
+        aestheticScore: "Aesthetic",
+        needsReview: "Needs Review",
+        critiqueTitle: "AI Critique",
+        critiqueStrengths: "Strengths",
+        critiqueImprovements: "Improvements",
+        critiqueScreenshot: "screenshot",
+        critiqueViewDetails: "View details",
+        critiqueDetailsTitle: "AI Critique Details",
+        critiqueDimensions: "Dimension Scores",
+        critiqueScreenshotTitle: "Screenshot",
+        critiqueOpenScreenshot: "Open in new tab",
+        critiqueClose: "Close",
+        critiqueNoScreenshot: "No screenshot",
+        critiqueVerdict: "Verdict",
+      },
+      adminAnnouncements: {
+        noAccess: "You do not have access to this page.",
+        title: "Announcements",
+        subtitle: "Broadcast messages to all tenants.",
+        new: "New Announcement",
+        all: "All Announcements",
+        noItems: "No announcements yet",
+        createFirst: "Create your first announcement",
+        active: "Active",
+        inactive: "Inactive",
+        expires: "Expires",
+        loadFailed: "Failed to load announcements",
+        created: "Announcement created",
+        createFailed: "Failed to create announcement",
+        deleteConfirm: "Delete this announcement?",
+        deleted: "Announcement deleted",
+        deleteFailed: "Failed to delete announcement",
+        titleField: "Title",
+        severity: "Severity",
+        sevInfo: "Info",
+        sevWarning: "Warning",
+        sevImportant: "Important",
+        contentField: "Content",
+        cancel: "Cancel",
+        creating: "Creating...",
+        create: "Create",
+      },
+      adminCommissions: {
+        loadFailed: "Failed to load all commissions",
+        tier1RangeError: "Tier 1 percentage must be between 0 and 100",
+        tier2RangeError: "Tier 2 percentage must be between 0 and 100",
+        configUpdated: "Commission updated: Tier 1 {t1}% · Tier 2 {t2}%",
+        configUpdateFailed: "Failed to update commission",
+        amountPositiveError: "Bonus amount must be a positive number",
+        ruleUpdated: "Bonus rule updated",
+        ruleUpdateFailed: "Failed to update bonus rule",
+        loading: "Loading admin commission data...",
+        accessRestricted: "Access Restricted",
+        accessRestrictedDesc: "This page is for Admins with the `commission:read_all` permission.",
+        title: "Sales Commission & Bonus Management (Admin)",
+        subtitle: "Commission percentages, onboarding & milestone bonus schemes, and all sales partner transactions.",
+        rateSettings: "Sales Commission Rate Settings",
+        activeScheme: "Active Scheme",
+        tieredScheme: "Tiered Commission Scheme",
+        tier1FirstMonths: "tier 1 for the first {months} months",
+        tier2After: "tier 2 afterwards (applies indefinitely)",
+        tier1Label: "Tier 1 — first {months} months (%)",
+        tier2Label: "Tier 2 — afterwards (%)",
+        save: "Save",
+        superadminOnlyEdit: "Only {superadmin} can edit the commission scheme.",
+        superadmin: "Superadmin",
+        bonusRulesSettings: "Bonus Rules Settings (Onboarding & Milestone)",
+        tier: "Tier",
+        onboardingDesc: "Flat bonus per new tenant on their first payment.",
+        milestoneDesc: "Reach {threshold} newly activated tenants within 1 month.",
+        bonusAmount: "Bonus Amount (Rp)",
+        recurringCommissions: "Recurring Commissions ({count})",
+        allBonuses: "All Sales Bonuses ({count})",
+        allCommissionTxns: "All Commission Transactions ({count})",
+        pendingOnPage: "Pending on This Page: Rp {amount}",
+        noCommissions: "No commissions recorded in the system",
+        colDate: "Date",
+        colSalesUser: "Sales User ID",
+        colTenantId: "Tenant ID",
+        colOrderId: "Order ID",
+        colGrossAmount: "Gross Amount",
+        colRate: "Rate",
+        colCommission: "Commission",
+        colStatus: "Status",
+        pageOf: "Page {page} of {total}",
+        previous: "Previous",
+        next: "Next",
+        allBonusesTitle: "All Sales Bonuses ({count})",
+        noBonuses: "No bonuses recorded in the system",
+        colBonusType: "Bonus Type",
+        colDetailPeriod: "Detail / Period",
+        colBonusAmount: "Bonus Amount",
+        bonus: "Bonus",
+        tenant: "Tenant",
+        period: "Period",
+        markPaid: "Mark as Paid ({count})",
+        bonusPayoutSuccess: "{count} bonuses marked as paid",
+        bonusPayoutFailed: "Failed to mark bonuses as paid",
+        filterAll: "All Statuses",
+        filterPending: "Pending",
+        filterPaid: "Paid",
+        filterVoided: "Voided",
+        selectAllPending: "Select all pending on this page",
+      },
+      adminDesignAssets: {
+        accessDenied: "Access Denied",
+        accessDeniedDesc: "This page can only be accessed by accounts with the {superadmin} role.",
+        superadmin: "Superadmin",
+        loading: "Loading design assets configuration...",
+        title: "Design Assets",
+        subtitle: "Manage the sections, typography, color palettes, and visual presets available in the website editor.",
+        saving: "Saving...",
+        resetAll: "Reset All",
+        resetAllConfirm: "Reset all Design Assets settings to defaults?",
+        resetAllSuccess: "All Design Assets settings have been reset to defaults.",
+        resetAllFailed: "Failed to reset on the server.",
+        saveLocalOnly: "Failed to save to the server. Changes saved locally.",
+        tabSections: "Sections",
+        tabTypography: "Typography",
+        tabPalettes: "Color Palettes",
+        tabPresets: "Visual Presets",
+        hidden: "Hidden",
+        active: "Active",
+        optional: "Optional",
+        required: "Required",
+        show: "Show",
+        hide: "Hide",
+        require: "Make Required",
+        unrequire: "Make Optional",
+        custom: "Custom",
+        sectionsVisibilityTitle: "Section Visibility",
+        sectionsVisibilityDesc: "Hidden sections won't appear in the editor sidebar.",
+        resetDefault: "Reset Default",
+        variantsActive: "{active}/{total} active variants",
+        variantsTitle: "Layout Variants",
+        variantsDesc: "Manage layout variants per section. Hidden variants won't appear in the editor dropdown.",
+        variantsCount: "{active}/{total} active",
+        mapTilesTitle: "Map Styles",
+        mapTilesDesc: "Manage the map style options that appear in the Contact section editor.",
+        tileLabelLight: "Light",
+        tileLabelDark: "Dark",
+        tileLabelSatellite: "Satellite",
+        tileDescOsm: "Standard OpenStreetMap, detailed and free.",
+        tileDescCyclosm: "OSM with cycling routes, brighter colors.",
+        tileDescLight: "Minimal light map from CartoCDN.",
+        tileDescDark: "Elegant dark map from CartoCDN.",
+        tileDescEsri: "Road map styled by Esri / ArcGIS.",
+        tileDescSatellite: "Satellite imagery from Esri World Imagery.",
+        addPairingTitle: "Add New Font Pairing",
+        addPatternTitle: "Add New Color Palette",
+        addPresetTitle: "Add New Visual Preset",
+        name: "Name",
+        description: "Description",
+        headingFont: "Heading Font",
+        bodyFont: "Body Font",
+        weight: "Weight",
+        heroSize: "Hero Size",
+        emojiIcon: "Emoji Icon",
+        fontPairing: "Font Pairing",
+        colorPalette: "Color Palette",
+        mode: "Mode",
+        light: "Light",
+        dark: "Dark",
+        cancel: "Cancel",
+        save: "Save",
+        searchPairings: "Search font pairings...",
+        searchPatterns: "Search color palettes...",
+        searchPresets: "Search visual presets...",
+        add: "Add",
+        noPairingsMatch: "No matching font pairings.",
+        noPatternsMatch: "No matching palettes.",
+        noPresetsMatch: "No matching presets.",
+        score: "Score: {score}",
+        sectionRequiredError: 'Section "{key}" is required and cannot be hidden.',
+        sectionHidden: 'Section "{key}" hidden.',
+        sectionShown: 'Section "{key}" shown.',
+        sectionRequired: 'Section "{key}" marked as required.',
+        sectionOptional: 'Section "{key}" can now be hidden.',
+        variantHidden: 'Variant "{variant}" in "{section}" hidden.',
+        variantShown: 'Variant "{variant}" in "{section}" shown.',
+        sectionsReset: "Section settings reset.",
+        tileHidden: 'Map style "{tile}" hidden.',
+        tileShown: 'Map style "{tile}" shown.',
+        pairingHidden: "Font pairing hidden.",
+        pairingShown: "Font pairing shown.",
+        pairingAdded: 'Font pairing "{name}" added.',
+        deletePairingConfirm: "Delete this custom font pairing?",
+        pairingDeleted: "Font pairing deleted.",
+        patternHidden: "Palette hidden.",
+        patternShown: "Palette shown.",
+        patternAdded: 'Palette "{name}" added.',
+        deletePatternConfirm: "Delete this custom palette?",
+        patternDeleted: "Palette deleted.",
+        presetHidden: "Visual preset hidden.",
+        presetShown: "Visual preset shown.",
+        presetAdded: 'Preset "{name}" added.',
+        deletePresetConfirm: "Delete this custom visual preset?",
+        presetDeleted: "Visual preset deleted.",
+      },
+      notifications: {
+        title: "Notifications",
+        loading: "Loading notifications...",
+        loadFailed: "Failed to load notifications",
+        markReadFailed: "Failed to mark notification as read",
+        allRead: "All notifications marked as read",
+        markAllFailed: "Failed to mark all notifications as read",
+        markAllRead: "Mark All as Read",
+        markReadTooltip: "Mark as read",
+        viewTooltip: "View details",
+        unreadCount: "{count} unread notifications",
+        noNew: "No new notifications",
+        emptyTitle: "No Notifications",
+        emptyDesc: "No notifications yet. You'll be notified when there's a new announcement or when a lead comes into your website.",
+        justNow: "Just now",
+        minutesAgo: "{n}m ago",
+        hoursAgo: "{n}h ago",
+        daysAgo: "{n}d ago",
+        typeAnnouncement: "Announcement",
+        typeLead: "Lead",
+        typePayment: "Payment",
+        typeNewUser: "New User",
+        typePlan: "Plan",
+        typeSite: "Site",
+        typeInvitation: "Invitation",
+        typeSystem: "System",
+        viewAll: "View all notifications",
+        loadMore: "Load More",
+      },
+      investigate: {
+        loadingClustering: "Clustering matching audit events...",
+        loadingTimeline: "Building incident timeline...",
+        loadingSignals: "Cross-checking suspicious signals...",
+        loadingRecommendations: "Drafting recommendations for the operator...",
+        loadHistoryFailed: "Failed to load investigation history",
+        completed: "AI investigation completed.",
+        runFailed: "Failed to investigate logs",
+        loadDetailFailed: "Failed to load investigation detail",
+        noResultNote: "No investigation result loaded yet.",
+        noteHigh: "Escalate quickly. Multiple strong signals point to elevated account or access risk.",
+        noteMedium: "Needs review. There are enough suspicious patterns to warrant operator follow-up.",
+        noteLow: "Monitor only. The current evidence suggests a lower-confidence incident.",
+        eyebrowAi: "AI Powered",
+        title: "Investigate with AI",
+        analyzing: "Analyzing...",
+        runInvestigation: "Run Investigation",
+        fieldResource: "Resource",
+        fieldStatus: "Status",
+        fieldAction: "Action",
+        fieldSearch: "Search",
+        fieldDateFrom: "Date From",
+        fieldDateTo: "Date To",
+        streamingAnalysis: "Streaming analysis",
+        latestResult: "Latest result",
+        outputTitle: "AI Investigation Output",
+        aiProcessing: "AI Processing",
+        riskLevel: "Risk Level",
+        riskWeightedDesc: "Weighted by signals, urgency, log volume, and incident status",
+        score: "Score {score}",
+        listTimeline: "Timeline",
+        listSignals: "Suspicious Signals",
+        listRecommendations: "Recommendations",
+        emptyTitle: "Ready for analysis",
+        emptyDesc: "Run an investigation to generate a summary, timeline, suspicious signals, and recommendations.",
+        savedCount: "{count} saved",
+        savedTitle: "Saved Investigations",
+        refresh: "Refresh",
+        noSavedTitle: "No saved investigations",
+        noSavedDesc: "Completed investigations will appear here for quick review.",
+        investigationChip: "Investigation #{id}",
+        previous: "Previous",
+        pageOf: "Page {page} of {total}",
+        next: "Next",
+        detailsEyebrow: "Investigation Details",
+        closeLabel: "Close investigation details",
+        statusLabel: "Status",
+        noItems: "No items returned.",
+        errorEyebrow: "System Error",
+        errorTitle: "Failed to Load Dashboard",
+        errorHeading: "Something went wrong!",
+        errorDesc: "We encountered an unexpected error while trying to load the investigation module. This could be a network issue or a temporary backend failure.",
+        tryAgain: "Try Again",
+      },
+      sales: {
+        loadFailed: "Failed to load referral code",
+        codeCopied: "Referral code copied",
+        linkCopied: "Referral link copied",
+        regenerated: "New referral code created successfully!",
+        regenerateFailed: "Failed to regenerate referral code",
+        loading: "Loading referral data...",
+        accessDeniedTitle: "Access Restricted",
+        accessDeniedDesc: "This page is for Webjoz Sales Partners & Admins only. Please contact an admin if you are part of the sales team.",
+        pageTitle: "Partner Referral Code",
+        pageDesc: "Share your referral code or link with clients to earn commission on every paid transaction.",
+        viewCommissions: "View My Commissions",
+        codeCardTitle: "Your Referral Code",
+        codeCardDesc: "Use this code when a new website/tenant signs up.",
+        copied: "Copied",
+        copyCode: "Copy Code",
+        updatePrompt: "Want to update your code?",
+        regenerateCode: "Regenerate Code",
+        linkCardTitle: "Signup Referral Link",
+        linkCardDesc: "Clients who sign up through this link are automatically connected to your account.",
+        copyLink: "Copy Link",
+        shareWhatsApp: "Share via WhatsApp",
+        shareEmail: "Share via Email",
+        emailInviteLabel: "Send directly to an email",
+        emailInvitePlaceholder: "friend@recipient.com",
+        emailInviteSend: "Send Email",
+        emailInviteSent: "Referral invite sent successfully!",
+        emailInviteFailed: "Failed to send email invite",
+        emailInviteSending: "Sending...",
+        copyInviteText: "Copy Invitation Text",
+        inviteTextCopied: "Invitation message copied to clipboard",
+        tipsLabel: "Tip:",
+        tipsText: "Include this link in your proposal, WhatsApp message, or social media bio.",
+        programTitle: "Sales Partner Commission Terms",
+        commRatePrefix: "Commission of",
+        commRateSuffix: "from every paid transaction completed by users you referred.",
+        commRecurringPrefix: "Commission is",
+        commRecurringSuffix: "for every monthly or yearly subscription renewal.",
+        commEditorPrefix: "Every website that registers with your code automatically connects you as a",
+        commEditorSuffix: "collaborating partner for that website.",
+        dialogTitle: "Regenerate Referral Code",
+        confirmPrefix: "Are you sure you want to create a new referral code? Your old code",
+        confirmSuffix: "will no longer work for new signups.",
+        cancel: "Cancel",
+        processing: "Processing...",
+        confirmRegenerate: "Yes, Create New Code",
+      },
+      salesOverview: {
+        loadFailed: "Failed to load sales data",
+        loading: "Loading summary...",
+        accessDeniedTitle: "Access Restricted",
+        accessDeniedDesc: "This page is for Sales Partners & Admins only. Contact an admin to enable access.",
+        pageTitle: "Sales Overview",
+        pageDesc: "Your earnings summary — Tier 1 {t1}% (first {months} months) → Tier 2 {t2}%, plus onboarding & milestone bonuses.",
+        cardTotal: "Total Earnings",
+        cardTotalDesc: "Accumulated Commission + Bonuses",
+        cardCommission: "Recurring Commission",
+        cardCommissionDesc: "Tier 1 {t1}% / Tier 2 {t2}%",
+        cardBonus: "Total Bonuses",
+        cardBonusDesc: "{onboarding} Onboarding · {milestone} Milestone",
+        cardPending: "Pending Payout",
+        cardPendingDesc: "Awaiting payout processing",
+        refCardTitle: "Your Referral Code",
+        refLinkLabel: "Referral Link",
+        copyCode: "Copy Code",
+        copyLink: "Copy Link",
+        copied: "Copied!",
+        manageRef: "Manage referral code",
+        schemeTitle: "Active Commission Scheme",
+        tier1Desc: "First {months} months after signup",
+        tier2Desc: "After {months} months running",
+        bonusSchemeTitle: "Additional Bonuses",
+        bonusOnboarding: "Onboarding bonus per new user",
+        bonusMilestone: "Monthly milestone bonus",
+        quickLinksTitle: "Quick Access",
+        linkCommissionsTitle: "Commission & Bonus History",
+        linkCommissionsDesc: "View all recorded commission and bonus transactions with their status.",
+        linkReferralTitle: "Manage Referral Code",
+        linkReferralDesc: "Copy, share, or regenerate your referral code.",
+        codeCopied: "Code copied!",
+        linkCopied: "Link copied!",
+      },
+      salesCommissions: {
+        linkReferralCode: "Referral Code",
+        loadFailed: "Failed to load commission data",
+        loading: "Loading earnings data...",
+        accessDeniedTitle: "Access Restricted",
+        accessDeniedDesc: "You don't have access to the commissions & bonuses page yet. Contact an admin to enable sales access.",
+        pageTitle: "My Earnings",
+        pageDesc: "Tiered commission Tier 1 {t1}% (first {months} months) → Tier 2 {t2}%, plus onboarding & milestone bonuses.",
+        cardTotal: "Total Earnings",
+        cardTotalDesc: "Accumulated Commission + Bonuses",
+        cardCommission: "Recurring Commission",
+        cardCommissionDesc: "Commission per payment: {t1}% (Tier 1) / {t2}% (Tier 2)",
+        cardBonus: "Total Bonuses",
+        cardBonusDesc: "{onboarding} Onboarding, {milestone} Milestone",
+        cardPending: "Pending Payout",
+        cardPendingDesc: "Awaiting payout processing",
+        tabCommissions: "Recurring Commission ({count})",
+        tabBonuses: "Onboarding & Milestone Bonuses ({count})",
+        noCommissionsTitle: "No commissions recorded yet.",
+        noCommissionsDesc: "Share your referral code to start earning commissions.",
+        thDate: "Date",
+        thOrderId: "Order ID",
+        thTenantId: "User ID",
+        thGross: "Gross Amount",
+        thRate: "Rate",
+        thCommission: "Commission",
+        thStatus: "Status",
+        tierLabel: "Tier {tier}",
+        pageOf: "Page {page} of {total}",
+        previous: "Previous",
+        next: "Next",
+        noBonusesTitle: "No bonuses recorded yet.",
+        noBonusesDesc: "Onboarding bonus (Rp 50.000) and monthly milestone bonuses are recorded automatically once the user is active.",
+        thBonusType: "Bonus Type",
+        thDetail: "Detail / Period",
+        thAmount: "Bonus Amount",
+        bonusTypeLabel: "{type} Bonus",
+        bonusTenant: "User #{id}",
+        bonusPeriod: "Period {period} (Tier {tier})",
+      },
+      tenants: {
+        loadFailed: "Failed to load tenants",
+        accessDenied: "You don't have access to this page.",
+        title: "All Tenants",
+        emptyTitle: "No tenants found",
+        thTenant: "Tenant",
+        thPlan: "Plan",
+        thMembers: "Members",
+        thSites: "Sites",
+        thCreated: "Created",
+        manage: "Manage",
+      },
+      tenantDetail: {
+        loadFailed: "Failed to load tenant details",
+        planUpdated: "Plan updated",
+        assignFailed: "Failed to assign plan",
+        accessDenied: "You don't have access to this page.",
+        notFoundTitle: "Tenant not found",
+        backToTenants: "Back to Tenants",
+        tenantInfoTitle: "Tenant Info",
+        slugLabel: "Slug",
+        ownerIdLabel: "Owner ID",
+        planAssignmentTitle: "Plan Assignment",
+        currentPlanLabel: "Current Plan",
+        changePlanLabel: "Change Plan",
+        selectPlan: "Select plan...",
+        assign: "Assign",
+        usageTitle: "AI Usage (this month)",
+        usageGenerates: "Generates",
+        usageSectionRegens: "Section Regens",
+        usageDesignRegens: "Design Regens",
+        usageTokenInput: "Token Input",
+        usageTokenOutput: "Token Output",
+        usageEmpty: "No usage data for this month",
+        membersTitle: "Members ({count})",
+        noMembers: "No members",
+        thName: "Name",
+        thEmail: "Email",
+        thRole: "Role",
+        thJoined: "Joined",
+        viewSites: "View Sites",
+        viewDomains: "View Domains",
+        viewLeads: "View Leads",
+      },
+      logs: {
+        refreshed: "Audit feed refreshed.",
+        loadFailed: "Failed to load logs",
+        title: "Real-time Audit Log Feed",
+        autoRefreshOn: "Auto-refresh On",
+        autoRefreshOff: "Auto-refresh Off",
+        refreshNow: "Refresh Now",
+        filterAction: "Action",
+        filterResource: "Resource",
+        filterStatus: "Status",
+        filterIpSearch: "IP / Search",
+        filterDateFrom: "Date From",
+        filterDateTo: "Date To",
+        eventTable: "Event Table",
+        emptyDesc: "No audit logs matched the current filters.",
+        actionOn: "{action} on {resource}",
+        noDescription: "No description",
+        detailIp: "IP Address",
+        detailActor: "Actor User ID",
+        detailAgent: "User Agent",
+      },
+      permissions: {
+        loadInitialFailed: "Failed to load initial data",
+        loadRoleFailed: "Failed to load role permissions",
+        saveSuccess: "Permissions updated successfully",
+        saveFailed: "Failed to update permissions",
+        eyebrow: "RBAC Management",
+        title: "Manage Role Permissions",
+        saving: "Saving...",
+        save: "Save Changes",
+        totalCount: "{count} Total",
+        availablePermissions: "Available Permissions",
+        activeCount: "{count} Active",
+        resourceLabel: "{resource} Resource",
+      },
+      sessions: {
+        title: "Device & Session Management",
+        refresh: "Refresh",
+        refreshLabel: "Refresh devices",
+        loadFailed: "Failed to load devices",
+        signedOut: "Device signed out.",
+        signOutFailed: "Failed to sign out device",
+        trustRemoved: "Trusted device removed.",
+        trustRemoveFailed: "Failed to remove trusted device",
+        othersSignedOut: "Other devices signed out.",
+        othersSignOutFailed: "Failed to sign out other devices",
+        allSignedOut: "All devices signed out.",
+        allSignOutFailed: "Failed to sign out all devices",
+        signOutOthers: "Sign out others",
+        signOutAll: "Sign out all",
+        metricActive: "Active sessions",
+        metricTrusted: "Trusted devices",
+        metricCurrent: "This session",
+        emptyTitle: "No sessions yet",
+        emptyDesc: "No active sessions or trusted devices are currently associated with this account.",
+        statusCurrent: "currently signed in",
+        statusTrusted: "trusted device",
+        statusUnknown: "unknown device",
+        sessionChip: "Session #{id}",
+        deviceChip: "Device {id}",
+        trustChip: "Trust {id}",
+        unknownDevice: "Unknown device",
+        unknownAgent: "Unknown user agent",
+        ipLabel: "IP: {ip}",
+        lastUsed: "Last used: {date}",
+        trustedUsed: "Trusted use: {date}",
+        expires: "Expires: {date}",
+        removeTrust: "Remove trust",
+        revokeSession: "Revoke session",
+      },
+      users: {
+        title: "User Management",
+        refresh: "Refresh",
+        searchPlaceholder: "Search by name or email",
+        rolePlaceholder: "Role filter (user/sales/admin)",
+        loadFailed: "Failed to load users",
+        roleUpdated: "Role of {name} updated to {role}",
+        roleUpdateFailed: "Failed to update user role",
+        deleteConfirm: "Are you sure you want to delete {name}?",
+        deleted: "User {name} deleted successfully",
+        deleteFailed: "Failed to delete user",
+        adminVisibleTitle: "Admin-visible users",
+        emptyDesc: "No users matched the current query.",
+        delete: "Delete",
+      },
+      upgradeSuccess: {
+        confirmTimeout: "Confirming your payment...",
+        backToDashboard: "Back to Dashboard",
+        pendingTitle: "Payment Processing",
+        pendingDesc: "We're verifying your payment. This page will refresh automatically once payment is confirmed.",
+        successTitle: "Plan Upgraded Successfully!",
+        successDesc: "Congrats! Your account is now on the Pro plan. Enjoy unlimited AI generates, custom domains, and automatic SEO.",
+        errorTitle: "Payment Failed",
+        errorDesc: "Your payment could not be processed. Please try again or check your payment method.",
+        txDetails: "Transaction Details",
+        orderIdLabel: "Order ID",
+        totalLabel: "Total",
+        methodLabel: "Method",
+        timeLabel: "Time",
+        goToDashboard: "Go to Dashboard",
+        viewOtherPlans: "View Other Plans",
+      },
+      sitesNew: {
+        connecting: "Connecting...",
+        noWorkspaceTitle: "No Active Workspace",
+        noWorkspaceDesc: "You need to join a workspace first to create a new website.",
+        backToDashboard: "Back to Dashboard",
+      },
+      sitesSeo: {
+        title: "SEO & Performance",
+        webLink: "Web",
+        saving: "Saving...",
+        saved: "Saved",
+        save: "Save",
+        loadFailed: "Failed to load SEO settings",
+        saveFailed: "Failed to save SEO",
+        gscSaved: "Saved to Google Search Console",
+        aiFailed: "AI failed to optimize SEO",
+        upgradeTitle: "AI SEO — Pro Plan",
+        upgradeDesc: "AI SEO optimization is available without limits on the Pro plan.",
+        upgradeNow: "Upgrade Now",
+        later: "Later",
+      },
+      sitesIntegrations: {
+        title: "Integrations",
+        webLink: "Web",
+        loadFailed: "Failed to load integrations",
+        saved: "Saved",
+        saveFailed: "Failed to save integrations",
+        save: "Save",
+        saving: "Saving...",
+        ga4Desc: "Connect Google Analytics 4 to track visitors, behavior, and conversions on your site.",
+        metaPixelDesc: "Add the Meta Pixel to track ad conversions and build retargeting audiences on Instagram & Facebook.",
+      },
+      sitesTestimonials: {
+        loadFailed: "Failed to load testimonials",
+        shareTitle: "Share Testimonial",
+        copy: "Copy",
+        linkCopied: "Testimonial link copied.",
+        pendingTitle: "{count} Testimonials Pending Approval",
+        approved: "Approved",
+        approvedDesc: "This testimonial has been approved and is now live on your site.",
+        approve: "Approve",
+        approveFailed: "Failed to approve testimonial",
+        rejected: "Rejected",
+        rejectedDesc: "This testimonial was not approved.",
+        reject: "Reject",
+        rejectFailed: "Failed to reject testimonial",
+        validationRequired: "Validation required",
+        added: "Testimonial added successfully.",
+        addFailed: "Failed to add testimonial",
+        add: "Add Manually",
+        manualTitle: "Add Testimonial Manually",
+        manualDesc: "Enter testimonial data directly.",
+        labelName: "Name",
+        labelRole: "Role",
+        labelQuote: "Testimonial",
+        labelRating: "Rating",
+        saving: "Saving...",
+        saveToSite: "Save to Site",
+        cancel: "Cancel",
+        emptyDesc: "No testimonials yet. Click Add Manually to add your first.",
+      },
+      sitesKatalog: {
+        loadFailed: "Failed to load catalog",
+        saveFailed: "Failed to save catalog",
+        saving: "Saving...",
+        saved: "Saved",
+        save: "Save",
+        webLink: "Web",
+        emojiPopular: "Popular",
+        emojiFood: "Food",
+        emojiServices: "Services",
+        emojiSymbols: "Symbols",
+        emojiSymbol: "More symbols",
+        pickEmojiTitle: "Pick an emoji",
+        close: "Close",
+        sectionTitleMenu: "Menu",
+        sectionTitleCatalog: "Product Catalog",
+        itemLabelMenu: "menu item",
+        itemLabelCatalog: "product",
+        itemCountLabel: "{count} item",
+        noCategoriesTitle: "No categories yet",
+        noCategoriesDesc: "Click + Add Category to start, or add {itemLabel} directly.",
+        itemNumberLabel: "Item {number}",
+        noItemsDesc: "No {itemLabel} in this category yet.",
+        labelSectionTitle: "Section Title",
+        sectionSettingsSubtitle: "Set section title, subtitle, and intro text for your website catalog",
+        labelEyebrow: "Eyebrow",
+        labelSubtitle: "Subtitle",
+        labelPhoto: "Photo",
+        labelName: "Name",
+        labelPrice: "Price",
+        labelBadge: "Badge",
+        badgeHint: "A badge marks items as featured and shows them in the showcase view.",
+        labelCapacity: "Capacity",
+        capacityHint: "(optional — max guests for rooms / units)",
+        labelFeatures: "Features / Amenities",
+        featuresHint: "(e.g. AC, WiFi, Breakfast — for homestay rooms)",
+        labelDescription: "Description",
+        bulletList: "Bullet List",
+        numberedList: "Numbered List",
+        addItemLabel: "Add {label} to {category}",
+        addCategory: "Add Category",
+        defaultCategory: "Category {number}",
+        bannerTitle: "Manage your {itemLabel}",
+        bannerDesc1: "Add categories and {itemLabel} here. Fill in a photo, name, description{itemPricePart}, and badge for each.",
+        bannerDesc2: "Badged items are automatically featured in the showcase view.",
+        bannerDesc3: "Visitors can add {itemLabel} that you request.",
+        bannerPricePart: ", price",
+        addWord: "Add",
+        aiPromptLabelPrefix: "Make description for",
+        itemFallback: "Item {number}",
+        aiModalTitle: "AI Instructions",
+        aiModalDesc: "What description would you like to create?",
+        aiFailed: "AI failed to generate a description",
+        generate: "Generate",
+        processing: "Processing...",
+        cancel: "Cancel",
+        aiGenerateTitle: "Generate with AI",
+        aiGenerateDesc: "Use AI to automatically generate an item description.",
+        optional: "Optional",
+        upgradeTitle: "AI Feature - Pro Plan",
+        upgradeDesc: "AI-generated descriptions are available without limits on the Pro plan.",
+        upgradeNow: "Upgrade Now",
+        later: "Later",
+        chipMenu: "Menu",
+        chipCatalog: "Catalog",
+        chipCategoryCount: "{count} categories",
+        statCategories: "Categories",
+        statTotalItems: "Total Products",
+        statAvailable: "Available",
+        statVariants: "Variants / Options",
+        available: "Available",
+        outOfStock: "Out of Stock",
+        markAvailable: "Mark Available",
+        markOutOfStock: "Mark Out of Stock",
+        categoryPlaceholder: "Category Name (e.g. Main Course, Value Pack)",
+        dragCategory: "Drag to reorder category",
+        dragItem: "Drag to reorder item",
+        deleteCategory: "Delete Category",
+        deleteItem: "Delete Item",
+        deleteCategoryConfirm: "Are you sure you want to delete this category and all its items?",
+        priceDisplay: "Display Price",
+        priceDisplayPlaceholder: "e.g. $15.00 or From $10",
+        priceAmount: "Numeric Price",
+        priceAmountPlaceholder: "e.g. 15.00",
+        priceAmountHelp: "Used for checkout & order calculation",
+        badgePlaceholder: "e.g. Best Seller, New, 20% Off",
+        capacityPlaceholder: "e.g. 2 guests, 4 pax, 1 set",
+        featuresPlaceholder: "Type amenity/feature and press Enter (e.g. WiFi, AC, Breakfast)",
+        tagsPlaceholder: "Type tag and press Enter (e.g. Spicy, Vegan)",
+        deliveryPlatforms: "Online Delivery Platforms",
+        deliveryPlatformsHelp: "Link GoFood, GrabFood, ShopeeFood, Tokopedia, etc.",
+        addDeliveryPlatform: "Add Delivery Platform",
+        platformNamePlaceholder: "Name (e.g. GrabFood)",
+        platformUrlPlaceholder: "https://...",
+        photoPrimary: "Primary Photo",
+        photoGallery: "Additional Photo Gallery",
+        photoGalleryCount: "Photo Gallery ({count})",
+        photoGalleryHelp: "Upload extra photos from different angles or product variations.",
+        photoSetPrimary: "Set as Primary",
+        photoAdd: "Photo",
+        photoUploading: "Uploading...",
+        variantsTitle: "Variants & Add-ons",
+        variantsSubtitle: "Customize product options like Size, Extra Topping, Sweetness, or Add-ons.",
+        variantsAddGroup: "Add Variant Group",
+        variantsNoGroups: "No variants or add-ons added for this item.",
+        variantsGroupName: "Group Name",
+        variantsGroupNamePlaceholder: "e.g. Portion Size, Extra Topping, Spicy Level",
+        variantsTypeSingle: "Single Choice (Radio)",
+        variantsTypeMultiple: "Multiple Choice (Checkbox)",
+        variantsRequired: "Required for Visitors",
+        variantsOptionsTitle: "Option Choices",
+        variantsOptionName: "Option Name",
+        variantsOptionNamePlaceholder: "e.g. Regular, Large, Extra Cheese",
+        variantsOptionDelta: "+Price Delta",
+        variantsAddOption: "Add Option",
+        allChangesSaved: "All changes are automatically and securely saved",
+        paymentTitle: "Payment Methods & Shipping",
+        paymentSubtitle: "Show payment and shipping info in your visitors' shopping cart. No payment gateway needed yet — just static account/QRIS details.",
+        paymentHint: "Changes save automatically. This info is shown as a note only — payments are confirmed manually via WhatsApp.",
+        paymentsVisibleLabel: "Show payment & shipping block",
+        paymentsVisibleHint: "Turn off to hide this info from the cart and footer",
+        methodsTitle: "Payment Methods",
+        methodTypeTransfer: "Bank Transfer",
+        methodTypeQris: "QRIS",
+        methodTypeEwallet: "E-Wallet",
+        methodTypeCod: "Cash on Delivery (COD)",
+        methodTypeCard: "Credit/Debit Card",
+        methodTypeOther: "Other",
+        methodLabelPlaceholder: "Method name (e.g. BCA Bank Transfer)",
+        methodDetailPlaceholder: "Account number (e.g. 1234567890 a.n. Name)",
+        methodDetailPlaceholderEwallet: "Phone number / e-wallet ID (e.g. 081234567890)",
+        methodDetailPlaceholderCod: "Note (e.g. Pay in cash when the order arrives)",
+        methodDetailPlaceholderCard: "e.g. Visa / Mastercard (pay directly to the store)",
+        methodDetailPlaceholderOther: "Method note (e.g. transfer via another platform)",
+        methodQrisImageLabel: "QR image",
+        methodQrisImagePlaceholder: "https://... or upload QRIS image",
+        paymentTitleLabel: "Block title",
+        methodRemove: "Remove method",
+        methodAdd: "Add Method",
+        shippingTitle: "Shipping Info",
+        shippingNotePlaceholder: "e.g. Shipping cost depends on your location. Estimated 1–3 business days.",
+        returnPolicy: "Return Policy",
+        returnPolicyPlaceholder: "e.g. Items can be returned or exchanged within 7 days. Contact us via WhatsApp.",
+        toggleItemDetail: "Expand/collapse item details",
+        advancedSettings: "Advanced settings",
+        quickView: "Quick View",
+        previewItem: "Preview",
+      },
+      sitesBlog: {
+        title: "Blog Posts",
+        webLink: "Web",
+        addNew: "New Post",
+        layoutLabel: "Blog Layout",
+        aiPick: "AI-recommended for your site style",
+        nonPremiumText: "AI content generation is only available on",
+        upgrade: "Upgrade →",
+        writePostTitle: "Write New Post",
+        savePost: "Save Post",
+        cancel: "Cancel",
+        aiCardTitle: "Generate Blog Content with AI",
+        generate: "Generate",
+        generateLabel: "Generate",
+        layoutGrid: "Grid",
+        layoutGridDesc: "Cards in 3 columns",
+        layoutList: "List",
+        layoutListDesc: "Horizontal with image",
+        layoutFeatured: "Featured",
+        layoutFeaturedDesc: "Hero + grid below",
+        layoutMinimal: "Minimal",
+        layoutMinimalDesc: "Title & date list",
+        loadFailed: "Failed to load blog",
+        draftCreated: "Blog draft created",
+        generateFailed: "Failed to generate blog",
+        postCreated: "Post created",
+        createFailed: "Failed to create post",
+        publishFailed: "Failed to publish",
+        published: "Published",
+        layoutSaved: "Blog layout updated",
+        layoutFailed: "Failed to save layout",
+        publishedDate: "Published {date}",
+        draftDate: "Draft · {date}",
+        publishedBadge: "Published",
+        draftBadge: "Draft",
+        edit: "Edit",
+        publish: "Publish",
+        emptyDesc1: "No blog content yet. Click",
+        emptyDesc2: "to create your first post.",
+      },
+      sitesBlogPost: {
+        loadFailed: "Failed to load post",
+        saveFailed: "Failed to save",
+        bold: "Bold",
+        italic: "Italic",
+        heading2: "Heading 2",
+        heading3: "Heading 3",
+        bulletList: "Bullet List",
+        orderedList: "Ordered List",
+        blockquote: "Blockquote",
+        link: "Link",
+        uploadImage: "Upload Image",
+        notFound: "Post not found",
+        back: "Back",
+        editor: "Editor",
+        preview: "Preview",
+        published: "Published",
+        draft: "Draft",
+        unsaved: "Unsaved changes",
+        savedAt: "Saved {time}",
+        save: "Save",
+        excerpt: "Excerpt",
+        seoTitle: "SEO Title",
+        seoDescription: "SEO Description",
+        noindex: "Noindex (Hide from Google)",
+        noindexDesc: "This page will not appear in Google search results.",
+        cover: "Cover Image",
+        aiFailed: "AI failed",
+        generating: "Generating...",
+        generate: "Generate",
+        aiCardTitle: "Generate Blog Content with AI",
+        aiPromptLabelPrefix: "Make description for",
+      },
+      sitesEditor: {
+        authenticating: "Authenticating...",
+        loading: "Loading editor...",
+        loadFailed: "Failed to load site",
+        loadMore: "Load more ({count} remaining)",
+        backToSites: "Back to websites list",
+        back: "Back",
+        contentTab: "Content",
+        designTab: "Design",
+        styleLabel: "Site Style",
+        layoutLabel: "Layout",
+        sectionOrder: "Section order",
+        sectionSpacing: "Section Spacing",
+        cornerRadius: "Corner Radius",
+        cornerSharp: "Sharp (0px)",
+        cornerSoft: "Soft (8px)",
+        cornerRounded: "Rounded (20px)",
+        heroStyle: "Hero Style",
+        heroCentered: "Hero: Centered",
+        heroSplit: "Hero: Split Screen",
+        heroFullBleed: "Hero: Full Bleed",
+        heroImageCarousel: "Hero: Image Carousel",
+        heroMinimalist: "Hero: Minimalist",
+        heroMinimalistElegant: "Hero: Minimalist Elegant",
+        heroTechSaaS: "Hero: Tech SaaS",
+        heroNeoBrutalist: "Hero: Neo-Brutalist",
+        heroBentoGrid: "Hero: Bento Grid",
+        heroSplitEditorial: "Hero: Editorial Split",
+        heroNaturalOrganic: "Hero: Natural Organic",
+        heroPersonalBillboard: "Hero: Personal Billboard",
+        heroPortraitShowcase: "Hero: Portrait Showcase",
+        heroWorkPreviewStrip: "Hero: Featured Work Strip",
+        heroChronologyBadge: "Hero: Chronology Badge",
+        spacingCompact: "Compact",
+        spacingRelaxed: "Relaxed",
+        spacingCompactShort: "Compact",
+        spacingRelaxedShort: "Relaxed",
+        normal: "Normal",
+        colorPalette: "Color Palette",
+        primaryColor: "Primary Color",
+        accentColor: "Accent Color",
+        backgroundColor: "Background Color",
+        surfaceColor: "Surface Color",
+        textColor: "Text Color",
+        primaryShort: "Primary",
+        accentShort: "Accent",
+        backgroundShort: "Background",
+        surfaceShort: "Surface",
+        textShort: "Text",
+        visualCustomization: "Visual Customization",
+        layoutStyle: "Layout & Style",
+        aiDesignPrompt: "AI Design Prompt",
+        aiInstructionsTitle: "AI Instructions",
+        aiPromptDesc: "What would you like to change in the {label} section?",
+        aiPromptPlaceholder: "e.g. \"make it more persuasive and emotional\"",
+        aiPlaceholder: "Make the copy clearer and more compelling...",
+        fieldAiTitle: "AI Instructions — {label}",
+        fieldAiDesc: "Add a custom instruction or just click Generate.",
+        fieldAiPlaceholder: "e.g. \"make it more casual and friendly\"",
+        fieldAiImagePrompt: "Write a description based on this product photo",
+        fieldAiImageChip: "Write a description from the product photo",
+        generateAi: "Generate AI",
+        regenerateWithAi: "Regenerate with AI",
+        processing: "Processing...",
+        applyStyle: "Apply Style",
+        cancel: "Cancel",
+        later: "Later",
+        upgradeToPro: "Upgrade to Pro",
+        upgradeDefaultTitle: "AI Features — Pro Only",
+        upgradeDefaultBody: "AI features are only available for Pro users.",
+        upgradeProDesc: "With Pro, you can use AI Generate for content, images, SEO, and website design.",
+        upgradeRegenTitle: "Regenerate with AI — Pro feature",
+        upgradeRegenBody: "Regenerate section content with AI without limits on the Pro plan.",
+        upgradeDesignTitle: "Redesign with AI — Pro feature",
+        upgradeDesignBody: "Let AI change your site style, colors, and layout instantly on the Pro plan.",
+        upgradeSuggestionTitle: "AI prompt suggestions — Pro feature",
+        upgradeSuggestionBody: "Use ready-made AI prompts to speed up your workflow on the Pro plan.",
+        save: "Save",
+        saving: "Saving...",
+        saved: "Saved",
+        saveSuccess: "Changes saved successfully!",
+        saveFailed: "Failed to save changes",
+        autosaveFailed: "Failed to save",
+        notFoundTitle: "Site Not Found",
+        notFoundDesc: "We couldn't find the site you're looking for in this workspace.",
+        inlineSave: "Save",
+        inlineCancel: "Cancel",
+        inlineSaved: "Saved",
+        inlineClickToEdit: "Click to edit text",
+        inlineShortcutSingle: "↵ Save",
+        inlineShortcutMulti: "Ctrl+↵ Save",
+        changePhoto: "Change Photo",
+        addPhoto: "Add Photo",
+        uploadingPhoto: "Uploading...",
+        preview: "Preview",
+        previewDesktop: "Preview desktop",
+        previewTablet: "Preview tablet",
+        previewMobile: "Preview mobile",
+        toggleDarkAria: "Toggle dark mode",
+        themeMode: "Theme Mode",
+        light: "Light",
+        dark: "Dark",
+        switchLight: "Light Mode",
+        switchDark: "Dark Mode",
+        aiUsage: "AI Usage",
+        generate: "Generate",
+        sectionRegen: "Section Regen",
+        designRegen: "Design Regen",
+        qualityScore: "Quality: {score}%",
+        qualityTitle: "Content Completeness ({score}%)",
+        qualityDesc: "{count} fields need filling so your site looks its best:",
+        qualityWarning: "⚠️ {count} fields need attention",
+        qualityFieldHint: "Field is empty or contains sample text",
+        fill: "Fill",
+        viewCompleteness: "View content completeness",
+        undo: "Undo",
+        undoAllTitle: "Undo last change (text, design, or section order)",
+        undoDesign: "Undo Design",
+        undoDesignTitle: "Undo last design change",
+        noDesignChanges: "No design changes yet",
+        show: "Show",
+        hide: "Hide",
+        showSection: "Show section",
+        hideSection: "Hide section",
+        hidden: "Hidden",
+        showPageSections: "Show page sections",
+        expandEditArea: "Expand edit area",
+        variantOptions: "Layout Variants",
+        visualGallery: "Visual Gallery",
+        closeGallery: "Close",
+        pickVariant: "Pick Variant",
+        allVariants: "All",
+        variantsCount: "variants",
+        variantPreviewHint: "Click a variant to preview instantly on the canvas.",
+        done: "Done",
+        pageLayoutVariants: "Section Layout Variants",
+        activeSectionsCount: "active sections",
+        pageLayoutVariantsDesc: "Customize the layout style of each section of your site in one place.",
+        editSectionContent: "Edit this section's content",
+        changeSectionVariant: "Change this section's layout variant",
+        optionsCount: "options",
+        variantLabel: "Variant",
+        editShortcut: "Edit",
+        mapStyleLabel: "Map Style",
+        mapTileLight: "Light",
+        mapTileDark: "Dark",
+        mapTileSatellite: "Satellite",
+        mapPreviewLabel: "Map Preview",
+        mapPreviewEmpty: "No location yet. Click \"Pick Location\" to mark one on the map.",
+        mapPreviewEditAria: "Change map location",
+        pickLocation: "Pick Location",
+        selectSectionAria: "Select Section",
+        openSheet: "Open sheet",
+        closeSheet: "Close sheet",
+        publish: "Publish",
+        publishShort: "Publish",
+        publishSuccess: "Website published successfully! 🚀",
+        publishFailed: "Failed to publish website",
+        moderationAppealFailed: "Failed to submit appeal. Please try again.",
+        applying: "Applying...",
+        applyLive: "Apply to Live",
+        apply: "Apply",
+        live: "Live",
+        draft: "Draft",
+        aiProcessing: "AI is processing...",
+        aiReviewActive: "AI Review Active",
+        aiReviewDesc1: "Please apply or revert the AI changes to the",
+        aiReviewDesc2: "section in the preview above first.",
+        diffAi: "AI Diff: {label}",
+        diffChanges: "{count} changes",
+        content: "Content",
+        old: "Old:",
+        new: "New:",
+        use: "Use",
+        useThis: "Use this",
+        revert: "Revert",
+        aiApplied: "AI results for {label} applied.",
+        aiCancelled: "AI results cancelled.",
+        aiReverted: "AI changes to {label} reverted.",
+        aiNoChange: "AI produced no meaningful changes.",
+        aiNoChangeHint: "Try a more specific instruction, e.g. make it an emotional headline, max 8 words, and remove raw input text.",
+        aiSectionDone: "AI finished writing {label}. Review the diff before applying.",
+        aiSectionFailed: "AI failed to regenerate this section.",
+        aiStyleDone: "AI finished redesigning the site style. Review the visual results before saving.",
+        aiStyleFailed: "AI failed to regenerate the site style.",
+        aiStyleNoChange: "AI produced no meaningful style changes.",
+        aiProcessFailed: "AI failed to process.",
+        siteStyle: "site style",
+        aiDesignEngine: "AI Design Engine",
+        latestAiGenerated: "Latest AI Generated",
+        latest: "Latest",
+        latestAiDesc: "Latest AI-generated unique visual style for your site.",
+        aiResult: "AI Result",
+        aiMoodCreated: "{mood} mood. Created on {date}.",
+        editLabel: "Edit — {label}",
+        confirmPublishTitle: "Apply changes to Live?",
+        confirmPublishDesc: "Visitors will see the latest version shortly.",
+        confirmPublishBody: "All saved draft changes will be applied to your live site at {subdomain}.webjoz.com.",
+        confirmApply: "Yes, Apply",
+        upgradeLabel: "Upgrade to Pro",
+        aiInstructionsPlaceholder: "e.g. \"make it more persuasive and emotional\"",
+        aiDesignInstructionsPlaceholder: "e.g. warm vintage coffee theme...",
+        aiDesignFailed: "Failed to regenerate the design with AI",
+        aiHistory: "AI History",
+        templateLibraryAdmin: "Template Library (Admin)",
+        aiMadeFor: "Made specifically from your business info",
+        aiRecommendation: "AI Recommendation",
+        aiTemplateCategory: "Template category",
+        aiTemplateName: "Template name",
+        appearancePreset: "Appearance Presets",
+        bodyFont: "Body Font",
+        colorPattern: "Color Patterns",
+        headingFont: "Heading Font",
+        headingWeight: "Heading Weight",
+        heroTitleSize: "Hero Title Size",
+        manualFineTune: "Manual fine-tune",
+        orChoosePairing: "— or choose your favorite font pairing —",
+        orChoosePalette: "— or choose your favorite palette —",
+        scrollUp: "Scroll up",
+        scrollDown: "Scroll down",
+        viewLiveSite: "Open live website in a new tab",
+        activeSectionTitle: "Section: {label}",
+        activeBadge: "In use",
+        orChoosePreset: "— or choose your favorite preset —",
+        pageSections: "Page Sections",
+        sizeLarge: "Large",
+        sizeMax: "Maximum",
+        sizeMedium: "Medium",
+        sizeSmall: "Small",
+        sizeVeryLarge: "Very Large",
+        styleChoiceAria: "Choose a visual style",
+        typographyStyle: "Typography Style",
+        weightBold: "Bold",
+        weightExtraBold: "Extra-Bold",
+        weightMedium: "Medium",
+        weightRegular: "Regular",
+        weightSemiBold: "Semi-Bold",
+        // SEO Preview & Form
+        seoPreviewBannerTitle: "SEO & Metadata Preview:",
+        seoPreviewBannerDesc: "Only read by search engines & when links are shared on social media.",
+        seoEditInSidebar: "Edit in Sidebar",
+        windowClose: "Close",
+        windowMinimize: "Minimize",
+        windowMaximize: "Maximize",
+        browserBack: "Back",
+        browserForward: "Forward",
+        browserReload: "Reload Page",
+        browserMenu: "Browser Menu",
+        copyUrl: "Copy URL",
+        copied: "Copied!",
+        bookmarkSaved: "Bookmark saved",
+        bookmarkAdd: "Add Bookmark",
+        seoTabGoogle: "Google Search",
+        seoTabWhatsApp: "WhatsApp Share",
+        seoTabMetaTags: "Meta Tags & Code",
+        seoSwitchView: "Switch View",
+        seoGoogleAll: "All",
+        seoGoogleImages: "Images",
+        seoGoogleNews: "News",
+        seoGoogleMaps: "Maps",
+        seoGoogleVideos: "Videos",
+        seoGoogleMore: "More",
+        seoGoogleResultsCount: "About 124,000 results (0.32 seconds)",
+        seoGoogleClickToEdit: "Click to edit in sidebar",
+        seoGooglePlaceholderTitle: "Add SEO Title in the sidebar editor...",
+        seoGooglePlaceholderDesc: "Meta description is not set yet. Add a relevant description in the sidebar editor so visitors are enticed to click your site in search results.",
+        seoSitelinkAbout: "About Us",
+        seoSitelinkAboutDesc: "Learn about our profile and best services.",
+        seoSitelinkContact: "Contact & Location",
+        seoSitelinkContactDesc: "Reach out on WhatsApp or visit us in person.",
+        seoDiagTitle: "Title:",
+        seoDiagDesc: "Description:",
+        seoDiagOptimal: "Optimal",
+        seoDiagTooLong: "⚠️ Too long",
+        seoDiagTooShort: "ℹ️ Too short",
+        seoAdjustInSidebar: "Adjust in Editor Panel",
+        seoWaChatWith: "Prospective Customer / Friend",
+        seoWaOnline: "online",
+        seoWaChatBadge: "WhatsApp Chat",
+        seoWaMessage: "Hello! Check out our official website here:",
+        seoWaNoOgImage: "No OG Image set yet",
+        seoWaClickUpload: "Click to upload in sidebar",
+        seoWaDefaultDesc: "An engaging website description will appear here when the link is shared.",
+        seoOgTipsTitle: "Open Graph Image Tips:",
+        seoOgTipsDesc: "Ideal size: 1200 × 630 px (1.91:1 ratio). This image is automatically used by WhatsApp, Telegram, Facebook, X (Twitter), and LinkedIn when your link is shared.",
+        seoInspectorTitle: "HTML <head> SEO Inspector",
+        seoCopyHtml: "Copy HTML Code",
+        seoTargetKeywords: "Target Keywords:",
+        seoNotPublicTitle: "SEO does not appear as a section on the public page.",
+        seoNotPublicDesc: "This data is used by search engines and link preview cards, such as Google title, description, favicon, and social share image.",
+        seoAiTitlePrompt: "Create an SEO title containing the business name, location, and primary service. Max 60 characters.",
+        seoAiTitleBtn: "AI: generate SEO title",
+        seoAiDescPrompt: "Create a meta description that drives clicks on Google. Max 155 characters, include business name and value proposition.",
+        seoAiDescBtn: "AI: generate meta description",
+        seoAiKeywordsPrompt: "Generate 3-8 relevant SEO keywords for this business, focusing on products, services, and location.",
+        seoKeywordsLabel: "SEO Keywords",
+        seoKeywordsPlaceholderEmpty: "Type keyword and press Enter...",
+        seoKeywordsPlaceholderMore: "Add keyword...",
+        seoFaviconLabel: "Favicon",
+        seoOgImageLabel: "OG Image",
+        seoSharePreviewTitle: "Link Share Preview",
+        seoSharePlaceholderTitle: "Title not filled",
+        seoSharePlaceholderDesc: "Description not filled",
+        seoShareOgNotSet: "OG Image not configured (1200×630 px)",
+        seoShareAutoUpdate: "Preview automatically updates when you fill Meta Title, Description, & OG Image.",
+        seoAiOgTypePrompt: "Select the most suitable og_type: website, article, product, profile.",
+        seoAiOgTypeBtn: "AI: suggest OG type",
+        seoAiTwitterCardPrompt: "Select Twitter card: summary_large_image for most businesses.",
+        seoAiTwitterCardBtn: "AI: suggest Twitter card",
+        seoMetaTitleLabel: "Meta Title",
+        seoMetaDescLabel: "Meta Description",
+        seoOgTypeLabel: "OG Type",
+        seoOgTypeWebsite: "Website",
+        seoOgTypeArticle: "Article",
+        seoOgTypeProduct: "Product",
+        seoOgTypeProfile: "Profile",
+        seoOgTypeBusiness: "Business",
+        seoTwitterCardLabel: "Twitter Card",
+        seoRobotsLabel: "Robots",
+        seoRobotsIndexFollow: "index, follow",
+        seoRobotsNoindexFollow: "noindex, follow",
+        seoRobotsIndexNofollow: "index, nofollow",
+        seoRobotsNoindexNofollow: "noindex, nofollow",
+        seoOgLocaleLabel: "OG Locale",
+        seoOgSiteNameLabel: "OG Site Name",
+        seoOgSiteNamePlaceholder: "Business name",
+        seoCanonicalPathLabel: "Canonical Path",
+        mapTileOsm: "OSM",
+        mapTileCyclOsm: "CyclOSM",
+        mapTileEsriStreet: "Esri Street",
+        mapTileSatelliteLabel: "Satellite",
+        mapPickerTitle: "Pick Location",
+        mapPickerSearchPlaceholder: "Search places...",
+        mapPickerSearchBtn: "Search",
+        mapPickerMyLocationAria: "My current location",
+        mapPickerDetecting: "Detecting location...",
+        mapPickerLoading: "Loading map...",
+        mapPickerClickHint: "Click the map to pick a location",
+        mapPickerCancel: "Cancel",
+        mapPickerConfirm: "Select",
+        seoRobotsTxtTitle: "Custom Robots.txt",
+        seoRobotsTxtLockedTitle: "Customize robots.txt for your site",
+        seoRobotsTxtLockedDesc: "Control which pages Google indexes, block AI crawlers, and configure sitemap rules.",
+        seoBoosterActiveTitle: "SEO Booster Active",
+        seoBoosterActiveDesc: "Structured data rich snippet is automatically enabled on your site. Google will display rating, price, and business info directly in search results.",
+        seoBoosterProTitle: "SEO BOOSTER (PRO)",
+        seoBoosterWithout: "WITHOUT SEO BOOSTER",
+        seoBoosterWith: "WITH SEO BOOSTER",
+        seoBoosterCompetitor: "Your competitors might already appear like the right example in Google search.",
+        seoBoosterUpgradeBtn: "🔓 Upgrade to Pro — Stand Out on Google",
+        seoGscTitle: "Google Search Console",
+        seoGscSubtitle: "Verify your domain ownership in GSC",
+        seoGscHowToTitle: "How to get the verification code:",
+        seoGscStep1: "Open Google Search Console",
+        seoGscStep2: "Add property → select URL prefix",
+        seoGscStep3: "Enter your website URL, then select HTML Tag method",
+        seoGscStep4: "Copy the content value from the provided meta tag",
+        seoGscStep5: "Paste in the field below, then click Save & Verify",
+        seoGscPlaceholder: "Paste verification code here...",
+        seoGscSaving: "Saving...",
+        seoGscSaved: "Saved",
+        seoGscSaveBtn: "Save & Verify",
+        seoReviewsCount: "reviews",
+        seoBusinessOpenStatus: "Open",
+        seoBusinessClosedStatus: "Closed",
+      },
+      wizard: {
+        initialMessage: "Hi! I'm Joz-AI, an AI assistant who will help you create a website. Let's get started: what's the name of your business or brand?",
+        nameAckVariants: [
+          "Got it, name recorded.",
+          "Name saved successfully.",
+          "Okay, the name is saved.",
+          "Understood, name noted.",
+          "Your name is in the system.",
+          "Great, name saved."
+        ],
+        nameConfirmVariants: [
+          "Is that the official name, or a temporary one? Click 'Yes' to continue, or 'Change' if you'd like to edit it 😊",
+          "Is that the actual name? Click 'Yes' to continue, or 'Change' to enter a different one.",
+          "That name sounds like a placeholder — make sure it's the one you want. Click 'Yes' or 'Change'."
+        ],
+        descriptionPrompt: "Tell us briefly about your business or profile — 1-2 sentences is enough. For example: services/work you showcase, your expertise, or who it's for. Press Enter or click Next to skip.",
+        descriptionSkipKeyword: "skip",
+        descriptionInferenceHigh: "Looks like you fit into the **{subType}** category. Shall we create the website?",
+        descriptionInferenceMedium: "Looks like your field is {type}. Could you pick a more specific category?",
+        descriptionInferenceNone: "Alright, please select your category:",
+        descriptionAiFailed: "AI is having trouble. Please select your category manually:",
+        analyzingDescription: "Analyzing your profile...",
+        descriptionRefinedIntro: "Got it! Here's your summary:",
+        selectMoodPrompt: "How do you want your website to look?",
+        selectLanguagePrompt: "What language should this website be in?",
+        preparingWebsite: "Great! AI is preparing your website...",
+        preparingTheme: "Crafting visual theme & identity...",
+        preparingComponents: "Assembling layout & website components...",
+        preparingOpening: "Opening website preview...",
+        websiteReady: "Congratulations! Your website is ready. Use the Edit button to customize content, then click Publish to go live.",
+        confirmCardTitle: "Almost done — review and complete",
+        confirmCardLabelName: "Name",
+        confirmCardLabelType: "Type",
+        confirmCardLabelTypeHeader: "Category",
+        confirmCardLabelWA: "WA",
+        confirmCardLabelArea: "Coverage",
+        confirmCardLabelLang: "Site Language",
+        confirmCardBtnChange: "Edit",
+        confirmCardBtnFill: "Add",
+        confirmCardBtnClose: "✕ close",
+        confirmCardBtnGenerate: "Generate Website →",
+        confirmCardBtnGenerateRedo: "Apply & Regenerate →",
+        confirmCardBtnGenerating: "Generating...",
+        confirmCardBtnFinishEdit: "Finish editing first ↑",
+        successModalTitle: "Congratulations! Your Website is Ready 🎉",
+        successModalDesc: "Your website has been successfully generated by AI. Feel free to review the layout and content. If you'd like to adjust any text, images, colors, or sections, you can easily customize everything in the Editor.",
+        successModalBtnPreview: "View Preview",
+        successModalBtnEdit: "Edit & Publish",
+        errorModalRetry: "Try again",
+        errorModalCancel: "Cancel",
+        loadingBuildingTitle: "Building website...",
+        loadingBuildingTitleWithName: "Building website for {name} ✨",
+        loadingBuildingTitleGeneral: "AI is building your website ✨",
+        loadingPleaseWait: "Please wait a moment...",
+        loadingCharsWritten: "✍️ {count} characters written",
+        loadingAiInsight: "AI Insight",
+        loadingEstCountdown: "Est. remaining: ~{secs}s",
+        loadingEstFinalizing: "Finalizing copywriting...",
+        loadingEstDeepNote: "AI crafting full page (~20-25s)",
+        loadingChecklist0: "Writing headline & hero",
+        loadingChecklist1: "Structuring business story",
+        loadingChecklist2: "Crafting benefits & services",
+        loadingChecklist3: "Preparing testimonials & FAQ",
+        loadingChecklist4: "Setting up catalog & gallery",
+        loadingChecklist5: "SEO optimization & finalization",
+        loadingCardChecklist0: "Analyzing business & target market",
+        loadingCardChecklist1: "Structuring the page layout",
+        loadingCardChecklist2: "Writing headlines & copy",
+        loadingCardChecklist3: "On-page SEO optimization",
+        loadingCardChecklist4: "Choosing colors & typography",
+        loadingCardChecklist5: "Website ready to publish!",
+        resetChatBtn: "Reset Chat",
+        resetChatTooltip: "Start the chat over from the beginning",
+        untitledDraft: "Untitled Draft",
+        inputPlaceholderName: "Enter your business name...",
+        inputPlaceholderDesc: "Briefly describe your business...",
+        inputPlaceholderGeneral: "Type business name or answer...",
+        sttListening: "Listening...",
+        sttUseVoice: "Use Voice (STT)",
+        btnNext: "Next",
+        btnSkip: "Skip",
+        btnChangeName: "Change Name",
+        btnYesContinue: "Yes, Continue",
+        btnSeeOtherOptions: "See Other Options",
+        btnSave: "Save",
+        btnCancel: "Cancel",
+        btnFinish: "Finish",
+        btnSaveAndApply: "Save & Apply",
+        previewWebsiteTitle: "Website Preview",
+        openForm: "Open Form",
+        closeForm: "Close Form",
+        businessDetailsTitle: "Business Details",
+        businessDetailsSubtitle: "These two pieces of info are used by AI for contact buttons and generating relevant copy.",
+        waSaved: "WA saved",
+        waEmpty: "WA not set",
+        areaEmpty: "Area not set",
+        waHint: "Becomes instant chat button in hero & footer",
+        serviceAreaHint: "AI uses this to write more relevant copy",
+        voiceNotAvailable: "Your browser does not support Voice/STT features.",
+        chooseMoreAppropriate: "Sure, please choose a more appropriate one:",
+        placeholderPhone: "e.g. 081234567890",
+        placeholderArea: "e.g. Yogyakarta, Jakarta, all of Indonesia",
+        sttStopRecording: "Stop recording",
+        sttStartRecording: "Speak with mic",
+        sttConnecting: "Connecting mic...",
+        micHintTitle: "Speak faster with AI",
+        micHintDesc: "Press the mic button to describe your business.",
+        sttPromptGuide: "Tell us about your business...",
+        sttBtnDone: "Done",
+        sttBtnCancel: "Cancel",
+        sttProcessingTitle: "Processing your voice...",
+        sttProcessingSubtitle: "Drafting business information...",
+        sttReviewTitle: "Here is what I heard from you:",
+        sttReviewPrompt: "Does this look correct? You can edit before we continue.",
+        sttBtnEdit: "Edit",
+        sttBtnConfirm: "Yes, continue",
+        editMessage: "Edit message",
+        editedBadge: "(edited)",
+        editShortcutHint: "Enter to save, Esc to cancel",
+        editPlaceholder: "Type message changes...",
+        micReadyHint: "Click the mic icon to explain your business by voice",
+        micPermissionDenied: "Microphone permission is required to record voice. Please allow microphone access in your browser.",
+        sttNoVoiceDetected: "No voice detected. Please try speaking again or type your business description directly.",
+        backToChat: "Back to chat",
+        generationFailed: "Generation failed",
+        generationErrorMessage: "An error occurred while generating the preview.",
+        successToastTitle: "Your website is ready!",
+        successToastDesc: "Content, colors, and layout can be changed anytime in the Editor.",
+        closeNotification: "Close notification",
+        btnLater: "Later",
+        btnCompleteData: "Complete Info",
+        btnEditPublish: "Edit & Publish",
+        btnConfirmYes: "Yes, continue",
+        btnChangeCategory: "Change category",
+        btnTryOtherRecommendation: "Try other recommendation ({current}/{total})",
+        recommendationHintTitle: "{count} design recommendations available!",
+        recommendationHintDesc: "Click to explore alternative layouts.",
+        inferenceHint: "Tap to continue, or choose a different category",
+        notThisType: "Not this? Choose another category",
+        changeSubType: "Choose another type",
+        moreSpecific: "More specific:",
+        chooseMoodHint: "Choose a mood that fits your brand",
+        suggestedBadge: "✨ Suggested",
+        typeSelectedChooseSub: "✓ Selected — choose type below",
+        prefillTypePrompt: "I've estimated your website category. Continue if it's correct, or change it first:",
+        btnContinueType: "Continue with this type →",
+        wireframeAbout: "About",
+        wireframeFeatures: "Features",
+        wireframeContact: "Contact",
+        statusWaitingInput: "Waiting for input...",
+        statusAnalyzingName: "AI analyzing name...",
+        statusAiGenerating: "AI generating...",
+        statusPreviewReady: "Preview ready ✓",
+        statusPreparingAi: "Preparing AI...",
+        preFetchingNameHint: "AI analyzing business category...",
+        placeholderAnalyzingName: "Analyzing business name... or type your description",
+        nameConfirmPlaceholder: "Choose an option above or type a new name...",
+        nameConfirmYes: "Yes",
+        nameConfirmChange: "Change",
+        nameChangePrompt: "Sure, please type the business name you'd like to use:",
+        descPlaceholder: "Example: Selling specialty coffee in Jogja, serving bulk orders",
+        descPlaceholderWithMic: "Tell us about your business, or click the mic 🎤",
+        labelBusinessName: "Business Name",
+        labelBusinessType: "Category",
+        labelBusinessSubType: "Sub Category",
+        labelDescription: "Description",
+        labelWhatsapp: "WhatsApp Number",
+        labelServiceArea: "Service Area",
+        labelMood: "Website Style & Vibe (Mood)",
+        disambiguateJasaPortofolio: "Not sure whether to pick Services & Booking or Creative & Professional? If your customers need to book a schedule/reservation → choose Services & Booking. If they need to see your work first before ordering → choose Creative & Professional.",
+        categories: {
+          kuliner: "Culinary",
+          kulinerDesc: "Restaurants, Cafes, Catering",
+          tokoUmkm: "Online Store & Retail",
+          tokoUmkmDesc: "Product catalog, online store & physical shop",
+          jasaBooking: "Services & Booking",
+          jasaBookingDesc: "Salons, Workshops, Clinics, etc",
+          portofolioKreator: "Creative & Professional",
+          portofolioKreatorDesc: "Developers, Designers, Agencies, Consultants, etc",
+          company: "Company Profile",
+          companyDesc: "Property, Construction, Manufacturing, Foundation, & Institutions",
+        },
+        moods: {
+          modernClean: "Modern & Clean",
+          modernCleanDesc: "Clean, tidy, professional",
+          warmVintage: "Warm & Natural",
+          warmVintageDesc: "Warm, natural, and cozy",
+          boldEnergetic: "Bold & Energetic",
+          boldEnergeticDesc: "High contrast, energetic",
+          elegantLuxury: "Elegant & Luxury",
+          elegantLuxuryDesc: "Luxurious, exclusive, graceful",
+          playfulFun: "Playful & Fun",
+          playfulFunDesc: "Cheerful, friendly, colorful",
+          retro: "Retro & Vintage",
+          retroDesc: "Classic, nostalgic, and unique",
+          futuristic: "Futuristic & Tech",
+          futuristicDesc: "Modern, high-tech, and futuristic",
+          minimalistDark: "Minimalist Dark",
+          minimalistDarkDesc: "Dark, futuristic, modern",
+        },
+        subtypes: {
+          // Food & Beverage
+          "Restoran & Warung Makan": "Restaurant",
+          "Kuliner Tradisional & Nusantara": "Traditional Cuisine",
+          "Kafe": "Cafe",
+          "Bakery & Pastry": "Bakery",
+          "Catering": "Catering",
+          "Minuman & Bubble Tea": "Drinks",
+          "Makanan Rumahan & Frozen Food": "Home-Cooked",
+          "Frozen Food Homemade": "Frozen Food",
+          "Kuliner Kaki Lima & Angkringan": "Street Food",
+          "Jajanan Pasar & Kuliner Tradisional": "Traditional Snacks",
+          "Herbal & Jamu": "Herbal",
+          // Retail & Store
+          "Fashion & Pakaian": "Fashion & Apparel",
+          "Elektronik": "Electronics",
+          "Kecantikan & Kosmetik": "Cosmetics & Skincare",
+          "Produk Lokal Handmade": "Handmade & Crafts",
+          "Toko Online": "Online Store",
+          "Minimarket & Sembako": "Convenience & Grocery",
+          "Perabot & Furnitur": "Furniture",
+          "Otomotif & Sparepart": "Auto Parts & Accessories",
+          "Pertanian & Peternakan": "Agriculture & Livestock",
+          // Services & Booking
+          "Rental Mobil & Kendaraan": "Car & Vehicle Rental",
+          "Travel & Wisata": "Travel & Tourism",
+          "Hotel & Penginapan": "Hotel & Lodging",
+          "Salon & Kecantikan": "Beauty & Salon",
+          "Barbershop": "Barbershop",
+          "Klinik & Kesehatan": "Clinic & Healthcare",
+          "Gym & Olahraga": "Gym & Fitness",
+          "Event & Wedding Organizer": "Event & Wedding Organizer",
+          "Otomotif & Bengkel": "Auto & Repair",
+          "Laundry": "Laundry",
+          "Jasa Rumah & Kebersihan": "Home Care & Cleaning",
+          "Pendidikan & Kursus": "Tutoring & Courses",
+          "Biro Jasa & Perizinan": "Licensing & Permit Agency",
+          // Portfolio & Creator / Creative & Professional
+          "Konten Kreator": "Content Creator",
+          "Fotografer": "Photography",
+          "Videografer": "Videography",
+          "Desainer": "Design",
+          "Ilustrator & Seniman": "Illustrator & Artist",
+          "Arsitek & Desainer Interior": "Architect & Interior",
+          "Penulis & Copywriter": "Writer & Copywriter",
+          "Developer & IT": "Developer & IT",
+          "SEO & Digital Specialist": "SEO & Digital Specialist",
+          "Digital & Marketing Agency": "Digital & Marketing Agency",
+          "Konsultan": "Consulting",
+          "Tutor & Life Coach": "Tutor & Coach",
+          "Public Speaker & Trainer": "Speaker & Trainer",
+          "Musisi & Entertainer": "Music & Entertainment",
+          "Notaris & PPAT": "Notary & Land Deeds",
+          // Company Profile
+          "Properti & Real Estate": "Property & Real Estate",
+          "Konstruksi & Kontraktor": "Construction & Contractor",
+          "Manufaktur & Pabrik": "Manufacturing & Plant",
+          "Logistik & Ekspedisi": "Logistics & Freight",
+          "Yayasan & Organisasi Nonprofit": "Foundation & Nonprofit",
+          "Institusi Pendidikan & Pesantren": "Schools & Institutions",
+        },
+        resumePrompt: "Resume your previous session?",
+        resumeLastSession: "Last session",
+        resumeSavedLabel: "Saved {time}",
+        resumeContinue: "Continue",
+        resumeStartFresh: "Start fresh",
+        starterTitle: "Try one of these",
+        starterOrType: "or type your own",
+        timeJustNow: "just now",
+        timeMinutesAgo: "{count} min ago",
+        timeHoursAgo: "{count} hr ago",
+        timeDaysAgo: "{count} days ago",
+      },
+      linkAccount: {
+        title: "Linked Accounts",
+        emailLabel: "Email",
+        systemGenerated: "System-generated",
+        emailPlaceholder: "your-real-email@example.com",
+        update: "Update",
+        phoneLabel: "Phone (WhatsApp)",
+        passwordLabel: "Password",
+        passwordSet: "Set",
+        minChars: "Min. 8 characters",
+        setPassword: "Set Password",
+        confirmPassword: "Confirm password",
+        googleLabel: "Google",
+        linkedStatus: "Linked",
+        unlink: "Unlink",
+        needPasswordToUnlink: "Set a password first to unlink",
+        linking: "Linking...",
+        linkGoogle: "Link Google Account",
+        emailUpdated: "Email updated",
+        emailUpdateFailed: "Failed to update email",
+        passwordSetSuccess: "Password set successfully",
+        passwordSetFailed: "Failed to set password",
+        googleClientMissing: "Google Client ID is not configured",
+        googleLinked: "Google account linked",
+        googleLinkFailed: "Failed to link Google",
+        enterPassword: "Enter your password to confirm",
+        googleUnlinked: "Google account unlinked",
+        googleUnlinkFailed: "Failed to unlink",
+        loadFailed: "Failed to load account methods",
+        currentPassword: "Current password",
+      },
+      emailPrompt: {
+        title: "Add your email to receive invoices and important notifications",
+        description: "Your account currently uses a system-generated email. Add a real email to receive payments and updates.",
+        save: "Save",
+        dismiss: "Dismiss",
+        emailUpdated: "Email updated",
+        emailUpdateFailed: "Failed to update email",
+      },
+    },
+  },
+};
