@@ -47,21 +47,7 @@ import {
   EmptyChartIcon,
 } from "@/components/icons";
 import { SparkleIcon, SparkleGenAI } from "@/components/sparkle-icon";
-import { Sparkles, ChevronRight } from "lucide-react";
-
-const templates = [
-  { id: "bold", name: "Bold", emoji: "⚡", desc: "Tegas & berenergi tinggi" },
-  { id: "colorful", name: "Colorful", emoji: "🎨", desc: "Ceria & dinamis" },
-  { id: "dynamic", name: "Dynamic", emoji: "🚀", desc: "Modern & high-tech" },
-  { id: "elegant", name: "Elegant", emoji: "✨", desc: "Elegan & mewah" },
-  { id: "futuristic", name: "Futuristic", emoji: "🤖", desc: "Futuristik & canggih" },
-  { id: "minimalist", name: "Minimalist", emoji: "🪷", desc: "Bersih & tenang" },
-  { id: "natural", name: "Natural", emoji: "🌿", desc: "Hangat & organik" },
-  { id: "retro", name: "Retro", emoji: "🎞️", desc: "Klasik & nostalgia" },
-  { id: "kuliner", name: "Kuliner", emoji: "🍜", desc: "F&B, cafe, restoran" },
-  { id: "jasa", name: "Jasa", emoji: "🔧", desc: "Agensi & jasa profesional" },
-  { id: "produk", name: "Produk", emoji: "📦", desc: "Katalog & e-commerce" },
-];
+import { Sparkles } from "lucide-react";
 
 export default function DesignSystemPage() {
   // Theme state
@@ -139,10 +125,9 @@ export default function DesignSystemPage() {
             <a href="#feedback" className="px-2.5 py-1.5 rounded-lg hover:text-foreground hover:bg-muted transition-colors whitespace-nowrap">Feedback</a>
             <a href="#cards" className="px-2.5 py-1.5 rounded-lg hover:text-foreground hover:bg-muted transition-colors whitespace-nowrap">Cards</a>
             <a href="#icons" className="px-2.5 py-1.5 rounded-lg hover:text-foreground hover:bg-muted transition-colors whitespace-nowrap">Icons</a>
-            <a href="#templates" className="px-2.5 py-1.5 rounded-lg hover:text-foreground hover:bg-muted transition-colors whitespace-nowrap">Templates</a>
           </nav>
 
-          {/* Theme switcher & template link */}
+          {/* Theme switcher */}
           <div className="flex items-center gap-2 shrink-0">
             <Button
               variant="outline"
@@ -154,11 +139,6 @@ export default function DesignSystemPage() {
               {isDark ? <SunIcon size="sm" /> : <MoonIcon size="sm" />}
               <span className="hidden sm:inline">{isDark ? "Light Mode" : "Dark Mode"}</span>
             </Button>
-            <Link href="/preview/minimalist">
-              <Button size="sm" variant="default" className="text-xs whitespace-nowrap">
-                Template Preview →
-              </Button>
-            </Link>
           </div>
         </div>
       </header>
@@ -1067,45 +1047,6 @@ export default function DesignSystemPage() {
           </Card>
         </section>
 
-        {/* 10. TEMPLATES SHOWCASE */}
-        <section id="templates" className="scroll-mt-24 space-y-6 pt-6">
-          <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 border-b border-border/60 pb-5">
-            <div>
-              <div className="text-xs font-bold uppercase tracking-wider text-primary">Landing Page Themes</div>
-              <h2 className="text-2xl sm:text-3xl font-bold tracking-tight">Katalog Template Webjoz</h2>
-              <p className="text-sm text-muted-foreground mt-1">
-                Koleksi template landing page lengkap yang dibangun di atas fondasi komponen UI ini.
-              </p>
-            </div>
-            <Badge variant="outline">11 Template Aktif</Badge>
-          </div>
-
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-            {templates.map((t) => (
-              <Link
-                key={t.id}
-                href={`/preview/${t.id}`}
-                className="group relative overflow-hidden rounded-2xl border border-border/80 bg-card p-5 hover:border-primary/40 hover:shadow-lg transition-all duration-200"
-              >
-                <div className="flex items-start gap-4">
-                  <div className="text-3xl p-2 rounded-xl bg-muted/60">{t.emoji}</div>
-                  <div className="flex-1 min-w-0">
-                    <h3 className="font-semibold text-base group-hover:text-primary transition-colors flex items-center justify-between">
-                      <span>{t.name}</span>
-                      <ChevronRight className="size-4 text-muted-foreground opacity-0 group-hover:opacity-100 group-hover:translate-x-1 transition-all" />
-                    </h3>
-                    <p className="text-xs text-muted-foreground mt-1 line-clamp-1">{t.desc}</p>
-                    <div className="mt-3">
-                      <span className="text-[11px] font-medium text-primary bg-primary/10 px-2 py-0.5 rounded-md">
-                        Preview /preview/{t.id}
-                      </span>
-                    </div>
-                  </div>
-                </div>
-              </Link>
-            ))}
-          </div>
-        </section>
       </main>
 
       {/* Footer */}
