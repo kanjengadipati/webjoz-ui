@@ -1370,6 +1370,13 @@ export interface Translations {
       description: string;
       headingFont: string;
       bodyFont: string;
+      headingFontUrl: string;
+      bodyFontUrl: string;
+      fontSourceGoogle: string;
+      fontSourceCustom: string;
+      fontUrlPlaceholder: string;
+      fontUrlHelp: string;
+      fontNamePlaceholder: string;
       weight: string;
       heroSize: string;
       emojiIcon: string;
@@ -4040,6 +4047,13 @@ export const translations: Record<Locale, Translations> = {
         description: "Deskripsi",
         headingFont: "Font Heading",
         bodyFont: "Font Body",
+        headingFontUrl: "URL Font Heading",
+        bodyFontUrl: "URL Font Body",
+        fontSourceGoogle: "Google Fonts",
+        fontSourceCustom: "URL / Upload Custom",
+        fontUrlPlaceholder: "https://fonts.googleapis.com/css2?family=... atau URL file font",
+        fontUrlHelp: "Masukkan URL CSS @import Google Fonts atau URL langsung file font (.woff2, .ttf).",
+        fontNamePlaceholder: "Nama font, cth. Archivo Black",
         weight: "Ketebalan",
         heroSize: "Ukuran Hero",
         emojiIcon: "Ikon Emoji",
@@ -6780,6 +6794,13 @@ export const translations: Record<Locale, Translations> = {
         description: "Description",
         headingFont: "Heading Font",
         bodyFont: "Body Font",
+        headingFontUrl: "Heading Font URL",
+        bodyFontUrl: "Body Font URL",
+        fontSourceGoogle: "Google Fonts",
+        fontSourceCustom: "URL / Custom Upload",
+        fontUrlPlaceholder: "https://fonts.googleapis.com/css2?family=... or font file URL",
+        fontUrlHelp: "Enter a Google Fonts CSS @import URL or a direct font file URL (.woff2, .ttf).",
+        fontNamePlaceholder: "Font name, e.g. Archivo Black",
         weight: "Weight",
         heroSize: "Hero Size",
         emojiIcon: "Emoji Icon",
