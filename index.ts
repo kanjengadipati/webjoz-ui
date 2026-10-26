@@ -21,6 +21,6 @@ export * from "./lib/ui-tones";
 export * from "./lib/status-types";
 
 // Export loading screen types, resolver, & component
-export type { LoadingScreenVisualConfig, PreloaderStyle } from "./lib/loading-screen";
+export type { LoadingScreenVisualConfig, PreloaderStyle, PreloaderContent } from "./lib/loading-screen";
 export { resolvePreloaderConfig } from "./lib/loading-screen";
 export { default as SiteLoadingScreen } from "./components/site-loading-screen";
