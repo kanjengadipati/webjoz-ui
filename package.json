@@ -44,6 +44,10 @@
     "./tokens": {
       "types": "./lib/ui-tokens.ts",
       "default": "./lib/ui-tokens.ts"
+    },
+    "./loading-screen": {
+      "types": "./components/site-loading-screen.tsx",
+      "default": "./components/site-loading-screen.tsx"
     }
   }
 }
