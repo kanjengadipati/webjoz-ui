@@ -232,7 +232,7 @@ interface SiteLoadingScreenProps {
  * <SiteLoadingScreen visual={visual} />
  * ```
  */
-export default function SiteLoadingScreen({
+export function SiteLoadingScreen({
   visual,
   preview = false,
   onComplete,
@@ -551,3 +551,5 @@ export default function SiteLoadingScreen({
     </div>
   );
 }
+
+export default SiteLoadingScreen;
