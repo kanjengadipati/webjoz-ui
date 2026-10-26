@@ -1,11 +1,71 @@
 "use client";
 
 import React, { useEffect, useState } from "react";
+import {
+  Sparkles,
+  Utensils,
+  Coffee,
+  ShoppingBag,
+  Store,
+  Package,
+  Heart,
+  Star,
+  Zap,
+  Shield,
+  Award,
+  Smile,
+  Rocket,
+  Compass,
+  Flame,
+  CheckCircle,
+  Building2,
+  Briefcase,
+  Camera,
+  BookOpen,
+  Truck,
+  Scissors,
+  Wrench,
+  GraduationCap,
+  Music,
+  MapPin,
+  Clock,
+  type LucideIcon,
+} from "lucide-react";
 import type { LoadingScreenVisualConfig } from "../lib/loading-screen";
 
 // Re-export types agar konsumen bisa import dari satu tempat
-export type { LoadingScreenVisualConfig, PreloaderStyle } from "../lib/loading-screen";
+export type { LoadingScreenVisualConfig, PreloaderStyle, PreloaderContent } from "../lib/loading-screen";
 export { resolvePreloaderConfig } from "../lib/loading-screen";
+
+const ICON_MAP: Record<string, LucideIcon> = {
+  Sparkles,
+  Utensils,
+  Coffee,
+  ShoppingBag,
+  Store,
+  Package,
+  Heart,
+  Star,
+  Zap,
+  Shield,
+  Award,
+  Smile,
+  Rocket,
+  Compass,
+  Flame,
+  CheckCircle,
+  Building2,
+  Briefcase,
+  Camera,
+  BookOpen,
+  Truck,
+  Scissors,
+  Wrench,
+  GraduationCap,
+  Music,
+  MapPin,
+  Clock,
+};
 
 // ─── CSS Keyframes & Animation Classes ────────────────────────────────────────
 
@@ -97,11 +157,13 @@ function BrandMark({
   logoUrl,
   brandName,
   accentColor,
+  icon,
   size = 56,
 }: {
   logoUrl?: string;
   brandName: string;
   accentColor: string;
+  icon?: string;
   size?: number;
 }) {
   if (logoUrl) {
@@ -116,7 +178,8 @@ function BrandMark({
     );
   }
 
-  const initial = (brandName.trim().charAt(0) || "W").toUpperCase();
+  const IconComp = icon && ICON_MAP[icon] ? ICON_MAP[icon] : null;
+
   return (
     <div
       className="flex items-center justify-center rounded-2xl font-bold shadow-sm select-none"
@@ -129,7 +192,11 @@ function BrandMark({
       }}
       aria-hidden="true"
     >
-      {initial}
+      {IconComp ? (
+        <IconComp style={{ width: Math.round(size * 0.52), height: Math.round(size * 0.52) }} />
+      ) : (
+        (brandName.trim().charAt(0) || "W").toUpperCase()
+      )}
     </div>
   );
 }
@@ -161,7 +228,7 @@ interface SiteLoadingScreenProps {
  * ```tsx
  * import { SiteLoadingScreen, resolvePreloaderConfig } from "webjoz-ui/loading-screen";
  *
- * const visual = resolvePreloaderConfig(designToken, header);
+ * const visual = resolvePreloaderConfig(designToken, header, content?.preloader);
  * <SiteLoadingScreen visual={visual} />
  * ```
  */
@@ -175,11 +242,13 @@ export default function SiteLoadingScreen({
     brandName,
     logoUrl,
     tagline,
+    icon,
     backgroundColor,
     accentColor,
     textColor,
     headingFont,
     bodyFont,
+    durationMs,
   } = visual;
 
   const [counter, setCounter] = useState(preview ? 78 : 0);
@@ -211,7 +280,7 @@ export default function SiteLoadingScreen({
   // Auto-dismiss untuk live viewport overlay
   useEffect(() => {
     if (preview || style === "none") return;
-    const duration = style === "top-bar" ? 850 : 1200;
+    const duration = durationMs || (style === "top-bar" ? 850 : 1200);
     const exitTimer = setTimeout(() => {
       setExiting(true);
     }, duration);
@@ -225,7 +294,7 @@ export default function SiteLoadingScreen({
       clearTimeout(exitTimer);
       clearTimeout(unmountTimer);
     };
-  }, [preview, style, onComplete]);
+  }, [preview, style, durationMs, onComplete]);
 
   if (style === "none" || (!preview && !mounted)) {
     return null;
@@ -335,7 +404,7 @@ export default function SiteLoadingScreen({
       contentNode = (
         <div className="flex flex-col items-center gap-4 text-center">
           <div className="wj-splash-pulse">
-            <BrandMark logoUrl={logoUrl} brandName={brandName} accentColor={accentColor} size={64} />
+            <BrandMark logoUrl={logoUrl} brandName={brandName} accentColor={accentColor} icon={icon} size={64} />
           </div>
           <div className="wj-splash-fade-up space-y-1">
             <p className="text-base sm:text-lg font-semibold tracking-wide" style={headingStyle}>
@@ -368,7 +437,7 @@ export default function SiteLoadingScreen({
               className="flex h-16 w-16 items-center justify-center rounded-full"
               style={{ background: `${accentColor}14` }}
             >
-              <BrandMark logoUrl={logoUrl} brandName={brandName} accentColor={accentColor} size={44} />
+              <BrandMark logoUrl={logoUrl} brandName={brandName} accentColor={accentColor} icon={icon} size={44} />
             </div>
           </div>
           <div className="wj-splash-fade-up space-y-0.5">
@@ -389,7 +458,7 @@ export default function SiteLoadingScreen({
       contentNode = (
         <div className="w-full max-w-[220px] space-y-3">
           <div className="flex items-center gap-2.5">
-            <BrandMark logoUrl={logoUrl} brandName={brandName} accentColor={accentColor} size={36} />
+            <BrandMark logoUrl={logoUrl} brandName={brandName} accentColor={accentColor} icon={icon} size={36} />
             <p className="text-sm font-semibold tracking-wide truncate" style={headingStyle}>
               {brandName}
             </p>
@@ -404,7 +473,11 @@ export default function SiteLoadingScreen({
     case "shimmer-reveal":
       contentNode = (
         <div className="flex flex-col items-center gap-3 text-center">
-          {logoUrl ? <div className="wj-splash-fade-up"><BrandMark logoUrl={logoUrl} brandName={brandName} accentColor={accentColor} size={50} /></div> : null}
+          {logoUrl || icon ? (
+            <div className="wj-splash-fade-up">
+              <BrandMark logoUrl={logoUrl} brandName={brandName} accentColor={accentColor} icon={icon} size={50} />
+            </div>
+          ) : null}
           <p
             className="wj-splash-shimmer text-xl sm:text-2xl font-bold tracking-wide"
             style={{
@@ -426,7 +499,7 @@ export default function SiteLoadingScreen({
     case "stagger-dots":
       contentNode = (
         <div className="flex flex-col items-center gap-3 text-center">
-          <BrandMark logoUrl={logoUrl} brandName={brandName} accentColor={accentColor} size={48} />
+          <BrandMark logoUrl={logoUrl} brandName={brandName} accentColor={accentColor} icon={icon} size={48} />
           <p className="text-sm font-semibold tracking-wide" style={headingStyle}>
             {brandName}
           </p>
