@@ -5,9 +5,11 @@ import {
   useRef,
   useEffect,
   useId,
+  type CSSProperties,
   type ReactNode,
   type KeyboardEvent,
 } from "react";
+import { createPortal } from "react-dom";
 import { ChevronDown, Check } from "lucide-react";
 import { cn } from "../../lib/utils";
 
@@ -49,17 +51,45 @@ export function CustomSelect<T extends string = string>({
 }: CustomSelectProps<T>) {
   const [open, setOpen] = useState(false);
   const [highlightedIndex, setHighlightedIndex] = useState<number>(-1);
+  const [menuStyle, setMenuStyle] = useState<CSSProperties>({});
   const containerRef = useRef<HTMLDivElement>(null);
   const menuRef = useRef<HTMLDivElement>(null);
   const listboxId = useId();
 
   const selectedOption = options.find(o => o.value === value);
 
+  // Calculate portal position whenever dropdown opens or window resizes/scrolls
+  useEffect(() => {
+    if (!open || !containerRef.current) return;
+    const updatePosition = () => {
+      const rect = containerRef.current!.getBoundingClientRect();
+      setMenuStyle({
+        position: "fixed" as const,
+        top: rect.bottom + 6,
+        left: rect.left,
+        width: rect.width,
+        zIndex: 9999,
+      });
+    };
+    updatePosition();
+    window.addEventListener("resize", updatePosition);
+    window.addEventListener("scroll", updatePosition, true);
+    return () => {
+      window.removeEventListener("resize", updatePosition);
+      window.removeEventListener("scroll", updatePosition, true);
+    };
+  }, [open]);
+
   // Close on click outside
   useEffect(() => {
     if (!open) return;
     const handleOutsideClick = (e: MouseEvent | TouchEvent) => {
-      if (containerRef.current && !containerRef.current.contains(e.target as Node)) {
+      const target = e.target as Node;
+      const menuEl = menuRef.current;
+      if (
+        containerRef.current && !containerRef.current.contains(target) &&
+        menuEl && !menuEl.contains(target)
+      ) {
         setOpen(false);
       }
     };
@@ -203,12 +233,13 @@ export function CustomSelect<T extends string = string>({
         />
       </button>
 
-      {open && (
+      {open && typeof document !== "undefined" && createPortal(
         <div
           id={listboxId}
           role="listbox"
+          style={menuStyle}
           className={cn(
-            "absolute left-0 top-full z-50 mt-1.5 w-full rounded-2xl border border-border/80 bg-popover/98 text-popover-foreground p-1.5 shadow-2xl backdrop-blur-xl animate-in fade-in-0 zoom-in-95 duration-150",
+            "rounded-2xl border border-border/80 bg-popover/98 text-popover-foreground p-1.5 shadow-2xl backdrop-blur-xl animate-in fade-in-0 zoom-in-95 duration-150",
             menuClassName
           )}
         >
@@ -289,7 +320,8 @@ export function CustomSelect<T extends string = string>({
               })
             )}
           </div>
-        </div>
+        </div>,
+        document.body
       )}
     </div>
   );
