@@ -2555,6 +2555,7 @@ export interface Translations {
       typeSelectedChooseSub: string;
       prefillTypePrompt: string;
       btnContinueType: string;
+      changeBidang: string;
       wireframeAbout: string;
       wireframeFeatures: string;
       wireframeContact: string;
@@ -5243,6 +5244,7 @@ export const translations: Record<Locale, Translations> = {
         typeSelectedChooseSub: "✓ Dipilih — pilih jenis di bawah",
         prefillTypePrompt: "Saya sudah memperkirakan kategori website Anda. Lanjutkan jika sesuai, atau ubah dulu:",
         btnContinueType: "Lanjut dengan jenis ini →",
+        changeBidang: "Bidang lain →",
         wireframeAbout: "Tentang",
         wireframeFeatures: "Keunggulan",
         wireframeContact: "Kontak",
@@ -7992,6 +7994,7 @@ export const translations: Record<Locale, Translations> = {
         typeSelectedChooseSub: "✓ Selected — choose type below",
         prefillTypePrompt: "I've estimated your website category. Continue if it's correct, or change it first:",
         btnContinueType: "Continue with this type →",
+        changeBidang: "Other sector →",
         wireframeAbout: "About",
         wireframeFeatures: "Features",
         wireframeContact: "Contact",
