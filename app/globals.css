@@ -682,14 +682,16 @@ body.webjoz-wizard-active {
   border-radius: 9999px;
   background: #111111;
   color: #ffffff;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 1rem;
+  /* grid is the reliable way to center text in a pseudo-element */
+  display: grid;
+  place-items: center;
+  font-size: 1.1rem;
   font-weight: 700;
   line-height: 1;
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.25);
   transition: inherit;
+  /* prevent the badge from being scaled/translated along with the button hover */
+  transform-origin: center;
 }
 
 .btn-floating-arrow:hover:not(:disabled) {
@@ -699,6 +701,12 @@ body.webjoz-wizard-active {
     inset 0 -1px 0 rgba(0, 0, 0, 0.04),
     0 4px 16px rgba(0, 0, 0, 0.1),
     0 10px 32px rgba(0, 0, 0, 0.08);
+}
+
+.btn-floating-arrow:hover:not(:disabled)::after,
+.btn-floating-arrow:active:not(:disabled)::after {
+  /* always keep badge vertically centered regardless of button transform */
+  transform: translateY(-50%);
 }
 
 .btn-floating-arrow:active:not(:disabled) {
@@ -734,6 +742,11 @@ body.webjoz-wizard-active {
     inset 0 -1px 0 rgba(0, 0, 0, 0.4),
     0 4px 16px rgba(0, 0, 0, 0.5),
     0 10px 32px rgba(0, 0, 0, 0.4);
+}
+
+:where(.dark, .dark *) .btn-floating-arrow:hover:not(:disabled)::after,
+:where(.dark, .dark *) .btn-floating-arrow:active:not(:disabled)::after {
+  transform: translateY(-50%);
 }
 
 :where(.dark, .dark *) .btn-floating-arrow:active:not(:disabled) {
