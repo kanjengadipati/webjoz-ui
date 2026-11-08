@@ -62,6 +62,15 @@ export function Button({
 
   // floating-arrow: teks rata kiri, badge absolute di kanan
   if (variant === "floating-arrow") {
+    const badgeBase = "absolute top-1/2 -translate-y-1/2 -right-2 flex items-center justify-center rounded-full shrink-0 pointer-events-none";
+    const badgeSize = size === "hero" ? "w-14 h-14" : "w-11 h-11";
+    const badgeColor = disabled
+      ? "bg-muted-foreground/40 text-white"
+      : "bg-foreground text-background";
+    const badgeRing = disabled
+      ? ""
+      : "[box-shadow:0_0_0_3px_var(--background),0_2px_8px_rgba(0,0,0,.3)]";
+
     return (
       <button
         className={buttonClassName({ className, variant, size })}
@@ -69,14 +78,24 @@ export function Button({
         aria-busy={loading}
         {...props}
       >
-        <span className="btn-floating-arrow-label">
+        <span style={{ flex: 1, textAlign: "left" }}>
           {loading ? (loadingText ?? children) : children}
         </span>
         {loading ? (
-          <Spinner size={spinnerSize} variant="current" className="btn-floating-arrow-badge" />
+          <Spinner
+            size={spinnerSize}
+            variant="current"
+            className={cn(badgeBase, badgeSize)}
+          />
         ) : (
-          <span className="btn-floating-arrow-badge" aria-hidden="true">
-            <ArrowUpRight strokeWidth={2.5} />
+          <span
+            className={cn(badgeBase, badgeSize, badgeColor, badgeRing)}
+            aria-hidden="true"
+          >
+            <ArrowUpRight
+              className={size === "hero" ? "w-6 h-6" : "w-5 h-5"}
+              strokeWidth={2.5}
+            />
           </span>
         )}
       </button>
