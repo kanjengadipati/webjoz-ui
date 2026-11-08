@@ -60,6 +60,29 @@ export function Button({
   const spinnerSize: SpinnerSize = size === "sm" ? "xs" : size === "lg" ? "md" : "sm";
   const spinnerVariant = variant === "default" || variant === "destructive" || variant === "dark-chrome" || variant === "neon-edge" || variant === "floating-arrow" ? "white" : "current";
 
+  // floating-arrow: teks rata kiri, badge absolute di kanan
+  if (variant === "floating-arrow") {
+    return (
+      <button
+        className={buttonClassName({ className, variant, size })}
+        disabled={disabled || loading}
+        aria-busy={loading}
+        {...props}
+      >
+        <span className="btn-floating-arrow-label">
+          {loading ? (loadingText ?? children) : children}
+        </span>
+        {loading ? (
+          <Spinner size={spinnerSize} variant="current" className="btn-floating-arrow-badge" />
+        ) : (
+          <span className="btn-floating-arrow-badge" aria-hidden="true">
+            <ArrowUpRight strokeWidth={2.5} />
+          </span>
+        )}
+      </button>
+    );
+  }
+
   return (
     <button
       className={buttonClassName({ className, variant, size })}
@@ -75,11 +98,6 @@ export function Button({
         />
       )}
       {loading && loadingText !== undefined ? loadingText : children}
-      {variant === "floating-arrow" && !loading && (
-        <span className="btn-floating-arrow-badge" aria-hidden="true">
-          <ArrowUpRight strokeWidth={2.5} />
-        </span>
-      )}
     </button>
   );
 }
