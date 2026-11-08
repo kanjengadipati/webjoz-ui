@@ -1,4 +1,5 @@
 import type { ButtonHTMLAttributes, ReactNode } from "react";
+import { ArrowUpRight } from "lucide-react";
 import { DISABLED_STYLES, FOCUS_VISIBLE, MOTION } from "../../lib/ui-tokens";
 import { cn } from "../../lib/utils";
 import { Spinner, type SpinnerSize } from "./spinner";
@@ -74,6 +75,11 @@ export function Button({
         />
       )}
       {loading && loadingText !== undefined ? loadingText : children}
+      {variant === "floating-arrow" && !loading && (
+        <span className="btn-floating-arrow-badge" aria-hidden="true">
+          <ArrowUpRight strokeWidth={2.5} />
+        </span>
+      )}
     </button>
   );
 }

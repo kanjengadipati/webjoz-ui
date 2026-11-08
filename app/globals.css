@@ -656,13 +656,18 @@ body.webjoz-wizard-active {
 /* ─────────────────────────────────────────────────────────────────── */
 
 /* ── Floating Arrow button ────────────────────────────────────────── */
-/* Minimal pill body with floating dark circular arrow badge on right */
+/* Minimal pill body. Arrow badge is a real DOM element (.btn-floating-arrow-badge)
+   rendered by the Button component — uses Lucide ArrowUpRight icon, overflows
+   the button boundary with a white ring (matching the design reference). */
 .btn-floating-arrow {
   background: linear-gradient(180deg, #f7f7f7 0%, #ececec 100%);
   border: 1px solid rgba(0, 0, 0, 0.08);
   color: #111111;
   position: relative;
-  padding-right: 4.5rem; /* reserve space for the arrow badge */
+  /* extra right padding so label text clears the badge */
+  padding-right: 4rem;
+  /* badge overflows the button boundary */
+  overflow: visible;
   box-shadow:
     inset 0 1px 0 rgba(255, 255, 255, 0.9),
     inset 0 -1px 0 rgba(0, 0, 0, 0.04),
@@ -670,28 +675,31 @@ body.webjoz-wizard-active {
     0 6px 20px rgba(0, 0, 0, 0.05);
 }
 
-/* The arrow badge — pseudo-element circle on the right */
-.btn-floating-arrow::after {
-  content: "↗";
+/* Arrow badge — real DOM span rendered by Button for floating-arrow variant */
+.btn-floating-arrow-badge {
   position: absolute;
-  right: 0.375rem;
+  right: -0.5rem;
   top: 50%;
   transform: translateY(-50%);
-  width: 2.5rem;
-  height: 2.5rem;
+  width: 2.75rem;
+  height: 2.75rem;
   border-radius: 9999px;
   background: #111111;
   color: #ffffff;
-  /* grid is the reliable way to center text in a pseudo-element */
-  display: grid;
-  place-items: center;
-  font-size: 1.1rem;
-  font-weight: 700;
-  line-height: 1;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.25);
-  transition: inherit;
-  /* prevent the badge from being scaled/translated along with the button hover */
-  transform-origin: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  /* white ring separating badge from pill body — key detail from design */
+  box-shadow:
+    0 0 0 3px #ffffff,
+    0 2px 8px rgba(0, 0, 0, 0.3);
+  flex-shrink: 0;
+  pointer-events: none;
+}
+
+.btn-floating-arrow-badge svg {
+  width: 1.1rem;
+  height: 1.1rem;
 }
 
 .btn-floating-arrow:hover:not(:disabled) {
@@ -703,12 +711,6 @@ body.webjoz-wizard-active {
     0 10px 32px rgba(0, 0, 0, 0.08);
 }
 
-.btn-floating-arrow:hover:not(:disabled)::after,
-.btn-floating-arrow:active:not(:disabled)::after {
-  /* always keep badge vertically centered regardless of button transform */
-  transform: translateY(-50%);
-}
-
 .btn-floating-arrow:active:not(:disabled) {
   transform: scale(0.98) translateY(0);
   box-shadow:
@@ -717,7 +719,7 @@ body.webjoz-wizard-active {
     0 1px 4px rgba(0, 0, 0, 0.05);
 }
 
-/* Dark mode: light pill + white arrow badge inverts to dark pill + white arrow */
+/* Dark mode */
 :where(.dark, .dark *) .btn-floating-arrow {
   background: linear-gradient(180deg, #2e2e2e 0%, #1c1c1c 100%);
   border: 1px solid rgba(255, 255, 255, 0.1);
@@ -729,10 +731,13 @@ body.webjoz-wizard-active {
     0 6px 20px rgba(0, 0, 0, 0.3);
 }
 
-:where(.dark, .dark *) .btn-floating-arrow::after {
+:where(.dark, .dark *) .btn-floating-arrow-badge {
   background: #f0f0f0;
   color: #111111;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.5);
+  /* ring matches dark pill background */
+  box-shadow:
+    0 0 0 3px #1c1c1c,
+    0 2px 8px rgba(0, 0, 0, 0.5);
 }
 
 :where(.dark, .dark *) .btn-floating-arrow:hover:not(:disabled) {
@@ -742,11 +747,6 @@ body.webjoz-wizard-active {
     inset 0 -1px 0 rgba(0, 0, 0, 0.4),
     0 4px 16px rgba(0, 0, 0, 0.5),
     0 10px 32px rgba(0, 0, 0, 0.4);
-}
-
-:where(.dark, .dark *) .btn-floating-arrow:hover:not(:disabled)::after,
-:where(.dark, .dark *) .btn-floating-arrow:active:not(:disabled)::after {
-  transform: translateY(-50%);
 }
 
 :where(.dark, .dark *) .btn-floating-arrow:active:not(:disabled) {
