@@ -295,7 +295,7 @@ export default function DesignSystemPage() {
                 Semua varian tombol, ukuran, loading states, dan integrasi icon.
               </p>
             </div>
-            <Badge variant="outline">5 Varian · 4 Ukuran</Badge>
+            <Badge variant="outline">6 Varian · 5 Ukuran</Badge>
           </div>
 
           {/* Variants Showcase */}
@@ -368,6 +368,39 @@ export default function DesignSystemPage() {
                 <CheckIcon size="sm" />
                 <span>Verifikasi Sekarang</span>
               </Button>
+            </div>
+          </div>
+
+          {/* Liquid Silver Variant */}
+          <div className="space-y-4">
+            <h3 className="text-base font-semibold">5. Liquid Silver Variant</h3>
+            <p className="text-sm text-muted-foreground">
+              Metallic gradient (#fff → #e5e5e5), inner highlight, outer glow. Dark mode otomatis bergeser ke dark chrome.
+            </p>
+
+            {/* Default size */}
+            <div className="space-y-3">
+              <div className="text-xs font-medium text-muted-foreground">Size default</div>
+              <div className="flex flex-wrap items-center gap-3 p-6 rounded-2xl border border-border/60 bg-card/60">
+                <Button variant="liquid-silver">Create Website Now →</Button>
+                <Button variant="liquid-silver" loading>Memproses...</Button>
+                <Button variant="liquid-silver" disabled>Disabled</Button>
+              </div>
+            </div>
+
+            {/* Hero size — full width on dark bg to mimic real usage */}
+            <div className="space-y-3">
+              <div className="text-xs font-medium text-muted-foreground">Size hero (80px · pill · full-width)</div>
+              <div className="p-6 rounded-2xl border border-border/60 bg-foreground/5">
+                <Button variant="liquid-silver" size="hero" className="w-full">
+                  Create Website Now →
+                </Button>
+              </div>
+              <div className="p-6 rounded-2xl border border-border/60 bg-foreground/90">
+                <Button variant="liquid-silver" size="hero" className="w-full">
+                  Create Website Now →
+                </Button>
+              </div>
             </div>
           </div>
         </section>
