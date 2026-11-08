@@ -3,8 +3,8 @@ import { DISABLED_STYLES, FOCUS_VISIBLE, MOTION } from "../../lib/ui-tokens";
 import { cn } from "../../lib/utils";
 import { Spinner, type SpinnerSize } from "./spinner";
 
-type ButtonVariant = "default" | "outline" | "ghost" | "secondary" | "destructive";
-type ButtonSize = "default" | "sm" | "lg" | "icon";
+type ButtonVariant = "default" | "outline" | "ghost" | "secondary" | "destructive" | "liquid-silver";
+type ButtonSize = "default" | "sm" | "lg" | "icon" | "hero";
 
 export interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   variant?: ButtonVariant;
@@ -20,6 +20,7 @@ const BUTTON_VARIANTS: Record<ButtonVariant, string> = {
   outline: "border border-border bg-background/50 backdrop-blur-sm hover:bg-accent hover:text-accent-foreground hover:border-accent",
   ghost: "hover:bg-accent hover:text-accent-foreground",
   destructive: "bg-destructive text-white shadow-sm hover:bg-destructive/90",
+  "liquid-silver": "btn-liquid-silver",
 };
 
 const BUTTON_SIZES: Record<ButtonSize, string> = {
@@ -27,6 +28,7 @@ const BUTTON_SIZES: Record<ButtonSize, string> = {
   sm: "h-9 rounded-md px-3",
   lg: "h-11 rounded-md px-8",
   icon: "size-10",
+  hero: "btn-size-hero",
 };
 
 export function buttonClassName({ className, variant = "default", size = "default" }: Pick<ButtonProps, "className" | "variant" | "size"> = {}) {
