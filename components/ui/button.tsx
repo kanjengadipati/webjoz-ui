@@ -60,16 +60,12 @@ export function Button({
   const spinnerSize: SpinnerSize = size === "sm" ? "xs" : size === "lg" ? "md" : "sm";
   const spinnerVariant = variant === "default" || variant === "destructive" || variant === "dark-chrome" || variant === "neon-edge" || variant === "floating-arrow" ? "white" : "current";
 
-  // floating-arrow: teks rata kiri, badge absolute di kanan
+  // floating-arrow: teks rata kanan, badge lingkaran di dalam button sisi kanan
   if (variant === "floating-arrow") {
-    const badgeBase = "absolute top-1/2 -translate-y-1/2 -right-2 flex items-center justify-center rounded-full shrink-0 pointer-events-none";
-    const badgeSize = size === "hero" ? "w-14 h-14" : "w-11 h-11";
+    const badgeSize = size === "hero" ? "w-14 h-14" : "w-9 h-9";
     const badgeColor = disabled
-      ? "bg-muted-foreground/40 text-white"
+      ? "bg-foreground/30 text-background"
       : "bg-foreground text-background";
-    const badgeRing = disabled
-      ? ""
-      : "[box-shadow:0_0_0_3px_var(--background),0_2px_8px_rgba(0,0,0,.3)]";
 
     return (
       <button
@@ -78,22 +74,26 @@ export function Button({
         aria-busy={loading}
         {...props}
       >
-        <span style={{ flex: 1, textAlign: "left" }}>
+        <span className="flex-1 text-right pr-3">
           {loading ? (loadingText ?? children) : children}
         </span>
         {loading ? (
           <Spinner
             size={spinnerSize}
-            variant="current"
-            className={cn(badgeBase, badgeSize)}
+            variant="white"
+            className={cn("flex-none rounded-full", badgeSize)}
           />
         ) : (
           <span
-            className={cn(badgeBase, badgeSize, badgeColor, badgeRing)}
+            className={cn(
+              "flex-none flex items-center justify-center rounded-full shrink-0",
+              badgeSize,
+              badgeColor,
+            )}
             aria-hidden="true"
           >
             <ArrowUpRight
-              className={size === "hero" ? "w-6 h-6" : "w-5 h-5"}
+              className={size === "hero" ? "w-6 h-6" : "w-4 h-4"}
               strokeWidth={2.5}
             />
           </span>
