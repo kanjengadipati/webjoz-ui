@@ -295,7 +295,7 @@ export default function DesignSystemPage() {
                 Semua varian tombol, ukuran, loading states, dan integrasi icon.
               </p>
             </div>
-            <Badge variant="outline">6 Varian · 5 Ukuran</Badge>
+            <Badge variant="outline">9 Varian · 5 Ukuran</Badge>
           </div>
 
           {/* Variants Showcase */}
@@ -399,6 +399,92 @@ export default function DesignSystemPage() {
               <div className="p-6 rounded-2xl border border-border/60 bg-foreground/90">
                 <Button variant="liquid-silver" size="hero" className="w-full">
                   Create Website Now →
+                </Button>
+              </div>
+            </div>
+          </div>
+
+          {/* Dark Chrome Variant */}
+          <div className="space-y-4">
+            <h3 className="text-base font-semibold">6. Dark Chrome Variant</h3>
+            <p className="text-sm text-muted-foreground">
+              Charcoal gradient (#3d3d3d → #1a1a1a), silver border, deep shadow. Cocok di atas background terang.
+            </p>
+            <div className="space-y-3">
+              <div className="text-xs font-medium text-muted-foreground">Size default</div>
+              <div className="flex flex-wrap items-center gap-3 p-6 rounded-2xl border border-border/60 bg-card/60">
+                <Button variant="dark-chrome">Create Website Now →</Button>
+                <Button variant="dark-chrome" loading>Memproses...</Button>
+                <Button variant="dark-chrome" disabled>Disabled</Button>
+              </div>
+            </div>
+            <div className="space-y-3">
+              <div className="text-xs font-medium text-muted-foreground">Size hero · full-width</div>
+              <div className="p-6 rounded-2xl border border-border/60 bg-foreground/5">
+                <Button variant="dark-chrome" size="hero" className="w-full">
+                  Create Website Now →
+                </Button>
+              </div>
+              <div className="p-6 rounded-2xl border border-border/60 bg-foreground/90">
+                <Button variant="dark-chrome" size="hero" className="w-full">
+                  Create Website Now →
+                </Button>
+              </div>
+            </div>
+          </div>
+
+          {/* Neon Edge Variant */}
+          <div className="space-y-4">
+            <h3 className="text-base font-semibold">7. Neon Edge Variant</h3>
+            <p className="text-sm text-muted-foreground">
+              Near-black surface, bright white border, outer white glow yang makin intens saat hover.
+            </p>
+            <div className="space-y-3">
+              <div className="text-xs font-medium text-muted-foreground">Size default</div>
+              <div className="flex flex-wrap items-center gap-3 p-6 rounded-2xl border border-border/60 bg-card/60">
+                <Button variant="neon-edge">Create Website Now →</Button>
+                <Button variant="neon-edge" loading>Memproses...</Button>
+                <Button variant="neon-edge" disabled>Disabled</Button>
+              </div>
+            </div>
+            <div className="space-y-3">
+              <div className="text-xs font-medium text-muted-foreground">Size hero · full-width</div>
+              <div className="p-6 rounded-2xl border border-border/60 bg-foreground/5">
+                <Button variant="neon-edge" size="hero" className="w-full">
+                  Create Website Now →
+                </Button>
+              </div>
+              <div className="p-6 rounded-2xl border border-border/60 bg-foreground/90">
+                <Button variant="neon-edge" size="hero" className="w-full">
+                  Create Website Now →
+                </Button>
+              </div>
+            </div>
+          </div>
+
+          {/* Floating Arrow Variant */}
+          <div className="space-y-4">
+            <h3 className="text-base font-semibold">8. Floating Arrow Variant</h3>
+            <p className="text-sm text-muted-foreground">
+              Minimal pill body dengan floating circular arrow badge di kanan. Dark mode: pill gelap, badge putih.
+            </p>
+            <div className="space-y-3">
+              <div className="text-xs font-medium text-muted-foreground">Size default</div>
+              <div className="flex flex-wrap items-center gap-3 p-6 rounded-2xl border border-border/60 bg-card/60">
+                <Button variant="floating-arrow">Create Website Now</Button>
+                <Button variant="floating-arrow" disabled>Disabled</Button>
+              </div>
+            </div>
+            <div className="space-y-3">
+              <div className="text-xs font-medium text-muted-foreground">Size hero · full-width</div>
+              <div className="p-6 rounded-2xl border border-border/60 bg-foreground/5">
+                <Button variant="floating-arrow" size="hero" className="w-full">
+                  Create Website Now
+                </Button>
+              </div>
+              <div className="p-6 rounded-2xl border border-border/60 bg-foreground/90">
+                <Button variant="floating-arrow" size="hero" className="w-full">
+                  Create Website Now
                 </Button>
               </div>
             </div>

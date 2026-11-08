@@ -3,7 +3,7 @@ import { DISABLED_STYLES, FOCUS_VISIBLE, MOTION } from "../../lib/ui-tokens";
 import { cn } from "../../lib/utils";
 import { Spinner, type SpinnerSize } from "./spinner";
 
-type ButtonVariant = "default" | "outline" | "ghost" | "secondary" | "destructive" | "liquid-silver";
+type ButtonVariant = "default" | "outline" | "ghost" | "secondary" | "destructive" | "liquid-silver" | "dark-chrome" | "neon-edge" | "floating-arrow";
 type ButtonSize = "default" | "sm" | "lg" | "icon" | "hero";
 
 export interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
@@ -21,6 +21,9 @@ const BUTTON_VARIANTS: Record<ButtonVariant, string> = {
   ghost: "hover:bg-accent hover:text-accent-foreground",
   destructive: "bg-destructive text-white shadow-sm hover:bg-destructive/90",
   "liquid-silver": "btn-liquid-silver",
+  "dark-chrome": "btn-dark-chrome",
+  "neon-edge": "btn-neon-edge",
+  "floating-arrow": "btn-floating-arrow",
 };
 
 const BUTTON_SIZES: Record<ButtonSize, string> = {
@@ -54,7 +57,7 @@ export function Button({
   ...props
 }: ButtonProps) {
   const spinnerSize: SpinnerSize = size === "sm" ? "xs" : size === "lg" ? "md" : "sm";
-  const spinnerVariant = variant === "default" || variant === "destructive" ? "white" : "current";
+  const spinnerVariant = variant === "default" || variant === "destructive" || variant === "dark-chrome" || variant === "neon-edge" || variant === "floating-arrow" ? "white" : "current";
 
   return (
     <button
