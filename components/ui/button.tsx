@@ -60,7 +60,7 @@ export function Button({
   const spinnerSize: SpinnerSize = size === "sm" ? "xs" : size === "lg" ? "md" : "sm";
   const spinnerVariant = variant === "default" || variant === "destructive" || variant === "dark-chrome" || variant === "neon-edge" || variant === "floating-arrow" ? "white" : "current";
 
-  // floating-arrow: teks rata kanan, badge lingkaran di dalam button sisi kanan
+  // floating-arrow: teks di tengah/kiri, badge lingkaran di dalam button sisi kanan
   if (variant === "floating-arrow") {
     // Badge sizing: sedikit lebih kecil dari tinggi button agar ada breathing room
     const badgeSize = size === "hero" ? "w-14 h-14" : size === "lg" ? "w-9 h-9" : "w-8 h-8";
@@ -76,7 +76,7 @@ export function Button({
         aria-busy={loading}
         {...props}
       >
-        <span className="flex-1 text-right pr-2 font-semibold">
+        <span className="flex-1 text-center font-semibold px-2">
           {loading ? (loadingText ?? children) : children}
         </span>
         {loading ? (

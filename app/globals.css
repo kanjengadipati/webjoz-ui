@@ -611,6 +611,12 @@ body.webjoz-wizard-active {
     inset 0 2px 4px oklch(0 0 0 / 0.06),
     0 1px 4px oklch(0 0 0 / 0.05);
 }
+
+/* Badge circular arrow di dalam floating-arrow: selalu kontras tinggi (lingkaran gelap + panah putih) */
+.btn-floating-arrow span[class*="rounded-full"] {
+  background-color: oklch(0.12 0 0) !important;
+  color: oklch(0.98 0 0) !important;
+}
 /* ─────────────────────────────────────────────────────────────────── */
 
 /* ─────────────────────────────────────────────────────────────────── */
