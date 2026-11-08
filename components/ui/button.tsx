@@ -62,9 +62,11 @@ export function Button({
 
   // floating-arrow: teks rata kanan, badge lingkaran di dalam button sisi kanan
   if (variant === "floating-arrow") {
-    const badgeSize = size === "hero" ? "w-14 h-14" : "w-9 h-9";
+    // Badge sizing: sedikit lebih kecil dari tinggi button agar ada breathing room
+    const badgeSize = size === "hero" ? "w-14 h-14" : size === "lg" ? "w-9 h-9" : "w-8 h-8";
+    const iconSize = size === "hero" ? "w-6 h-6" : "w-4 h-4";
     const badgeColor = disabled
-      ? "bg-foreground/30 text-background"
+      ? "bg-foreground/25 text-background"
       : "bg-foreground text-background";
 
     return (
@@ -74,7 +76,7 @@ export function Button({
         aria-busy={loading}
         {...props}
       >
-        <span className="flex-1 text-right pr-3">
+        <span className="flex-1 text-right pr-2 font-semibold">
           {loading ? (loadingText ?? children) : children}
         </span>
         {loading ? (
@@ -92,10 +94,7 @@ export function Button({
             )}
             aria-hidden="true"
           >
-            <ArrowUpRight
-              className={size === "hero" ? "w-6 h-6" : "w-4 h-4"}
-              strokeWidth={2.5}
-            />
+            <ArrowUpRight className={iconSize} strokeWidth={2.5} />
           </span>
         )}
       </button>
