@@ -977,6 +977,7 @@ export default function DesignSystemPage() {
               activeId="home"
               onMenuClick={() => {}}
               menuOpen={false}
+              mobileOnly={false}
             />
           </div>
         </section>

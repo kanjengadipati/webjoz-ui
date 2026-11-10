@@ -19,6 +19,8 @@ export interface BottomNavProps {
   menuOpen?: boolean;
   className?: string;
   ariaLabel?: string;
+  /** Jika true (default), nav hanya tampil di layar mobile (lg:hidden). */
+  mobileOnly?: boolean;
 }
 
 export function BottomNav({
@@ -28,11 +30,13 @@ export function BottomNav({
   menuOpen = false,
   className,
   ariaLabel,
+  mobileOnly = true,
 }: BottomNavProps) {
   return (
     <nav
       className={cn(
-        "fixed bottom-0 inset-x-0 z-60 lg:hidden bg-card/95 dark:bg-background/90 backdrop-blur-2xl border-t border-border/60 py-2 pb-3 shadow-2xl shadow-black/20",
+        "fixed bottom-0 inset-x-0 z-60 bg-card/95 dark:bg-background/90 backdrop-blur-2xl border-t border-border/60 py-2 pb-3 shadow-2xl shadow-black/20",
+        mobileOnly && "lg:hidden",
         className
       )}
       aria-label={ariaLabel}
