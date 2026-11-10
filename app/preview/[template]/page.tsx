@@ -1,5 +1,7 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import { BottomNav } from "@/components/ui/bottom-nav";
+import { Home } from "lucide-react";
 import {
   TemplateBold,
   TemplateColorful,
@@ -66,6 +68,11 @@ export default async function PreviewPage({ params }: { params: Promise<{ templa
         design_token={designToken}
         isEditorMode={false}
         language="id"
+      />
+
+      <BottomNav
+        items={[{ id: "home", label: "Daftar Template", href: "/", icon: Home }]}
+        activeId="home"
       />
     </div>
   );
