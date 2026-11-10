@@ -22,3 +22,4 @@ export { SubtleStat } from "./subtle-stat";
 export { DatePicker } from "./date-picker";
 export { CustomSelect, type CustomSelectOption, type CustomSelectProps } from "./custom-select";
 export { Switch, type SwitchProps } from "./switch";
+export { BottomNav, type BottomNavProps, type BottomNavItem } from "./bottom-nav";
