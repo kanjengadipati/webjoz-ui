@@ -978,6 +978,7 @@ export default function DesignSystemPage() {
               onMenuClick={() => {}}
               menuOpen={false}
               mobileOnly={false}
+              className="!relative !bottom-auto !inset-x-auto !shadow-none !border-0"
             />
           </div>
         </section>
