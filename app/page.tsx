@@ -32,6 +32,7 @@ import {
   Textarea,
   Checkbox,
   DatePicker,
+  BottomNav,
 } from "@/components/ui";
 import {
   SunIcon,
@@ -47,7 +48,7 @@ import {
   EmptyChartIcon,
 } from "@/components/icons";
 import { SparkleIcon, SparkleGenAI } from "@/components/sparkle-icon";
-import { Sparkles } from "lucide-react";
+import { Sparkles, Home, Search, User, LayoutGrid } from "lucide-react";
 
 export default function DesignSystemPage() {
   // Theme state
@@ -951,6 +952,33 @@ export default function DesignSystemPage() {
               <SkeletonTable rows={3} cols={4} />
             </CardContent>
           </Card>
+        </section>
+
+        {/* 9. BOTTOM NAVIGATION */}
+        <section id="bottom-nav" className="scroll-mt-24 space-y-6">
+          <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 border-b border-border/60 pb-5">
+            <div>
+              <div className="text-xs font-bold uppercase tracking-wider text-primary">Navigation</div>
+              <h2 className="text-2xl sm:text-3xl font-bold tracking-tight">BottomNav (Mobile)</h2>
+              <p className="text-sm text-muted-foreground mt-1">
+                Navigasi bawah untuk mobile dengan item dan tombol menu tengah.
+              </p>
+            </div>
+            <Badge variant="outline">Mobile Only</Badge>
+          </div>
+
+          <div className="relative h-40 rounded-xl border border-border/60 bg-muted/30 overflow-hidden">
+            <BottomNav
+              items={[
+                { id: "home", label: "Home", href: "#", icon: Home },
+                { id: "search", label: "Search", href: "#", icon: Search },
+                { id: "profile", label: "Profile", href: "#", icon: User },
+              ]}
+              activeId="home"
+              onMenuClick={() => {}}
+              menuOpen={false}
+            />
+          </div>
         </section>
 
         {/* 8. CARDS, METRICS & STATS */}
