@@ -1,0 +1,156 @@
+"use client";
+
+import React, { useEffect, useId } from "react";
+import { Button } from "./button";
+import { CloseIcon } from "../icons";
+import { cn } from "../../lib/utils";
+import { MOTION } from "../../lib/ui-tokens";
+
+export type DrawerSide = "bottom" | "left" | "right";
+
+export interface DrawerProps {
+  open: boolean;
+  onClose: () => void;
+  /**
+   * Panel content. A header with the title and a ✕ button is rendered
+   * when a title is provided.
+   */
+  title?: React.ReactNode;
+  children: React.ReactNode;
+  /** Optional action bar pinned at the panel bottom (above the safe area). */
+  footer?: React.ReactNode;
+  /** Edge the panel slides in from. Default "bottom". */
+  side?: DrawerSide;
+  /** Max height of the bottom sheet. Default "85dvh". */
+  maxHeight?: string;
+  /** Max width of the left/right panel. Default "20rem". */
+  maxWidth?: string;
+  /** Show the drag handle bar (bottom side only). Default true. */
+  showHandle?: boolean;
+  /** Accessible dialog label, defaults to the string title. */
+  ariaLabel?: string;
+  /** Extra classes for the panel element. */
+  className?: string;
+}
+
+const SIDE_PANEL_CLASSES: Record<DrawerSide, string> = {
+  bottom:
+    "fixed inset-x-0 bottom-0 z-50 flex w-full flex-col rounded-t-3xl border-t border-border/50 bg-background text-foreground shadow-2xl",
+  left: "fixed left-0 top-0 bottom-0 z-50 flex h-full w-full flex-col border-r border-border/50 bg-background text-foreground shadow-2xl",
+  right:
+    "fixed right-0 top-0 bottom-0 z-50 flex h-full w-full flex-col border-l border-border/50 bg-background text-foreground shadow-2xl",
+};
+
+const SIDE_CLOSED_CLASSES: Record<DrawerSide, string> = {
+  bottom: "translate-y-full",
+  left: "-translate-x-full",
+  right: "translate-x-full",
+};
+
+/**
+ * Edge-sliding drawer / bottom sheet with backdrop tap-to-close, Escape key
+ * support, body scroll-lock while open, and iOS safe-area padding for the
+ * bottom sheet variant.
+ */
+export function Drawer({
+  open,
+  onClose,
+  title,
+  children,
+  footer,
+  side = "bottom",
+  maxHeight = "85dvh",
+  maxWidth = "20rem",
+  showHandle = true,
+  ariaLabel,
+  className,
+}: DrawerProps) {
+  const titleId = useId();
+  const hasHandle = side === "bottom" && showHandle;
+
+  // Close on Escape + lock background scroll while open
+  useEffect(() => {
+    if (!open) return;
+    const onKeyDown = (event: KeyboardEvent) => {
+      if (event.key === "Escape") onClose();
+    };
+    window.addEventListener("keydown", onKeyDown);
+    const previousOverflow = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    return () => {
+      window.removeEventListener("keydown", onKeyDown);
+      document.body.style.overflow = previousOverflow;
+    };
+  }, [open, onClose]);
+
+  return (
+    <>
+      {/* Backdrop — tap to close, blurred */}
+      <div
+        className={cn(
+          "fixed inset-0 z-40 bg-black/60 backdrop-blur-sm",
+          MOTION.standard,
+          open ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none",
+        )}
+        onClick={onClose}
+        aria-hidden="true"
+      />
+
+      {/* Panel */}
+      <div
+        role="dialog"
+        aria-modal="true"
+        aria-label={ariaLabel ?? (typeof title === "string" ? title : undefined)}
+        aria-labelledby={title ? titleId : undefined}
+        className={cn(
+          SIDE_PANEL_CLASSES[side],
+          MOTION.transform,
+          open ? "translate-y-0 translate-x-0" : SIDE_CLOSED_CLASSES[side],
+          side === "bottom" && "pb-[env(safe-area-inset-bottom)]",
+          className,
+        )}
+        style={side === "bottom" ? { maxHeight } : { maxWidth }}
+      >
+        {/* Drag handle — bottom sheet only */}
+        {hasHandle && (
+          <div
+            className="mx-auto mt-3 mb-1 h-1.5 w-10 shrink-0 rounded-full bg-muted-foreground/25"
+            aria-hidden="true"
+          />
+        )}
+
+        {/* Header */}
+        {title ? (
+          <div className="flex items-center justify-between gap-3 px-5 pb-3 pt-3">
+            <h2 id={titleId} className="text-base font-semibold tracking-tight">
+              {title}
+            </h2>
+            <Button
+              variant="ghost"
+              size="icon"
+              aria-label="Close drawer"
+              onClick={onClose}
+            >
+              <CloseIcon size="sm" />
+            </Button>
+          </div>
+        ) : null}
+
+        {/* Scrollable body */}
+        <div
+          className={cn(
+            "min-h-0 flex-1 overflow-y-auto px-5 pb-5",
+            !title && (hasHandle ? "pt-4" : "pt-5"),
+          )}
+        >
+          {children}
+        </div>
+
+        {/* Footer */}
+        {footer ? (
+          <div className="flex gap-3 border-t border-border/60 p-5">{footer}</div>
+        ) : null}
+      </div>
+    </>
+  );
+}

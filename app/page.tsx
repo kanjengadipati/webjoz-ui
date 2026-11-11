@@ -13,6 +13,7 @@ import {
   CardContent,
   CardFooter,
   Dialog,
+  Drawer,
   EmptyState,
   FormField,
   Input,
@@ -58,6 +59,11 @@ export default function DesignSystemPage() {
   const [isBasicDialogOpen, setIsBasicDialogOpen] = useState(false);
   const [isConfirmDialogOpen, setIsConfirmDialogOpen] = useState(false);
   const [isFormDialogOpen, setIsFormDialogOpen] = useState(false);
+
+  // Drawer demo states
+  const [isBottomSheetOpen, setIsBottomSheetOpen] = useState(false);
+  const [isLeftDrawerOpen, setIsLeftDrawerOpen] = useState(false);
+  const [isRightDrawerOpen, setIsRightDrawerOpen] = useState(false);
 
   // Form states
   const [inputVal, setInputVal] = useState("webjoz.id");
@@ -1040,6 +1046,69 @@ export default function DesignSystemPage() {
           </div>
         </section>
 
+        {/* 10. DRAWER & SHEET */}
+        <section id="drawers" className="scroll-mt-24 space-y-6">
+          <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 border-b border-border/60 pb-5">
+            <div>
+              <div className="text-xs font-bold uppercase tracking-wider text-primary">Overlay</div>
+              <h2 className="text-2xl sm:text-3xl font-bold tracking-tight">Drawer &amp; Bottom Sheet</h2>
+              <p className="text-sm text-muted-foreground mt-1">
+                Panel geser dari tepi layar — bottom sheet dengan handle bar dan safe-area (mobile-first),
+                drawer navigasi dari kiri, dan drawer aksi dari kanan. Backdrop tap-to-close, tombol Escape,
+                dan scroll-lock otomatis saat terbuka.
+              </p>
+            </div>
+            <Badge variant="outline">3 Sisi</Badge>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+            {/* Bottom sheet */}
+            <Card>
+              <CardHeader>
+                <CardTitle className="text-xl">Bottom Sheet</CardTitle>
+                <CardDescription>
+                  Slide dari bawah dengan handle bar, judul, konten scrollable, dan footer aksi — pola wizard mobile.
+                </CardDescription>
+              </CardHeader>
+              <CardContent>
+                <Button className="w-full" onClick={() => setIsBottomSheetOpen(true)}>
+                  Buka Bottom Sheet
+                </Button>
+              </CardContent>
+            </Card>
+
+            {/* Left drawer */}
+            <Card>
+              <CardHeader>
+                <CardTitle className="text-xl">Left Drawer</CardTitle>
+                <CardDescription>
+                  Drawer navigasi dari sisi kiri — cocok untuk menu dashboard dan switch konteks di layar kecil.
+                </CardDescription>
+              </CardHeader>
+              <CardContent>
+                <Button variant="outline" className="w-full" onClick={() => setIsLeftDrawerOpen(true)}>
+                  Buka Left Drawer
+                </Button>
+              </CardContent>
+            </Card>
+
+            {/* Right drawer */}
+            <Card>
+              <CardHeader>
+                <CardTitle className="text-xl">Right Drawer</CardTitle>
+                <CardDescription>
+                  Drawer aksi dari sisi kanan tanpa handle bar — untuk panel filter, detail cepat, atau form ringkas.
+                </CardDescription>
+              </CardHeader>
+              <CardContent>
+                <Button variant="secondary" className="w-full" onClick={() => setIsRightDrawerOpen(true)}>
+                  Buka Right Drawer
+                </Button>
+              </CardContent>
+            </Card>
+          </div>
+        </section>
+
         {/* 8. CARDS, METRICS & STATS */}
         <section id="cards" className="scroll-mt-24 space-y-6">
           <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 border-b border-border/60 pb-5">
@@ -1398,6 +1467,130 @@ export default function DesignSystemPage() {
           </div>
         </div>
       </Dialog>
+
+      {/* 1. Bottom Sheet Drawer */}
+      <Drawer
+        open={isBottomSheetOpen}
+        onClose={() => setIsBottomSheetOpen(false)}
+        title="Detail Pesanan #WJ-2841"
+        footer={
+          <div className="flex items-center justify-end gap-3 w-full">
+            <Button variant="outline" onClick={() => setIsBottomSheetOpen(false)}>
+              Tutup
+            </Button>
+            <Button
+              variant="default"
+              onClick={() => {
+                alert("Pesanan ditandai selesai!");
+                setIsBottomSheetOpen(false);
+              }}
+            >
+              Tandai Selesai
+            </Button>
+          </div>
+        }
+      >
+        <div className="space-y-4">
+          <div className="flex flex-wrap gap-2">
+            <Badge variant="secondary">Side: bottom</Badge>
+            <Badge variant="outline">Handle bar</Badge>
+            <Badge variant="default">Safe-area</Badge>
+          </div>
+          <div className="rounded-xl border border-border/60 bg-muted/40 p-3.5 flex items-start gap-3">
+            <InfoIcon className="size-5 text-primary shrink-0 mt-0.5" />
+            <div className="text-xs leading-relaxed text-muted-foreground">
+              Bottom sheet menempel ke dasar layar dengan rounded-t-3xl, backdrop blur, dan konten scrollable
+              dengan tinggi maksimum 85dvh. Tutup dengan tap backdrop, tombol ✕, atau Escape.
+            </div>
+          </div>
+          <div className="space-y-3">
+            <div className="text-xs font-semibold text-muted-foreground">Ringkasan Item</div>
+            <SkeletonText lines={3} />
+            <div className="grid grid-cols-2 gap-3">
+              <SkeletonCard />
+              <SkeletonCard />
+            </div>
+          </div>
+        </div>
+      </Drawer>
+
+      {/* 2. Left Navigation Drawer */}
+      <Drawer
+        open={isLeftDrawerOpen}
+        onClose={() => setIsLeftDrawerOpen(false)}
+        title="Menu Navigasi"
+        side="left"
+      >
+        <nav className="flex flex-col gap-1" aria-label="Drawer navigation demo">
+          {[
+            { label: "Dashboard", icon: Home },
+            { label: "Pencarian", icon: Search },
+            { label: "Notifikasi", icon: Bell },
+            { label: "Profil Akun", icon: User },
+          ].map(({ label, icon: Icon }) => (
+            <button
+              key={label}
+              type="button"
+              className="flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-medium text-foreground/80 hover:bg-muted hover:text-foreground transition-colors text-left"
+            >
+              <Icon className="size-4 shrink-0" aria-hidden="true" />
+              {label}
+            </button>
+          ))}
+        </nav>
+        <div className="mt-4 rounded-xl border border-border/60 bg-muted/20 p-3 text-[11px] leading-relaxed text-muted-foreground">
+          Drawer kiri slide dari tepi kiri layar (translate-x), lebar maksimum 20rem, dengan border sisi kanan.
+        </div>
+      </Drawer>
+
+      {/* 3. Right Action Drawer */}
+      <Drawer
+        open={isRightDrawerOpen}
+        onClose={() => setIsRightDrawerOpen(false)}
+        title="Filter Tampilan"
+        side="right"
+        showHandle={false}
+        footer={
+          <div className="flex items-center justify-end gap-3 w-full">
+            <Button variant="outline" onClick={() => setIsRightDrawerOpen(false)}>
+              Batal
+            </Button>
+            <Button
+              variant="default"
+              onClick={() => {
+                alert("Filter diterapkan!");
+                setIsRightDrawerOpen(false);
+              }}
+            >
+              Terapkan
+            </Button>
+          </div>
+        }
+      >
+        <div className="space-y-4">
+          <div className="flex flex-wrap gap-2">
+            <Badge variant="secondary">Side: right</Badge>
+            <Badge variant="outline">Tanpa handle</Badge>
+          </div>
+          <FormField label="Kategori Produk">
+            <Select defaultValue="makanan">
+              <option value="makanan">Makanan &amp; Minuman</option>
+              <option value="fashion">Fashion &amp; Aksesori</option>
+              <option value="jasa">Jasa &amp; Layanan</option>
+            </Select>
+          </FormField>
+          <FormField label="Rentang Harga">
+            <Input placeholder="Contoh: 10.000 - 50.000" />
+          </FormField>
+          <div className="flex items-center justify-between p-3 rounded-xl border border-border/60 bg-muted/20">
+            <div>
+              <div className="text-xs font-semibold">Hanya Buka Sekarang</div>
+              <div className="text-[11px] text-muted-foreground">Sembunyikan toko yang tutup</div>
+            </div>
+            <Switch checked={true} size="sm" />
+          </div>
+        </div>
+      </Drawer>
     </div>
   );
 }

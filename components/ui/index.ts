@@ -13,6 +13,7 @@ export { Badge } from "./badge";
 export { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "./card";
 export { Checkbox, FormField, Input, Label, Select, Textarea } from "./input";
 export { Dialog } from "./dialog";
+export { Drawer, type DrawerProps, type DrawerSide } from "./drawer";
 export { EmptyState } from "./empty-state";
 export { MetricCard } from "./metric-card";
 export { SectionTitle } from "./section-title";
