@@ -1054,11 +1054,13 @@ export default function DesignSystemPage() {
               <h2 className="text-2xl sm:text-3xl font-bold tracking-tight">Drawer (Mobile)</h2>
               <p className="text-sm text-muted-foreground mt-1">
                 Drawer mobile — bottom sheet dengan handle bar &amp; safe-area, nav drawer dari kiri, dan drawer
-                aksi dari kanan. Backdrop tap-to-close, tombol Escape, dan scroll-lock otomatis. Preview dirender
-                dalam frame ponsel seperti tampilannya di halaman mobile sungguhan.
+                aksi dari kanan. Backdrop tap-to-close, tombol Escape, dan scroll-lock otomatis. Default
+                <code className="mx-1 text-xs">mobileOnly</code> — otomatis tersembunyi di layar lg ke atas; set
+                <code className="mx-1 text-xs">mobileOnly=&#123;false&#125;</code> agar tetap tampil (seperti preview
+                frame ini). Preview dirender dalam frame ponsel seperti tampilannya di halaman mobile sungguhan.
               </p>
             </div>
-            <Badge variant="outline">Mobile Pattern</Badge>
+            <Badge variant="outline">Mobile Only · Default</Badge>
           </div>
 
           <div className="flex flex-wrap justify-center gap-8">
@@ -1093,6 +1095,7 @@ export default function DesignSystemPage() {
                   title="Detail Pesanan #WJ-2841"
                   maxHeight="75%"
                   lockScroll={false}
+                  mobileOnly={false}
                   backdropClassName="!absolute"
                   className="!absolute"
                   footer={
@@ -1164,6 +1167,7 @@ export default function DesignSystemPage() {
                   title="Menu Navigasi"
                   side="left"
                   lockScroll={false}
+                  mobileOnly={false}
                   backdropClassName="!absolute"
                   className="!absolute"
                 >
@@ -1223,6 +1227,7 @@ export default function DesignSystemPage() {
                   side="right"
                   showHandle={false}
                   lockScroll={false}
+                  mobileOnly={false}
                   backdropClassName="!absolute"
                   className="!absolute"
                   footer={

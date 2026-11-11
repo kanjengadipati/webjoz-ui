@@ -44,6 +44,12 @@ export interface DrawerProps {
    * a preview container. Default true.
    */
   lockScroll?: boolean;
+  /**
+   * Hide the drawer on desktop-size screens (lg and up), matching the
+   * dashboard mobile drawer pattern. Default true — set false to keep it
+   * visible at every viewport (e.g. inside a device preview frame).
+   */
+  mobileOnly?: boolean;
 }
 
 const SIDE_PANEL_CLASSES: Record<DrawerSide, string> = {
@@ -63,7 +69,8 @@ const SIDE_CLOSED_CLASSES: Record<DrawerSide, string> = {
 /**
  * Mobile drawer / bottom sheet with backdrop tap-to-close, Escape key
  * support, body scroll-lock while open, and iOS safe-area padding for the
- * bottom sheet variant. Can be contained inside a relative preview
+ * bottom sheet variant. Hidden on lg+ viewports by default (opt out via
+ * mobileOnly={false}). Can be contained inside a relative preview
  * container via the "!absolute" class overrides.
  */
 export function Drawer({
@@ -80,6 +87,7 @@ export function Drawer({
   className,
   backdropClassName,
   lockScroll = true,
+  mobileOnly = true,
 }: DrawerProps) {
   const titleId = useId();
   const hasHandle = side === "bottom" && showHandle;
@@ -107,6 +115,7 @@ export function Drawer({
           "fixed inset-0 z-40 bg-black/60 backdrop-blur-sm",
           MOTION.standard,
           open ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none",
+          mobileOnly && "lg:hidden",
           backdropClassName,
         )}
         onClick={onClose}
@@ -124,6 +133,7 @@ export function Drawer({
           MOTION.transform,
           open ? "translate-y-0 translate-x-0" : SIDE_CLOSED_CLASSES[side],
           side === "bottom" && "pb-[env(safe-area-inset-bottom)]",
+          mobileOnly && "lg:hidden",
           className,
         )}
         style={side === "bottom" ? { maxHeight } : { maxWidth }}
