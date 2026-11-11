@@ -962,45 +962,80 @@ export default function DesignSystemPage() {
               <h2 className="text-2xl sm:text-3xl font-bold tracking-tight">BottomNavBar (Mobile)</h2>
               <p className="text-sm text-muted-foreground mt-1">
                 Navigasi bawah gelap dengan FAB Plus di tengah, badge notifikasi, state aktif,
-                mode ikon-saja, dan dukungan konten tengah kustom.
+                mode ikon-saja, dan dukungan konten tengah kustom. Preview dirender dalam frame
+                ponsel seperti tampilannya di halaman mobile sungguhan.
               </p>
             </div>
             <Badge variant="outline">Mobile Only</Badge>
           </div>
 
-          {/* 4 item + FAB tengah — default */}
-          <div className="space-y-3">
-            <div className="text-xs font-medium text-muted-foreground">4 item · label tampil · badge &amp; state aktif</div>
-            <div className="relative h-52 rounded-xl border border-border/60 bg-muted/30">
-              <BottomNavBar
-                items={[
-                  { id: "home", label: "Home", href: "#", icon: Home, active: true },
-                  { id: "search", label: "Search", href: "#", icon: Search },
-                  { id: "alerts", label: "Alerts", href: "#", icon: Bell, badge: 12 },
-                  { id: "profile", label: "Profile", href: "#", icon: User },
-                ]}
-                centerLabel="Buat"
-                onCenterPress={() => {}}
-                className="!relative !bottom-auto !inset-x-auto !block"
-              />
+          <div className="flex flex-wrap justify-center gap-8">
+            {/* Frame 1 — 4 item · label · badge · state aktif */}
+            <div className="space-y-2">
+              <div className="text-center text-xs font-medium text-muted-foreground">4 item · label tampil · badge &amp; state aktif</div>
+              <div className="relative w-full max-w-[375px] h-[560px] rounded-[2.5rem] border-[6px] border-foreground/15 bg-background shadow-2xl overflow-hidden">
+                {/* Status bar */}
+                <div className="flex items-center justify-between px-6 pt-3 pb-1 text-[10px] font-semibold text-foreground/60">
+                  <span>9:41</span>
+                  <span className="tracking-tighter">●●● ●●</span>
+                </div>
+                {/* Fake mobile page content */}
+                <div className="space-y-4 px-5 pt-4">
+                  <div className="h-28 rounded-2xl bg-gradient-to-br from-primary/15 to-primary/5 border border-border/40" />
+                  <div className="h-4 w-2/3 rounded-lg bg-muted" />
+                  <div className="grid grid-cols-2 gap-3">
+                    <SkeletonCard />
+                    <SkeletonCard />
+                  </div>
+                  <SkeletonText lines={3} />
+                </div>
+                {/* Nav pinned at the frame bottom, FAB floats above it */}
+                <BottomNavBar
+                  items={[
+                    { id: "home", label: "Home", href: "#", icon: Home, active: true },
+                    { id: "search", label: "Search", href: "#", icon: Search },
+                    { id: "alerts", label: "Alerts", href: "#", icon: Bell, badge: 12 },
+                    { id: "profile", label: "Profile", href: "#", icon: User },
+                  ]}
+                  centerLabel="Buat"
+                  onCenterPress={() => {}}
+                  className="!absolute !block"
+                />
+              </div>
             </div>
-          </div>
 
-          {/* 2 item · ikon saja · FAB aktif */}
-          <div className="space-y-3">
-            <div className="text-xs font-medium text-muted-foreground">2 item · ikon saja (showLabels=false) · centerActive</div>
-            <div className="relative h-40 rounded-xl border border-border/60 bg-muted/30">
-              <BottomNavBar
-                showLabels={false}
-                centerLabel="Buat"
-                onCenterPress={() => {}}
-                centerActive
-                items={[
-                  { id: "home", label: "Home", href: "#", icon: Home },
-                  { id: "profile", label: "Profile", href: "#", icon: User },
-                ]}
-                className="!relative !bottom-auto !inset-x-auto !block"
-              />
+            {/* Frame 2 — 2 item · ikon saja · FAB aktif */}
+            <div className="space-y-2">
+              <div className="text-center text-xs font-medium text-muted-foreground">2 item · ikon saja (showLabels=false) · centerActive</div>
+              <div className="relative w-full max-w-[375px] h-[560px] rounded-[2.5rem] border-[6px] border-foreground/15 bg-background shadow-2xl overflow-hidden">
+                {/* Status bar */}
+                <div className="flex items-center justify-between px-6 pt-3 pb-1 text-[10px] font-semibold text-foreground/60">
+                  <span>9:41</span>
+                  <span className="tracking-tighter">●●● ●●</span>
+                </div>
+                {/* Fake mobile page content */}
+                <div className="space-y-4 px-5 pt-4">
+                  <div className="h-9 w-40 rounded-xl bg-muted" />
+                  <SkeletonCard />
+                  <div className="grid grid-cols-3 gap-3">
+                    <div className="h-16 rounded-xl bg-muted/70" />
+                    <div className="h-16 rounded-xl bg-muted/70" />
+                    <div className="h-16 rounded-xl bg-muted/70" />
+                  </div>
+                </div>
+                {/* Nav pinned at the frame bottom, FAB floats above it */}
+                <BottomNavBar
+                  showLabels={false}
+                  centerLabel="Buat"
+                  onCenterPress={() => {}}
+                  centerActive
+                  items={[
+                    { id: "home", label: "Home", href: "#", icon: Home },
+                    { id: "profile", label: "Profile", href: "#", icon: User },
+                  ]}
+                  className="!absolute !block"
+                />
+              </div>
             </div>
           </div>
         </section>
