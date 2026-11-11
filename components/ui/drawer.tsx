@@ -29,8 +29,21 @@ export interface DrawerProps {
   showHandle?: boolean;
   /** Accessible dialog label, defaults to the string title. */
   ariaLabel?: string;
-  /** Extra classes for the panel element. */
+  /**
+   * Extra classes for the panel element. Use "!absolute" to contain the
+   * drawer inside a relative preview container (e.g. a phone frame).
+   */
   className?: string;
+  /**
+   * Extra classes for the backdrop element. Use "!absolute" to contain the
+   * backdrop inside a relative preview container.
+   */
+  backdropClassName?: string;
+  /**
+   * Lock background page scroll while open. Disable when rendering inside
+   * a preview container. Default true.
+   */
+  lockScroll?: boolean;
 }
 
 const SIDE_PANEL_CLASSES: Record<DrawerSide, string> = {
@@ -48,9 +61,10 @@ const SIDE_CLOSED_CLASSES: Record<DrawerSide, string> = {
 };
 
 /**
- * Edge-sliding drawer / bottom sheet with backdrop tap-to-close, Escape key
+ * Mobile drawer / bottom sheet with backdrop tap-to-close, Escape key
  * support, body scroll-lock while open, and iOS safe-area padding for the
- * bottom sheet variant.
+ * bottom sheet variant. Can be contained inside a relative preview
+ * container via the "!absolute" class overrides.
  */
 export function Drawer({
   open,
@@ -64,6 +78,8 @@ export function Drawer({
   showHandle = true,
   ariaLabel,
   className,
+  backdropClassName,
+  lockScroll = true,
 }: DrawerProps) {
   const titleId = useId();
   const hasHandle = side === "bottom" && showHandle;
@@ -76,12 +92,12 @@ export function Drawer({
     };
     window.addEventListener("keydown", onKeyDown);
     const previousOverflow = document.body.style.overflow;
-    document.body.style.overflow = "hidden";
+    if (lockScroll) document.body.style.overflow = "hidden";
     return () => {
       window.removeEventListener("keydown", onKeyDown);
-      document.body.style.overflow = previousOverflow;
+      if (lockScroll) document.body.style.overflow = previousOverflow;
     };
-  }, [open, onClose]);
+  }, [open, onClose, lockScroll]);
 
   return (
     <>
@@ -91,6 +107,7 @@ export function Drawer({
           "fixed inset-0 z-40 bg-black/60 backdrop-blur-sm",
           MOTION.standard,
           open ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none",
+          backdropClassName,
         )}
         onClick={onClose}
         aria-hidden="true"
