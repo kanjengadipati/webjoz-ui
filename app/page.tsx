@@ -32,7 +32,7 @@ import {
   Textarea,
   Checkbox,
   DatePicker,
-  BottomNav,
+  BottomNavBar,
 } from "@/components/ui";
 import {
   SunIcon,
@@ -48,7 +48,7 @@ import {
   EmptyChartIcon,
 } from "@/components/icons";
 import { SparkleIcon, SparkleGenAI } from "@/components/sparkle-icon";
-import { Sparkles, Home, Search, User, LayoutGrid } from "lucide-react";
+import { Sparkles, Home, Search, User, Bell } from "lucide-react";
 
 export default function DesignSystemPage() {
   // Theme state
@@ -959,27 +959,49 @@ export default function DesignSystemPage() {
           <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 border-b border-border/60 pb-5">
             <div>
               <div className="text-xs font-bold uppercase tracking-wider text-primary">Navigation</div>
-              <h2 className="text-2xl sm:text-3xl font-bold tracking-tight">BottomNav (Mobile)</h2>
+              <h2 className="text-2xl sm:text-3xl font-bold tracking-tight">BottomNavBar (Mobile)</h2>
               <p className="text-sm text-muted-foreground mt-1">
-                Navigasi bawah untuk mobile dengan item dan tombol menu tengah.
+                Navigasi bawah gelap dengan FAB Plus di tengah, badge notifikasi, state aktif,
+                mode ikon-saja, dan dukungan konten tengah kustom.
               </p>
             </div>
             <Badge variant="outline">Mobile Only</Badge>
           </div>
 
-          <div className="relative h-40 rounded-xl border border-border/60 bg-muted/30 overflow-hidden">
-            <BottomNav
-              items={[
-                { id: "home", label: "Home", href: "#", icon: Home },
-                { id: "search", label: "Search", href: "#", icon: Search },
-                { id: "profile", label: "Profile", href: "#", icon: User },
-              ]}
-              activeId="home"
-              onMenuClick={() => {}}
-              menuOpen={false}
-              mobileOnly={false}
-              className="!relative !bottom-auto !inset-x-auto !shadow-none !border-0"
-            />
+          {/* 4 item + FAB tengah — default */}
+          <div className="space-y-3">
+            <div className="text-xs font-medium text-muted-foreground">4 item · label tampil · badge &amp; state aktif</div>
+            <div className="relative h-52 rounded-xl border border-border/60 bg-muted/30">
+              <BottomNavBar
+                items={[
+                  { id: "home", label: "Home", href: "#", icon: Home, active: true },
+                  { id: "search", label: "Search", href: "#", icon: Search },
+                  { id: "alerts", label: "Alerts", href: "#", icon: Bell, badge: 12 },
+                  { id: "profile", label: "Profile", href: "#", icon: User },
+                ]}
+                centerLabel="Buat"
+                onCenterPress={() => {}}
+                className="!relative !bottom-auto !inset-x-auto !block"
+              />
+            </div>
+          </div>
+
+          {/* 2 item · ikon saja · FAB aktif */}
+          <div className="space-y-3">
+            <div className="text-xs font-medium text-muted-foreground">2 item · ikon saja (showLabels=false) · centerActive</div>
+            <div className="relative h-40 rounded-xl border border-border/60 bg-muted/30">
+              <BottomNavBar
+                showLabels={false}
+                centerLabel="Buat"
+                onCenterPress={() => {}}
+                centerActive
+                items={[
+                  { id: "home", label: "Home", href: "#", icon: Home },
+                  { id: "profile", label: "Profile", href: "#", icon: User },
+                ]}
+                className="!relative !bottom-auto !inset-x-auto !block"
+              />
+            </div>
           </div>
         </section>
 
