@@ -71,6 +71,17 @@ import { TemplateRegistry, getTemplateDefaults } from 'webjoz-ui';
 import { CartDrawer } from 'webjoz-ui/components/cart';
 ```
 
+### Tailwind v4 setup (WAJIB)
+
+Package ini ship source `.tsx` mentah — Tailwind v4 **tidak men-scan `node_modules`** (gitignored), jadi kelas unik komponen package tidak akan ter-generate di app konsumen. Daftarkan sebagai source di `globals.css` app konsumen:
+
+```css
+@import "tailwindcss";
+@source "../node_modules/webjoz-ui";
+```
+
+Tanpa ini, komponen tetap render tapi kelas khasnya (mis. `-mt-7` FAB `BottomNavBar`, `flex-[2]`, `stroke-[2.25]`) hilang dari CSS output.
+
 ---
 
 ## API Client
