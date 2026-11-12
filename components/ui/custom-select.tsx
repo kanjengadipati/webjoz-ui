@@ -198,7 +198,7 @@ export function CustomSelect<T extends string = string>({
           triggerClassName
         )}
       >
-        <div className="flex items-center gap-2.5 min-w-0 flex-1">
+        <div className={cn("flex items-center min-w-0 flex-1", selectedOption?.icon ? "gap-2.5" : "gap-0")}>
           {selectedOption ? (
             <>
               {selectedOption.icon && (
@@ -275,7 +275,7 @@ export function CustomSelect<T extends string = string>({
                       opt.disabled && "opacity-40 cursor-not-allowed pointer-events-none"
                     )}
                   >
-                    <div className="flex items-center gap-2.5 min-w-0 flex-1">
+                    <div className={cn("flex items-center min-w-0 flex-1", opt.icon ? "gap-2.5" : "gap-0")}>
                       {opt.icon && (
                         <span
                           className={cn(
