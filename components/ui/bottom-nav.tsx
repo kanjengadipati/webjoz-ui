@@ -20,17 +20,24 @@ export interface BottomNavItem {
 export interface BottomNavBarProps {
   /**
    * Side items — either 4 (2 left + 2 right) or 2 (1 left + 1 right).
-   * Layout: [left...] [center FAB] [right...]
+   * Layout when center FAB is shown: [left...] [center FAB] [right...]
+   * Layout when hideCenterFab=true: items rendered evenly across full width.
    */
   items: [BottomNavItem, BottomNavItem, BottomNavItem, BottomNavItem]
        | [BottomNavItem, BottomNavItem];
-  centerLabel: string;
-  onCenterPress: () => void;
+  centerLabel?: string;
+  onCenterPress?: () => void;
   /**
    * Custom center content. If provided, replaces the default Plus FAB circle.
    */
   centerContent?: React.ReactNode;
   centerActive?: boolean;
+  /**
+   * Hide the center FAB entirely and render all items evenly across full width.
+   * Useful for pages like auth where there's no primary action.
+   * Default false.
+   */
+  hideCenterFab?: boolean;
   /** Show text labels below icons. Default true. */
   showLabels?: boolean;
   className?: string;
@@ -43,6 +50,7 @@ export function BottomNavBar({
   onCenterPress,
   centerContent,
   centerActive = false,
+  hideCenterFab = false,
   showLabels = true,
   className,
   ariaLabel = "Navigation",
@@ -101,25 +109,27 @@ export function BottomNavBar({
       >
         {leftItems.map((item) => <Tab key={item.id} item={item} />)}
 
-        {/* Center — custom content or default Plus FAB */}
-        <div className="flex flex-col items-center justify-center flex-[2] -mt-7">
-          {centerContent ?? (
-            <button
-              type="button"
-              onClick={onCenterPress}
-              aria-label={centerLabel}
-              className="flex flex-col items-center group cursor-pointer active:scale-95 transition-transform"
-            >
-              <div className={cn(
-                "size-12 rounded-full flex items-center justify-center shadow-lg ring-4 ring-[#1c1c1e] group-hover:scale-105 transition-all",
-                centerActive ? "bg-primary text-primary-foreground" : "bg-white text-black"
-              )}>
-                <Plus className="size-6" strokeWidth={2.5} />
-              </div>
-              {showLabels && <span className="text-[10px] font-bold text-white mt-0.5 leading-none">{centerLabel}</span>}
-            </button>
-          )}
-        </div>
+        {/* Center — hidden when hideCenterFab=true */}
+        {!hideCenterFab && (
+          <div className="flex flex-col items-center justify-center flex-[2] -mt-7">
+            {centerContent ?? (
+              <button
+                type="button"
+                onClick={onCenterPress}
+                aria-label={centerLabel}
+                className="flex flex-col items-center group cursor-pointer active:scale-95 transition-transform"
+              >
+                <div className={cn(
+                  "size-12 rounded-full flex items-center justify-center shadow-lg ring-4 ring-[#1c1c1e] group-hover:scale-105 transition-all",
+                  centerActive ? "bg-primary text-primary-foreground" : "bg-white text-black"
+                )}>
+                  <Plus className="size-6" strokeWidth={2.5} />
+                </div>
+                {showLabels && <span className="text-[10px] font-bold text-white mt-0.5 leading-none">{centerLabel}</span>}
+              </button>
+            )}
+          </div>
+        )}
 
         {rightItems.map((item) => <Tab key={item.id} item={item} />)}
       </div>
