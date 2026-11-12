@@ -107,31 +107,36 @@ export function BottomNavBar({
           paddingBottom: "env(safe-area-inset-bottom)",
         }}
       >
-        {leftItems.map((item) => <Tab key={item.id} item={item} />)}
+        {hideCenterFab ? (
+          // Flat layout — all items evenly distributed, no center gap
+          (items as BottomNavItem[]).map((item) => <Tab key={item.id} item={item} />)
+        ) : (
+          <>
+            {leftItems.map((item) => <Tab key={item.id} item={item} />)}
 
-        {/* Center — hidden when hideCenterFab=true */}
-        {!hideCenterFab && (
-          <div className="flex flex-col items-center justify-center flex-[2] -mt-7">
-            {centerContent ?? (
-              <button
-                type="button"
-                onClick={onCenterPress}
-                aria-label={centerLabel}
-                className="flex flex-col items-center group cursor-pointer active:scale-95 transition-transform"
-              >
-                <div className={cn(
-                  "size-12 rounded-full flex items-center justify-center shadow-lg ring-4 ring-[#1c1c1e] group-hover:scale-105 transition-all",
-                  centerActive ? "bg-primary text-primary-foreground" : "bg-white text-black"
-                )}>
-                  <Plus className="size-6" strokeWidth={2.5} />
-                </div>
-                {showLabels && <span className="text-[10px] font-bold text-white mt-0.5 leading-none">{centerLabel}</span>}
-              </button>
-            )}
-          </div>
+            {/* Center FAB */}
+            <div className="flex flex-col items-center justify-center flex-[2] -mt-7">
+              {centerContent ?? (
+                <button
+                  type="button"
+                  onClick={onCenterPress}
+                  aria-label={centerLabel}
+                  className="flex flex-col items-center group cursor-pointer active:scale-95 transition-transform"
+                >
+                  <div className={cn(
+                    "size-12 rounded-full flex items-center justify-center shadow-lg ring-4 ring-[#1c1c1e] group-hover:scale-105 transition-all",
+                    centerActive ? "bg-primary text-primary-foreground" : "bg-white text-black"
+                  )}>
+                    <Plus className="size-6" strokeWidth={2.5} />
+                  </div>
+                  {showLabels && <span className="text-[10px] font-bold text-white mt-0.5 leading-none">{centerLabel}</span>}
+                </button>
+              )}
+            </div>
+
+            {rightItems.map((item) => <Tab key={item.id} item={item} />)}
+          </>
         )}
-
-        {rightItems.map((item) => <Tab key={item.id} item={item} />)}
       </div>
     </nav>
   );
