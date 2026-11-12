@@ -1125,8 +1125,8 @@ export default function DesignSystemPage() {
                     <div className="rounded-xl border border-border/60 bg-muted/40 p-3.5 flex items-start gap-3">
                       <InfoIcon className="size-4 text-primary shrink-0 mt-0.5" />
                       <div className="text-[11px] leading-relaxed text-muted-foreground">
-                        Sheet menempel ke dasar layar dengan rounded-t-3xl, backdrop blur, dan konten scrollable.
-                        Tutup dengan tap backdrop, tombol ✕, atau Escape.
+                        Sheet menempel ke dasar layar dengan rounded-t-2xl, tap backdrop untuk tutup, dan konten scrollable.
+                        Tutup dengan tap handle bar, tap backdrop, tombol ✕, atau Escape.
                       </div>
                     </div>
                     <div className="space-y-3">

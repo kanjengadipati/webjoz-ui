@@ -50,14 +50,20 @@ export interface DrawerProps {
    * visible at every viewport (e.g. inside a device preview frame).
    */
   mobileOnly?: boolean;
+  /**
+   * Remove default horizontal/bottom padding from the scrollable body.
+   * Use when children need full-width layout (e.g. horizontal scroll sections).
+   * Default false.
+   */
+  noPadding?: boolean;
 }
 
 const SIDE_PANEL_CLASSES: Record<DrawerSide, string> = {
   bottom:
-    "fixed inset-x-0 bottom-0 z-50 flex w-full flex-col rounded-t-3xl border-t border-border/50 bg-background text-foreground shadow-2xl",
-  left: "fixed left-0 top-0 bottom-0 z-50 flex h-full w-full flex-col border-r border-border/50 bg-background text-foreground shadow-2xl",
+    "fixed inset-x-0 bottom-0 z-50 flex w-full flex-col rounded-t-2xl border-t border-border bg-background text-foreground shadow-2xl",
+  left: "fixed left-0 top-0 bottom-0 z-50 flex h-full w-full flex-col border-r border-border bg-background text-foreground shadow-2xl",
   right:
-    "fixed right-0 top-0 bottom-0 z-50 flex h-full w-full flex-col border-l border-border/50 bg-background text-foreground shadow-2xl",
+    "fixed right-0 top-0 bottom-0 z-50 flex h-full w-full flex-col border-l border-border bg-background text-foreground shadow-2xl",
 };
 
 const SIDE_CLOSED_CLASSES: Record<DrawerSide, string> = {
@@ -88,6 +94,7 @@ export function Drawer({
   backdropClassName,
   lockScroll = true,
   mobileOnly = true,
+  noPadding = false,
 }: DrawerProps) {
   const titleId = useId();
   const hasHandle = side === "bottom" && showHandle;
@@ -109,10 +116,10 @@ export function Drawer({
 
   return (
     <>
-      {/* Backdrop — tap to close, blurred */}
+      {/* Backdrop — tap to close, no dim (matches WizardSheet pattern) */}
       <div
         className={cn(
-          "fixed inset-0 z-40 bg-black/60 backdrop-blur-sm",
+          "fixed inset-0 z-40",
           MOTION.standard,
           open ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none",
           mobileOnly && "lg:hidden",
@@ -138,18 +145,25 @@ export function Drawer({
         )}
         style={side === "bottom" ? { maxHeight } : { maxWidth }}
       >
-        {/* Drag handle — bottom sheet only */}
+        {/* Drag handle — bottom sheet only, tap to close */}
         {hasHandle && (
-          <div
-            className="mx-auto mt-3 mb-1 h-1.5 w-10 shrink-0 rounded-full bg-muted-foreground/25"
-            aria-hidden="true"
-          />
+          <button
+            type="button"
+            onClick={onClose}
+            className="flex flex-col items-center justify-center pt-3 pb-2 w-full shrink-0 cursor-pointer group"
+            aria-label="Close drawer"
+          >
+            <div
+              className="h-1 w-10 rounded-full bg-muted-foreground/30 group-active:bg-muted-foreground/60 transition-colors"
+              aria-hidden="true"
+            />
+          </button>
         )}
 
         {/* Header */}
         {title ? (
-          <div className="flex items-center justify-between gap-3 px-5 pb-3 pt-3">
-            <h2 id={titleId} className="text-base font-semibold tracking-tight">
+          <div className="flex items-center gap-3 px-4 py-2 shrink-0">
+            <h2 id={titleId} className="text-sm font-bold flex-1 tracking-tight">
               {title}
             </h2>
             <Button
@@ -166,8 +180,9 @@ export function Drawer({
         {/* Scrollable body */}
         <div
           className={cn(
-            "min-h-0 flex-1 overflow-y-auto px-5 pb-5",
-            !title && (hasHandle ? "pt-4" : "pt-5"),
+            "flex flex-col flex-1 min-h-0 overflow-hidden",
+            !noPadding && "px-5 pb-5",
+            !title && !hasHandle && !noPadding && "pt-5",
           )}
         >
           {children}
