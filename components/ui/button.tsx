@@ -1,10 +1,10 @@
 import type { ButtonHTMLAttributes, ReactNode } from "react";
-import { ArrowUpRight } from "lucide-react";
+import { ArrowUpRight, ArrowRight } from "lucide-react";
 import { DISABLED_STYLES, FOCUS_VISIBLE, MOTION } from "../../lib/ui-tokens";
 import { cn } from "../../lib/utils";
 import { Spinner, type SpinnerSize } from "./spinner";
 
-type ButtonVariant = "default" | "outline" | "ghost" | "secondary" | "destructive" | "liquid-silver" | "dark-chrome" | "neon-edge" | "floating-arrow";
+type ButtonVariant = "default" | "outline" | "ghost" | "secondary" | "destructive" | "liquid-silver" | "dark-chrome" | "neon-edge" | "floating-arrow" | "floating-arrow-right";
 type ButtonSize = "default" | "sm" | "lg" | "icon" | "hero";
 
 export interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
@@ -25,6 +25,7 @@ const BUTTON_VARIANTS: Record<ButtonVariant, string> = {
   "dark-chrome": "btn-dark-chrome",
   "neon-edge": "btn-neon-edge",
   "floating-arrow": "btn-floating-arrow",
+  "floating-arrow-right": "btn-floating-arrow-right",
 };
 
 const BUTTON_SIZES: Record<ButtonSize, string> = {
@@ -58,7 +59,7 @@ export function Button({
   ...props
 }: ButtonProps) {
   const spinnerSize: SpinnerSize = size === "sm" ? "xs" : size === "lg" ? "md" : "sm";
-  const spinnerVariant = variant === "default" || variant === "destructive" || variant === "dark-chrome" || variant === "neon-edge" || variant === "floating-arrow" ? "white" : "current";
+  const spinnerVariant = variant === "default" || variant === "destructive" || variant === "dark-chrome" || variant === "neon-edge" || variant === "floating-arrow" || variant === "floating-arrow-right" ? "white" : "current";
 
   // floating-arrow: teks di tengah/kiri, badge lingkaran di dalam button sisi kanan
   if (variant === "floating-arrow") {
@@ -95,6 +96,46 @@ export function Button({
             aria-hidden="true"
           >
             <ArrowUpRight className={iconSize} strokeWidth={2.5} />
+          </span>
+        )}
+      </button>
+    );
+  }
+
+  if (variant === "floating-arrow-right") {
+    // Same structure as floating-arrow but badge uses ArrowRight (→) instead of ↗
+    const badgeSize = size === "hero" ? "w-14 h-14" : size === "lg" ? "w-9 h-9" : "w-8 h-8";
+    const iconSize = size === "hero" ? "w-6 h-6" : "w-4 h-4";
+    const badgeColor = disabled
+      ? "bg-foreground/25 text-background"
+      : "bg-foreground text-background";
+
+    return (
+      <button
+        className={buttonClassName({ className, variant, size })}
+        disabled={disabled || loading}
+        aria-busy={loading}
+        {...props}
+      >
+        <span className="flex-1 text-center font-semibold px-2">
+          {loading ? (loadingText ?? children) : children}
+        </span>
+        {loading ? (
+          <Spinner
+            size={spinnerSize}
+            variant="white"
+            className={cn("flex-none rounded-full", badgeSize)}
+          />
+        ) : (
+          <span
+            className={cn(
+              "flex-none flex items-center justify-center rounded-full shrink-0",
+              badgeSize,
+              badgeColor,
+            )}
+            aria-hidden="true"
+          >
+            <ArrowRight className={iconSize} strokeWidth={2.5} />
           </span>
         )}
       </button>

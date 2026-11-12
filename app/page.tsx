@@ -302,7 +302,7 @@ export default function DesignSystemPage() {
                 Semua varian tombol, ukuran, loading states, dan integrasi icon.
               </p>
             </div>
-            <Badge variant="outline">9 Varian · 5 Ukuran</Badge>
+            <Badge variant="outline">10 Varian · 5 Ukuran</Badge>
           </div>
 
           {/* Variants Showcase */}
@@ -492,6 +492,36 @@ export default function DesignSystemPage() {
               <div className="p-6 rounded-2xl border border-border/60 bg-foreground/90">
                 <Button variant="floating-arrow" size="hero" className="w-full">
                   Create Website Now
+                </Button>
+              </div>
+            </div>
+          </div>
+
+          {/* Floating Arrow Right */}
+          <div className="space-y-4">
+            <h3 className="text-base font-semibold">10. Floating Arrow Right</h3>
+            <p className="text-sm text-muted-foreground">
+              Identik dengan Floating Arrow tapi badge lingkaran pakai panah → (kanan) bukan ↗.
+              Cocok untuk CTA navigasi lurus seperti "Lanjut", "Mulai", "Next Step".
+            </p>
+            <div className="space-y-3">
+              <div className="text-xs font-medium text-muted-foreground">Size default</div>
+              <div className="flex flex-wrap items-center gap-3 p-6 rounded-2xl border border-border/60 bg-card/60">
+                <Button variant="floating-arrow-right">Get Started</Button>
+                <Button variant="floating-arrow-right" loading>Memproses...</Button>
+                <Button variant="floating-arrow-right" disabled>Disabled</Button>
+              </div>
+            </div>
+            <div className="space-y-3">
+              <div className="text-xs font-medium text-muted-foreground">Size hero · full-width</div>
+              <div className="p-6 rounded-2xl border border-border/60 bg-foreground/5">
+                <Button variant="floating-arrow-right" size="hero" className="w-full">
+                  Get Started
+                </Button>
+              </div>
+              <div className="p-6 rounded-2xl border border-border/60 bg-foreground/90">
+                <Button variant="floating-arrow-right" size="hero" className="w-full">
+                  Get Started
                 </Button>
               </div>
             </div>
