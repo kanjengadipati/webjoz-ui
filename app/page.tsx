@@ -239,7 +239,7 @@ export default function DesignSystemPage() {
           {/* Logo & Brand */}
           <Link href="/" className="flex items-center gap-3 shrink-0 group">
             <Image
-              src="/logo-transparent.png"
+              src="/logo-transparent.webp"
               alt="Webjoz"
               width={112}
               height={36}
@@ -1829,7 +1829,7 @@ export default function DesignSystemPage() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-muted-foreground">
           <div className="flex items-center gap-3">
             <Image
-              src="/logo-transparent.png"
+              src="/logo-transparent.webp"
               alt="Webjoz"
               width={90}
               height={30}

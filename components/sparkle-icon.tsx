@@ -19,9 +19,9 @@ function MaskIcon({ src, className }: { src: string; className?: string }) {
 }
 
 export function SparkleIcon({ className }: { className?: string }) {
-  return <MaskIcon src="/sparkle.png" className={className} />;
+  return <MaskIcon src="/sparkle.webp" className={className} />;
 }
 
 export function SparkleGenAI({ className }: { className?: string }) {
-  return <MaskIcon src="/sparkle-gen-ai.png" className={className} />;
+  return <MaskIcon src="/sparkle-gen-ai.webp" className={className} />;
 }
