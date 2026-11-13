@@ -214,9 +214,24 @@ export function buildCssVars(dt: DesignToken | null | undefined): Record<string,
     primaryColor = p?.primary ?? "#4F46E5";
     accentColor  = p?.accent  ?? "#7C3AED";
   } else {
-    // Auto-detect — original behaviour
-    bg = rawBg;
-    text = rawText;
+    // Auto-detect: swap bg/text when both are the same "darkness class"
+    // so that text always contrasts against the background.
+    const autoIsDarkBgRaw = isColorDark(rawBg);
+    const autoIsDarkTextRaw = isColorDark(rawText);
+    if (autoIsDarkBgRaw && autoIsDarkTextRaw) {
+      // Both dark — swap: use rawText as bg and rawBg as text... but only if
+      // rawBg is actually darker. Simpler: force text to light (#f1f5f9).
+      bg = rawBg;
+      text = "#f1f5f9";
+    } else if (!autoIsDarkBgRaw && !autoIsDarkTextRaw) {
+      // Both light — force text to dark
+      bg = rawBg;
+      text = "#1e293b";
+    } else {
+      // Normal contrast pair
+      bg = rawBg;
+      text = rawText;
+    }
     const autoIsDarkBg = isColorDark(bg);
     surfaceVal = p?.surface ?? (autoIsDarkBg ? "#1F2937" : "#FFFFFF");
     if (surfaceVal.toLowerCase() === bg.toLowerCase()) {
