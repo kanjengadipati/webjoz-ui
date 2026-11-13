@@ -903,6 +903,89 @@ export default function DesignSystemPage() {
                   />
                 </FormField>
 
+                {/* CustomSelect full showcase */}
+                <div className="space-y-3 pt-2 border-t border-border/40">
+                  <div>
+                    <p className="text-sm font-semibold">CustomSelect — Semua Varian</p>
+                    <p className="text-xs text-muted-foreground mt-0.5">Tanpa icon, dengan icon, dengan sublabel & badge, disabled, error, size sm/default/lg.</p>
+                  </div>
+
+                  <div className="grid grid-cols-1 gap-3">
+                    {/* No icon */}
+                    <div className="space-y-1">
+                      <p className="text-[11px] font-medium text-muted-foreground">Tanpa icon</p>
+                      <CustomSelect
+                        value={customSelectVal}
+                        onChange={setCustomSelectVal}
+                        options={[
+                          { value: "starter", label: "Starter Plan", sublabel: "Gratis untuk 1 website", badge: "Free" },
+                          { value: "pro", label: "Pro Merchant", sublabel: "Custom domain & QRIS", badge: "Populer" },
+                          { value: "enterprise", label: "Enterprise", sublabel: "Unlimited websites" },
+                        ]}
+                      />
+                    </div>
+
+                    {/* With icon */}
+                    <div className="space-y-1">
+                      <p className="text-[11px] font-medium text-muted-foreground">Dengan icon</p>
+                      <CustomSelect
+                        value={selectVal}
+                        onChange={setSelectVal}
+                        options={[
+                          { value: "id", label: "Indonesia", icon: <span className="text-sm">🇮🇩</span> },
+                          { value: "en", label: "English", icon: <span className="text-sm">🇺🇸</span> },
+                          { value: "ar", label: "العربية", icon: <span className="text-sm">🇸🇦</span> },
+                        ]}
+                      />
+                    </div>
+
+                    {/* Size sm */}
+                    <div className="space-y-1">
+                      <p className="text-[11px] font-medium text-muted-foreground">Size sm</p>
+                      <CustomSelect
+                        value={customSelectVal}
+                        onChange={setCustomSelectVal}
+                        options={customSelectOptions}
+                        size="sm"
+                      />
+                    </div>
+
+                    {/* Size lg */}
+                    <div className="space-y-1">
+                      <p className="text-[11px] font-medium text-muted-foreground">Size lg</p>
+                      <CustomSelect
+                        value={customSelectVal}
+                        onChange={setCustomSelectVal}
+                        options={customSelectOptions}
+                        size="lg"
+                      />
+                    </div>
+
+                    {/* Error state */}
+                    <div className="space-y-1">
+                      <p className="text-[11px] font-medium text-muted-foreground">Error state</p>
+                      <CustomSelect
+                        value=""
+                        onChange={() => {}}
+                        options={customSelectOptions}
+                        placeholder="Pilih paket..."
+                        error="Paket harus dipilih"
+                      />
+                    </div>
+
+                    {/* Disabled */}
+                    <div className="space-y-1">
+                      <p className="text-[11px] font-medium text-muted-foreground">Disabled</p>
+                      <CustomSelect
+                        value="pro"
+                        onChange={() => {}}
+                        options={customSelectOptions}
+                        disabled
+                      />
+                    </div>
+                  </div>
+                </div>
+
                 <FormField label="Catatan Tambahan (Textarea)">
                   <Textarea placeholder="Tulis instruksi khusus untuk pembuatan situs Anda di sini..." rows={3} />
                 </FormField>
