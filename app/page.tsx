@@ -16,13 +16,17 @@ import {
   Drawer,
   EmptyState,
   FormField,
+  PageLoading,
   Input,
   Label,
   MetricCard,
   Select,
   CustomSelect,
   type CustomSelectOption,
+  SectionTitle,
   Separator,
+  Skeleton,
+  SkeletonBlock,
   SkeletonCard,
   SkeletonTable,
   SkeletonText,
@@ -249,14 +253,17 @@ export default function DesignSystemPage() {
 
           {/* Quick jump navigation */}
           <nav className="hidden xl:flex items-center gap-1 text-xs font-medium text-muted-foreground shrink-0">
-            <a href="#dialogs" className="px-2.5 py-1.5 rounded-lg hover:text-foreground hover:bg-muted transition-colors whitespace-nowrap">Dialog & Modal</a>
+            <a href="#dialogs" className="px-2.5 py-1.5 rounded-lg hover:text-foreground hover:bg-muted transition-colors whitespace-nowrap">Dialog</a>
             <a href="#buttons" className="px-2.5 py-1.5 rounded-lg hover:text-foreground hover:bg-muted transition-colors whitespace-nowrap">Buttons</a>
             <a href="#typography" className="px-2.5 py-1.5 rounded-lg hover:text-foreground hover:bg-muted transition-colors whitespace-nowrap">Typography</a>
             <a href="#tokens" className="px-2.5 py-1.5 rounded-lg hover:text-foreground hover:bg-muted transition-colors whitespace-nowrap">Tokens</a>
             <a href="#forms" className="px-2.5 py-1.5 rounded-lg hover:text-foreground hover:bg-muted transition-colors whitespace-nowrap">Forms</a>
             <a href="#badges" className="px-2.5 py-1.5 rounded-lg hover:text-foreground hover:bg-muted transition-colors whitespace-nowrap">Badges</a>
             <a href="#feedback" className="px-2.5 py-1.5 rounded-lg hover:text-foreground hover:bg-muted transition-colors whitespace-nowrap">Feedback</a>
+            <a href="#bottom-nav" className="px-2.5 py-1.5 rounded-lg hover:text-foreground hover:bg-muted transition-colors whitespace-nowrap">Bottom Nav</a>
+            <a href="#drawers" className="px-2.5 py-1.5 rounded-lg hover:text-foreground hover:bg-muted transition-colors whitespace-nowrap">Drawers</a>
             <a href="#cards" className="px-2.5 py-1.5 rounded-lg hover:text-foreground hover:bg-muted transition-colors whitespace-nowrap">Cards</a>
+            <a href="#variant-picker" className="px-2.5 py-1.5 rounded-lg hover:text-foreground hover:bg-muted transition-colors whitespace-nowrap">Variant Picker</a>
             <a href="#icons" className="px-2.5 py-1.5 rounded-lg hover:text-foreground hover:bg-muted transition-colors whitespace-nowrap">Icons</a>
           </nav>
 
@@ -311,7 +318,31 @@ export default function DesignSystemPage() {
       </section>
 
       {/* Main Content Sections */}
-      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 space-y-24">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 flex gap-8">
+        <aside className="hidden lg:block w-56 shrink-0">
+          <nav className="sticky top-24 space-y-1 text-sm" aria-label="Komponen">
+            <div className="text-xs font-bold uppercase tracking-wider text-muted-foreground mb-3 px-3">Components</div>
+            {[
+              ["#dialogs", "Dialog & Modal"],
+              ["#buttons", "Buttons"],
+              ["#typography", "Typography"],
+              ["#tokens", "Design Tokens"],
+              ["#forms", "Form Controls"],
+              ["#badges", "Badges & Status"],
+              ["#feedback", "Feedback & Loaders"],
+              ["#bottom-nav", "Bottom Navigation"],
+              ["#drawers", "Drawers"],
+              ["#cards", "Cards & Metrics"],
+              ["#variant-picker", "Variant Picker"],
+              ["#icons", "Icons"],
+            ].map(([href, label]) => (
+              <a key={href} href={href} className="block px-3 py-1.5 rounded-lg text-muted-foreground hover:text-foreground hover:bg-muted transition-colors">
+                {label}
+              </a>
+            ))}
+          </nav>
+        </aside>
+        <main className="flex-1 min-w-0 space-y-24">
 
         {/* 1. MODAL & DIALOG SHOWCASE */}
         <section id="dialogs" className="scroll-mt-24 space-y-6">
@@ -605,6 +636,7 @@ export default function DesignSystemPage() {
               <div className="text-xs font-medium text-muted-foreground">Size default</div>
               <div className="flex flex-wrap items-center gap-3 p-6 rounded-2xl border border-border/60 bg-card/60">
                 <Button variant="floating-arrow">Create Website Now</Button>
+                <Button variant="floating-arrow" loading>Memproses...</Button>
                 <Button variant="floating-arrow" disabled>Disabled</Button>
               </div>
             </div>
@@ -625,7 +657,7 @@ export default function DesignSystemPage() {
 
           {/* Floating Arrow Right */}
           <div className="space-y-4">
-            <h3 className="text-base font-semibold">10. Floating Arrow Right</h3>
+            <h3 className="text-base font-semibold">9. Floating Arrow Right</h3>
             <p className="text-sm text-muted-foreground">
               Identik dengan Floating Arrow tapi badge lingkaran pakai panah → (kanan) bukan ↗.
               Cocok untuk CTA navigasi lurus seperti "Lanjut", "Mulai", "Next Step".
@@ -1084,6 +1116,7 @@ export default function DesignSystemPage() {
                 <Badge variant="secondary">Secondary</Badge>
                 <Badge variant="outline">Outline</Badge>
                 <Badge variant="destructive">Destructive</Badge>
+                <Badge variant="unstyled" className="border border-border/80 bg-muted/40">Unstyled</Badge>
               </CardContent>
             </Card>
 
@@ -1197,9 +1230,54 @@ export default function DesignSystemPage() {
               <SkeletonTable rows={3} cols={4} />
             </CardContent>
           </Card>
+
+          {/* PageLoading */}
+          <Card>
+            <CardHeader>
+              <CardTitle className="text-lg">PageLoading</CardTitle>
+              <CardDescription>Placeholder layar penuh / inline saat memuat halaman.</CardDescription>
+            </CardHeader>
+            <CardContent className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div className="rounded-xl border border-border/60 bg-muted/20 p-2">
+                <PageLoading message="Memuat data..." description="Mengambil informasi terbaru" />
+              </div>
+              <div className="rounded-xl border border-border/60 bg-muted/20 p-2 flex items-center justify-center">
+                <PageLoading message="Memuat..." fullScreen={false} />
+              </div>
+            </CardContent>
+          </Card>
+
+          {/* Skeleton base & block */}
+          <Card>
+            <CardHeader>
+              <CardTitle className="text-lg">Skeleton &amp; SkeletonBlock</CardTitle>
+              <CardDescription>Elemen skeleton dasar dan blok placeholder.</CardDescription>
+            </CardHeader>
+            <CardContent className="space-y-4">
+              <div className="flex items-center gap-3">
+                <Skeleton className="size-10 rounded-xl" />
+                <div className="space-y-2 flex-1">
+                  <Skeleton className="h-4 w-1/3 rounded-full" />
+                  <Skeleton className="h-3 w-1/2 rounded-full" />
+                </div>
+              </div>
+              <SkeletonBlock className="h-24" />
+            </CardContent>
+          </Card>
+
+          {/* SectionTitle */}
+          <Card>
+            <CardHeader>
+              <CardTitle className="text-lg">SectionTitle</CardTitle>
+              <CardDescription>Komponen judul section dengan eyebrow dan action.</CardDescription>
+            </CardHeader>
+            <CardContent>
+              <SectionTitle eyebrow="Overview" title="Judul Section" action={<Button size="sm" variant="outline">Aksi</Button>} />
+            </CardContent>
+          </Card>
         </section>
 
-        {/* 9. BOTTOM NAVIGATION */}
+        {/* 8. BOTTOM NAVIGATION */}
         <section id="bottom-nav" className="scroll-mt-24 space-y-6">
           <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 border-b border-border/60 pb-5">
             <div>
@@ -1285,7 +1363,7 @@ export default function DesignSystemPage() {
           </div>
         </section>
 
-        {/* 10. DRAWER (MOBILE) */}
+        {/* 9. DRAWER (MOBILE) */}
         <section id="drawers" className="scroll-mt-24 space-y-6">
           <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 border-b border-border/60 pb-5">
             <div>
@@ -1513,7 +1591,7 @@ export default function DesignSystemPage() {
           </div>
         </section>
 
-        {/* 8. CARDS, METRICS & STATS */}
+        {/* 10. CARDS, METRICS & STATS */}
         <section id="cards" className="scroll-mt-24 space-y-6">
           <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 border-b border-border/60 pb-5">
             <div>
@@ -1599,7 +1677,7 @@ export default function DesignSystemPage() {
           <VariantPickerDemo />
         </section>
 
-        {/* 9. ICONS & SPARKLE SHOWCASE */}
+        {/* 12. ICONS & SPARKLE SHOWCASE */}
         <section id="icons" className="scroll-mt-24 space-y-6">
           <div className="border-b border-border/60 pb-5">
             <div className="text-xs font-bold uppercase tracking-wider text-primary">Icons &amp; Sparkle</div>
@@ -1743,7 +1821,8 @@ export default function DesignSystemPage() {
           </Card>
         </section>
 
-      </main>
+        </main>
+      </div>
 
       {/* Footer */}
       <footer className="border-t border-border/80 bg-muted/30 py-12 mt-20">
