@@ -24,3 +24,4 @@ export { DatePicker } from "./date-picker";
 export { CustomSelect, type CustomSelectOption, type CustomSelectProps } from "./custom-select";
 export { Switch, type SwitchProps } from "./switch";
 export { BottomNavBar, type BottomNavBarProps, type BottomNavItem } from "./bottom-nav";
+export { VariantPicker, type VariantPickerProps, type VariantOption } from "./variant-picker";

@@ -34,6 +34,8 @@ import {
   Checkbox,
   DatePicker,
   BottomNavBar,
+  VariantPicker,
+  type VariantOption,
 } from "@/components/ui";
 import {
   SunIcon,
@@ -50,6 +52,129 @@ import {
 } from "@/components/icons";
 import { SparkleIcon, SparkleGenAI } from "@/components/sparkle-icon";
 import { Sparkles, Home, Search, User, Bell, Menu, SlidersHorizontal } from "lucide-react";
+
+// ─── VariantPicker demo (extracted to avoid bloating page component) ───
+const DEMO_VARIANTS: VariantOption[] = [
+  {
+    value: "full-bleed",
+    label: "Full Bleed",
+    group: "Visual Foto",
+    description: "Latar gambar/media penuh layar dengan teks overlay.",
+    preview: (
+      <div className="w-full h-full rounded-md bg-gradient-to-br from-slate-900 via-primary/20 to-slate-900 p-2 flex flex-col items-center justify-center gap-1 relative overflow-hidden">
+        <div className="absolute inset-0 bg-black/40" />
+        <div className="relative w-2/3 h-1.5 rounded-full bg-white/80" />
+        <div className="relative w-3/4 h-1 rounded-full bg-slate-200/60" />
+        <div className="relative w-1/4 h-1.5 rounded-sm bg-primary" />
+      </div>
+    ),
+  },
+  {
+    value: "carousel",
+    label: "Carousel Gambar",
+    group: "Visual Foto",
+    description: "Slideshow gambar latar bergilir otomatis.",
+    preview: (
+      <div className="w-full h-full rounded-md bg-[#111520] flex items-center justify-between gap-1 p-1.5">
+        <div className="w-3 h-full rounded bg-slate-800/40 opacity-40" />
+        <div className="flex-1 h-full rounded bg-primary/15 border border-primary/30 p-1.5 flex flex-col justify-center gap-1 items-center">
+          <div className="w-2/3 h-1.5 rounded-full bg-primary/80" />
+          <div className="flex gap-1 mt-0.5">
+            <div className="w-1.5 h-1.5 rounded-full bg-primary" />
+            <div className="w-1 h-1 rounded-full bg-slate-600" />
+            <div className="w-1 h-1 rounded-full bg-slate-600" />
+          </div>
+        </div>
+        <div className="w-3 h-full rounded bg-slate-800/40 opacity-40" />
+      </div>
+    ),
+  },
+  {
+    value: "split",
+    label: "Split",
+    group: "Dasar",
+    description: "Dua kolom: teks di kiri, gambar di kanan.",
+    preview: (
+      <div className="w-full h-full rounded-md bg-[#111520] flex items-center gap-1.5 p-1.5">
+        <div className="w-1/2 flex flex-col gap-1 pl-1">
+          <div className="w-4/5 h-1.5 rounded-full bg-primary/70" />
+          <div className="w-full h-1 rounded-full bg-slate-500/50" />
+          <div className="w-2/5 h-1.5 rounded-sm bg-primary/40" />
+        </div>
+        <div className="w-1/2 h-full rounded bg-gradient-to-br from-primary/25 to-violet-500/10 border border-primary/30" />
+      </div>
+    ),
+  },
+  {
+    value: "centered",
+    label: "Centered",
+    group: "Dasar",
+    description: "Semua elemen rata tengah dengan CTA jelas.",
+  },
+  {
+    value: "editorial",
+    label: "Editorial Grid",
+    group: "Editorial",
+    description: "Layout editorial dengan grid asimetris.",
+    preview: (
+      <div className="w-full h-full rounded-md bg-[#111520] grid grid-cols-3 gap-1 p-1.5">
+        <div className="col-span-2 rounded bg-primary/20 border border-primary/30 p-1 flex flex-col justify-between">
+          <div className="w-3/4 h-1 rounded-full bg-primary/70" />
+          <div className="w-full h-1 rounded-full bg-slate-500/40" />
+        </div>
+        <div className="flex flex-col gap-1">
+          <div className="flex-1 rounded bg-slate-800/60" />
+          <div className="flex-1 rounded bg-slate-800/60" />
+        </div>
+      </div>
+    ),
+  },
+  {
+    value: "editorial-spotlight",
+    label: "Editorial Spotlight",
+    group: "Editorial",
+    description: "Feature satu item utama dengan teks editorial besar.",
+  },
+  {
+    value: "modern-minimal",
+    label: "Modern Minimal",
+    group: "Modern",
+    description: "Desain bersih dengan tipografi besar dan whitespace.",
+  },
+  {
+    value: "modern-bento",
+    label: "Modern Bento",
+    group: "Modern",
+    description: "Grid bento asymmetric bergaya modern.",
+    preview: (
+      <div className="w-full h-full rounded-md bg-[#111520] grid grid-cols-3 gap-0.5 p-1">
+        <div className="col-span-2 row-span-2 rounded bg-primary/20 border border-primary/30 p-1 flex flex-col justify-between">
+          <div className="w-3/4 h-1 rounded-full bg-primary/70" />
+          <div className="w-full h-1 rounded-full bg-slate-500/40" />
+        </div>
+        <div className="rounded bg-slate-800/60" />
+        <div className="rounded bg-slate-800/60" />
+      </div>
+    ),
+  },
+];
+
+function VariantPickerDemo() {
+  const [val, setVal] = useState("full-bleed");
+  return (
+    <div className="max-w-sm space-y-4">
+      <VariantPicker
+        value={val}
+        onChange={setVal}
+        options={DEMO_VARIANTS}
+        allLabel="Semua"
+        hintText="Klik varian untuk pratinjau langsung di kanvas."
+        doneLabel="Selesai"
+      />
+      <p className="text-xs text-muted-foreground">Selected: <code className="text-primary">{val}</code></p>
+    </div>
+  );
+}
 
 export default function DesignSystemPage() {
   // Theme state
@@ -1371,6 +1496,23 @@ export default function DesignSystemPage() {
               />
             </CardContent>
           </Card>
+        </section>
+
+        {/* 11. VARIANT PICKER */}
+        <section id="variant-picker" className="scroll-mt-24 space-y-6">
+          <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 border-b border-border/60 pb-5">
+            <div>
+              <div className="text-xs font-bold uppercase tracking-wider text-primary">Selection</div>
+              <h2 className="text-2xl sm:text-3xl font-bold tracking-tight">Variant Picker</h2>
+              <p className="text-sm text-muted-foreground mt-1">
+                Komponen pemilih varian dengan pill trigger, filter chip per kategori, dan grid card dengan wireframe preview.
+                Cocok untuk editor sidebar section.
+              </p>
+            </div>
+            <Badge variant="outline">VariantPicker</Badge>
+          </div>
+
+          <VariantPickerDemo />
         </section>
 
         {/* 9. ICONS & SPARKLE SHOWCASE */}
