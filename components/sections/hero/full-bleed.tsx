@@ -88,14 +88,14 @@ export default function HeroFullBleed({
           pointerEvents: "none",
         }}
       />
-      {/* Vertical blend: smooth fade into surrounding sections */}
+      {/* Vertical blend: subtle top vignette only — no bottom fade to avoid clashing with next section bg */}
       <div
         aria-hidden
         style={{
           position: "absolute",
           inset: 0,
           zIndex: 1,
-          background: `linear-gradient(to bottom, rgba(8, 10, 15, 0.6) 0%, transparent 20%, transparent 75%, rgba(8, 10, 15, 0.92) 100%)`,
+          background: `linear-gradient(to bottom, rgba(8, 10, 15, 0.55) 0%, transparent 25%)`,
           pointerEvents: "none",
         }}
       />
