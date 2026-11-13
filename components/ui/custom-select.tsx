@@ -62,7 +62,7 @@ export interface CustomSelectProps<T extends string = string> {
 
 function DefaultPreview() {
   return (
-    <div className="w-full h-full flex flex-col items-center justify-center gap-1.5 p-3 bg-[#111318]">
+    <div className="w-full h-16 flex flex-col items-center justify-center gap-1.5 p-3 bg-[#111318]">
       <div className="w-3/4 h-1.5 rounded-full bg-white/20" />
       <div className="w-full h-1 rounded-full bg-white/10" />
       <div className="w-1/2 h-1 rounded-full bg-white/10" />
@@ -335,7 +335,7 @@ export function CustomSelect<T extends string = string>({
                         <Check className="w-3.5 h-3.5 text-black stroke-[3]" />
                       </div>
                     )}
-                    <div className="w-full aspect-[3/2] overflow-hidden">
+                    <div className="w-full overflow-hidden bg-[#111318] [&>*]:!w-full [&>*]:!rounded-none [&>*]:!border-0">
                       {opt.preview ?? <DefaultPreview />}
                     </div>
                     <div className="p-2.5 space-y-0.5">
