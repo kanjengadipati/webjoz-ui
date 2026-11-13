@@ -57,8 +57,144 @@ export interface CustomSelectProps<T extends string = string> {
 }
 
 // ─────────────────────────────────────────────────────────────
-// Visual mode — default preview fallback
+// VisualVariantPanel — panel-only component (no trigger button).
+// Use this when you already have your own trigger (e.g. in a toolbar).
 // ─────────────────────────────────────────────────────────────
+
+export interface VisualVariantPanelProps<T extends string = string> {
+  value: T;
+  onChange: (value: T) => void;
+  onClose?: () => void;
+  options: CustomSelectOption<T>[];
+  allLabel?: string;
+  hintText?: string;
+  doneLabel?: string;
+  className?: string;
+}
+
+export function VisualVariantPanel<T extends string = string>({
+  value,
+  onChange,
+  onClose,
+  options,
+  allLabel = "Semua",
+  hintText = "Klik varian untuk pratinjau langsung di kanvas.",
+  doneLabel = "Selesai",
+  className,
+}: VisualVariantPanelProps<T>) {
+  const [selectedGroup, setSelectedGroup] = useState<string>("all");
+
+  const groups = useMemo(() => {
+    const seen = new Set<string>();
+    const result: string[] = [];
+    for (const o of options) {
+      if (o.group && !seen.has(o.group)) {
+        seen.add(o.group);
+        result.push(o.group);
+      }
+    }
+    return result;
+  }, [options]);
+
+  const hasGroups = groups.length > 1;
+  const enabledOptions = options.filter(o => !o.disabled);
+  const filteredOptions = useMemo(() => {
+    if (selectedGroup === "all" || !hasGroups) return enabledOptions;
+    return enabledOptions.filter(o => o.group === selectedGroup);
+  }, [enabledOptions, selectedGroup, hasGroups]);
+
+  return (
+    <div className={cn("rounded-2xl border border-white/[0.12] overflow-hidden bg-[#1c1c1e]", className)}>
+      {/* Group filter chips */}
+      {hasGroups && (
+        <div className="flex items-center gap-2 px-3 py-2 overflow-x-auto [scrollbar-width:none] border-b border-white/[0.08]">
+          <button
+            type="button"
+            onClick={() => setSelectedGroup("all")}
+            className={cn(
+              "px-3.5 py-1.5 rounded-full text-[12px] font-semibold transition-all whitespace-nowrap cursor-pointer shrink-0",
+              selectedGroup === "all"
+                ? "bg-white text-black"
+                : "bg-transparent text-white/55 border border-white/[0.18] hover:text-white/80 hover:border-white/30"
+            )}
+          >
+            {allLabel} ({enabledOptions.length})
+          </button>
+          {groups.map((grp) => {
+            const count = enabledOptions.filter(o => o.group === grp).length;
+            return (
+              <button
+                key={grp}
+                type="button"
+                onClick={() => setSelectedGroup(grp)}
+                className={cn(
+                  "px-3.5 py-1.5 rounded-full text-[12px] font-semibold transition-all whitespace-nowrap cursor-pointer shrink-0",
+                  selectedGroup === grp
+                    ? "bg-white text-black"
+                    : "bg-transparent text-white/55 border border-white/[0.18] hover:text-white/80 hover:border-white/30"
+                )}
+              >
+                {grp} ({count})
+              </button>
+            );
+          })}
+        </div>
+      )}
+
+      {/* Cards grid */}
+      <div className="grid grid-cols-2 gap-2.5 p-3 max-h-[420px] overflow-y-auto [scrollbar-width:thin]">
+        {filteredOptions.map((opt) => {
+          const isActive = opt.value === value;
+          return (
+            <button
+              key={opt.value}
+              type="button"
+              onClick={() => { onChange(opt.value as T); }}
+              className={cn(
+                "group/card relative flex flex-col text-left rounded-xl overflow-hidden transition-all duration-150 cursor-pointer focus:outline-none bg-[#2a2a2e]",
+                isActive
+                  ? "ring-2 ring-white ring-offset-0"
+                  : "ring-1 ring-white/10 hover:ring-white/25"
+              )}
+            >
+              {isActive && (
+                <div className="absolute top-2 right-2 z-10 w-6 h-6 rounded-full bg-white flex items-center justify-center shadow-lg">
+                  <Check className="w-3.5 h-3.5 text-black stroke-[3]" />
+                </div>
+              )}
+              <div className="w-full overflow-hidden bg-[#111318] [&>*]:!w-full [&>*]:!rounded-none [&>*]:!border-0">
+                {opt.preview ?? <DefaultPreview />}
+              </div>
+              <div className="p-2.5 space-y-0.5">
+                <p className="text-[13px] font-bold text-white leading-tight">{opt.label}</p>
+                {opt.group && (
+                  <p className="text-[9px] font-bold uppercase tracking-widest text-white/35">{opt.group}</p>
+                )}
+                {opt.description && (
+                  <p className="text-[11px] text-white/50 leading-snug line-clamp-2 pt-0.5">{opt.description}</p>
+                )}
+              </div>
+            </button>
+          );
+        })}
+      </div>
+
+      {/* Footer */}
+      <div className="flex items-center justify-between px-4 py-3 border-t border-white/[0.08]">
+        <p className="text-[11px] text-white/35 leading-tight">{hintText}</p>
+        <button
+          type="button"
+          onClick={() => onClose?.()}
+          className="text-[13px] font-bold text-white hover:text-white/70 transition-colors cursor-pointer shrink-0 ml-4"
+        >
+          {doneLabel}
+        </button>
+      </div>
+    </div>
+  );
+}
+
+
 
 function DefaultPreview() {
   return (
