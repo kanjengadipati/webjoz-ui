@@ -219,8 +219,7 @@ export function buildCssVars(dt: DesignToken | null | undefined): Record<string,
     const autoIsDarkBgRaw = isColorDark(rawBg);
     const autoIsDarkTextRaw = isColorDark(rawText);
     if (autoIsDarkBgRaw && autoIsDarkTextRaw) {
-      // Both dark — swap: use rawText as bg and rawBg as text... but only if
-      // rawBg is actually darker. Simpler: force text to light (#f1f5f9).
+      // Both dark — force text to light
       bg = rawBg;
       text = "#f1f5f9";
     } else if (!autoIsDarkBgRaw && !autoIsDarkTextRaw) {
