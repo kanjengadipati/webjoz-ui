@@ -44,6 +44,7 @@ export default function CatalogShowcaseFeatured({ catalog, onUpdateField, isEdit
       <div style={{ maxWidth: "72rem", margin: "0 auto" }}>
         {/* Header */}
         <div style={{ textAlign: "center", marginBottom: "3rem" }}>
+          <div style={{ marginBottom: "0.85rem" }}>
           <InlineText
             section="catalog"
             fieldKey="eyebrow"
@@ -56,6 +57,7 @@ export default function CatalogShowcaseFeatured({ catalog, onUpdateField, isEdit
             as="span"
             style={{ display: "inline-block", fontSize: "0.7rem", fontWeight: 800, textTransform: "uppercase", letterSpacing: "0.18em", color: p, background: `color-mix(in srgb, ${p} 10%, transparent)`, padding: "0.45rem 0.85rem", borderRadius: "9999px" }}
           />
+          </div>
           <InlineText
             section="catalog"
             fieldKey="title"
