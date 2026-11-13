@@ -163,7 +163,8 @@ function VariantPickerDemo() {
   const [val, setVal] = useState("full-bleed");
   return (
     <div className="max-w-sm space-y-4">
-      <VariantPicker
+      <CustomSelect
+        variant="visual"
         value={val}
         onChange={setVal}
         options={DEMO_VARIANTS}
@@ -1586,13 +1587,13 @@ export default function DesignSystemPage() {
           <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 border-b border-border/60 pb-5">
             <div>
               <div className="text-xs font-bold uppercase tracking-wider text-primary">Selection</div>
-              <h2 className="text-2xl sm:text-3xl font-bold tracking-tight">Variant Picker</h2>
+              <h2 className="text-2xl sm:text-3xl font-bold tracking-tight">CustomSelect — Visual Variant</h2>
               <p className="text-sm text-muted-foreground mt-1">
-                Komponen pemilih varian dengan pill trigger, filter chip per kategori, dan grid card dengan wireframe preview.
-                Cocok untuk editor sidebar section.
+                <code className="text-xs bg-muted px-1.5 py-0.5 rounded">variant="visual"</code> pada CustomSelect — grid card dengan
+                thumbnail preview, group filter chip, dan deskripsi. Backward-compat tersedia via <code className="text-xs bg-muted px-1.5 py-0.5 rounded">VariantPicker</code>.
               </p>
             </div>
-            <Badge variant="outline">VariantPicker</Badge>
+            <Badge variant="outline">CustomSelect variant="visual"</Badge>
           </div>
 
           <VariantPickerDemo />

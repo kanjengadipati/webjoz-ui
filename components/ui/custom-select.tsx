@@ -5,13 +5,18 @@ import {
   useRef,
   useEffect,
   useId,
+  useMemo,
   type CSSProperties,
   type ReactNode,
   type KeyboardEvent,
 } from "react";
 import { createPortal } from "react-dom";
-import { ChevronDown, Check } from "lucide-react";
+import { ChevronDown, ChevronUp, Check } from "lucide-react";
 import { cn } from "../../lib/utils";
+
+// ─────────────────────────────────────────────────────────────
+// Types
+// ─────────────────────────────────────────────────────────────
 
 export interface CustomSelectOption<T extends string = string> {
   value: T;
@@ -20,6 +25,10 @@ export interface CustomSelectOption<T extends string = string> {
   icon?: ReactNode;
   badge?: string;
   disabled?: boolean;
+  /** Visual picker extras — only used when variant="visual" */
+  group?: string;
+  description?: string;
+  preview?: ReactNode;
 }
 
 export interface CustomSelectProps<T extends string = string> {
@@ -34,7 +43,36 @@ export interface CustomSelectProps<T extends string = string> {
   size?: "sm" | "default" | "lg";
   error?: boolean | string;
   id?: string;
+  /**
+   * "default" — dropdown list biasa (default)
+   * "visual"  — expanded grid card dengan thumbnail preview, group filter, dan deskripsi
+   */
+  variant?: "default" | "visual";
+  /** Visual mode: label chip "All". Default: "Semua" */
+  allLabel?: string;
+  /** Visual mode: hint teks di footer. */
+  hintText?: string;
+  /** Visual mode: label tombol done. Default: "Selesai" */
+  doneLabel?: string;
 }
+
+// ─────────────────────────────────────────────────────────────
+// Visual mode — default preview fallback
+// ─────────────────────────────────────────────────────────────
+
+function DefaultPreview() {
+  return (
+    <div className="w-full h-full flex flex-col items-center justify-center gap-1.5 p-3 bg-[#111318]">
+      <div className="w-3/4 h-1.5 rounded-full bg-white/20" />
+      <div className="w-full h-1 rounded-full bg-white/10" />
+      <div className="w-1/2 h-1 rounded-full bg-white/10" />
+    </div>
+  );
+}
+
+// ─────────────────────────────────────────────────────────────
+// Main component
+// ─────────────────────────────────────────────────────────────
 
 export function CustomSelect<T extends string = string>({
   value,
@@ -48,19 +86,47 @@ export function CustomSelect<T extends string = string>({
   size = "default",
   error,
   id,
+  variant = "default",
+  allLabel = "Semua",
+  hintText = "Klik varian untuk pratinjau langsung di kanvas.",
+  doneLabel = "Selesai",
 }: CustomSelectProps<T>) {
   const [open, setOpen] = useState(false);
   const [highlightedIndex, setHighlightedIndex] = useState<number>(-1);
   const [menuStyle, setMenuStyle] = useState<CSSProperties>({});
+  const [selectedGroup, setSelectedGroup] = useState<string>("all");
   const containerRef = useRef<HTMLDivElement>(null);
   const menuRef = useRef<HTMLDivElement>(null);
   const listboxId = useId();
 
   const selectedOption = options.find(o => o.value === value);
+  const isVisual = variant === "visual";
 
-  // Calculate portal position whenever dropdown opens or window resizes/scrolls
+  // ── Visual mode: group list ──────────────────────────────
+  const groups = useMemo(() => {
+    if (!isVisual) return [];
+    const seen = new Set<string>();
+    const result: string[] = [];
+    for (const o of options) {
+      if (o.group && !seen.has(o.group)) {
+        seen.add(o.group);
+        result.push(o.group);
+      }
+    }
+    return result;
+  }, [options, isVisual]);
+
+  const hasGroups = groups.length > 1;
+  const enabledOptions = options.filter(o => !o.disabled);
+
+  const filteredOptions = useMemo(() => {
+    if (!isVisual || selectedGroup === "all" || !hasGroups) return enabledOptions;
+    return enabledOptions.filter(o => o.group === selectedGroup);
+  }, [enabledOptions, selectedGroup, hasGroups, isVisual]);
+
+  // ── Default mode: portal position ───────────────────────
   useEffect(() => {
-    if (!open || !containerRef.current) return;
+    if (!open || !containerRef.current || isVisual) return;
     const updatePosition = () => {
       const rect = containerRef.current!.getBoundingClientRect();
       setMenuStyle({
@@ -78,9 +144,9 @@ export function CustomSelect<T extends string = string>({
       window.removeEventListener("resize", updatePosition);
       window.removeEventListener("scroll", updatePosition, true);
     };
-  }, [open]);
+  }, [open, isVisual]);
 
-  // Close on click outside
+  // ── Close on outside click ───────────────────────────────
   useEffect(() => {
     if (!open) return;
     const handleOutsideClick = (e: MouseEvent | TouchEvent) => {
@@ -88,7 +154,7 @@ export function CustomSelect<T extends string = string>({
       const menuEl = menuRef.current;
       if (
         containerRef.current && !containerRef.current.contains(target) &&
-        menuEl && !menuEl.contains(target)
+        (!menuEl || !menuEl.contains(target))
       ) {
         setOpen(false);
       }
@@ -101,26 +167,22 @@ export function CustomSelect<T extends string = string>({
     };
   }, [open]);
 
-  // Sync highlighted index with selected value when opened
+  // ── Default mode: keyboard + sync highlighted ────────────
   useEffect(() => {
-    if (open) {
+    if (open && !isVisual) {
       const idx = options.findIndex(o => o.value === value);
       setHighlightedIndex(idx >= 0 ? idx : 0);
     }
-  }, [open, value, options]);
+  }, [open, value, options, isVisual]);
 
-  // Scroll highlighted item into view
   useEffect(() => {
-    if (!open || highlightedIndex < 0 || !menuRef.current) return;
+    if (!open || highlightedIndex < 0 || !menuRef.current || isVisual) return;
     const item = menuRef.current.children[highlightedIndex] as HTMLElement | undefined;
-    if (item) {
-      item.scrollIntoView({ block: "nearest" });
-    }
-  }, [open, highlightedIndex]);
+    if (item) item.scrollIntoView({ block: "nearest" });
+  }, [open, highlightedIndex, isVisual]);
 
   const handleKeyDown = (e: KeyboardEvent<HTMLButtonElement>) => {
-    if (disabled) return;
-
+    if (disabled || isVisual) return;
     if (!open) {
       if (e.key === "Enter" || e.key === " " || e.key === "ArrowDown" || e.key === "ArrowUp") {
         e.preventDefault();
@@ -128,7 +190,6 @@ export function CustomSelect<T extends string = string>({
       }
       return;
     }
-
     switch (e.key) {
       case "Escape":
         e.preventDefault();
@@ -138,9 +199,7 @@ export function CustomSelect<T extends string = string>({
         e.preventDefault();
         setHighlightedIndex(prev => {
           let next = prev + 1;
-          while (next < options.length && options[next]?.disabled) {
-            next++;
-          }
+          while (next < options.length && options[next]?.disabled) next++;
           return next < options.length ? next : prev;
         });
         break;
@@ -148,9 +207,7 @@ export function CustomSelect<T extends string = string>({
         e.preventDefault();
         setHighlightedIndex(prev => {
           let next = prev - 1;
-          while (next >= 0 && options[next]?.disabled) {
-            next--;
-          }
+          while (next >= 0 && options[next]?.disabled) next--;
           return next >= 0 ? next : prev;
         });
         break;
@@ -158,14 +215,12 @@ export function CustomSelect<T extends string = string>({
       case " ":
         e.preventDefault();
         if (highlightedIndex >= 0 && options[highlightedIndex] && !options[highlightedIndex].disabled) {
-          onChange(options[highlightedIndex].value);
+          onChange(options[highlightedIndex].value as T);
           setOpen(false);
         }
         break;
       case "Tab":
         setOpen(false);
-        break;
-      default:
         break;
     }
   };
@@ -175,6 +230,148 @@ export function CustomSelect<T extends string = string>({
     default: "min-h-[42px] px-3.5 py-2 text-sm",
     lg: "min-h-[48px] px-4 py-2.5 text-base",
   };
+
+  // ═══════════════════════════════════════════════════════════
+  // VISUAL VARIANT
+  // ═══════════════════════════════════════════════════════════
+
+  if (isVisual) {
+    return (
+      <div
+        ref={containerRef}
+        className={cn(
+          "rounded-2xl border border-white/[0.12] overflow-hidden bg-[#1c1c1e]",
+          className
+        )}
+      >
+        {/* Trigger */}
+        <button
+          id={id}
+          type="button"
+          disabled={disabled}
+          onClick={() => !disabled && setOpen(prev => !prev)}
+          className={cn(
+            "w-full flex items-center justify-between gap-3 px-4 py-3 text-left cursor-pointer focus:outline-none",
+            disabled && "opacity-50 cursor-not-allowed pointer-events-none"
+          )}
+        >
+          <div className="flex items-center gap-2.5 min-w-0">
+            <span className="w-2.5 h-2.5 rounded-full bg-white shrink-0" />
+            <span className="text-[14px] font-bold text-white truncate leading-none">
+              {selectedOption?.label ?? placeholder}
+            </span>
+            {selectedOption?.group && (
+              <>
+                <span className="text-white/25 text-sm shrink-0">|</span>
+                <span className="text-[11px] font-medium px-2.5 py-0.5 rounded-full border border-white/25 text-white/70 shrink-0 whitespace-nowrap">
+                  {selectedOption.group}
+                </span>
+              </>
+            )}
+          </div>
+          {open
+            ? <ChevronUp className="w-4 h-4 text-white/60 shrink-0" />
+            : <ChevronDown className="w-4 h-4 text-white/60 shrink-0" />
+          }
+        </button>
+
+        {/* Expanded panel */}
+        {open && (
+          <>
+            {/* Group filter chips */}
+            {hasGroups && (
+              <div className="flex items-center gap-2 px-3 py-2 overflow-x-auto [scrollbar-width:none] border-t border-white/[0.08]">
+                <button
+                  type="button"
+                  onClick={() => setSelectedGroup("all")}
+                  className={cn(
+                    "px-3.5 py-1.5 rounded-full text-[12px] font-semibold transition-all whitespace-nowrap cursor-pointer shrink-0",
+                    selectedGroup === "all"
+                      ? "bg-white text-black"
+                      : "bg-transparent text-white/55 border border-white/[0.18] hover:text-white/80 hover:border-white/30"
+                  )}
+                >
+                  {allLabel} ({enabledOptions.length})
+                </button>
+                {groups.map((grp) => {
+                  const count = enabledOptions.filter(o => o.group === grp).length;
+                  return (
+                    <button
+                      key={grp}
+                      type="button"
+                      onClick={() => setSelectedGroup(grp)}
+                      className={cn(
+                        "px-3.5 py-1.5 rounded-full text-[12px] font-semibold transition-all whitespace-nowrap cursor-pointer shrink-0",
+                        selectedGroup === grp
+                          ? "bg-white text-black"
+                          : "bg-transparent text-white/55 border border-white/[0.18] hover:text-white/80 hover:border-white/30"
+                      )}
+                    >
+                      {grp} ({count})
+                    </button>
+                  );
+                })}
+              </div>
+            )}
+
+            {/* Cards grid */}
+            <div className="grid grid-cols-2 gap-2.5 p-3 max-h-[420px] overflow-y-auto [scrollbar-width:thin]">
+              {filteredOptions.map((opt) => {
+                const isActive = opt.value === value;
+                return (
+                  <button
+                    key={opt.value}
+                    type="button"
+                    onClick={() => { onChange(opt.value as T); }}
+                    className={cn(
+                      "group/card relative flex flex-col text-left rounded-xl overflow-hidden transition-all duration-150 cursor-pointer focus:outline-none bg-[#2a2a2e]",
+                      isActive
+                        ? "ring-2 ring-white ring-offset-0"
+                        : "ring-1 ring-white/10 hover:ring-white/25"
+                    )}
+                  >
+                    {isActive && (
+                      <div className="absolute top-2 right-2 z-10 w-6 h-6 rounded-full bg-white flex items-center justify-center shadow-lg">
+                        <Check className="w-3.5 h-3.5 text-black stroke-[3]" />
+                      </div>
+                    )}
+                    <div className="w-full aspect-[3/2] overflow-hidden">
+                      {opt.preview ?? <DefaultPreview />}
+                    </div>
+                    <div className="p-2.5 space-y-0.5">
+                      <p className="text-[13px] font-bold text-white leading-tight">{opt.label}</p>
+                      {opt.group && (
+                        <p className="text-[9px] font-bold uppercase tracking-widest text-white/35">{opt.group}</p>
+                      )}
+                      {opt.description && (
+                        <p className="text-[11px] text-white/50 leading-snug line-clamp-2 pt-0.5">{opt.description}</p>
+                      )}
+                    </div>
+                  </button>
+                );
+              })}
+            </div>
+
+            {/* Footer */}
+            <div className="flex items-center justify-between px-4 py-3 border-t border-white/[0.08]">
+              <p className="text-[11px] text-white/35 leading-tight">{hintText}</p>
+              <button
+                type="button"
+                onClick={() => setOpen(false)}
+                className="text-[13px] font-bold text-white hover:text-white/70 transition-colors cursor-pointer shrink-0 ml-4"
+              >
+                {doneLabel}
+              </button>
+            </div>
+          </>
+        )}
+      </div>
+    );
+  }
+
+  // ═══════════════════════════════════════════════════════════
+  // DEFAULT VARIANT (dropdown list)
+  // ═══════════════════════════════════════════════════════════
 
   return (
     <div ref={containerRef} className={cn("relative w-full", className)}>
@@ -207,9 +404,7 @@ export function CustomSelect<T extends string = string>({
                 </span>
               )}
               <div className="flex items-baseline gap-2 min-w-0 truncate">
-                <span className="font-semibold text-foreground truncate">
-                  {selectedOption.label}
-                </span>
+                <span className="font-semibold text-foreground truncate">{selectedOption.label}</span>
                 {selectedOption.sublabel && (
                   <span className="text-[11px] text-muted-foreground font-mono truncate px-1.5 py-0.5 rounded-md bg-muted/60 dark:bg-white/5 border border-border/40">
                     {selectedOption.sublabel}
@@ -218,12 +413,9 @@ export function CustomSelect<T extends string = string>({
               </div>
             </>
           ) : (
-            <span className="text-muted-foreground text-sm font-normal">
-              {placeholder}
-            </span>
+            <span className="text-muted-foreground text-sm font-normal">{placeholder}</span>
           )}
         </div>
-
         <ChevronDown
           className={cn(
             "size-4 shrink-0 text-muted-foreground transition-transform duration-200",
@@ -252,7 +444,6 @@ export function CustomSelect<T extends string = string>({
               options.map((opt, idx) => {
                 const isSelected = opt.value === value;
                 const isHighlighted = idx === highlightedIndex;
-
                 return (
                   <button
                     key={opt.value}
@@ -260,10 +451,7 @@ export function CustomSelect<T extends string = string>({
                     role="option"
                     aria-selected={isSelected}
                     disabled={opt.disabled}
-                    onClick={() => {
-                      onChange(opt.value);
-                      setOpen(false);
-                    }}
+                    onClick={() => { onChange(opt.value as T); setOpen(false); }}
                     onMouseEnter={() => setHighlightedIndex(idx)}
                     className={cn(
                       "group/item relative flex w-full items-center justify-between gap-3 rounded-xl px-3 py-2 text-left text-sm transition-colors cursor-pointer select-none",
@@ -277,14 +465,7 @@ export function CustomSelect<T extends string = string>({
                   >
                     <div className={cn("flex items-center min-w-0 flex-1", opt.icon ? "gap-2.5" : "gap-0")}>
                       {opt.icon && (
-                        <span
-                          className={cn(
-                            "shrink-0 transition-colors",
-                            isSelected
-                              ? "text-primary"
-                              : "text-muted-foreground group-hover/item:text-foreground"
-                          )}
-                        >
+                        <span className={cn("shrink-0 transition-colors", isSelected ? "text-primary" : "text-muted-foreground group-hover/item:text-foreground")}>
                           {opt.icon}
                         </span>
                       )}
@@ -298,23 +479,13 @@ export function CustomSelect<T extends string = string>({
                           )}
                         </div>
                         {opt.sublabel && (
-                          <span
-                            className={cn(
-                              "text-[11px] font-mono truncate mt-0.5",
-                              isSelected
-                                ? "text-primary/70"
-                                : "text-muted-foreground"
-                            )}
-                          >
+                          <span className={cn("text-[11px] font-mono truncate mt-0.5", isSelected ? "text-primary/70" : "text-muted-foreground")}>
                             {opt.sublabel}
                           </span>
                         )}
                       </div>
                     </div>
-
-                    {isSelected && (
-                      <Check className="size-4 shrink-0 text-primary animate-in zoom-in-50 duration-150" />
-                    )}
+                    {isSelected && <Check className="size-4 shrink-0 text-primary animate-in zoom-in-50 duration-150" />}
                   </button>
                 );
               })
