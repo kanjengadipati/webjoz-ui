@@ -39,11 +39,10 @@ export interface VariantPickerProps {
 
 function DefaultPreview() {
   return (
-    <div className="w-full h-full bg-[#111520] flex flex-col items-center justify-center gap-1.5 p-3">
-      <div className="w-3/4 h-1.5 rounded-full bg-white/25" />
-      <div className="w-full h-1 rounded-full bg-white/12" />
+    <div className="w-full h-full flex flex-col items-center justify-center gap-1.5 p-3">
+      <div className="w-3/4 h-1.5 rounded-full bg-white/20" />
+      <div className="w-full h-1 rounded-full bg-white/10" />
       <div className="w-1/2 h-1 rounded-full bg-white/10" />
-      <div className="w-1/3 h-2 rounded-sm bg-white/18 mt-1" />
     </div>
   );
 }
@@ -88,7 +87,6 @@ export function VariantPicker({
 
   const enabledOptions = options.filter((o) => !o.disabled);
 
-  // Close on outside click
   useEffect(() => {
     if (!isExpanded) return;
     const handler = (e: MouseEvent | TouchEvent) => {
@@ -108,10 +106,8 @@ export function VariantPicker({
     <div
       ref={containerRef}
       className={cn(
-        "rounded-2xl border transition-all overflow-hidden",
-        isExpanded
-          ? "border-white/20 bg-[#1c1c1e]"
-          : "border-white/15 bg-[#1c1c1e] hover:border-white/25",
+        "rounded-2xl border border-white/[0.12] overflow-hidden",
+        "bg-[#1c1c1e]",
         className
       )}
     >
@@ -121,45 +117,40 @@ export function VariantPicker({
         onClick={() => setIsExpanded((prev) => !prev)}
         className="w-full flex items-center justify-between gap-3 px-4 py-3 text-left cursor-pointer focus:outline-none"
       >
-        {/* Left */}
         <div className="flex items-center gap-2.5 min-w-0">
-          {/* White dot */}
           <span className="w-2.5 h-2.5 rounded-full bg-white shrink-0" />
-          <span className="text-[13px] font-bold text-white truncate">
+          <span className="text-[14px] font-bold text-white truncate leading-none">
             {currentOpt?.label ?? value}
           </span>
           {currentOpt?.group && (
             <>
-              <span className="text-white/30 shrink-0 text-xs">|</span>
-              <span className="text-[11px] font-medium px-2 py-0.5 rounded-full border border-white/30 text-white/80 shrink-0 whitespace-nowrap">
+              <span className="text-white/25 text-sm shrink-0">|</span>
+              <span className="text-[11px] font-medium px-2.5 py-0.5 rounded-full border border-white/25 text-white/70 shrink-0 whitespace-nowrap">
                 {currentOpt.group}
               </span>
             </>
           )}
         </div>
-
-        {/* Right */}
-        {isExpanded ? (
-          <ChevronUp className="w-4 h-4 text-white shrink-0" />
-        ) : (
-          <ChevronDown className="w-4 h-4 text-white/60 shrink-0" />
-        )}
+        {isExpanded
+          ? <ChevronUp className="w-4 h-4 text-white/60 shrink-0" />
+          : <ChevronDown className="w-4 h-4 text-white/60 shrink-0" />
+        }
       </button>
 
       {/* ── Expanded panel ──────────────────────────────────── */}
       {isExpanded && (
-        <div className="border-t border-white/10">
+        <>
           {/* Filter chips */}
           {hasGroups && (
-            <div className="flex items-center gap-1.5 px-3 py-2.5 overflow-x-auto [scrollbar-width:none]">
+            <div className="flex items-center gap-2 px-3 py-2 overflow-x-auto [scrollbar-width:none] border-t border-white/[0.08]">
               <button
                 type="button"
                 onClick={() => setSelectedGroup("all")}
                 className={cn(
-                  "px-3 py-1 rounded-full text-[11px] font-medium transition whitespace-nowrap cursor-pointer shrink-0 border",
+                  "px-3.5 py-1.5 rounded-full text-[12px] font-semibold transition-all whitespace-nowrap cursor-pointer shrink-0",
                   selectedGroup === "all"
-                    ? "bg-white text-black border-white font-bold"
-                    : "bg-transparent text-white/60 border-white/20 hover:border-white/40 hover:text-white/80"
+                    ? "bg-white text-black"
+                    : "bg-transparent text-white/55 border border-white/[0.18] hover:text-white/80 hover:border-white/30"
                 )}
               >
                 {allLabel} ({enabledOptions.length})
@@ -172,10 +163,10 @@ export function VariantPicker({
                     type="button"
                     onClick={() => setSelectedGroup(grp)}
                     className={cn(
-                      "px-3 py-1 rounded-full text-[11px] font-medium transition whitespace-nowrap cursor-pointer shrink-0 border",
+                      "px-3.5 py-1.5 rounded-full text-[12px] font-semibold transition-all whitespace-nowrap cursor-pointer shrink-0",
                       selectedGroup === grp
-                        ? "bg-white text-black border-white font-bold"
-                        : "bg-transparent text-white/60 border-white/20 hover:border-white/40 hover:text-white/80"
+                        ? "bg-white text-black"
+                        : "bg-transparent text-white/55 border border-white/[0.18] hover:text-white/80 hover:border-white/30"
                     )}
                   >
                     {grp} ({count})
@@ -186,7 +177,7 @@ export function VariantPicker({
           )}
 
           {/* Cards grid */}
-          <div className="grid grid-cols-2 gap-2.5 px-3 pb-2 max-h-[400px] overflow-y-auto [scrollbar-width:thin]">
+          <div className="grid grid-cols-2 gap-2.5 p-3 max-h-[420px] overflow-y-auto [scrollbar-width:thin]">
             {filteredOptions.map((opt) => {
               const isActive = opt.value === value;
               return (
@@ -195,36 +186,37 @@ export function VariantPicker({
                   type="button"
                   onClick={() => onChange(opt.value)}
                   className={cn(
-                    "group/card relative flex flex-col text-left rounded-xl border overflow-hidden transition-all duration-150 cursor-pointer focus:outline-none",
+                    "group/card relative flex flex-col text-left rounded-xl overflow-hidden transition-all duration-150 cursor-pointer focus:outline-none",
+                    "bg-[#2a2a2e]",
                     isActive
-                      ? "border-white bg-white/5"
-                      : "border-white/10 bg-white/[0.03] hover:border-white/25 hover:bg-white/[0.06]"
+                      ? "ring-2 ring-white ring-offset-0"
+                      : "ring-1 ring-white/10 hover:ring-white/25"
                   )}
                 >
-                  {/* Thumbnail */}
-                  <div className="w-full aspect-[4/3] relative overflow-hidden">
-                    {opt.preview ?? <DefaultPreview />}
+                  {/* Checkmark badge — pojok kanan atas card */}
+                  {isActive && (
+                    <div className="absolute top-2 right-2 z-10 w-6 h-6 rounded-full bg-white flex items-center justify-center shadow-lg">
+                      <Check className="w-3.5 h-3.5 text-black stroke-[3]" />
+                    </div>
+                  )}
 
-                    {/* Checkmark overlay — only when active */}
-                    {isActive && (
-                      <div className="absolute top-2 right-2 w-6 h-6 rounded-full bg-white flex items-center justify-center shadow-lg">
-                        <Check className="w-3.5 h-3.5 text-black stroke-[3]" />
-                      </div>
-                    )}
+                  {/* Thumbnail */}
+                  <div className="w-full aspect-[3/2] bg-[#111318] overflow-hidden">
+                    {opt.preview ?? <DefaultPreview />}
                   </div>
 
                   {/* Info */}
-                  <div className="p-2 space-y-0.5">
-                    <p className="text-[12px] font-bold text-white leading-tight truncate">
+                  <div className="p-2.5 space-y-0.5">
+                    <p className="text-[13px] font-bold text-white leading-tight">
                       {opt.label}
                     </p>
                     {opt.group && (
-                      <p className="text-[9px] font-semibold uppercase tracking-wider text-white/35 truncate">
+                      <p className="text-[9px] font-bold uppercase tracking-widest text-white/35">
                         {opt.group}
                       </p>
                     )}
                     {opt.description && (
-                      <p className="text-[10px] text-white/50 leading-snug line-clamp-2 pt-0.5">
+                      <p className="text-[11px] text-white/50 leading-snug line-clamp-2 pt-0.5">
                         {opt.description}
                       </p>
                     )}
@@ -235,19 +227,19 @@ export function VariantPicker({
           </div>
 
           {/* Footer */}
-          <div className="flex items-center justify-between px-3 py-2.5 border-t border-white/10">
-            <p className="text-[10px] text-white/35 leading-tight">
+          <div className="flex items-center justify-between px-4 py-3 border-t border-white/[0.08]">
+            <p className="text-[11px] text-white/35 leading-tight">
               {hintText}
             </p>
             <button
               type="button"
               onClick={() => setIsExpanded(false)}
-              className="text-[12px] font-semibold text-white hover:text-white/70 transition-colors cursor-pointer shrink-0 ml-3"
+              className="text-[13px] font-bold text-white hover:text-white/70 transition-colors cursor-pointer shrink-0 ml-4"
             >
               {doneLabel}
             </button>
           </div>
-        </div>
+        </>
       )}
     </div>
   );
