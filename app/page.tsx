@@ -1821,6 +1821,41 @@ export default function DesignSystemPage() {
               </div>
             </CardContent>
           </Card>
+
+          {/* AIRegenerateIcon */}
+          <Card className="border-border/40 shadow-sm">
+            <CardHeader className="pb-2">
+              <CardTitle className="text-base">4. AIRegenerateIcon — AI Regenerate Website</CardTitle>
+              <CardDescription>
+                Browser window + circular refresh arrows + sparkle star. Gunakan <code className="text-xs">size</code>: sm / md / lg.
+              </CardDescription>
+            </CardHeader>
+            <CardContent>
+              <div className="flex flex-wrap items-end gap-6">
+                {(["sm", "md", "lg"] as const).map((sz) => (
+                  <div key={sz} className="flex flex-col items-center gap-2">
+                    <div className="p-3 rounded-xl bg-muted/60 border border-border/40">
+                      <AIRegenerateIcon size={sz} />
+                    </div>
+                    <span className="text-[10px] text-muted-foreground font-mono">size="{sz}"</span>
+                  </div>
+                ))}
+                <div className="flex flex-col items-center gap-2">
+                  <div className="p-3 rounded-xl bg-primary/10 border border-primary/20">
+                    <AIRegenerateIcon size="md" className="text-primary" />
+                  </div>
+                  <span className="text-[10px] text-muted-foreground font-mono">text-primary</span>
+                </div>
+                <div className="flex flex-col items-center gap-2">
+                  <div className="p-3 rounded-xl bg-muted/60 border border-border/40 flex items-center gap-2">
+                    <AIRegenerateIcon size="sm" className="text-primary" />
+                    <span className="text-sm font-medium">Regenerate</span>
+                  </div>
+                  <span className="text-[10px] text-muted-foreground font-mono">inline usage</span>
+                </div>
+              </div>
+            </CardContent>
+          </Card>
         </section>
 
         </main>
