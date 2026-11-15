@@ -138,21 +138,25 @@ export function EmptyChartIcon(props: IconProps) {
 
 export function AIRegenerateIcon(props: IconProps) {
   return (
-    <IconShell {...props}>
-      {/* Browser window */}
-      <rect x="2" y="3" width="20" height="17" rx="2.5" ry="2.5" />
-      {/* Three dots */}
-      <circle cx="6" cy="7.5" r="0.8" fill="currentColor" stroke="none" />
-      <circle cx="9" cy="7.5" r="0.8" fill="currentColor" stroke="none" />
-      <circle cx="12" cy="7.5" r="0.8" fill="currentColor" stroke="none" />
-      {/* Circular refresh arrows */}
-      <path d="M15.5 11a4.5 4.5 0 0 0-7.46 2" />
-      <path d="M8.5 13a4.5 4.5 0 0 0 7.46-2" />
-      {/* Arrow heads */}
-      <polyline points="16.5,9.5 15.5,11 13.8,10.2" />
-      <polyline points="7.5,14.5 8.5,13 10.2,13.8" />
-      {/* Sparkle / 4-pointed star */}
-      <path d="M12 10.5 L12.6 12 L14 12 L12.6 12.6 L12 14 L11.4 12.6 L10 12 L11.4 11.4 Z" strokeWidth="1" />
+    <IconShell strokeWidth={1.8} {...props}>
+      {/* Browser window frame */}
+      <rect x="1.5" y="2" width="21" height="17.5" rx="3.5" ry="3.5" />
+      {/* Three dots top-left */}
+      <circle cx="5"    cy="5.8" r="0.72" fill="currentColor" stroke="none" />
+      <circle cx="7.6"  cy="5.8" r="0.72" fill="currentColor" stroke="none" />
+      <circle cx="10.2" cy="5.8" r="0.72" fill="currentColor" stroke="none" />
+      {/* Arc 1: right half, top→bottom clockwise, arrowhead at bottom-left */}
+      <path d="M12 6.6 A5 5 0 0 1 12 16.4" strokeLinecap="round" fill="none" />
+      <polyline points="10.2,15.0 12,16.4 13.3,14.9" strokeLinecap="round" strokeLinejoin="round" fill="none" />
+      {/* Arc 2: left half, bottom→top clockwise, arrowhead at top-right */}
+      <path d="M12 16.4 A5 5 0 0 1 12 6.6" strokeLinecap="round" fill="none" />
+      <polyline points="13.8,7.9 12,6.6 10.7,8.1" strokeLinecap="round" strokeLinejoin="round" fill="none" />
+      {/* 4-pointed sparkle star — solid, centered at 12,11.5 */}
+      <path
+        d="M12 8.5 L12.55 10.95 L15 11.5 L12.55 12.05 L12 14.5 L11.45 12.05 L9 11.5 L11.45 10.95 Z"
+        fill="currentColor"
+        stroke="none"
+      />
     </IconShell>
   );
 }
