@@ -135,3 +135,24 @@ export function EmptyChartIcon(props: IconProps) {
     </IconShell>
   );
 }
+
+export function AIRegenerateIcon(props: IconProps) {
+  return (
+    <IconShell {...props}>
+      {/* Browser window */}
+      <rect x="2" y="3" width="20" height="17" rx="2.5" ry="2.5" />
+      {/* Three dots */}
+      <circle cx="6" cy="7.5" r="0.8" fill="currentColor" stroke="none" />
+      <circle cx="9" cy="7.5" r="0.8" fill="currentColor" stroke="none" />
+      <circle cx="12" cy="7.5" r="0.8" fill="currentColor" stroke="none" />
+      {/* Circular refresh arrows */}
+      <path d="M15.5 11a4.5 4.5 0 0 0-7.46 2" />
+      <path d="M8.5 13a4.5 4.5 0 0 0 7.46-2" />
+      {/* Arrow heads */}
+      <polyline points="16.5,9.5 15.5,11 13.8,10.2" />
+      <polyline points="7.5,14.5 8.5,13 10.2,13.8" />
+      {/* Sparkle / 4-pointed star */}
+      <path d="M12 10.5 L12.6 12 L14 12 L12.6 12.6 L12 14 L11.4 12.6 L10 12 L11.4 11.4 Z" strokeWidth="1" />
+    </IconShell>
+  );
+}
