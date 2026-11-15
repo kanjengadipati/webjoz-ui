@@ -53,6 +53,7 @@ import {
   CloseIcon,
   BookOpenIcon,
   EmptyChartIcon,
+  AIRegenerateIcon,
 } from "@/components/icons";
 import { SparkleIcon, SparkleGenAI } from "@/components/sparkle-icon";
 import { Sparkles, Home, Search, User, Bell, Menu, SlidersHorizontal } from "lucide-react";
@@ -1702,6 +1703,7 @@ export default function DesignSystemPage() {
               { icon: <CloseIcon />, label: "CloseIcon" },
               { icon: <BookOpenIcon />, label: "BookOpenIcon" },
               { icon: <EmptyChartIcon />, label: "EmptyChartIcon" },
+              { icon: <AIRegenerateIcon />, label: "AIRegenerateIcon" },
             ];
             return (
               <Card className="border-border/40 shadow-sm">
@@ -1720,7 +1722,7 @@ export default function DesignSystemPage() {
                       </p>
                       <div className="flex flex-wrap items-end gap-4">
                         {ALL_ICONS.map(({ label }) => {
-                          const IconComponent = { SunIcon, MoonIcon, CheckIcon, MailIcon, WhatsAppIcon, LockIcon, AlertIcon, InfoIcon, CloseIcon, BookOpenIcon, EmptyChartIcon }[label] as React.ComponentType<{ size?: "sm" | "md" | "lg" }>;
+                          const IconComponent = { SunIcon, MoonIcon, CheckIcon, MailIcon, WhatsAppIcon, LockIcon, AlertIcon, InfoIcon, CloseIcon, BookOpenIcon, EmptyChartIcon, AIRegenerateIcon }[label] as React.ComponentType<{ size?: "sm" | "md" | "lg" }>;
                           return (
                             <div key={label} className="flex flex-col items-center gap-1.5">
                               <div className="p-2.5 rounded-lg bg-muted/60 border border-border/40">
