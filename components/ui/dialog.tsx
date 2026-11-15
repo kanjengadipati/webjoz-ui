@@ -21,52 +21,52 @@ export interface DialogProps {
 
 const sizeConfig: Record<DialogSize, { card: string; header: string; body: string; footer: string; title: string }> = {
   sm: {
-    card: "sm:max-w-sm",
-    header: "p-4 border-b border-border/60",
-    body: "p-4",
-    footer: "p-4 border-t border-border/60",
+    card: "max-w-sm",
+    header: "px-5 pt-5 pb-3",
+    body: "px-5 pb-3",
+    footer: "px-5 py-4",
     title: "text-sm font-bold tracking-tight",
   },
   medium: {
-    card: "sm:max-w-[390px]",
-    header: "px-5 py-3.5 border-b border-border/60",
-    body: "px-5 py-3.5",
-    footer: "px-5 py-3 border-t border-border/60",
+    card: "max-w-[390px]",
+    header: "px-6 pt-6 pb-4",
+    body: "px-6 pb-4",
+    footer: "px-6 py-5",
     title: "text-base font-bold tracking-tight",
   },
   md: {
-    card: "sm:max-w-[390px]",
-    header: "px-5 py-3.5 border-b border-border/60",
-    body: "px-5 py-3.5",
-    footer: "px-5 py-3 border-t border-border/60",
+    card: "max-w-[390px]",
+    header: "px-6 pt-6 pb-4",
+    body: "px-6 pb-4",
+    footer: "px-6 py-5",
     title: "text-base font-bold tracking-tight",
   },
   default: {
-    card: "max-w-md",
-    header: "p-6 border-b border-border/60",
-    body: "p-6",
-    footer: "p-6 border-t border-border/60",
-    title: "text-lg font-bold tracking-tight",
+    card: "max-w-sm",
+    header: "px-6 pt-6 pb-4",
+    body: "px-6 pb-4",
+    footer: "px-6 py-5",
+    title: "text-base font-bold tracking-tight",
   },
   lg: {
     card: "max-w-md",
-    header: "p-6 border-b border-border/60",
-    body: "p-6",
-    footer: "p-6 border-t border-border/60",
+    header: "px-6 pt-6 pb-4",
+    body: "px-6 pb-4",
+    footer: "px-6 py-5",
     title: "text-lg font-bold tracking-tight",
   },
   xl: {
     card: "max-w-lg",
-    header: "p-6 border-b border-border/60",
-    body: "p-6",
-    footer: "p-6 border-t border-border/60",
+    header: "px-7 pt-7 pb-5",
+    body: "px-7 pb-5",
+    footer: "px-7 py-6",
     title: "text-xl font-bold tracking-tight",
   },
 };
 
 const positionClasses: Record<DialogPosition, string> = {
   center: "fixed left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2",
-  "bottom-right": "fixed left-auto top-auto right-4 bottom-4 translate-x-0 translate-y-0 sm:right-6 sm:bottom-6",
+  "bottom-right": "fixed right-4 bottom-4 sm:right-6 sm:bottom-6",
 };
 
 export function Dialog({
@@ -81,21 +81,24 @@ export function Dialog({
   className,
   style,
 }: DialogProps) {
-  const currentSize = sizeConfig[size] || sizeConfig.default;
-  const currentPosition = positionClasses[position] || positionClasses.center;
+  const cfg = sizeConfig[size] ?? sizeConfig.default;
+  const posClass = positionClasses[position] ?? positionClasses.center;
 
   const backdropBg =
     backdrop === false || backdrop === "transparent"
       ? "bg-transparent pointer-events-none"
       : backdrop === "subtle"
-        ? "bg-black/25"
-        : "bg-black/50";
+        ? "bg-foreground/15 backdrop-blur-sm"
+        : backdrop === "dim"
+          ? "bg-black/60 backdrop-blur-sm"
+          : "bg-foreground/20 backdrop-blur-sm";
 
   return (
     <div
       className={cn(
-        "fixed inset-0 z-50 p-4 transition-opacity",
+        "fixed inset-0 z-50 flex items-center justify-center p-4",
         backdropBg,
+        "transition-opacity duration-200",
         open ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none",
       )}
       onClick={() => onOpenChange(false)}
@@ -103,25 +106,47 @@ export function Dialog({
     >
       <div
         className={cn(
-          currentPosition,
-          currentSize.card,
-          "max-h-[90vh] w-[calc(100%-2rem)] overflow-y-auto rounded-2xl border border-border bg-background text-foreground shadow-2xl transition-all",
+          posClass,
+          cfg.card,
+          "w-[calc(100%-2rem)] max-h-[90vh] overflow-y-auto",
+          "rounded-3xl bg-background text-foreground",
+          "shadow-[0_32px_64px_rgba(0,0,0,0.18),0_8px_24px_rgba(0,0,0,0.1)]",
+          "transition-all duration-200",
+          open ? "scale-100 opacity-100" : "scale-95 opacity-0",
           className,
         )}
         style={style}
-        onClick={(event) => event.stopPropagation()}
+        onClick={(e) => e.stopPropagation()}
         role="dialog"
         aria-modal="true"
         aria-labelledby="dialog-title"
       >
-        <div className={cn("flex items-center justify-between gap-4", currentSize.header)}>
-          <h2 id="dialog-title" className={currentSize.title}>{title}</h2>
-          <Button variant="ghost" size="icon" aria-label="Close dialog" onClick={() => onOpenChange(false)}>
+        {/* Header — no border-b, clean look */}
+        <div className={cn("flex items-center justify-between gap-4", cfg.header)}>
+          <span id="dialog-title" className={cfg.title}>{title}</span>
+          <Button
+            variant="ghost"
+            size="icon"
+            aria-label="Tutup dialog"
+            onClick={() => onOpenChange(false)}
+          >
             <CloseIcon size="sm" />
           </Button>
         </div>
-        <div className={currentSize.body}>{children}</div>
-        {footer ? <div className={cn("flex gap-3", currentSize.footer)}>{footer}</div> : null}
+
+        {/* Body */}
+        <div className={cfg.body}>{children}</div>
+
+        {/* Footer — separator + justify-end */}
+        {footer && (
+          <div className={cn(
+            "flex justify-end gap-3",
+            "border-t border-border/60",
+            cfg.footer,
+          )}>
+            {footer}
+          </div>
+        )}
       </div>
     </div>
   );

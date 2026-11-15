@@ -1852,9 +1852,9 @@ export default function DesignSystemPage() {
       <Dialog
         open={isBasicDialogOpen}
         onOpenChange={setIsBasicDialogOpen}
-        title="Webjoz Design System Dialog"
+        title="Webjoz"
         footer={
-          <div className="flex items-center justify-end gap-3 w-full">
+          <>
             <Button variant="outline" onClick={() => setIsBasicDialogOpen(false)}>
               Tutup
             </Button>
@@ -1867,23 +1867,18 @@ export default function DesignSystemPage() {
             >
               Konfirmasi
             </Button>
-          </div>
+          </>
         }
       >
-        <div className="space-y-4">
-          <div className="rounded-xl border border-border/60 bg-muted/40 p-3.5 flex items-start gap-3">
-            <InfoIcon className="size-5 text-primary shrink-0 mt-0.5" />
-            <div className="text-xs leading-relaxed text-muted-foreground">
-              Komponen Dialog ini murni dibangun tanpa library pihak ketiga, terikat langsung dengan CSS tokens tema Anda.
-            </div>
+        <div className="flex flex-col items-center text-center gap-4 py-2">
+          <div className="flex items-center justify-center w-16 h-16 rounded-2xl bg-muted border border-border/60">
+            <BookOpenIcon className="size-8 text-foreground" />
           </div>
-          <p className="text-sm leading-relaxed text-foreground/90">
-            Ini adalah contoh modal dialog standar. Anda dapat memasukkan teks penjelasan, rincian transaksi, atau panduan singkat di sini.
-          </p>
-          <div className="flex flex-wrap gap-2 pt-1">
-            <Badge variant="secondary">Accessible</Badge>
-            <Badge variant="outline">Backdrop Click Close</Badge>
-            <Badge variant="default">Clean Typography</Badge>
+          <div className="space-y-2">
+            <h3 className="text-xl font-bold tracking-tight">Komponen Dialog</h3>
+            <p className="text-sm text-muted-foreground leading-relaxed max-w-[260px]">
+              Komponen ini murni dibangun tanpa library pihak ketiga, terikat langsung dengan CSS.
+            </p>
           </div>
         </div>
       </Dialog>
