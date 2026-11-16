@@ -30,5 +30,5 @@ export function SparkleGenAI({ className, style }: { className?: string; style?:
 }
 
 export function AiRefreshIcon({ className, style }: { className?: string; style?: CSSProperties }) {
-  return <MaskIcon src="/sparkle-gen-ai.webp" className={className} style={style} />;
+  return <MaskIcon src="/ai-refresh/ai-refresh-512.webp" className={className} style={style} />;
 }
