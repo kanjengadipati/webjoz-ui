@@ -136,6 +136,8 @@ export function EmptyChartIcon(props: IconProps) {
   );
 }
 
+export { AiRefreshIcon, SparkleGenAI } from "../sparkle-icon";
+
 export function AIRegenerateIcon(props: IconProps) {
   return (
     <IconShell strokeWidth={1.8} {...props}>
