@@ -458,7 +458,10 @@ export function NotificationCard({
 }: NotificationCardProps) {
   const Icon = TONE_ICON[tone];
   const iconChip = TONE_CHIP[tone];
-  const hasBody = Boolean(description || children || action);
+  const hasMeaningfulChildren = Array.isArray(children)
+    ? children.some((c) => c !== null && c !== undefined && c !== false)
+    : Boolean(children);
+  const hasBody = Boolean(description || hasMeaningfulChildren || action);
   return (
     <div
       className={cn(
