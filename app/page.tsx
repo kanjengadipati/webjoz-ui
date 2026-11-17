@@ -2094,6 +2094,10 @@ function NotificationDemo() {
           description="Versi baru komponen telah dirilis."
           onClose={() => {}}
         />
+        <NotificationCard
+          tone="success"
+          title="Tersimpan"
+        />
       </div>
 
       <div className="rounded-2xl border border-border/70 bg-muted/20 p-5">
