@@ -2050,6 +2050,7 @@ function NotificationDemo() {
                 </Button>
               ))}
             </div>
+            <span className="text-xs text-muted-foreground">Posisi aktif: <span className="font-mono text-foreground">{placement}</span></span>
             <div className="flex items-center gap-2">
               <Switch checked={persistent} onCheckedChange={setPersistent} size="sm" />
               <span className="text-xs text-muted-foreground">Persisten (tidak auto-close)</span>
@@ -2061,6 +2062,10 @@ function NotificationDemo() {
             <Button variant="outline" size="sm" onClick={() => notify.error("Gagal mempublikasikan", { description: "Periksa kembali nama subdomain Anda." })}>Error</Button>
             <Button variant="outline" size="sm" onClick={() => notify.warning("Subdomain sudah digunakan", { description: "Coba nama lain untuk subdomain." })}>Warning</Button>
             <Button variant="outline" size="sm" onClick={() => notify.info("Pembaruan tersedia", { description: "Versi baru komponen telah dirilis." })}>Info</Button>
+            <Button variant="outline" size="sm" onClick={() => notify.success("Website Telah Live", { description: "mysite.webjoz.com siap diakses publik.", placement: "top-right", action: { label: "Buka Website", href: "#" } })}>Top Right</Button>
+            <Button variant="outline" size="sm" onClick={() => notify.success("Website Telah Live", { description: "mysite.webjoz.com siap diakses publik.", placement: "top-center" })}>Top Center</Button>
+            <Button variant="outline" size="sm" onClick={() => notify.success("Website Telah Live", { description: "mysite.webjoz.com siap diakses publik.", placement: "bottom-right" })}>Bottom Right</Button>
+            <Button variant="outline" size="sm" onClick={() => notify.success("Website Telah Live", { description: "mysite.webjoz.com siap diakses publik.", placement: "bottom-center" })}>Bottom Center</Button>
             <Button variant="outline" onClick={() => notify.clear()}>Bersihkan Semua</Button>
           </div>
         </CardContent>
