@@ -28,6 +28,23 @@ export interface NotificationAction {
   variant?: "primary" | "ghost";
 }
 
+
+export interface NotificationLabels {
+  close: string;
+  tones: Record<NotificationTone, string>;
+}
+
+export const DEFAULT_NOTIFICATION_LABELS: NotificationLabels = {
+  close: "Close",
+  tones: {
+    default: "DEFAULT",
+    success: "SUCCESS",
+    error: "ERROR",
+    warning: "WARNING",
+    info: "INFO",
+  },
+};
+
 export interface NotificationOptions {
   title: string;
   description?: string;
@@ -80,14 +97,6 @@ const TONE_CHIP: Record<NotificationTone, string> = {
   info: "border-sky-500/25 bg-sky-500/10 text-sky-600 dark:text-sky-300",
 };
 
-const TONE_LABEL: Record<NotificationTone, string> = {
-  default: "INFO",
-  success: "SUKSES",
-  error: "GAGAL",
-  warning: "PERINGATAN",
-  info: "INFO",
-};
-
 const PLACEMENT_CLASS: Record<NotificationPlacement, string> = {
   "top-right": "top-4 right-4 sm:top-6 sm:right-6",
   "top-center": "top-4 left-1/2 -translate-x-1/2 sm:top-6",
@@ -112,6 +121,7 @@ export interface NotificationProviderProps {
   defaultPlacement?: NotificationPlacement;
   defaultDuration?: number;
   max?: number;
+  labels?: Partial<NotificationLabels>;
 }
 
 export function NotificationProvider({
@@ -119,7 +129,12 @@ export function NotificationProvider({
   defaultPlacement = "top-right",
   defaultDuration = DEFAULT_DURATION,
   max = MAX_PER_PLACEMENT,
+  labels,
 }: NotificationProviderProps) {
+  const mergedLabels: NotificationLabels = {
+    close: labels?.close ?? DEFAULT_NOTIFICATION_LABELS.close,
+    tones: { ...DEFAULT_NOTIFICATION_LABELS.tones, ...(labels?.tones ?? {}) },
+  };
   const [items, setItems] = useState<NotificationRecord[]>([]);
   const recentRef = useRef<Map<string, number>>(new Map());
   const counterRef = useRef(0);
@@ -268,6 +283,7 @@ export function NotificationProvider({
                   key={n.id}
                   record={n}
                   onDismiss={dismiss}
+                  labels={mergedLabels}
                 />
               ))}
             </div>
@@ -281,9 +297,10 @@ export function NotificationProvider({
 interface NotificationItemProps {
   record: NotificationRecord;
   onDismiss: (id: string) => void;
+  labels: NotificationLabels;
 }
 
-function NotificationItem({ record, onDismiss }: NotificationItemProps) {
+function NotificationItem({ record, onDismiss, labels }: NotificationItemProps) {
   const [paused, setPaused] = useState(false);
   const remainingRef = useRef(record.duration);
   const startedRef = useRef<number | null>(null);
@@ -368,7 +385,7 @@ function NotificationItem({ record, onDismiss }: NotificationItemProps) {
               {record.title}
             </div>
             <span className="shrink-0 rounded-full border border-border/60 bg-muted/60 px-1.5 py-0.5 font-mono text-[8.5px] font-bold tracking-[0.16em] text-muted-foreground">
-              {TONE_LABEL[record.tone]}
+              {labels.tones[record.tone]}
             </span>
           </div>
           {record.description && (
@@ -406,7 +423,7 @@ function NotificationItem({ record, onDismiss }: NotificationItemProps) {
           <button
             type="button"
             onClick={() => onDismiss(record.id)}
-            aria-label="Tutup notifikasi"
+            aria-label={labels.close}
             className="flex size-7 shrink-0 items-center justify-center rounded-lg text-muted-foreground transition-colors hover:bg-muted hover:text-foreground"
           >
             <CloseIcon size="sm" />
@@ -439,6 +456,7 @@ export interface NotificationCardProps {
   className?: string;
   children?: ReactNode;
   duration?: number;
+  labels?: Partial<NotificationLabels>;
 }
 
 export function NotificationCard({
@@ -450,9 +468,14 @@ export function NotificationCard({
   className,
   children,
   duration,
+  labels,
 }: NotificationCardProps) {
   const Icon = TONE_ICON[tone];
   const iconChip = TONE_CHIP[tone];
+  const mergedLabels: NotificationLabels = {
+    close: labels?.close ?? DEFAULT_NOTIFICATION_LABELS.close,
+    tones: { ...DEFAULT_NOTIFICATION_LABELS.tones, ...(labels?.tones ?? {}) },
+  };
   return (
     <div
       className={cn(
@@ -472,7 +495,7 @@ export function NotificationCard({
           <div className="flex items-center gap-2">
             <div className="truncate text-[13px] font-semibold tracking-tight text-foreground">{title}</div>
             <span className="shrink-0 rounded-full border border-border/60 bg-muted/60 px-1.5 py-0.5 font-mono text-[8.5px] font-bold tracking-[0.16em] text-muted-foreground">
-              {TONE_LABEL[tone]}
+              {mergedLabels.tones[tone]}
             </span>
           </div>
           {description && (
@@ -501,7 +524,7 @@ export function NotificationCard({
           <button
             type="button"
             onClick={onClose}
-            aria-label="Tutup notifikasi"
+            aria-label={mergedLabels.close}
             className="flex size-7 shrink-0 items-center justify-center rounded-lg text-muted-foreground transition-colors hover:bg-muted hover:text-foreground"
           >
             <CloseIcon size="sm" />
