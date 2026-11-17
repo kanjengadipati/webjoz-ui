@@ -48,6 +48,9 @@
     "./loading-screen": {
       "types": "./components/site-loading-screen.tsx",
       "default": "./components/site-loading-screen.tsx"
+    },
+    "./styles": {
+      "default": "./app/globals.css"
     }
   }
 }
