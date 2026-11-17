@@ -140,22 +140,16 @@ export { AiRefreshIcon, SparkleGenAI } from "../sparkle-icon";
 
 export function AIRegenerateIcon(props: IconProps) {
   return (
-    <IconShell strokeWidth={1.2} {...props}>
-      {/* Browser window frame */}
-      <rect x="1.5" y="2" width="21" height="17.5" rx="3.5" ry="3.5" />
-      {/* Three dots top-left */}
-      <circle cx="5"    cy="5.8" r="0.72" fill="currentColor" stroke="none" />
-      <circle cx="7.6"  cy="5.8" r="0.72" fill="currentColor" stroke="none" />
-      <circle cx="10.2" cy="5.8" r="0.72" fill="currentColor" stroke="none" />
-      {/* Arc 1: right half, clockwise, arrowhead at bottom */}
-      <path d="M12 8.0 A3.2 3.2 0 0 1 12 15.0" strokeLinecap="round" fill="none" />
-      <polyline points="10.5,13.8 12,15.0 13.1,13.7" strokeLinecap="round" strokeLinejoin="round" fill="none" />
-      {/* Arc 2: left half, clockwise, arrowhead at top */}
-      <path d="M12 15.0 A3.2 3.2 0 0 1 12 8.0" strokeLinecap="round" fill="none" />
-      <polyline points="13.5,9.2 12,8.0 10.9,9.3" strokeLinecap="round" strokeLinejoin="round" fill="none" />
-      {/* 4-pointed sparkle star — solid, centered at 12,11.5 */}
+    <IconShell strokeWidth={1.8} {...props}>
+      {/* Arc 1: right half, top→bottom clockwise, arrowhead at bottom */}
+      <path d="M12 3.5 A8.5 8.5 0 0 1 12 20.5" strokeLinecap="round" fill="none" />
+      <polyline points="9.8,18.6 12,20.5 13.8,18.3" strokeLinecap="round" strokeLinejoin="round" fill="none" />
+      {/* Arc 2: left half, bottom→top clockwise, arrowhead at top */}
+      <path d="M12 20.5 A8.5 8.5 0 0 1 12 3.5" strokeLinecap="round" fill="none" />
+      <polyline points="14.2,5.4 12,3.5 10.2,5.7" strokeLinecap="round" strokeLinejoin="round" fill="none" />
+      {/* 4-pointed sparkle star — centered at 12,12 */}
       <path
-        d="M12 9.8 L12.4 11.1 L13.7 11.5 L12.4 11.9 L12 13.2 L11.6 11.9 L10.3 11.5 L11.6 11.1 Z"
+        d="M12 8.5 L12.7 11.3 L15.5 12 L12.7 12.7 L12 15.5 L11.3 12.7 L8.5 12 L11.3 11.3 Z"
         fill="currentColor"
         stroke="none"
       />
