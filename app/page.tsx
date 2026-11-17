@@ -451,241 +451,271 @@ export default function DesignSystemPage() {
         </section>
 
         {/* 2. BUTTONS & ACTIONS */}
-        <section id="buttons" className="scroll-mt-24 space-y-6">
+        <section id="buttons" className="scroll-mt-24 space-y-10">
+
+          {/* Section header */}
           <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 border-b border-border/60 pb-5">
             <div>
               <div className="text-xs font-bold uppercase tracking-wider text-primary">Interactivity</div>
-              <h2 className="text-2xl sm:text-3xl font-bold tracking-tight">Buttons & Action States</h2>
+              <h2 className="text-2xl sm:text-3xl font-bold tracking-tight">Button</h2>
               <p className="text-sm text-muted-foreground mt-1">
-                Semua varian tombol, ukuran, loading states, dan integrasi icon.
+                Trigger untuk aksi — tersedia 10 varian, 5 ukuran, loading state, dan integrasi icon.
               </p>
             </div>
             <Badge variant="outline">10 Varian · 5 Ukuran</Badge>
           </div>
 
-          {/* Variants Showcase */}
-          <div className="space-y-4">
-            <h3 className="text-base font-semibold">1. Button Variants</h3>
-            <div className="flex flex-wrap items-center gap-3 p-6 rounded-2xl border border-border/60 bg-card/60">
-              <Button variant="default">Default (btn-primary)</Button>
-              <Button variant="secondary">Secondary</Button>
-              <Button variant="outline">Outline</Button>
-              <Button variant="ghost">Ghost</Button>
-              <Button variant="destructive">Destructive</Button>
-              <Button variant="default" disabled>Disabled State</Button>
+          {/* ── 1. Variant Overview ───────────────────────────────────────── */}
+          <div className="space-y-3">
+            <h3 className="text-sm font-semibold text-foreground">Variants</h3>
+            <p className="text-xs text-muted-foreground">Semua varian di bawah satu atap — normal, hover, loading, disabled.</p>
+            <div className="rounded-2xl border border-border/60 bg-card/60 overflow-hidden">
+              <table className="w-full text-sm">
+                <thead>
+                  <tr className="border-b border-border/60 bg-muted/40">
+                    <th className="text-left text-xs font-semibold text-muted-foreground px-4 py-3 w-36">Variant</th>
+                    <th className="text-left text-xs font-semibold text-muted-foreground px-4 py-3">Preview</th>
+                    <th className="text-left text-xs font-semibold text-muted-foreground px-4 py-3 hidden md:table-cell">Loading</th>
+                    <th className="text-left text-xs font-semibold text-muted-foreground px-4 py-3 hidden md:table-cell">Disabled</th>
+                    <th className="text-left text-xs font-semibold text-muted-foreground px-4 py-3 hidden lg:table-cell">Use case</th>
+                  </tr>
+                </thead>
+                <tbody className="divide-y divide-border/40">
+                  {[
+                    { variant: "default" as const,     useCase: "CTA utama, primary action" },
+                    { variant: "secondary" as const,   useCase: "Aksi pendukung, filter" },
+                    { variant: "outline" as const,     useCase: "Aksi sekunder, back button" },
+                    { variant: "ghost" as const,       useCase: "Inline action, icon button" },
+                    { variant: "destructive" as const, useCase: "Hapus, batalkan, aksi berbahaya" },
+                  ].map(({ variant, useCase }) => (
+                    <tr key={variant} className="hover:bg-muted/20 transition-colors">
+                      <td className="px-4 py-3">
+                        <code className="text-xs bg-muted px-1.5 py-0.5 rounded font-mono">{variant}</code>
+                      </td>
+                      <td className="px-4 py-3">
+                        <Button variant={variant} size="sm">Label</Button>
+                      </td>
+                      <td className="px-4 py-3 hidden md:table-cell">
+                        <Button variant={variant} size="sm" loading loadingText="..." />
+                      </td>
+                      <td className="px-4 py-3 hidden md:table-cell">
+                        <Button variant={variant} size="sm" disabled>Label</Button>
+                      </td>
+                      <td className="px-4 py-3 hidden lg:table-cell text-xs text-muted-foreground">{useCase}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
             </div>
           </div>
 
-          {/* Sizes Showcase */}
-          <div className="space-y-4">
-            <h3 className="text-base font-semibold">2. Button Sizes</h3>
-            <div className="flex flex-wrap items-center gap-4 p-6 rounded-2xl border border-border/60 bg-card/60">
-              <Button size="sm">Small (sm)</Button>
-              <Button size="default">Default</Button>
-              <Button size="lg">Large (lg)</Button>
-              <Button size="icon" variant="outline" aria-label="Icon only button">
-                <SunIcon size="sm" />
-              </Button>
-              <Button size="icon" variant="default" aria-label="WhatsApp icon">
-                <WhatsAppIcon size="sm" />
-              </Button>
+          {/* ── 2. Size Matrix ────────────────────────────────────────────── */}
+          <div className="space-y-3">
+            <h3 className="text-sm font-semibold text-foreground">Sizes</h3>
+            <div className="rounded-2xl border border-border/60 bg-card/60 overflow-hidden">
+              <table className="w-full text-sm">
+                <thead>
+                  <tr className="border-b border-border/60 bg-muted/40">
+                    <th className="text-left text-xs font-semibold text-muted-foreground px-4 py-3">Size</th>
+                    <th className="text-left text-xs font-semibold text-muted-foreground px-4 py-3">Height</th>
+                    <th className="text-left text-xs font-semibold text-muted-foreground px-4 py-3">Preview</th>
+                    <th className="text-left text-xs font-semibold text-muted-foreground px-4 py-3 hidden md:table-cell">Use case</th>
+                  </tr>
+                </thead>
+                <tbody className="divide-y divide-border/40">
+                  {[
+                    { size: "sm" as const,      height: "36px", useCase: "Table action, secondary CTA" },
+                    { size: "default" as const, height: "40px", useCase: "Standard form button" },
+                    { size: "lg" as const,      height: "44px", useCase: "Form submit, primary CTA" },
+                    { size: "icon" as const,    height: "40px", useCase: "Icon-only, toolbar" },
+                  ].map(({ size, height, useCase }) => (
+                    <tr key={size} className="hover:bg-muted/20 transition-colors">
+                      <td className="px-4 py-3">
+                        <code className="text-xs bg-muted px-1.5 py-0.5 rounded font-mono">{size}</code>
+                      </td>
+                      <td className="px-4 py-3 text-xs text-muted-foreground font-mono">{height}</td>
+                      <td className="px-4 py-3">
+                        {size === "icon"
+                          ? <Button size="icon" variant="outline" aria-label="icon"><SunIcon size="sm" /></Button>
+                          : <Button size={size}>Label</Button>
+                        }
+                      </td>
+                      <td className="px-4 py-3 hidden md:table-cell text-xs text-muted-foreground">{useCase}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+            {/* Hero size — full width demo */}
+            <div className="space-y-2">
+              <div className="flex items-center gap-2">
+                <code className="text-xs bg-muted px-1.5 py-0.5 rounded font-mono">hero</code>
+                <span className="text-xs text-muted-foreground">80px · pill radius · full-width CTA</span>
+              </div>
+              <div className="p-5 rounded-2xl border border-border/60 bg-muted/30">
+                <Button size="hero" className="w-full">Hero CTA Label</Button>
+              </div>
             </div>
           </div>
 
-          {/* Loading States */}
-          <div className="space-y-4">
-            <h3 className="text-base font-semibold">3. Loading & Async States</h3>
-            <div className="flex flex-wrap items-center gap-4 p-6 rounded-2xl border border-border/60 bg-card/60">
-              <Button loading={true}>Menyimpan...</Button>
-              <Button loading={true} loadingText="Memproses Transaksi" variant="secondary" />
-              <Button loading={true} loadingText="Menghapus Situs..." variant="destructive" />
-              <Button loading={true} variant="outline" size="sm" loadingText="Sync..." />
+          {/* ── 3. With Icons ─────────────────────────────────────────────── */}
+          <div className="space-y-3">
+            <h3 className="text-sm font-semibold text-foreground">With Icons</h3>
+            <div className="flex flex-wrap items-center gap-3 p-5 rounded-2xl border border-border/60 bg-card/60">
+              <Button variant="default"><WhatsAppIcon size="sm" /><span>WhatsApp</span></Button>
+              <Button variant="outline"><MailIcon size="sm" /><span>Email</span></Button>
+              <Button variant="secondary"><LockIcon size="sm" /><span>Lock</span></Button>
+              <Button variant="ghost"><CheckIcon size="sm" /><span>Verify</span></Button>
+            </div>
+          </div>
+
+          {/* ── 4. Loading / Async ────────────────────────────────────────── */}
+          <div className="space-y-3">
+            <h3 className="text-sm font-semibold text-foreground">Loading State</h3>
+            <div className="flex flex-wrap items-center gap-3 p-5 rounded-2xl border border-border/60 bg-card/60">
+              <Button loading>Default</Button>
+              <Button loading variant="secondary" loadingText="Syncing..." />
+              <Button loading variant="destructive" loadingText="Deleting..." />
+              <Button loading variant="outline" size="sm" loadingText="Saving..." />
               <Button
-                variant="default"
                 loading={isSubmitting}
-                onClick={() => {
-                  setIsSubmitting(true);
-                  setTimeout(() => setIsSubmitting(false), 2000);
-                }}
+                onClick={() => { setIsSubmitting(true); setTimeout(() => setIsSubmitting(false), 2000); }}
               >
-                {isSubmitting ? "Mengunggah..." : "Klik Untuk Tes Async (2s)"}
+                {isSubmitting ? "Processing..." : "Click to test (2s)"}
               </Button>
             </div>
           </div>
 
-          {/* With Icons */}
-          <div className="space-y-4">
-            <h3 className="text-base font-semibold">4. Buttons with Icons</h3>
-            <div className="flex flex-wrap items-center gap-4 p-6 rounded-2xl border border-border/60 bg-card/60">
-              <Button variant="default">
-                <WhatsAppIcon size="sm" />
-                <span>Hubungi via WhatsApp</span>
-              </Button>
-              <Button variant="outline">
-                <MailIcon size="sm" />
-                <span>Kirim Email</span>
-              </Button>
-              <Button variant="secondary">
-                <LockIcon size="sm" />
-                <span>Kunci Domain</span>
-              </Button>
-              <Button variant="outline">
-                <CheckIcon size="sm" />
-                <span>Verifikasi Sekarang</span>
-              </Button>
+          {/* ── 5. Special Variants ───────────────────────────────────────── */}
+          <div className="space-y-6">
+            <h3 className="text-sm font-semibold text-foreground">Special Variants</h3>
+            <p className="text-xs text-muted-foreground -mt-3">Varian dekoratif berbasis CSS murni — gradient, glow, dan badge pill.</p>
+
+            {[
+              {
+                variant: "liquid-silver" as const,
+                name: "Liquid Silver",
+                desc: "Metallic white→silver gradient dengan inner highlight. Cocok di atas background gelap.",
+              },
+              {
+                variant: "dark-chrome" as const,
+                name: "Dark Chrome",
+                desc: "Charcoal gradient, silver border, deep shadow. Cocok di atas background terang.",
+              },
+              {
+                variant: "neon-edge" as const,
+                name: "Neon Edge",
+                desc: "Near-black surface, bright white border, outer glow makin intens saat hover.",
+              },
+              {
+                variant: "floating-arrow" as const,
+                name: "Floating Arrow",
+                desc: "Minimal pill + circular ↗ badge di kanan. Cocok untuk hero CTA.",
+              },
+              {
+                variant: "floating-arrow-right" as const,
+                name: "Floating Arrow Right",
+                desc: "Identik floating-arrow tapi badge pakai → (kanan). Cocok untuk CTA navigasi lurus.",
+              },
+            ].map(({ variant, name, desc }) => (
+              <div key={variant} className="rounded-2xl border border-border/60 overflow-hidden">
+                <div className="px-5 py-4 border-b border-border/40 bg-muted/20 flex items-start justify-between gap-4">
+                  <div>
+                    <div className="flex items-center gap-2">
+                      <span className="font-semibold text-sm">{name}</span>
+                      <code className="text-xs bg-muted px-1.5 py-0.5 rounded font-mono text-muted-foreground">{variant}</code>
+                    </div>
+                    <p className="text-xs text-muted-foreground mt-0.5">{desc}</p>
+                  </div>
+                </div>
+                <div className="grid grid-cols-1 sm:grid-cols-3 divide-y sm:divide-y-0 sm:divide-x divide-border/40">
+                  {/* Light bg */}
+                  <div className="flex flex-col gap-3 p-5 items-start bg-background">
+                    <span className="text-[10px] font-mono text-muted-foreground">Light background</span>
+                    <Button variant={variant}>Label</Button>
+                    <Button variant={variant} loading loadingText="Loading..." />
+                    <Button variant={variant} disabled>Disabled</Button>
+                  </div>
+                  {/* Dark bg */}
+                  <div className="flex flex-col gap-3 p-5 items-start bg-foreground/90">
+                    <span className="text-[10px] font-mono text-white/40">Dark background</span>
+                    <Button variant={variant}>Label</Button>
+                    <Button variant={variant} loading loadingText="Loading..." />
+                    <Button variant={variant} disabled>Disabled</Button>
+                  </div>
+                  {/* Hero full-width */}
+                  <div className="flex flex-col gap-3 p-5 bg-foreground/5">
+                    <span className="text-[10px] font-mono text-muted-foreground">size="hero" · full-width</span>
+                    <Button variant={variant} size="hero" className="w-full">Call to Action</Button>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+
+          {/* ── 6. Props Table ────────────────────────────────────────────── */}
+          <div className="space-y-3">
+            <h3 className="text-sm font-semibold text-foreground">Props</h3>
+            <div className="rounded-2xl border border-border/60 bg-card/60 overflow-hidden">
+              <table className="w-full text-sm">
+                <thead>
+                  <tr className="border-b border-border/60 bg-muted/40">
+                    <th className="text-left text-xs font-semibold text-muted-foreground px-4 py-3">Prop</th>
+                    <th className="text-left text-xs font-semibold text-muted-foreground px-4 py-3">Type</th>
+                    <th className="text-left text-xs font-semibold text-muted-foreground px-4 py-3">Default</th>
+                    <th className="text-left text-xs font-semibold text-muted-foreground px-4 py-3 hidden md:table-cell">Description</th>
+                  </tr>
+                </thead>
+                <tbody className="divide-y divide-border/40 font-mono text-xs">
+                  {[
+                    { prop: "variant",      type: "ButtonVariant",  def: '"default"',  desc: "Visual style — default | secondary | outline | ghost | destructive | liquid-silver | dark-chrome | neon-edge | floating-arrow | floating-arrow-right" },
+                    { prop: "size",         type: "ButtonSize",     def: '"default"',  desc: "Height preset — sm (36px) | default (40px) | lg (44px) | icon (40px square) | hero (80px)" },
+                    { prop: "loading",      type: "boolean",        def: "false",      desc: "Tampilkan spinner dan nonaktifkan button sementara" },
+                    { prop: "loadingText",  type: "string",         def: "undefined",  desc: "Teks saat loading. Jika tidak diisi, children tetap ditampilkan" },
+                    { prop: "disabled",     type: "boolean",        def: "false",      desc: "Nonaktifkan button — opacity 50%, pointer-events none" },
+                    { prop: "className",    type: "string",         def: "undefined",  desc: "Tailwind class tambahan — tidak meng-override base styles" },
+                    { prop: "onClick",      type: "() => void",     def: "undefined",  desc: "Handler klik standar" },
+                    { prop: "type",         type: '"button" | "submit" | "reset"', def: '"button"', desc: "HTML button type attribute" },
+                  ].map(({ prop, type, def, desc }) => (
+                    <tr key={prop} className="hover:bg-muted/20 transition-colors">
+                      <td className="px-4 py-2.5 font-semibold text-foreground">{prop}</td>
+                      <td className="px-4 py-2.5 text-muted-foreground">{type}</td>
+                      <td className="px-4 py-2.5 text-muted-foreground">{def}</td>
+                      <td className="px-4 py-2.5 hidden md:table-cell text-muted-foreground font-sans">{desc}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
             </div>
           </div>
 
-          {/* Liquid Silver Variant */}
-          <div className="space-y-4">
-            <h3 className="text-base font-semibold">5. Liquid Silver Variant</h3>
-            <p className="text-sm text-muted-foreground">
-              Metallic gradient (#fff → #e5e5e5), inner highlight, outer glow. Dark mode otomatis bergeser ke dark chrome.
-            </p>
+          {/* ── 7. Code Snippet ───────────────────────────────────────────── */}
+          <div className="space-y-3">
+            <h3 className="text-sm font-semibold text-foreground">Usage</h3>
+            <pre className="text-xs font-mono bg-muted/40 border border-border/60 rounded-2xl p-5 overflow-x-auto text-foreground/85 leading-relaxed">
+{`import { Button } from "webjoz-ui";
 
-            {/* Default size */}
-            <div className="space-y-3">
-              <div className="text-xs font-medium text-muted-foreground">Size default</div>
-              <div className="flex flex-wrap items-center gap-3 p-6 rounded-2xl border border-border/60 bg-card/60">
-                <Button variant="liquid-silver">Create Website Now →</Button>
-                <Button variant="liquid-silver" loading>Memproses...</Button>
-                <Button variant="liquid-silver" disabled>Disabled</Button>
-              </div>
-            </div>
+// Basic
+<Button>Label</Button>
 
-            {/* Hero size — full width on dark bg to mimic real usage */}
-            <div className="space-y-3">
-              <div className="text-xs font-medium text-muted-foreground">Size hero (80px · pill · full-width)</div>
-              <div className="p-6 rounded-2xl border border-border/60 bg-foreground/5">
-                <Button variant="liquid-silver" size="hero" className="w-full">
-                  Create Website Now →
-                </Button>
-              </div>
-              <div className="p-6 rounded-2xl border border-border/60 bg-foreground/90">
-                <Button variant="liquid-silver" size="hero" className="w-full">
-                  Create Website Now →
-                </Button>
-              </div>
-            </div>
+// Variant + size
+<Button variant="outline" size="lg">Secondary Action</Button>
+
+// Loading state
+<Button loading loadingText="Saving...">Save</Button>
+
+// With icon
+<Button variant="default"><MailIcon size="sm" /><span>Send Email</span></Button>
+
+// Special variant — full-width CTA
+<Button variant="floating-arrow-right" size="lg" className="w-full">
+  Get Started
+</Button>`}
+            </pre>
           </div>
 
-          {/* Dark Chrome Variant */}
-          <div className="space-y-4">
-            <h3 className="text-base font-semibold">6. Dark Chrome Variant</h3>
-            <p className="text-sm text-muted-foreground">
-              Charcoal gradient (#3d3d3d → #1a1a1a), silver border, deep shadow. Cocok di atas background terang.
-            </p>
-            <div className="space-y-3">
-              <div className="text-xs font-medium text-muted-foreground">Size default</div>
-              <div className="flex flex-wrap items-center gap-3 p-6 rounded-2xl border border-border/60 bg-card/60">
-                <Button variant="dark-chrome">Create Website Now →</Button>
-                <Button variant="dark-chrome" loading>Memproses...</Button>
-                <Button variant="dark-chrome" disabled>Disabled</Button>
-              </div>
-            </div>
-            <div className="space-y-3">
-              <div className="text-xs font-medium text-muted-foreground">Size hero · full-width</div>
-              <div className="p-6 rounded-2xl border border-border/60 bg-foreground/5">
-                <Button variant="dark-chrome" size="hero" className="w-full">
-                  Create Website Now →
-                </Button>
-              </div>
-              <div className="p-6 rounded-2xl border border-border/60 bg-foreground/90">
-                <Button variant="dark-chrome" size="hero" className="w-full">
-                  Create Website Now →
-                </Button>
-              </div>
-            </div>
-          </div>
-
-          {/* Neon Edge Variant */}
-          <div className="space-y-4">
-            <h3 className="text-base font-semibold">7. Neon Edge Variant</h3>
-            <p className="text-sm text-muted-foreground">
-              Near-black surface, bright white border, outer white glow yang makin intens saat hover.
-            </p>
-            <div className="space-y-3">
-              <div className="text-xs font-medium text-muted-foreground">Size default</div>
-              <div className="flex flex-wrap items-center gap-3 p-6 rounded-2xl border border-border/60 bg-card/60">
-                <Button variant="neon-edge">Create Website Now →</Button>
-                <Button variant="neon-edge" loading>Memproses...</Button>
-                <Button variant="neon-edge" disabled>Disabled</Button>
-              </div>
-            </div>
-            <div className="space-y-3">
-              <div className="text-xs font-medium text-muted-foreground">Size hero · full-width</div>
-              <div className="p-6 rounded-2xl border border-border/60 bg-foreground/5">
-                <Button variant="neon-edge" size="hero" className="w-full">
-                  Create Website Now →
-                </Button>
-              </div>
-              <div className="p-6 rounded-2xl border border-border/60 bg-foreground/90">
-                <Button variant="neon-edge" size="hero" className="w-full">
-                  Create Website Now →
-                </Button>
-              </div>
-            </div>
-          </div>
-
-          {/* Floating Arrow Variant */}
-          <div className="space-y-4">
-            <h3 className="text-base font-semibold">8. Floating Arrow Variant</h3>
-            <p className="text-sm text-muted-foreground">
-              Minimal pill body dengan floating circular arrow badge di kanan. Dark mode: pill gelap, badge putih.
-            </p>
-            <div className="space-y-3">
-              <div className="text-xs font-medium text-muted-foreground">Size default</div>
-              <div className="flex flex-wrap items-center gap-3 p-6 rounded-2xl border border-border/60 bg-card/60">
-                <Button variant="floating-arrow">Create Website Now</Button>
-                <Button variant="floating-arrow" loading>Memproses...</Button>
-                <Button variant="floating-arrow" disabled>Disabled</Button>
-              </div>
-            </div>
-            <div className="space-y-3">
-              <div className="text-xs font-medium text-muted-foreground">Size hero · full-width</div>
-              <div className="p-6 rounded-2xl border border-border/60 bg-foreground/5">
-                <Button variant="floating-arrow" size="hero" className="w-full">
-                  Create Website Now
-                </Button>
-              </div>
-              <div className="p-6 rounded-2xl border border-border/60 bg-foreground/90">
-                <Button variant="floating-arrow" size="hero" className="w-full">
-                  Create Website Now
-                </Button>
-              </div>
-            </div>
-          </div>
-
-          {/* Floating Arrow Right */}
-          <div className="space-y-4">
-            <h3 className="text-base font-semibold">9. Floating Arrow Right</h3>
-            <p className="text-sm text-muted-foreground">
-              Identik dengan Floating Arrow tapi badge lingkaran pakai panah → (kanan) bukan ↗.
-              Cocok untuk CTA navigasi lurus seperti "Lanjut", "Mulai", "Next Step".
-            </p>
-            <div className="space-y-3">
-              <div className="text-xs font-medium text-muted-foreground">Size default</div>
-              <div className="flex flex-wrap items-center gap-3 p-6 rounded-2xl border border-border/60 bg-card/60">
-                <Button variant="floating-arrow-right">Get Started</Button>
-                <Button variant="floating-arrow-right" loading>Memproses...</Button>
-                <Button variant="floating-arrow-right" disabled>Disabled</Button>
-              </div>
-            </div>
-            <div className="space-y-3">
-              <div className="text-xs font-medium text-muted-foreground">Size hero · full-width</div>
-              <div className="p-6 rounded-2xl border border-border/60 bg-foreground/5">
-                <Button variant="floating-arrow-right" size="hero" className="w-full">
-                  Get Started
-                </Button>
-              </div>
-              <div className="p-6 rounded-2xl border border-border/60 bg-foreground/90">
-                <Button variant="floating-arrow-right" size="hero" className="w-full">
-                  Get Started
-                </Button>
-              </div>
-            </div>
-          </div>
         </section>
+
 
         {/* 3. TYPOGRAPHY */}
         <section id="typography" className="scroll-mt-24 space-y-6">
@@ -1689,171 +1719,49 @@ export default function DesignSystemPage() {
             </p>
           </div>
 
-          {/* Icon grid helper */}
-          {(() => {
-            const ALL_ICONS: { icon: React.ReactNode; label: string }[] = [
-              { icon: <SunIcon />, label: "SunIcon" },
-              { icon: <MoonIcon />, label: "MoonIcon" },
-              { icon: <CheckIcon />, label: "CheckIcon" },
-              { icon: <MailIcon />, label: "MailIcon" },
-              { icon: <WhatsAppIcon />, label: "WhatsAppIcon" },
-              { icon: <LockIcon />, label: "LockIcon" },
-              { icon: <AlertIcon />, label: "AlertIcon" },
-              { icon: <InfoIcon />, label: "InfoIcon" },
-              { icon: <CloseIcon />, label: "CloseIcon" },
-              { icon: <BookOpenIcon />, label: "BookOpenIcon" },
-              { icon: <EmptyChartIcon />, label: "EmptyChartIcon" },
-              { icon: <AIRegenerateIcon />, label: "AIRegenerateIcon" },
-            ];
-            return (
-              <Card className="border-border/40 shadow-sm">
-                <CardHeader className="pb-2">
-                  <CardTitle className="text-base">1. Custom Icon Set</CardTitle>
-                  <CardDescription>
-                    Semua icon dari <code className="text-xs">webjoz-ui</code> — tiga ukuran:{" "}
-                    <code className="text-xs">sm</code> / <code className="text-xs">md</code> / <code className="text-xs">lg</code>.
-                  </CardDescription>
-                </CardHeader>
-                <CardContent className="space-y-6">
-                  {(["sm", "md", "lg"] as const).map((sz) => (
-                    <div key={sz} className="space-y-2">
-                      <p className="text-xs font-semibold text-muted-foreground uppercase tracking-wider">
-                        size=&quot;{sz}&quot;{sz === "md" ? " — default" : ""}
-                      </p>
-                      <div className="flex flex-wrap items-end gap-4">
-                        {ALL_ICONS.map(({ label }) => {
-                          const IconComponent = { SunIcon, MoonIcon, CheckIcon, MailIcon, WhatsAppIcon, LockIcon, AlertIcon, InfoIcon, CloseIcon, BookOpenIcon, EmptyChartIcon, AIRegenerateIcon }[label] as React.ComponentType<{ size?: "sm" | "md" | "lg" }>;
-                          return (
-                            <div key={label} className="flex flex-col items-center gap-1.5">
-                              <div className="p-2.5 rounded-lg bg-muted/60 border border-border/40">
-                                <IconComponent size={sz} />
-                              </div>
-                              <span className="text-[10px] text-muted-foreground font-mono">{label}</span>
-                            </div>
-                          );
-                        })}
+          <Card className="border-border/40 shadow-sm">
+            <CardHeader className="pb-2">
+              <CardTitle className="text-base">Custom Icon Set</CardTitle>
+              <CardDescription>
+                Semua icon dari <code className="text-xs">webjoz-ui</code> — regular icons pakai <code className="text-xs">size</code> prop (sm/md/lg), sparkle icons pakai <code className="text-xs">className</code> untuk ukuran & warna.
+              </CardDescription>
+            </CardHeader>
+            <CardContent className="space-y-6">
+              {/* Regular icons — 3 sizes */}
+              {(["sm", "md", "lg"] as const).map((sz) => (
+                <div key={sz} className="space-y-2">
+                  <p className="text-xs font-semibold text-muted-foreground uppercase tracking-wider">
+                    size=&quot;{sz}&quot;{sz === "md" ? " — default" : ""}
+                  </p>
+                  <div className="flex flex-wrap items-end gap-4">
+                    {(
+                      [
+                        ["SunIcon",          SunIcon],
+                        ["MoonIcon",         MoonIcon],
+                        ["CheckIcon",        CheckIcon],
+                        ["MailIcon",         MailIcon],
+                        ["WhatsAppIcon",     WhatsAppIcon],
+                        ["LockIcon",         LockIcon],
+                        ["AlertIcon",        AlertIcon],
+                        ["InfoIcon",         InfoIcon],
+                        ["CloseIcon",        CloseIcon],
+                        ["BookOpenIcon",     BookOpenIcon],
+                        ["EmptyChartIcon",   EmptyChartIcon],
+                        ["AIRegenerateIcon", AIRegenerateIcon],
+                        ["SparkleIcon",      (p: { size?: "sm"|"md"|"lg" }) => <SparkleIcon className={p.size === "sm" ? "size-3.5" : p.size === "lg" ? "size-5" : "size-4"} />],
+                        ["SparkleGenAI",     (p: { size?: "sm"|"md"|"lg" }) => <SparkleGenAI className={p.size === "sm" ? "size-3.5" : p.size === "lg" ? "size-5" : "size-4"} />],
+                      ] as [string, React.ComponentType<{ size?: "sm"|"md"|"lg" }>][]
+                    ).map(([label, IconComponent]) => (
+                      <div key={label} className="flex flex-col items-center gap-1.5">
+                        <div className="p-2.5 rounded-lg bg-muted/60 border border-border/40">
+                          <IconComponent size={sz} />
+                        </div>
+                        <span className="text-[10px] text-muted-foreground font-mono">{label}</span>
                       </div>
-                    </div>
-                  ))}
-                </CardContent>
-              </Card>
-            );
-          })()}
-
-          {/* SparkleIcon */}
-          <Card className="border-border/40 shadow-sm">
-            <CardHeader className="pb-2">
-              <CardTitle className="text-base">2. SparkleIcon — AI Badge Indicator</CardTitle>
-              <CardDescription>
-                Ikon sparkle untuk menandakan fitur AI. Gunakan <code className="text-xs">className</code> untuk ukuran dan warna.
-              </CardDescription>
-            </CardHeader>
-            <CardContent>
-              <div className="flex flex-wrap items-end gap-6">
-                {[
-                  { cls: "size-4", label: "size-4" },
-                  { cls: "size-5", label: "size-5" },
-                  { cls: "size-6", label: "size-6" },
-                  { cls: "size-8", label: "size-8" },
-                ].map(({ cls, label }) => (
-                  <div key={label} className="flex flex-col items-center gap-2">
-                    <div className="p-3 rounded-xl bg-muted/60 border border-border/40">
-                      <SparkleIcon className={cls} />
-                    </div>
-                    <span className="text-[10px] text-muted-foreground font-mono">{label}</span>
+                    ))}
                   </div>
-                ))}
-                <div className="flex flex-col items-center gap-2">
-                  <div className="p-3 rounded-xl bg-primary/10 border border-primary/20">
-                    <SparkleIcon className="size-5 text-primary" />
-                  </div>
-                  <span className="text-[10px] text-muted-foreground font-mono">text-primary</span>
                 </div>
-                <div className="flex flex-col items-center gap-2">
-                  <div className="p-3 rounded-xl bg-muted/60 border border-border/40 flex items-center gap-2">
-                    <SparkleIcon className="size-4 text-primary" />
-                    <span className="text-sm font-medium">Generate AI</span>
-                  </div>
-                  <span className="text-[10px] text-muted-foreground font-mono">inline usage</span>
-                </div>
-              </div>
-            </CardContent>
-          </Card>
-
-          {/* SparkleGenAI */}
-          <Card className="border-border/40 shadow-sm">
-            <CardHeader className="pb-2">
-              <CardTitle className="text-base">3. SparkleGenAI — AI Generate Mascot Icon</CardTitle>
-              <CardDescription>
-                Versi kedua sparkle mascot AI — dipakai sebagai ilustrasi atau penanda fitur generate.
-                Props: <code className="text-xs">className</code> untuk ukuran &amp; warna.
-              </CardDescription>
-            </CardHeader>
-            <CardContent>
-              <div className="flex flex-wrap items-end gap-6">
-                {[
-                  { cls: "size-4", label: "size-4" },
-                  { cls: "size-5", label: "size-5" },
-                  { cls: "size-6", label: "size-6" },
-                  { cls: "size-8", label: "size-8" },
-                  { cls: "size-10", label: "size-10" },
-                ].map(({ cls, label }) => (
-                  <div key={label} className="flex flex-col items-center gap-2">
-                    <div className="p-3 rounded-xl bg-muted/60 border border-border/40">
-                      <SparkleGenAI className={cls} />
-                    </div>
-                    <span className="text-[10px] text-muted-foreground font-mono">{label}</span>
-                  </div>
-                ))}
-                <div className="flex flex-col items-center gap-2">
-                  <div className="p-3 rounded-xl bg-primary/10 border border-primary/20">
-                    <SparkleGenAI className="size-6 text-primary" />
-                  </div>
-                  <span className="text-[10px] text-muted-foreground font-mono">text-primary</span>
-                </div>
-                <div className="flex flex-col items-center gap-2">
-                  <div className="p-3 rounded-xl bg-muted/60 border border-border/40 flex items-center gap-2">
-                    <SparkleGenAI className="size-5 text-primary" />
-                    <span className="text-sm font-medium">Generate Website</span>
-                  </div>
-                  <span className="text-[10px] text-muted-foreground font-mono">inline button label</span>
-                </div>
-              </div>
-            </CardContent>
-          </Card>
-
-          {/* AIRegenerateIcon */}
-          <Card className="border-border/40 shadow-sm">
-            <CardHeader className="pb-2">
-              <CardTitle className="text-base">4. AIRegenerateIcon — AI Regenerate Website</CardTitle>
-              <CardDescription>
-                Browser window + circular refresh arrows + sparkle star. Gunakan <code className="text-xs">size</code>: sm / md / lg.
-              </CardDescription>
-            </CardHeader>
-            <CardContent>
-              <div className="flex flex-wrap items-end gap-6">
-                {(["sm", "md", "lg"] as const).map((sz) => (
-                  <div key={sz} className="flex flex-col items-center gap-2">
-                    <div className="p-3 rounded-xl bg-muted/60 border border-border/40">
-                      <AIRegenerateIcon size={sz} />
-                    </div>
-                    <span className="text-[10px] text-muted-foreground font-mono">size="{sz}"</span>
-                  </div>
-                ))}
-                <div className="flex flex-col items-center gap-2">
-                  <div className="p-3 rounded-xl bg-primary/10 border border-primary/20">
-                    <AIRegenerateIcon size="md" className="text-primary" />
-                  </div>
-                  <span className="text-[10px] text-muted-foreground font-mono">text-primary</span>
-                </div>
-                <div className="flex flex-col items-center gap-2">
-                  <div className="p-3 rounded-xl bg-muted/60 border border-border/40 flex items-center gap-2">
-                    <AIRegenerateIcon size="sm" className="text-primary" />
-                    <span className="text-sm font-medium">Regenerate</span>
-                  </div>
-                  <span className="text-[10px] text-muted-foreground font-mono">inline usage</span>
-                </div>
-              </div>
+              ))}
             </CardContent>
           </Card>
         </section>
