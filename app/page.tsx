@@ -56,7 +56,7 @@ import {
   AIRegenerateIcon,
 } from "@/components/icons";
 import { SparkleIcon, SparkleGenAI } from "@/components/sparkle-icon";
-import { Sparkles, Home, Search, User, Bell, Menu, SlidersHorizontal } from "lucide-react";
+import { Home, Search, User, Bell, Menu, SlidersHorizontal } from "lucide-react";
 
 // ─── VariantPicker demo (extracted to avoid bloating page component) ───
 const DEMO_VARIANTS: VariantOption[] = [
@@ -289,7 +289,13 @@ export default function DesignSystemPage() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="max-w-3xl space-y-4">
             <div className="inline-flex items-center gap-2 rounded-full border border-border/80 bg-muted/60 px-3.5 py-1 text-xs font-medium text-foreground">
-              <Sparkles className="size-3.5 text-primary" />
+              <Image
+                src="/logo-transparent.webp"
+                alt="Webjoz"
+                width={48}
+                height={16}
+                className="h-3.5 w-auto object-contain dark:invert"
+              />
               <span>Webjoz Component Architecture & Design System</span>
             </div>
             <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight">
