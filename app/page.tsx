@@ -1787,8 +1787,7 @@ export default function DesignSystemPage() {
                       <td className="px-4 py-3"><div className="p-2 rounded-lg bg-muted/50 w-fit"><SparkleIcon className="size-4" /></div></td>
                       <td className="px-4 py-3"><div className="p-2 rounded-lg bg-muted/50 w-fit"><SparkleIcon className="size-5" /></div></td>
                       <td className="px-4 py-3 hidden sm:table-cell text-xs text-muted-foreground font-mono">
-                        {`<SparkleIcon className="size-4" />`}
-                      </td>
+                        {`<SparkleIcon className="size-4" />`}                      </td>
                     </tr>
                     {/* SparkleGenAI — className-based */}
                     <tr className="hover:bg-muted/20 transition-colors">

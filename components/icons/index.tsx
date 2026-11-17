@@ -8,9 +8,9 @@ type IconProps = SVGAttributes<SVGSVGElement> & {
 };
 
 const ICON_SIZE: Record<IconSize, string> = {
-  sm: "size-4",
-  md: "size-5",
-  lg: "size-8",
+  sm: "size-3.5",
+  md: "size-4",
+  lg: "size-5",
 };
 
 function IconShell({ size = "md", className, children, ...props }: IconProps) {
