@@ -438,6 +438,7 @@ export interface NotificationCardProps {
   onClose?: () => void;
   className?: string;
   children?: ReactNode;
+  duration?: number;
 }
 
 export function NotificationCard({
@@ -448,6 +449,7 @@ export function NotificationCard({
   onClose,
   className,
   children,
+  duration,
 }: NotificationCardProps) {
   const Icon = TONE_ICON[tone];
   const iconChip = TONE_CHIP[tone];
@@ -506,6 +508,12 @@ export function NotificationCard({
           </button>
         )}
       </div>
+
+      {duration && duration > 0 && (
+        <div className="absolute inset-x-0 bottom-0 h-[2px] overflow-hidden bg-foreground/[0.06]">
+          <div className="wj-notify-progress h-full w-full bg-foreground/40" style={{ animationDuration: `${duration}ms` }} />
+        </div>
+      )}
     </div>
   );
 }
