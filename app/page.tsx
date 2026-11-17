@@ -272,6 +272,7 @@ export default function DesignSystemPage() {
             <a href="#cards" className="px-2.5 py-1.5 rounded-lg hover:text-foreground hover:bg-muted transition-colors whitespace-nowrap">Cards</a>
             <a href="#variant-picker" className="px-2.5 py-1.5 rounded-lg hover:text-foreground hover:bg-muted transition-colors whitespace-nowrap">Variant Picker</a>
             <a href="#icons" className="px-2.5 py-1.5 rounded-lg hover:text-foreground hover:bg-muted transition-colors whitespace-nowrap">Icons</a>
+            <a href="#notifications" className="px-2.5 py-1.5 rounded-lg hover:text-foreground hover:bg-muted transition-colors whitespace-nowrap">Notifications</a>
           </nav>
 
           {/* Theme switcher */}
@@ -348,6 +349,7 @@ export default function DesignSystemPage() {
               ["#cards", "Cards & Metrics"],
               ["#variant-picker", "Variant Picker"],
               ["#icons", "Icons"],
+              ["#notifications", "Notifications"],
             ].map(([href, label]) => (
               <a key={href} href={href} className="block px-3 py-1.5 rounded-lg text-muted-foreground hover:text-foreground hover:bg-muted transition-colors">
                 {label}
