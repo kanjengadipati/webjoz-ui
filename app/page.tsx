@@ -2057,6 +2057,10 @@ function NotificationDemo() {
           </div>
           <div className="flex flex-wrap gap-2">
             <Button onClick={fire}>Tampilkan Notifikasi</Button>
+            <Button variant="outline" size="sm" onClick={() => notify.success("Website Telah Live", { description: "mysite.webjoz.com siap diakses publik.", action: { label: "Buka Website", href: "#" } })}>Success</Button>
+            <Button variant="outline" size="sm" onClick={() => notify.error("Gagal mempublikasikan", { description: "Periksa kembali nama subdomain Anda." })}>Error</Button>
+            <Button variant="outline" size="sm" onClick={() => notify.warning("Subdomain sudah digunakan", { description: "Coba nama lain untuk subdomain." })}>Warning</Button>
+            <Button variant="outline" size="sm" onClick={() => notify.info("Pembaruan tersedia", { description: "Versi baru komponen telah dirilis." })}>Info</Button>
             <Button variant="outline" onClick={() => notify.clear()}>Bersihkan Semua</Button>
           </div>
         </CardContent>
