@@ -40,6 +40,11 @@ import {
   BottomNavBar,
   VariantPicker,
   type VariantOption,
+  NotificationProvider,
+  useNotification,
+  NotificationCard,
+  type NotificationTone,
+  type NotificationPlacement,
 } from "@/components/ui";
 import {
   SunIcon,
@@ -233,7 +238,8 @@ export default function DesignSystemPage() {
   ];
 
   return (
-    <div className="min-h-screen bg-background text-foreground transition-colors duration-200">
+    <NotificationProvider>
+      <div className="min-h-screen bg-background text-foreground transition-colors duration-200">
       {/* Top Sticky Header */}
       <header className="sticky top-0 z-40 w-full border-b border-border/80 bg-background/85 backdrop-blur-xl">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between gap-4">
@@ -1811,6 +1817,22 @@ export default function DesignSystemPage() {
           </Card>
         </section>
 
+        {/* 10. NOTIFICATIONS */}
+        <section id="notifications" className="scroll-mt-24 space-y-6">
+          <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 border-b border-border/60 pb-5">
+            <div>
+              <div className="text-xs font-bold uppercase tracking-wider text-primary">Feedback & Overlay</div>
+              <h2 className="text-2xl sm:text-3xl font-bold tracking-tight">Notifications</h2>
+              <p className="text-sm text-muted-foreground mt-1">
+                Notifikasi melayang ala Webjoz: monokrom, glass, tone accent tipis, auto-dismiss, hover-pause, dan aksi inline.
+              </p>
+            </div>
+            <Badge variant="outline">5 Tone · 4 Placement</Badge>
+          </div>
+
+          <NotificationDemo />
+        </section>
+
         </main>
       </div>
 
@@ -1952,6 +1974,140 @@ export default function DesignSystemPage() {
           </div>
         </div>
       </Dialog>
+    </div>
+    </NotificationProvider>
+  );
+}
+
+
+function NotificationDemo() {
+  const notify = useNotification();
+  const [tone, setTone] = useState<NotificationTone>("success");
+  const [placement, setPlacement] = useState<NotificationPlacement>("top-right");
+  const [persistent, setPersistent] = useState(false);
+
+  const fire = () => {
+    notify.open({
+      title:
+        tone === "success"
+          ? "Website Telah Live"
+          : tone === "error"
+            ? "Gagal mempublikasikan"
+            : tone === "warning"
+              ? "Subdomain sudah digunakan"
+              : tone === "info"
+                ? "Pembaruan tersedia"
+                : "Notifikasi",
+      description:
+        tone === "success"
+          ? "mysite.webjoz.com siap diakses publik."
+          : tone === "error"
+            ? "Periksa kembali nama subdomain Anda."
+            : tone === "warning"
+              ? "Coba nama lain untuk subdomain."
+              : "Versi baru komponen telah dirilis.",
+      tone,
+      placement,
+      duration: persistent ? 0 : 4500,
+      eyebrow: "WEBJOZ",
+      action: tone === "success" ? { label: "Buka Website", href: "#" } : undefined,
+    });
+  };
+
+  return (
+    <div className="space-y-6">
+      <Card>
+        <CardHeader>
+          <CardTitle className="text-lg">Trigger Notifikasi</CardTitle>
+          <CardDescription>
+            Pilih tone, placement, dan durasi lalu tekan tombol untuk memicu notifikasi.
+          </CardDescription>
+        </CardHeader>
+        <CardContent className="space-y-4">
+          <div className="flex flex-wrap items-center gap-3">
+            <div className="flex flex-wrap gap-2">
+              {(["default", "success", "error", "warning", "info"] as NotificationTone[]).map((t) => (
+                <Button
+                  key={t}
+                  size="sm"
+                  variant={tone === t ? "default" : "outline"}
+                  onClick={() => setTone(t)}
+                >
+                  {t}
+                </Button>
+              ))}
+            </div>
+            <div className="flex flex-wrap gap-2">
+              {(["top-right", "top-center", "bottom-right", "bottom-center"] as NotificationPlacement[]).map((p) => (
+                <Button
+                  key={p}
+                  size="sm"
+                  variant={placement === p ? "default" : "outline"}
+                  onClick={() => setPlacement(p)}
+                >
+                  {p}
+                </Button>
+              ))}
+            </div>
+            <div className="flex items-center gap-2">
+              <Switch checked={persistent} onCheckedChange={setPersistent} size="sm" />
+              <span className="text-xs text-muted-foreground">Persisten (tidak auto-close)</span>
+            </div>
+          </div>
+          <div className="flex flex-wrap gap-2">
+            <Button onClick={fire}>Tampilkan Notifikasi</Button>
+            <Button variant="outline" onClick={() => notify.clear()}>Bersihkan Semua</Button>
+          </div>
+        </CardContent>
+      </Card>
+
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <NotificationCard
+          tone="success"
+          eyebrow="WEBJOZ"
+          title="Website Telah Live"
+          description="mysite.webjoz.com siap diakses publik."
+          action={{ label: "Buka Website", href: "#" }}
+        />
+        <NotificationCard
+          tone="error"
+          eyebrow="WEBJOZ"
+          title="Gagal mempublikasikan"
+          description="Periksa kembali nama subdomain Anda."
+        />
+        <NotificationCard
+          tone="warning"
+          eyebrow="WEBJOZ"
+          title="Subdomain sudah digunakan"
+          description="Coba nama lain untuk subdomain."
+        />
+        <NotificationCard
+          tone="info"
+          eyebrow="WEBJOZ"
+          title="Pembaruan tersedia"
+          description="Versi baru komponen telah dirilis."
+          onClose={() => {}}
+        />
+      </div>
+
+      <div className="rounded-2xl border border-border/70 bg-muted/20 p-5">
+        <div className="text-xs font-semibold text-muted-foreground mb-2">Contoh Penggunaan:</div>
+        <pre className="text-xs font-mono bg-background p-4 rounded-xl border border-border/50 overflow-x-auto text-foreground/90">
+{`const notify = useNotification();
+
+notify.success("Website Telah Live", {
+  description: "mysite.webjoz.com siap diakses publik.",
+  placement: "top-right",
+  duration: 4500,
+  action: { label: "Buka Website", href: "https://mysite.webjoz.com" },
+});
+
+// Provider di root:
+<NotificationProvider defaultPlacement="top-right">
+  {children}
+</NotificationProvider>`}
+        </pre>
+      </div>
     </div>
   );
 }

@@ -25,4 +25,4 @@ export { CustomSelect, type CustomSelectOption, type CustomSelectProps } from ".
 export { Switch, type SwitchProps } from "./switch";
 export { BottomNavBar, type BottomNavBarProps, type BottomNavItem } from "./bottom-nav";
 export { VariantPicker, type VariantPickerProps, type VariantOption } from "./variant-picker";
-export { VisualVariantPanel, type VisualVariantPanelProps } from "./custom-select";
+export { NotificationProvider, useNotification, NotificationCard, type NotificationTone, type NotificationPlacement, type NotificationOptions, type NotificationApi, type NotificationCardProps, type NotificationAction } from "./notification";

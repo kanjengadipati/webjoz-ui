@@ -794,3 +794,37 @@ a {
   0%, 100% { transform: translateY(0px); }
   50%       { transform: translateY(-6px); }
 }
+
+/* ── Notification (wj-notify) ─────────────────────────────────── */
+@keyframes wj-notify-in {
+  from { opacity: 0; transform: translate3d(0, -10px, 0) scale(0.98); }
+  to   { opacity: 1; transform: translate3d(0, 0, 0) scale(1); }
+}
+@keyframes wj-notify-in-bottom {
+  from { opacity: 0; transform: translate3d(0, 10px, 0) scale(0.98); }
+  to   { opacity: 1; transform: translate3d(0, 0, 0) scale(1); }
+}
+@keyframes wj-notify-out {
+  from { opacity: 1; transform: translate3d(0, 0, 0) scale(1); }
+  to   { opacity: 0; transform: translate3d(0, -6px, 0) scale(0.98); }
+}
+@keyframes wj-notify-out-bottom {
+  from { opacity: 1; transform: translate3d(0, 0, 0) scale(1); }
+  to   { opacity: 0; transform: translate3d(0, 6px, 0) scale(0.98); }
+}
+@keyframes wj-notify-progress {
+  from { transform: scaleX(1); }
+  to   { transform: scaleX(0); }
+}
+
+.wj-notify-enter { animation: wj-notify-in 0.3s cubic-bezier(0.16, 1, 0.3, 1) both; }
+.wj-notify-enter[data-placement^="bottom"] { animation-name: wj-notify-in-bottom; }
+.wj-notify-exit { animation: wj-notify-out 0.18s ease-in both; }
+.wj-notify-exit[data-placement^="bottom"] { animation-name: wj-notify-out-bottom; }
+.wj-notify-progress { animation: wj-notify-progress linear both; transform-origin: left center; }
+
+@media (prefers-reduced-motion: reduce) {
+  .wj-notify-enter,
+  .wj-notify-exit,
+  .wj-notify-progress { animation: none !important; }
+}
