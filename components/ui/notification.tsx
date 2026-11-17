@@ -437,6 +437,7 @@ export interface NotificationCardProps {
   action?: NotificationAction;
   onClose?: () => void;
   className?: string;
+  children?: ReactNode;
 }
 
 export function NotificationCard({
@@ -446,6 +447,7 @@ export function NotificationCard({
   action,
   onClose,
   className,
+  children,
 }: NotificationCardProps) {
   const Icon = TONE_ICON[tone];
   const iconChip = TONE_CHIP[tone];
@@ -474,6 +476,7 @@ export function NotificationCard({
           {description && (
             <div className="mt-0.5 text-[12px] leading-relaxed text-muted-foreground">{description}</div>
           )}
+          {children && <div className="mt-2 space-y-2">{children}</div>}
           {action && (
             <div className="mt-2.5">
               {action.href ? (
