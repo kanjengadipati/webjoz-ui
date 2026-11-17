@@ -1714,8 +1714,10 @@ export default function DesignSystemPage() {
             <div className="text-xs font-bold uppercase tracking-wider text-primary">Icons &amp; Sparkle</div>
             <h2 className="text-2xl sm:text-3xl font-bold tracking-tight">Icon Components</h2>
             <p className="text-sm text-muted-foreground mt-1">
-              Custom SVG icons (<code className="text-xs bg-muted px-1 py-0.5 rounded">size: sm | md | lg</code>) dan AI Sparkle components yang diekspor dari{" "}
+              Custom SVG icons diekspor dari{" "}
               <code className="text-xs bg-muted px-1 py-0.5 rounded">webjoz-ui</code>.
+              Regular icons pakai <code className="text-xs bg-muted px-1 py-0.5 rounded">size</code> prop (sm/md/lg),
+              sparkle icons pakai <code className="text-xs bg-muted px-1 py-0.5 rounded">className</code> untuk ukuran & warna.
             </p>
           </div>
 
@@ -1723,45 +1725,83 @@ export default function DesignSystemPage() {
             <CardHeader className="pb-2">
               <CardTitle className="text-base">Custom Icon Set</CardTitle>
               <CardDescription>
-                Semua icon dari <code className="text-xs">webjoz-ui</code> — regular icons pakai <code className="text-xs">size</code> prop (sm/md/lg), sparkle icons pakai <code className="text-xs">className</code> untuk ukuran & warna.
+                14 icons tersedia — satu baris per icon, tiga kolom ukuran.
               </CardDescription>
             </CardHeader>
-            <CardContent className="space-y-6">
-              {/* Regular icons — 3 sizes */}
-              {(["sm", "md", "lg"] as const).map((sz) => (
-                <div key={sz} className="space-y-2">
-                  <p className="text-xs font-semibold text-muted-foreground uppercase tracking-wider">
-                    size=&quot;{sz}&quot;{sz === "md" ? " — default" : ""}
-                  </p>
-                  <div className="flex flex-wrap items-end gap-4">
+            <CardContent>
+              <div className="rounded-xl border border-border/60 overflow-hidden">
+                <table className="w-full text-sm">
+                  <thead>
+                    <tr className="border-b border-border/60 bg-muted/40">
+                      <th className="text-left text-xs font-semibold text-muted-foreground px-4 py-3 w-44">Name</th>
+                      <th className="text-left text-xs font-semibold text-muted-foreground px-4 py-3">sm</th>
+                      <th className="text-left text-xs font-semibold text-muted-foreground px-4 py-3">md (default)</th>
+                      <th className="text-left text-xs font-semibold text-muted-foreground px-4 py-3">lg</th>
+                      <th className="text-left text-xs font-semibold text-muted-foreground px-4 py-3 hidden sm:table-cell">Import</th>
+                    </tr>
+                  </thead>
+                  <tbody className="divide-y divide-border/40">
                     {(
                       [
-                        ["SunIcon",          SunIcon],
-                        ["MoonIcon",         MoonIcon],
-                        ["CheckIcon",        CheckIcon],
-                        ["MailIcon",         MailIcon],
-                        ["WhatsAppIcon",     WhatsAppIcon],
-                        ["LockIcon",         LockIcon],
-                        ["AlertIcon",        AlertIcon],
-                        ["InfoIcon",         InfoIcon],
-                        ["CloseIcon",        CloseIcon],
-                        ["BookOpenIcon",     BookOpenIcon],
-                        ["EmptyChartIcon",   EmptyChartIcon],
-                        ["AIRegenerateIcon", AIRegenerateIcon],
-                        ["SparkleIcon",      (p: { size?: "sm"|"md"|"lg" }) => <SparkleIcon className={p.size === "sm" ? "size-3.5" : p.size === "lg" ? "size-5" : "size-4"} />],
-                        ["SparkleGenAI",     (p: { size?: "sm"|"md"|"lg" }) => <SparkleGenAI className={p.size === "sm" ? "size-3.5" : p.size === "lg" ? "size-5" : "size-4"} />],
-                      ] as [string, React.ComponentType<{ size?: "sm"|"md"|"lg" }>][]
-                    ).map(([label, IconComponent]) => (
-                      <div key={label} className="flex flex-col items-center gap-1.5">
-                        <div className="p-2.5 rounded-lg bg-muted/60 border border-border/40">
-                          <IconComponent size={sz} />
-                        </div>
-                        <span className="text-[10px] text-muted-foreground font-mono">{label}</span>
-                      </div>
+                        { label: "SunIcon",        C: SunIcon        },
+                        { label: "MoonIcon",       C: MoonIcon       },
+                        { label: "CheckIcon",      C: CheckIcon      },
+                        { label: "MailIcon",       C: MailIcon       },
+                        { label: "WhatsAppIcon",   C: WhatsAppIcon   },
+                        { label: "LockIcon",       C: LockIcon       },
+                        { label: "AlertIcon",      C: AlertIcon      },
+                        { label: "InfoIcon",       C: InfoIcon       },
+                        { label: "CloseIcon",      C: CloseIcon      },
+                        { label: "BookOpenIcon",   C: BookOpenIcon   },
+                        { label: "EmptyChartIcon", C: EmptyChartIcon },
+                        { label: "AIRegenerateIcon", C: AIRegenerateIcon },
+                      ] as { label: string; C: React.ComponentType<{ size?: "sm"|"md"|"lg" }> }[]
+                    ).map(({ label, C }) => (
+                      <tr key={label} className="hover:bg-muted/20 transition-colors">
+                        <td className="px-4 py-3">
+                          <code className="text-xs bg-muted px-1.5 py-0.5 rounded font-mono">{label}</code>
+                        </td>
+                        <td className="px-4 py-3"><div className="p-2 rounded-lg bg-muted/50 w-fit"><C size="sm" /></div></td>
+                        <td className="px-4 py-3"><div className="p-2 rounded-lg bg-muted/50 w-fit"><C size="md" /></div></td>
+                        <td className="px-4 py-3"><div className="p-2 rounded-lg bg-muted/50 w-fit"><C size="lg" /></div></td>
+                        <td className="px-4 py-3 hidden sm:table-cell text-xs text-muted-foreground font-mono">
+                          {`<${label} size="md" />`}
+                        </td>
+                      </tr>
                     ))}
-                  </div>
-                </div>
-              ))}
+                    {/* SparkleIcon — className-based */}
+                    <tr className="hover:bg-muted/20 transition-colors">
+                      <td className="px-4 py-3">
+                        <div className="flex items-center gap-1.5">
+                          <code className="text-xs bg-muted px-1.5 py-0.5 rounded font-mono">SparkleIcon</code>
+                          <span className="text-[10px] text-muted-foreground">className</span>
+                        </div>
+                      </td>
+                      <td className="px-4 py-3"><div className="p-2 rounded-lg bg-muted/50 w-fit"><SparkleIcon className="size-3.5" /></div></td>
+                      <td className="px-4 py-3"><div className="p-2 rounded-lg bg-muted/50 w-fit"><SparkleIcon className="size-4" /></div></td>
+                      <td className="px-4 py-3"><div className="p-2 rounded-lg bg-muted/50 w-fit"><SparkleIcon className="size-5" /></div></td>
+                      <td className="px-4 py-3 hidden sm:table-cell text-xs text-muted-foreground font-mono">
+                        {`<SparkleIcon className="size-4" />`}
+                      </td>
+                    </tr>
+                    {/* SparkleGenAI — className-based */}
+                    <tr className="hover:bg-muted/20 transition-colors">
+                      <td className="px-4 py-3">
+                        <div className="flex items-center gap-1.5">
+                          <code className="text-xs bg-muted px-1.5 py-0.5 rounded font-mono">SparkleGenAI</code>
+                          <span className="text-[10px] text-muted-foreground">className</span>
+                        </div>
+                      </td>
+                      <td className="px-4 py-3"><div className="p-2 rounded-lg bg-muted/50 w-fit"><SparkleGenAI className="size-3.5" /></div></td>
+                      <td className="px-4 py-3"><div className="p-2 rounded-lg bg-muted/50 w-fit"><SparkleGenAI className="size-4" /></div></td>
+                      <td className="px-4 py-3"><div className="p-2 rounded-lg bg-muted/50 w-fit"><SparkleGenAI className="size-5" /></div></td>
+                      <td className="px-4 py-3 hidden sm:table-cell text-xs text-muted-foreground font-mono">
+                        {`<SparkleGenAI className="size-4" />`}
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
             </CardContent>
           </Card>
         </section>
