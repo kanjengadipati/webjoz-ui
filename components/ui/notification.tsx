@@ -38,7 +38,6 @@ export interface NotificationOptions {
   action?: NotificationAction;
   dismissible?: boolean;
   id?: string;
-  eyebrow?: string;
 }
 
 export interface NotificationRecord extends Required<Pick<NotificationOptions, "title" | "tone" | "placement" | "dismissible">> {
@@ -47,7 +46,6 @@ export interface NotificationRecord extends Required<Pick<NotificationOptions, "
   duration: number;
   icon?: ReactNode;
   action?: NotificationAction;
-  eyebrow?: string;
   closing: boolean;
   createdAt: number;
 }
@@ -191,7 +189,6 @@ export function NotificationProvider({
           icon: options.icon,
           action: options.action,
           dismissible: options.dismissible ?? true,
-          eyebrow: options.eyebrow,
           closing: false,
           createdAt: now,
         };
@@ -366,11 +363,6 @@ function NotificationItem({ record, onDismiss }: NotificationItemProps) {
         </div>
 
         <div className="min-w-0 flex-1">
-          {record.eyebrow && (
-            <div className="mb-0.5 font-mono text-[9px] font-semibold tracking-[0.18em] text-muted-foreground/80">
-              {record.eyebrow}
-            </div>
-          )}
           <div className="flex items-center gap-2">
             <div className="truncate text-[13px] font-semibold tracking-tight text-foreground">
               {record.title}
@@ -442,7 +434,6 @@ export interface NotificationCardProps {
   title: string;
   description?: string;
   tone?: NotificationTone;
-  eyebrow?: string;
   action?: NotificationAction;
   onClose?: () => void;
   className?: string;
@@ -452,7 +443,6 @@ export function NotificationCard({
   title,
   description,
   tone = "default",
-  eyebrow,
   action,
   onClose,
   className,
@@ -475,11 +465,6 @@ export function NotificationCard({
           <Icon className="size-4" />
         </div>
         <div className="min-w-0 flex-1">
-          {eyebrow && (
-            <div className="mb-0.5 font-mono text-[9px] font-semibold tracking-[0.18em] text-muted-foreground/80">
-              {eyebrow}
-            </div>
-          )}
           <div className="flex items-center gap-2">
             <div className="truncate text-[13px] font-semibold tracking-tight text-foreground">{title}</div>
             <span className="shrink-0 rounded-full border border-border/60 bg-muted/60 px-1.5 py-0.5 font-mono text-[8.5px] font-bold tracking-[0.16em] text-muted-foreground">

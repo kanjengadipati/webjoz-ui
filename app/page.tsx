@@ -2011,7 +2011,6 @@ function NotificationDemo() {
       tone,
       placement,
       duration: persistent ? 0 : 4500,
-      eyebrow: "WEBJOZ",
       action: tone === "success" ? { label: "Buka Website", href: "#" } : undefined,
     });
   };
@@ -2066,26 +2065,22 @@ function NotificationDemo() {
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         <NotificationCard
           tone="success"
-          eyebrow="WEBJOZ"
           title="Website Telah Live"
           description="mysite.webjoz.com siap diakses publik."
           action={{ label: "Buka Website", href: "#" }}
         />
         <NotificationCard
           tone="error"
-          eyebrow="WEBJOZ"
           title="Gagal mempublikasikan"
           description="Periksa kembali nama subdomain Anda."
         />
         <NotificationCard
           tone="warning"
-          eyebrow="WEBJOZ"
           title="Subdomain sudah digunakan"
           description="Coba nama lain untuk subdomain."
         />
         <NotificationCard
           tone="info"
-          eyebrow="WEBJOZ"
           title="Pembaruan tersedia"
           description="Versi baru komponen telah dirilis."
           onClose={() => {}}
