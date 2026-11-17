@@ -331,7 +331,6 @@ function NotificationItem({ record, onDismiss }: NotificationItemProps) {
 
   const Icon = TONE_ICON[record.tone];
   const iconChip = TONE_CHIP[record.tone];
-  const hasBody = Boolean(record.description || record.action);
   const progressPercent =
     record.duration > 0 ? (remainingRef.current / record.duration) * 100 : 0;
 
@@ -353,11 +352,10 @@ function NotificationItem({ record, onDismiss }: NotificationItemProps) {
         className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-foreground/25 to-transparent"
       />
 
-      <div className={cn("flex gap-3", hasBody ? "items-start" : "items-center")}>
+      <div className="flex items-start gap-3">
         <div
           className={cn(
             "flex size-9 shrink-0 items-center justify-center rounded-xl border",
-            hasBody && "mt-0.5",
             iconChip,
           )}
         >
@@ -409,10 +407,7 @@ function NotificationItem({ record, onDismiss }: NotificationItemProps) {
             type="button"
             onClick={() => onDismiss(record.id)}
             aria-label="Tutup notifikasi"
-            className={cn(
-              "flex size-7 shrink-0 items-center justify-center rounded-lg text-muted-foreground transition-colors hover:bg-muted hover:text-foreground",
-              hasBody && "mt-0.5",
-            )}
+            className="flex size-7 shrink-0 items-center justify-center rounded-lg text-muted-foreground transition-colors hover:bg-muted hover:text-foreground"
           >
             <CloseIcon size="sm" />
           </button>
@@ -458,10 +453,6 @@ export function NotificationCard({
 }: NotificationCardProps) {
   const Icon = TONE_ICON[tone];
   const iconChip = TONE_CHIP[tone];
-  const hasMeaningfulChildren = Array.isArray(children)
-    ? children.some((c) => c !== null && c !== undefined && c !== false)
-    : Boolean(children);
-  const hasBody = Boolean(description || hasMeaningfulChildren || action);
   return (
     <div
       className={cn(
@@ -473,8 +464,8 @@ export function NotificationCard({
         aria-hidden
         className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-foreground/25 to-transparent"
       />
-      <div className={cn("flex gap-3", hasBody ? "items-start" : "items-center")}>
-        <div className={cn("flex size-9 shrink-0 items-center justify-center rounded-xl border", hasBody && "mt-0.5", iconChip)}>
+      <div className="flex items-start gap-3">
+        <div className={cn("flex size-9 shrink-0 items-center justify-center rounded-xl border", iconChip)}>
           <Icon className="size-4" />
         </div>
         <div className="min-w-0 flex-1">
@@ -511,10 +502,7 @@ export function NotificationCard({
             type="button"
             onClick={onClose}
             aria-label="Tutup notifikasi"
-            className={cn(
-              "flex size-7 shrink-0 items-center justify-center rounded-lg text-muted-foreground transition-colors hover:bg-muted hover:text-foreground",
-              hasBody && "mt-0.5",
-            )}
+            className="flex size-7 shrink-0 items-center justify-center rounded-lg text-muted-foreground transition-colors hover:bg-muted hover:text-foreground"
           >
             <CloseIcon size="sm" />
           </button>
