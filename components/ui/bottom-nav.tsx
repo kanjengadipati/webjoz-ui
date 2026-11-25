@@ -85,10 +85,31 @@ export function BottomNavBar({
       </>
     );
     if (item.onClick) {
-      return <button type="button" aria-label={item.label} onClick={item.onClick} className={baseClass}>{content}</button>;
+      return (
+        <button
+          type="button"
+          aria-label={item.label}
+          aria-current={isActive ? "page" : undefined}
+          onClick={item.onClick}
+          className={baseClass}
+        >
+          {content}
+        </button>
+      );
+    }
+    if (isActive) {
+      return (
+        <div
+          aria-label={item.label}
+          aria-current="page"
+          className={cn(baseClass, "cursor-default active:scale-100 select-none")}
+        >
+          {content}
+        </div>
+      );
     }
     return (
-      <Link href={item.href ?? "#"} aria-label={item.label} aria-current={isActive ? "page" : undefined} className={baseClass}>
+      <Link href={item.href ?? "#"} aria-label={item.label} className={baseClass}>
         {content}
       </Link>
     );
