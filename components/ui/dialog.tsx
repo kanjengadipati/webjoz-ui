@@ -88,10 +88,10 @@ export function Dialog({
     backdrop === false || backdrop === "transparent"
       ? "bg-transparent pointer-events-none"
       : backdrop === "subtle"
-        ? "bg-foreground/15 backdrop-blur-sm"
+        ? "bg-foreground/15"
         : backdrop === "dim"
-          ? "bg-black/60 backdrop-blur-sm"
-          : "bg-foreground/20 backdrop-blur-sm";
+          ? "bg-black/60"
+          : "bg-foreground/20";
 
   return (
     <div
